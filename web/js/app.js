@@ -1,11 +1,11 @@
 /**
  * Medical Device Management System (BV Quận 7)
  * Smart Management Frontend Application Logic
- * Chuẩn hóa theo Snipe-IT Asset Management, SpeedMaint CMMS & TLHD_QLTTBYT_V1.2
+ * Chuẩn hóa theo Snipe-IT Asset Management, SpeedMaint CMMS & IMDA MOH
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('🏥 Hệ thống Quản lý Trang thiết bị Y tế Snipe-IT & SpeedMaint đã sẵn sàng');
+    console.log('🏥 Hệ thống Quản lý Trang thiết bị Y tế Snipe-IT & SpeedMaint (Left Sidebar Layout) đã sẵn sàng');
 
     const app = {
         devices: [],
@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
         categories: [],
         schedules: [],
         workOrders: [],
+        audits: [],
+        accessories: [],
         currentFilters: {
             search: '',
             facility_id: '',
@@ -30,11 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
             this.setupEventListeners();
             await this.loadInitialData();
             await this.loadDevices();
+            await this.loadAudits();
             await this.loadSchedules();
             await this.loadWorkOrders();
+            await this.loadAccessories();
         },
 
         setupEventListeners() {
+            // Sidebar Nav Tab Title updates
+            const navButtons = document.querySelectorAll('.sidebar-nav .nav-link');
+            const pageHeading = document.getElementById('page-heading');
+
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
+                    const iconClass = btn.querySelector('i')?.className || 'bi bi-boxes';
+                    if (pageHeading) {
+                        pageHeading.innerHTML = `<i class="${iconClass} text-primary me-2"></i>${text}`;
+                    }
+                });
+            });
+
             // Search input với debounce
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
@@ -161,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.devices.forEach(d => this.selectedDeviceIds.add(d.id));
                     this.updateCheckboxUI();
                     this.renderQrStudio();
-                    const qrTabTrigger = document.getElementById('tab-qr-btn');
+                    const qrTabTrigger = document.getElementById('btn-tab-qr');
                     if (qrTabTrigger) {
                         const tab = new bootstrap.Tab(qrTabTrigger);
                         tab.show();
@@ -204,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // Transfer form submit (TLHD Mục 4 & Snipe-IT Check-out)
+            // Transfer form submit (Snipe-IT Check-out)
             const transferForm = document.getElementById('transfer-form');
             if (transferForm) {
                 transferForm.addEventListener('submit', async (e) => {
@@ -236,6 +254,40 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             }
+
+            // Quick Audit Form Submit (Dedicated Audits Module)
+            const auditForm = document.getElementById('audit-form');
+            if (auditForm) {
+                auditForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const deviceId = document.getElementById('audit-device-select').value;
+                    const condition = document.getElementById('audit-condition').value;
+                    const location = document.getElementById('audit-location').value;
+                    const person = document.getElementById('audit-person').value;
+                    const notes = document.getElementById('audit-notes').value;
+
+                    try {
+                        await apiClient.auditDevice({
+                            device_id: parseInt(deviceId),
+                            audited_by: person,
+                            location_checked: location,
+                            condition: condition,
+                            notes: notes
+                        });
+
+                        alert('✅ Đã lưu kết quả kiểm kê tài sản thành công!');
+                        auditForm.reset();
+                        const modalEl = document.getElementById('quickAuditModal');
+                        const modal = bootstrap.Modal.getInstance(modalEl);
+                        if (modal) modal.hide();
+
+                        await this.loadInitialData();
+                        await this.loadAudits();
+                    } catch (err) {
+                        alert('Lỗi kiểm kê: ' + err.message);
+                    }
+                });
+            }
         },
 
         async loadInitialData() {
@@ -262,10 +314,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.renderDevicesTable(devices);
                 this.populateIncidentDeviceOptions(devices);
                 this.populateTransferDeviceOptions(devices);
+                this.populateAuditDeviceOptions(devices);
                 this.renderQrStudio();
             } catch (err) {
                 console.error('Lỗi khi tải danh sách thiết bị:', err);
                 this.showTableError('Không thể tải danh sách thiết bị từ máy chủ.');
+            }
+        },
+
+        async loadAudits() {
+            try {
+                const audits = await apiClient.getAudits();
+                this.audits = audits;
+                this.renderAudits(audits);
+            } catch (err) {
+                console.error('Lỗi nạp danh sách kiểm kê:', err);
+            }
+        },
+
+        async loadAccessories() {
+            try {
+                const accessories = await apiClient.getAccessories();
+                this.accessories = accessories;
+                this.renderAccessories(accessories);
+            } catch (err) {
+                console.error('Lỗi nạp phụ kiện:', err);
             }
         },
 
@@ -321,17 +394,29 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         renderSummary(summary) {
-            const elTotal = document.getElementById('kpi-total');
-            const elAvail = document.getElementById('kpi-avail-rate');
-            const elOkSub = document.getElementById('kpi-ok-sub');
-            const elWarning = document.getElementById('kpi-warning');
-            const elOverdue = document.getElementById('kpi-overdue');
+            const sideTotal = document.getElementById('side-kpi-total');
+            const sideAvail = document.getElementById('side-kpi-avail');
+            const sideWarning = document.getElementById('side-kpi-warning');
+            const sideOverdue = document.getElementById('side-kpi-overdue');
+            const navBadgeTotal = document.getElementById('nav-badge-total');
 
-            if (elTotal) elTotal.textContent = Number(summary.total_devices || 0).toLocaleString('vi-VN');
-            if (elAvail) elAvail.textContent = `${summary.availability_rate || 100}%`;
-            if (elOkSub) elOkSub.textContent = `${summary.ok_count || 0} máy đạt chuẩn KĐ`;
-            if (elWarning) elWarning.textContent = Number(summary.warning_count || 0).toLocaleString('vi-VN');
-            if (elOverdue) elOverdue.textContent = Number(summary.overdue_count || 0).toLocaleString('vi-VN');
+            if (sideTotal) sideTotal.textContent = Number(summary.total_devices || 0).toLocaleString('vi-VN');
+            if (sideAvail) sideAvail.textContent = `${summary.availability_rate || 100}%`;
+            if (sideWarning) sideWarning.textContent = Number(summary.warning_count || 0).toLocaleString('vi-VN');
+            if (sideOverdue) sideOverdue.textContent = Number(summary.overdue_count || 0).toLocaleString('vi-VN');
+            if (navBadgeTotal) navBadgeTotal.textContent = Number(summary.total_devices || 0).toLocaleString('vi-VN');
+
+            // Audit stats
+            const auditDone = document.getElementById('audit-stat-done');
+            const auditPending = document.getElementById('audit-stat-pending');
+            const auditBadge = document.getElementById('nav-badge-audits');
+
+            const auditedCount = summary.audited_count || 0;
+            const totalCount = summary.total_devices || 1049;
+
+            if (auditDone) auditDone.textContent = `${auditedCount} máy`;
+            if (auditPending) auditPending.textContent = `${totalCount - auditedCount} máy`;
+            if (auditBadge) auditBadge.textContent = `${auditedCount}`;
         },
 
         renderFacilityOptions(facilities) {
@@ -368,6 +453,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} (SN: ${d.serial_no}) [Đang ở: ${d.facility || 'Chưa rõ'}]</option>`).join('');
         },
 
+        populateAuditDeviceOptions(devices) {
+            const select = document.getElementById('audit-device-select');
+            if (!select) return;
+            select.innerHTML = '<option value="">-- Chọn thiết bị cần kiểm kê --</option>' +
+                devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} (SN: ${d.serial_no}) [${d.facility || 'Chưa rõ'}]</option>`).join('');
+        },
+
         openTransferModalForDevice(deviceId) {
             const select = document.getElementById('transfer-device-select');
             if (select) select.value = deviceId;
@@ -375,21 +467,11 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.show();
         },
 
-        async triggerAuditCheck(deviceId, deviceName) {
-            const auditor = prompt(`Xác nhận kiểm kê thực tế cho thiết bị: [${deviceName}]\nNhập tên Kỹ sư / Cán bộ kiểm kê:`, 'KS. Ban Kiểm Kê');
-            if (auditor) {
-                try {
-                    await apiClient.auditDevice({
-                        device_id: deviceId,
-                        audited_by: auditor,
-                        notes: 'Kiểm kê định kỳ hiện diện tại khoa'
-                    });
-                    alert('✅ Đã xác nhận kiểm kê tài sản thành công!');
-                    await this.loadWorkOrders();
-                } catch (err) {
-                    alert('Lỗi kiểm kê: ' + err.message);
-                }
-            }
+        openAuditModalForDevice(deviceId) {
+            const select = document.getElementById('audit-device-select');
+            if (select) select.value = deviceId;
+            const modal = new bootstrap.Modal(document.getElementById('quickAuditModal'));
+            modal.show();
         },
 
         toggleDeviceSelection(id) {
@@ -477,11 +559,66 @@ document.addEventListener('DOMContentLoaded', function () {
                             <button class="btn btn-sm btn-outline-secondary btn-clinical me-1" onclick="app.openTransferModalForDevice(${d.id})" title="Bàn giao / Check-out">
                                 <i class="bi bi-arrow-left-right"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-success btn-clinical me-1" onclick="app.triggerAuditCheck(${d.id}, '${d.device_name}')" title="Xác nhận kiểm kê (Audit)">
+                            <button class="btn btn-sm btn-outline-success btn-clinical me-1" onclick="app.openAuditModalForDevice(${d.id})" title="Xác nhận kiểm kê (Audit)">
                                 <i class="bi bi-clipboard-check"></i>
                             </button>
                             ${pdfBtn}
                         </td>
+                    </tr>
+                `;
+            }).join('');
+        },
+
+        renderAudits(audits) {
+            const tbody = document.getElementById('audits-table-body');
+            if (!tbody) return;
+
+            if (audits.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Chưa có bản ghi kiểm kê thực tế nào. Hãy lập phiếu kiểm kê mới.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = audits.map(a => `
+                <tr>
+                    <td class="font-mono fw-bold text-primary">${apiClient.formatDate(a.audit_date)}</td>
+                    <td><span class="badge bg-dark font-mono">${a.asset_tag}</span></td>
+                    <td><div class="fw-bold">${a.device_name}</div><small class="text-muted">Model: ${a.model}</small></td>
+                    <td><span class="font-mono badge bg-light text-dark border">${a.serial_no}</span></td>
+                    <td><i class="bi bi-hospital me-1"></i>${a.facility || 'Toàn viện'}</td>
+                    <td><strong>${a.auditor || '-'}</strong></td>
+                    <td class="small">${a.description || '-'}</td>
+                    <td><span class="badge-status-pill status-ok"><i class="bi bi-check-circle-fill"></i> Đã Kiểm Kê</span></td>
+                </tr>
+            `).join('');
+        },
+
+        renderAccessories(accessories) {
+            const tbody = document.getElementById('accessories-table-body');
+            if (!tbody) return;
+
+            tbody.innerHTML = accessories.map(acc => {
+                const percentRem = Math.round(((acc.total_qty - acc.in_use_qty) / acc.total_qty) * 100);
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="fw-bold text-dark">${acc.name}</div>
+                            <small class="text-muted font-mono">ID: ACC-#${acc.id}</small>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">${acc.category}</span></td>
+                        <td><span class="font-mono fw-bold">${acc.model_no}</span></td>
+                        <td><i class="bi bi-geo-alt me-1"></i>${acc.location}</td>
+                        <td class="font-mono fw-bold">${acc.total_qty} cái</td>
+                        <td class="font-mono text-primary">${acc.in_use_qty} cái</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="progress flex-grow-1" style="height: 6px;">
+                                    <div class="progress-bar bg-success" style="width: ${percentRem}%;"></div>
+                                </div>
+                                <span class="small font-mono fw-bold">${percentRem}% tồn</span>
+                            </div>
+                        </td>
+                        <td class="font-mono text-dark fw-bold">${acc.unit_cost}</td>
                     </tr>
                 `;
             }).join('');
@@ -533,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const tbody = document.getElementById('workorders-body');
             if (!tbody) return;
 
-            const repairs = orders.filter(o => o.maintenance_type !== 'HANDOVER' && !o.description?.startsWith('[KIỂM KÊ'));
+            const repairs = orders.filter(o => o.maintenance_type !== 'HANDOVER' && !o.description?.includes('KIỂM KÊ'));
 
             if (repairs.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Chưa có phiếu báo hỏng nào.</td></tr>';
@@ -558,25 +695,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const tbody = document.getElementById('transfers-body');
             if (!tbody) return;
 
-            const auditAndTransfers = orders.filter(o => o.maintenance_type === 'HANDOVER' || o.maintenance_type === 'INSPECTION' || o.description?.includes('Bàn giao') || o.description?.includes('Kiểm kê'));
+            const transfers = orders.filter(o => o.maintenance_type === 'HANDOVER' || o.description?.includes('Bàn giao') || o.description?.includes('Check-out'));
 
-            if (auditAndTransfers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có lịch sử bàn giao hoặc kiểm kê.</td></tr>';
+            if (transfers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có lịch sử bàn giao thiết bị.</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = auditAndTransfers.map(t => `
+            tbody.innerHTML = transfers.map(t => `
                 <tr>
                     <td class="font-mono fw-bold text-primary">${apiClient.formatDate(t.maintenance_date)}</td>
                     <td><div class="fw-bold">${t.device_name}</div><small class="text-muted">Model: ${t.model}</small></td>
                     <td><span class="font-mono badge bg-light text-dark border">${t.serial_no}</span></td>
                     <td><strong>${t.performed_by || '-'}</strong></td>
                     <td class="small">${t.description || '-'}</td>
-                    <td>
-                        <span class="badge ${t.maintenance_type === 'INSPECTION' ? 'bg-success' : 'bg-primary'} text-light">
-                            ${t.maintenance_type === 'INSPECTION' ? 'Kiểm Kê Audit' : 'Bàn Giao Check-out'}
-                        </span>
-                    </td>
+                    <td><span class="badge-status-pill status-ok">Đã bàn giao</span></td>
                 </tr>
             `).join('');
         },
@@ -664,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ? device.maintenance_logs.map(l => `
                             <div class="list-group-item border-0 mb-2 p-3 bg-light rounded-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="badge bg-primary text-light">${l.maintenance_type || 'HANDOVER'}</span>
+                                    <span class="badge ${l.maintenance_type === 'INSPECTION' ? 'bg-success' : 'bg-primary'} text-light">${l.maintenance_type || 'HANDOVER'}</span>
                                     <span class="font-mono small text-muted">${apiClient.formatDate(l.maintenance_date)}</span>
                                 </div>
                                 <div class="mt-2 small text-dark">${l.description || '-'}</div>
@@ -677,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${qrData}`;
 
                     modalBody.innerHTML = `
-                        <!-- Nav tabs inside Dossier Modal (Snipe-IT / Ministry of Health style) -->
+                        <!-- Nav tabs inside Dossier Modal -->
                         <ul class="nav nav-tabs mb-3" id="dossierTabs" role="tablist">
                             <li class="nav-item">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-dossier-spec" type="button">
@@ -745,9 +878,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <img src="${qrUrl}" alt="QR Code" class="img-fluid rounded mb-2 shadow-sm" style="width: 130px; height: 130px;">
                                             <div class="small fw-bold font-mono">${device.asset_tag}</div>
                                             <small class="text-muted d-block">Quét camera xem hồ sơ</small>
-                                            <button class="btn btn-sm btn-outline-primary btn-clinical mt-2 w-100" onclick="app.openTransferModalForDevice(${device.id})">
-                                                <i class="bi bi-arrow-left-right me-1"></i> Bàn giao / Check-out
-                                            </button>
+                                            <div class="d-flex flex-column gap-2 mt-2">
+                                                <button class="btn btn-sm btn-outline-primary btn-clinical w-100" onclick="app.openTransferModalForDevice(${device.id})">
+                                                    <i class="bi bi-arrow-left-right me-1"></i> Bàn giao máy
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-success btn-clinical w-100" onclick="app.openAuditModalForDevice(${device.id})">
+                                                    <i class="bi bi-clipboard-check me-1"></i> Xác nhận kiểm kê
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
