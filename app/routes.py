@@ -1,6 +1,6 @@
 """
 API Routes cho Medical Device Management System (BV Quận 7)
-Chuẩn hóa toàn diện theo Snipe-IT Asset Management, SpeedMaint CMMS & IMDA MOH
+Tích hợp toàn diện chuẩn SpeedMaint Cloud CMMS (Bệnh viện Hoàn Mỹ) & Snipe-IT
 """
 import io
 import csv
@@ -41,7 +41,7 @@ async def get_devices(
     offset: int = Query(0, ge=0),
     db = Depends(get_db)
 ):
-    """Liệt kê danh sách tài sản TTBYT với mã Asset Tag chuẩn Snipe-IT"""
+    """Liệt kê danh sách tài sản TTBYT với mã Asset Tag chuẩn Snipe-IT & SpeedMaint"""
     query = "SELECT * FROM device_status_summary"
     conditions = []
     params = []
@@ -83,6 +83,7 @@ async def get_devices(
     for row in result:
         d = dict(row)
         d["asset_tag"] = f"BVQ7-TTB-{d['id']:05d}"
+        d["speedmaint_code"] = f"BM/BVQ7/{d['id']:05d}"
         devices_list.append(d)
         
     return devices_list
@@ -90,7 +91,7 @@ async def get_devices(
 
 @router.get("/api/devices/{device_id}")
 async def get_device(device_id: int, db = Depends(get_db)):
-    """Chi tiết hồ sơ lý lịch tài sản (Snipe-IT Asset Dossier & TLHD Mẫu Biểu)"""
+    """Chi tiết hồ sơ lý lịch tài sản (Snipe-IT Asset Dossier & SpeedMaint CMMS)"""
     query = """
         SELECT d.*, f.name as facility, c.name as category
         FROM devices d
@@ -104,6 +105,7 @@ async def get_device(device_id: int, db = Depends(get_db)):
     
     device_data = dict(row)
     device_data["asset_tag"] = f"BVQ7-TTB-{device_data['id']:05d}"
+    device_data["speedmaint_code"] = f"BM/BVQ7/{device_data['id']:05d}"
     
     # Lịch sử kiểm định (Certificates)
     certs_query = """
@@ -114,7 +116,7 @@ async def get_device(device_id: int, db = Depends(get_db)):
     certs = db.execute(certs_query, (device_id,)).fetchall()
     device_data["certificates"] = [dict(c) for c in certs]
     
-    # Nhật ký bàn giao, bảo trì & Audit Trail (Snipe-IT History)
+    # Nhật ký bàn giao, bảo trì & Audit Trail (SpeedMaint Work Orders)
     logs_query = """
         SELECT * FROM maintenance_logs
         WHERE device_id = ?
@@ -126,13 +128,80 @@ async def get_device(device_id: int, db = Depends(get_db)):
     return device_data
 
 
-# ==================== DEDICATED AUDIT MODULE (TRUNG TÂM KIỂM KÊ RIÊNG) ====================
+# ==================== SPEEDMAINT WORK ORDERS & TASKS (CHUẨN HOÀN MỸ SPEEDMAINT) ====================
+
+class SpeedMaintWorkOrderCreate(BaseModel):
+    device_id: int
+    title: str
+    work_type: str = "PM định kỳ"  # PM định kỳ, Sửa chữa, Điều chuyển, Kiểm định, Khác
+    start_date: str
+    end_date: str
+    assigned_to: str
+    co_workers: Optional[str] = None
+    supervisor: Optional[str] = None
+    reporter: str
+    priority: str = "Trung bình"  # Khẩn cấp, Cao, Trung bình, Thấp
+    progress: int = 100
+    is_unplanned: bool = False
+    location: Optional[str] = None
+    description: str
+    materials: Optional[str] = None
+
+@router.get("/api/work-orders")
+async def list_work_orders(db = Depends(get_db)):
+    """Danh sách phiếu công việc chuẩn SpeedMaint CMMS"""
+    query = """
+        SELECT l.id, l.device_id, l.maintenance_date as start_date, l.performed_by as assigned_to, 
+               l.maintenance_type as work_type, l.description, d.device_name, d.serial_no, d.model, 
+               f.name as facility
+        FROM maintenance_logs l
+        JOIN devices d ON l.device_id = d.id
+        LEFT JOIN facilities f ON d.facility_id = f.id
+        WHERE l.maintenance_type != 'INSPECTION'
+        ORDER BY l.maintenance_date DESC, l.id DESC
+    """
+    rows = db.execute(query).fetchall()
+    
+    work_orders = []
+    for r in rows:
+        item = dict(r)
+        item["task_code"] = f"260{item['id']:03d}"
+        item["speedmaint_device_code"] = f"BM/BVQ7/{item['device_id']:05d}"
+        item["progress"] = 100
+        item["status"] = "Hoàn thành"
+        work_orders.append(item)
+        
+    return work_orders
+
+@router.post("/api/work-orders")
+async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_db)):
+    """Tạo phiếu công việc chi tiết chuẩn SpeedMaint Cloud CMMS (Ảnh 01bc & 605c)"""
+    cur = db.cursor()
+    full_desc = f"[{ticket.work_type}] {ticket.title}. {ticket.description}"
+    if ticket.materials:
+        full_desc += f" (Vật tư: {ticket.materials})"
+    if ticket.location:
+        full_desc += f" (Địa điểm: {ticket.location})"
+        
+    cur.execute("""
+        INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+        VALUES (?, ?, ?, ?, ?)
+    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, ticket.work_type, full_desc))
+    
+    if ticket.priority in ("Khẩn cấp", "Cao"):
+        cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
+        
+    db.commit()
+    return {"status": "success", "message": "Đã tạo phiếu công việc SpeedMaint thành công!"}
+
+
+# ==================== DEDICATED AUDIT MODULE (TRUNG TÂM KIỂM KÊ) ====================
 
 class AuditConfirmRequest(BaseModel):
     device_id: int
     audited_by: str
     location_checked: Optional[str] = None
-    condition: Optional[str] = "GOOD" # GOOD, FAIR, POOR, BROKEN
+    condition: Optional[str] = "GOOD"
     notes: Optional[str] = "Đã kiểm kê hiện diện thực tế tại khoa phòng"
 
 @router.get("/api/audits")
@@ -159,7 +228,7 @@ async def list_audits(db = Depends(get_db)):
 
 @router.post("/api/devices/audit")
 async def audit_device(req: AuditConfirmRequest, db = Depends(get_db)):
-    """Xác nhận kiểm kê tài sản thực tế (Snipe-IT Asset Audit)"""
+    """Xác nhận kiểm kê tài sản thực tế"""
     today_str = date.today().isoformat()
     cur = db.cursor()
     desc = f"[KIỂM KÊ HIỆN TRƯỜNG] Tình trạng: {req.condition}. {req.notes}"
@@ -175,7 +244,7 @@ async def audit_device(req: AuditConfirmRequest, db = Depends(get_db)):
     return {"status": "success", "message": "Đã ghi nhận kết quả kiểm kê tài sản thành công!"}
 
 
-# ==================== CHECK-IN / CHECK-OUT (SNIPE-IT) ====================
+# ==================== CHECK-IN / CHECK-OUT ====================
 
 class DeviceTransferRequest(BaseModel):
     device_id: int
@@ -185,7 +254,7 @@ class DeviceTransferRequest(BaseModel):
 
 @router.post("/api/devices/transfer")
 async def transfer_device(req: DeviceTransferRequest, db = Depends(get_db)):
-    """Check-out / Bàn giao thiết bị sang khoa khác (Snipe-IT Check-out)"""
+    """Check-out / Bàn giao thiết bị sang khoa khác"""
     cur = db.cursor()
     
     old_fac = db.execute("""
@@ -243,7 +312,6 @@ async def get_dashboard_summary(db = Depends(get_db)):
         SELECT COUNT(*) FROM devices WHERE status = 'REPAIR'
     """).fetchone()[0]
     
-    # Số lượng đã kiểm kê
     audited = db.execute("""
         SELECT COUNT(DISTINCT device_id) FROM maintenance_logs 
         WHERE maintenance_type = 'INSPECTION' OR description LIKE '%KIỂM KÊ%'
@@ -292,11 +360,11 @@ async def get_categories(db = Depends(get_db)):
     return [dict(row) for row in result]
 
 
-# ==================== ACCESSORIES & COMPONENTS (SNIPE-IT ACCESSORIES) ====================
+# ==================== ACCESSORIES & COMPONENTS ====================
 
 @router.get("/api/accessories")
 async def get_accessories():
-    """Danh mục phụ tùng, linh kiện & phụ kiện đi kèm thiết bị y tế (Snipe-IT Accessories)"""
+    """Danh mục phụ tùng, linh kiện & phụ kiện đi kèm thiết bị y tế"""
     accessories_data = [
         {"id": 1, "name": "Bao đo huyết áp người lớn (Cuff Adult)", "category": "Vật tư Huyết áp", "model_no": "CUFF-AD-01", "location": "Kho VTYT", "total_qty": 150, "in_use_qty": 85, "unit_cost": "180.000 VNĐ"},
         {"id": 2, "name": "Cảm biến SpO2 dùng nhiều lần (SpO2 Reusable Sensor)", "category": "Cảm biến Monitor", "model_no": "SPO2-AD-Nellcor", "location": "Khoa Cấp Cứu", "total_qty": 60, "in_use_qty": 42, "unit_cost": "1.250.000 VNĐ"},
@@ -307,47 +375,6 @@ async def get_accessories():
         {"id": 7, "name": "Điện cực bản dao mổ điện kèm cáp (Monopolar Grounding Plate)", "category": "Phụ kiện Phẫu thuật", "model_no": "ESU-PLT-02", "location": "Phòng Mổ", "total_qty": 80, "in_use_qty": 50, "unit_cost": "350.000 VNĐ"}
     ]
     return accessories_data
-
-
-# ==================== WORK ORDERS & TICKETS (SPEEDMAINT CMMS) ====================
-
-class WorkOrderCreate(BaseModel):
-    device_id: int
-    reported_by: str
-    priority: str = "NORMAL"
-    description: str
-    issue_type: str = "REPAIR"
-
-@router.get("/api/work-orders")
-async def list_work_orders(db = Depends(get_db)):
-    """Danh sách phiếu báo hỏng & sửa chữa"""
-    query = """
-        SELECT l.id, l.device_id, l.maintenance_date, l.performed_by, l.maintenance_type, 
-               l.description, d.device_name, d.serial_no, d.model, f.name as facility
-        FROM maintenance_logs l
-        JOIN devices d ON l.device_id = d.id
-        LEFT JOIN facilities f ON d.facility_id = f.id
-        WHERE l.maintenance_type != 'INSPECTION' AND l.description NOT LIKE '%KIỂM KÊ%'
-        ORDER BY l.maintenance_date DESC, l.id DESC
-    """
-    rows = db.execute(query).fetchall()
-    return [dict(r) for r in rows]
-
-@router.post("/api/work-orders")
-async def create_work_order(ticket: WorkOrderCreate, db = Depends(get_db)):
-    """Tạo phiếu báo hỏng / yêu cầu sửa chữa mới"""
-    today_str = date.today().isoformat()
-    cur = db.cursor()
-    cur.execute("""
-        INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
-        VALUES (?, ?, ?, ?, ?)
-    """, (ticket.device_id, today_str, ticket.reported_by, ticket.issue_type, f"[{ticket.priority}] {ticket.description}"))
-    
-    if ticket.priority in ("URGENT", "HIGH"):
-        cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
-        
-    db.commit()
-    return {"status": "success", "message": "Phiếu yêu cầu đã được ghi nhận thành công!"}
 
 
 # ==================== CALENDAR & SCHEDULES ====================
@@ -411,14 +438,15 @@ async def export_devices_csv(
     writer = csv.writer(output)
     
     writer.writerow([
-        "Mã Tài Sản (Asset Tag)", "Mã Serial (S/N)", "Tên Thiết Bị", "Model", "Hãng Sản Xuất",
-        "Nước Sản Xuất", "Mức Rủi Ro (NĐ98)", "Khoa / Vị Trí", "Ngày Kiểm Định",
+        "Mã Tài Sản (Asset Tag)", "Mã SpeedMaint", "Mã Serial (S/N)", "Tên Thiết Bị", "Model", 
+        "Hãng Sản Xuất", "Nước Sản Xuất", "Mức Rủi Ro (NĐ98)", "Khoa / Vị Trí", "Ngày Kiểm Định",
         "Hạn Kiểm Định", "Trạng Thái KĐ", "Tệp PDF Gốc"
     ])
     
     for r in rows:
         writer.writerow([
             f"BVQ7-TTB-{r['id']:05d}",
+            f"BM/BVQ7/{r['id']:05d}",
             r["serial_no"] or "",
             r["device_name"] or "",
             r["model"] or "",

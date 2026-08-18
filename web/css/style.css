@@ -1,6 +1,6 @@
 /* ==========================================================================
    Medical Device Management System (BV Quận 7)
-   Snipe-IT & SpeedMaint Enterprise Clinical Design System (Left Sidebar Layout)
+   SpeedMaint Cloud CMMS (Bệnh viện Hoàn Mỹ) & Snipe-IT Enterprise Design System
    Stack: Vanilla CSS + Bootstrap 5 + Plus Jakarta Sans + JetBrains Mono
    WCAG 2.1 AAA High-Contrast Clinical Palette
    ========================================================================== */
@@ -12,11 +12,14 @@
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* UI/UX Pro Max Clinical Palette */
+    /* SpeedMaint & UI/UX Pro Max Clinical Palette */
     --color-primary: #0284c7;
     --color-primary-dark: #0369a1;
     --color-primary-light: #e0f2fe;
     --color-primary-hover: #0274b0;
+
+    --color-speedmaint: #4338ca;
+    --color-speedmaint-purple: #6d28d9;
 
     --color-secondary: #0891b2;
     --color-secondary-light: #ecfeff;
@@ -92,7 +95,7 @@ body {
     min-height: 100vh;
 }
 
-/* Left Sidebar */
+/* Left Sidebar (SpeedMaint Dark Theme) */
 .sidebar-left {
     width: 270px;
     background: var(--sidebar-bg);

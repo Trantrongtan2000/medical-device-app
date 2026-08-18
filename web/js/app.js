@@ -1,11 +1,11 @@
 /**
  * Medical Device Management System (BV Quận 7)
  * Smart Management Frontend Application Logic
- * Chuẩn hóa theo Snipe-IT Asset Management, SpeedMaint CMMS & IMDA MOH
+ * Chuẩn hóa theo SpeedMaint Cloud CMMS (Bệnh viện Hoàn Mỹ) & Snipe-IT
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('🏥 Hệ thống Quản lý Trang thiết bị Y tế Snipe-IT & SpeedMaint (Left Sidebar Layout) đã sẵn sàng');
+    console.log('🏥 Hệ thống Quản lý Trang thiết bị Y tế SpeedMaint CMMS & Snipe-IT đã sẵn sàng');
 
     const app = {
         devices: [],
@@ -187,29 +187,44 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // Incident form submit (SpeedMaint Work Order)
-            const incidentForm = document.getElementById('incident-form');
-            if (incidentForm) {
-                incidentForm.addEventListener('submit', async (e) => {
+            // SpeedMaint Work Order Form Submit (Ảnh 01bc & 605c)
+            const woForm = document.getElementById('speedmaint-wo-form');
+            if (woForm) {
+                woForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const deviceId = document.getElementById('incident-device-select').value;
-                    const priority = document.getElementById('incident-priority').value;
-                    const issueType = document.getElementById('incident-type').value;
-                    const reporter = document.getElementById('incident-reporter').value;
-                    const desc = document.getElementById('incident-desc').value;
+                    const deviceId = document.getElementById('wo-device-select').value;
+                    const title = document.getElementById('wo-title').value;
+                    const workType = document.getElementById('wo-type').value;
+                    const priority = document.getElementById('wo-priority').value;
+                    const startDate = document.getElementById('wo-start-date').value;
+                    const endDate = document.getElementById('wo-end-date').value;
+                    const assignedTo = document.getElementById('wo-assigned-to').value;
+                    const coWorkers = document.getElementById('wo-co-workers').value;
+                    const supervisor = document.getElementById('wo-supervisor').value;
+                    const location = document.getElementById('wo-location').value;
+                    const desc = document.getElementById('wo-desc').value;
+                    const materials = document.getElementById('wo-materials')?.value;
 
                     try {
                         await apiClient.createWorkOrder({
                             device_id: parseInt(deviceId),
-                            reported_by: reporter,
+                            title: title,
+                            work_type: workType,
+                            start_date: startDate,
+                            end_date: endDate,
+                            assigned_to: assignedTo,
+                            co_workers: coWorkers,
+                            supervisor: supervisor,
+                            reporter: supervisor || assignedTo,
                             priority: priority,
-                            issue_type: issueType,
-                            description: desc
+                            location: location,
+                            description: desc,
+                            materials: materials
                         });
 
-                        alert('✅ Đã ghi nhận phiếu báo hỏng thành công!');
-                        incidentForm.reset();
-                        const modalEl = document.getElementById('incidentModal');
+                        alert('✅ Đã tạo và lưu phiếu công việc SpeedMaint thành công!');
+                        woForm.reset();
+                        const modalEl = document.getElementById('speedmaintWorkOrderModal');
                         const modal = bootstrap.Modal.getInstance(modalEl);
                         if (modal) modal.hide();
 
@@ -422,6 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
         renderFacilityOptions(facilities) {
             const select = document.getElementById('filter-facility');
             const transferTargetSelect = document.getElementById('transfer-target-facility');
+            const woFacSelect = document.getElementById('wo-facility');
 
             const optionsHtml = '<option value="">-- Chọn Khoa / Vị trí --</option>' +
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
@@ -430,6 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
 
             if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
+            if (woFacSelect) woFacSelect.innerHTML = optionsHtml;
         },
 
         renderCategoryOptions(categories) {
@@ -440,10 +457,10 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         populateIncidentDeviceOptions(devices) {
-            const select = document.getElementById('incident-device-select');
+            const select = document.getElementById('wo-device-select');
             if (!select) return;
-            select.innerHTML = '<option value="">-- Chọn thiết bị cần báo hỏng --</option>' +
-                devices.map(d => `<option value="${d.id}">${d.device_name} (SN: ${d.serial_no}) - ${d.facility || 'Toàn viện'}</option>`).join('');
+            select.innerHTML = '<option value="">-- Chọn thiết bị cần lập phiếu công việc --</option>' +
+                devices.map(d => `<option value="${d.id}">${d.speedmaint_code || `BM/BVQ7/${d.id}`} - ${d.device_name} (SN: ${d.serial_no}) [${d.facility || 'Kho'}]</option>`).join('');
         },
 
         populateTransferDeviceOptions(devices) {
@@ -458,6 +475,22 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!select) return;
             select.innerHTML = '<option value="">-- Chọn thiết bị cần kiểm kê --</option>' +
                 devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} (SN: ${d.serial_no}) [${d.facility || 'Chưa rõ'}]</option>`).join('');
+        },
+
+        openWorkOrderModalForDevice(deviceId, deviceName) {
+            const select = document.getElementById('wo-device-select');
+            if (select) select.value = deviceId;
+            const titleInput = document.getElementById('wo-title');
+            if (titleInput) titleInput.value = `PM định kỳ thiết bị: ${deviceName}`;
+
+            const today = new Date().toISOString().split('T')[0];
+            const startInput = document.getElementById('wo-start-date');
+            const endInput = document.getElementById('wo-end-date');
+            if (startInput) startInput.value = today;
+            if (endInput) endInput.value = today;
+
+            const modal = new bootstrap.Modal(document.getElementById('speedmaintWorkOrderModal'));
+            modal.show();
         },
 
         openTransferModalForDevice(deviceId) {
@@ -544,7 +577,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td><span class="fw-bold text-primary font-mono">${d.serial_no || '-'}</span></td>
                         <td>
                             <div class="fw-bold text-dark">${d.device_name || 'Thiết bị y tế'}</div>
-                            <small class="text-muted">${d.manufacturer || '-'} ${d.country_of_manufacturer ? `• ${d.country_of_manufacturer}` : ''}</small>
+                            <small class="text-muted font-mono">${d.speedmaint_code || `BM/BVQ7/${d.id}`} • ${d.manufacturer || '-'} ${d.country_of_manufacturer ? `(${d.country_of_manufacturer})` : ''}</small>
                         </td>
                         <td><span class="badge bg-light text-dark border font-mono">${d.model || '-'}</span></td>
                         <td><span class="${riskClass}">Mức ${d.risk_level || 'A'}</span></td>
@@ -556,17 +589,68 @@ document.addEventListener('DOMContentLoaded', function () {
                             <button class="btn btn-sm btn-clinical-primary btn-clinical me-1" onclick="app.viewDetails(${d.id})" title="Xem hồ sơ lý lịch máy (Dossier)">
                                 <i class="bi bi-eye"></i>
                             </button>
+                            <button class="btn btn-sm btn-outline-purple btn-clinical me-1" onclick="app.openWorkOrderModalForDevice(${d.id}, '${d.device_name}')" title="Lập phiếu công việc SpeedMaint" style="color:#6d28d9; border-color:#c4b5fd;">
+                                <i class="bi bi-tools"></i>
+                            </button>
                             <button class="btn btn-sm btn-outline-secondary btn-clinical me-1" onclick="app.openTransferModalForDevice(${d.id})" title="Bàn giao / Check-out">
                                 <i class="bi bi-arrow-left-right"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-success btn-clinical me-1" onclick="app.openAuditModalForDevice(${d.id})" title="Xác nhận kiểm kê (Audit)">
-                                <i class="bi bi-clipboard-check"></i>
                             </button>
                             ${pdfBtn}
                         </td>
                     </tr>
                 `;
             }).join('');
+        },
+
+        renderWorkOrders(orders) {
+            const tbody = document.getElementById('workorders-body');
+            const countBadge = document.getElementById('nav-badge-wo');
+            const countLabel = document.getElementById('wo-count-label');
+
+            if (countBadge) countBadge.textContent = `${orders.length}`;
+            if (countLabel) countLabel.textContent = `${orders.length} Công việc`;
+            if (!tbody) return;
+
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">Chưa có phiếu công việc nào. Nhấn "+ Thêm" để tạo phiếu mới.</td></tr>';
+                return;
+            }
+
+            // Render theo phong cách SpeedMaint (Ảnh 5115f7b33d1abc44e50b.jpg)
+            tbody.innerHTML = orders.map(o => `
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td><span class="font-mono fw-bold text-primary">#${o.task_code || `260${o.id}`}</span></td>
+                    <td>
+                        <div class="fw-bold text-dark">
+                            <span class="text-warning me-1">🏷️</span> ${o.work_type || 'PM định kỳ'} giao cho <strong>${o.assigned_to || 'Kỹ sư Y sinh'}</strong>
+                        </div>
+                        <small class="text-muted">${o.description || '-'}</small>
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-dark border font-mono small">
+                            <i class="bi bi-clock me-1"></i> ${apiClient.formatDate(o.start_date)} - 17:00
+                        </span>
+                    </td>
+                    <td>
+                        <div class="font-mono small fw-bold text-primary">${o.speedmaint_device_code || `BM/BVQ7/${o.device_id}`}</div>
+                        <div class="small text-dark">${o.device_name || 'Thiết bị y tế'}</div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="progress flex-grow-1" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 100%;"></div>
+                            </div>
+                            <span class="badge-status-pill status-ok" style="font-size:0.7rem;">Hoàn thành</span>
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.viewDetails(${o.device_id})" title="Xem chi tiết thiết bị">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
         },
 
         renderAudits(audits) {
@@ -666,36 +750,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
-        renderWorkOrders(orders) {
-            const tbody = document.getElementById('workorders-body');
-            if (!tbody) return;
-
-            const repairs = orders.filter(o => o.maintenance_type !== 'HANDOVER' && !o.description?.includes('KIỂM KÊ'));
-
-            if (repairs.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Chưa có phiếu báo hỏng nào.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = repairs.map(o => `
-                <tr>
-                    <td class="font-mono fw-bold">WO-#${o.id}</td>
-                    <td class="font-mono text-muted">${apiClient.formatDate(o.maintenance_date)}</td>
-                    <td><div class="fw-bold">${o.device_name}</div><small class="font-mono text-muted">SN: ${o.serial_no}</small></td>
-                    <td>${o.facility || 'Toàn viện'}</td>
-                    <td><span class="badge bg-light text-dark border">${o.maintenance_type || 'REPAIR'}</span></td>
-                    <td>${o.performed_by || '-'}</td>
-                    <td class="small">${o.description || '-'}</td>
-                    <td><span class="badge-status-pill status-warning">Đang xử lý</span></td>
-                </tr>
-            `).join('');
-        },
-
         renderTransfers(orders) {
             const tbody = document.getElementById('transfers-body');
             if (!tbody) return;
 
-            const transfers = orders.filter(o => o.maintenance_type === 'HANDOVER' || o.description?.includes('Bàn giao') || o.description?.includes('Check-out'));
+            const transfers = orders.filter(o => o.work_type === 'Điều chuyển' || o.description?.includes('Bàn giao') || o.description?.includes('Check-out'));
 
             if (transfers.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có lịch sử bàn giao thiết bị.</td></tr>';
@@ -704,10 +763,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             tbody.innerHTML = transfers.map(t => `
                 <tr>
-                    <td class="font-mono fw-bold text-primary">${apiClient.formatDate(t.maintenance_date)}</td>
+                    <td class="font-mono fw-bold text-primary">${apiClient.formatDate(t.start_date)}</td>
                     <td><div class="fw-bold">${t.device_name}</div><small class="text-muted">Model: ${t.model}</small></td>
                     <td><span class="font-mono badge bg-light text-dark border">${t.serial_no}</span></td>
-                    <td><strong>${t.performed_by || '-'}</strong></td>
+                    <td><strong>${t.assigned_to || '-'}</strong></td>
                     <td class="small">${t.description || '-'}</td>
                     <td><span class="badge-status-pill status-ok">Đã bàn giao</span></td>
                 </tr>
@@ -723,7 +782,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             grid.innerHTML = listToRender.map(d => {
                 const assetTag = d.asset_tag || `BVQ7-TTB-${d.id}`;
-                const qrData = encodeURIComponent(`TAG:${assetTag}|TB:${d.device_name}|SN:${d.serial_no}|MD:${d.model}|LOC:${d.facility || ''}`);
+                const speedmaintCode = d.speedmaint_code || `BM/BVQ7/${d.id}`;
+                const qrData = encodeURIComponent(`TAG:${assetTag}|CODE:${speedmaintCode}|TB:${d.device_name}|SN:${d.serial_no}|LOC:${d.facility || ''}`);
                 const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${qrData}`;
 
                 return `
@@ -734,8 +794,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="qr-hospital">BV QUẬN 7 • TP.HCM</div>
                                 <div class="qr-dev-name">${d.device_name}</div>
                                 <div class="qr-serial font-mono">TAG: ${assetTag}</div>
-                                <div class="text-muted" style="font-size: 0.72rem;">S/N: ${d.serial_no} • ${d.facility || 'Toàn viện'}</div>
-                                <div class="text-muted" style="font-size: 0.68rem;">Hạn KĐ: ${apiClient.formatDate(d.recalibration_date)}</div>
+                                <div class="text-muted font-mono" style="font-size: 0.7rem;">Mã: ${speedmaintCode}</div>
+                                <div class="text-muted" style="font-size: 0.68rem;">S/N: ${d.serial_no} • Hạn KĐ: ${apiClient.formatDate(d.recalibration_date)}</div>
                             </div>
                         </div>
                     </div>
@@ -797,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ? device.maintenance_logs.map(l => `
                             <div class="list-group-item border-0 mb-2 p-3 bg-light rounded-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="badge ${l.maintenance_type === 'INSPECTION' ? 'bg-success' : 'bg-primary'} text-light">${l.maintenance_type || 'HANDOVER'}</span>
+                                    <span class="badge ${l.maintenance_type === 'INSPECTION' ? 'bg-success' : 'bg-primary'} text-light">${l.maintenance_type || 'PM định kỳ'}</span>
                                     <span class="font-mono small text-muted">${apiClient.formatDate(l.maintenance_date)}</span>
                                 </div>
                                 <div class="mt-2 small text-dark">${l.description || '-'}</div>
@@ -806,7 +866,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         `).join('')
                         : '<p class="text-muted p-3 bg-light rounded-3">Chưa có nhật ký bảo trì / bàn giao.</p>';
 
-                    const qrData = encodeURIComponent(`TAG:${device.asset_tag}|TB:${device.device_name}|SN:${device.serial_no}|MD:${device.model}|LOC:${device.facility || ''}`);
+                    const qrData = encodeURIComponent(`TAG:${device.asset_tag}|CODE:${device.speedmaint_code}|TB:${device.device_name}|SN:${device.serial_no}|MD:${device.model}|LOC:${device.facility || ''}`);
                     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${qrData}`;
 
                     modalBody.innerHTML = `
@@ -838,6 +898,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <div class="spec-item">
                                                 <div class="spec-label">Mã tài sản (Asset Tag)</div>
                                                 <div class="spec-value text-primary font-mono fw-bold">${device.asset_tag}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Mã SpeedMaint</div>
+                                                <div class="spec-value text-dark font-mono fw-bold">${device.speedmaint_code}</div>
                                             </div>
                                             <div class="spec-item">
                                                 <div class="spec-label">Số Serial (S/N)</div>
@@ -879,11 +943,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <div class="small fw-bold font-mono">${device.asset_tag}</div>
                                             <small class="text-muted d-block">Quét camera xem hồ sơ</small>
                                             <div class="d-flex flex-column gap-2 mt-2">
-                                                <button class="btn btn-sm btn-outline-primary btn-clinical w-100" onclick="app.openTransferModalForDevice(${device.id})">
-                                                    <i class="bi bi-arrow-left-right me-1"></i> Bàn giao máy
+                                                <button class="btn btn-sm btn-outline-primary btn-clinical w-100" onclick="app.openWorkOrderModalForDevice(${device.id}, '${device.device_name}')">
+                                                    <i class="bi bi-tools me-1"></i> Tạo phiếu WO SpeedMaint
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-success btn-clinical w-100" onclick="app.openAuditModalForDevice(${device.id})">
-                                                    <i class="bi bi-clipboard-check me-1"></i> Xác nhận kiểm kê
+                                                <button class="btn btn-sm btn-outline-secondary btn-clinical w-100" onclick="app.openTransferModalForDevice(${device.id})">
+                                                    <i class="bi bi-arrow-left-right me-1"></i> Bàn giao máy
                                                 </button>
                                             </div>
                                         </div>

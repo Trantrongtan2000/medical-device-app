@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý Trang Thiết Bị Y Tế - BV Quận 7 (Snipe-IT & SpeedMaint)</title>
+    <title>Hệ Thống Quản Lý Trang Thiết Bị Y Tế - BV Quận 7 (SpeedMaint & Snipe-IT)</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -15,7 +15,7 @@
 
     <div class="app-layout">
 
-        <!-- ==================== LEFT SIDEBAR NAVIGATION (SNIPE-IT STYLE) ==================== -->
+        <!-- ==================== LEFT SIDEBAR NAVIGATION (SPEEDMAINT & SNIPE-IT) ==================== -->
         <aside class="sidebar-left">
             <!-- Hospital Branding -->
             <div class="sidebar-brand">
@@ -24,13 +24,13 @@
                 </div>
                 <div class="brand-info">
                     <div class="brand-name">BV QUẬN 7</div>
-                    <div class="brand-desc">QUẢN LÝ TTBYT & CMMS</div>
+                    <div class="brand-desc">SPEEDMAINT CLOUD CMMS</div>
                 </div>
             </div>
 
             <!-- Left Quick Dashboard Stats Widget -->
             <div class="sidebar-kpi-box">
-                <div class="sidebar-kpi-title">CHỈ SỐ HOẠT ĐỘNG</div>
+                <div class="sidebar-kpi-title">CHỈ SỐ VẬN HÀNH</div>
                 <div class="sidebar-kpi-grid">
                     <div class="sidebar-kpi-item">
                         <span class="kpi-num text-primary" id="side-kpi-total">1.049</span>
@@ -51,13 +51,20 @@
                 </div>
             </div>
 
-            <!-- Sidebar Nav Menu -->
+            <!-- Sidebar Nav Menu (SpeedMaint Hierarchy) -->
             <ul class="nav flex-column sidebar-nav" id="sidebarMenu" role="tablist">
                 <li class="nav-item">
                     <button class="nav-link active" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
                         <i class="bi bi-boxes"></i>
-                        <span>Danh Mục TTBYT</span>
+                        <span>Tài Sản & Thiết Bị</span>
                         <span class="badge bg-primary rounded-pill ms-auto font-mono" id="nav-badge-total">1.049</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-workorders" data-bs-toggle="pill" data-bs-target="#tab-workorders" type="button">
+                        <i class="bi bi-tools"></i>
+                        <span>Công Việc & Phiếu WO</span>
+                        <span class="badge bg-purple rounded-pill ms-auto font-mono" id="nav-badge-wo" style="background:#8b5cf6; color:white;">0</span>
                     </button>
                 </li>
                 <li class="nav-item">
@@ -70,25 +77,19 @@
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-calendar" data-bs-toggle="pill" data-bs-target="#tab-calendar" type="button">
                         <i class="bi bi-calendar-check"></i>
-                        <span>Lịch Kiểm Định & PM</span>
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="btn-tab-workorders" data-bs-toggle="pill" data-bs-target="#tab-workorders" type="button">
-                        <i class="bi bi-tools"></i>
-                        <span>Báo Hỏng & Sửa Chữa</span>
+                        <span>Bảo Trì Phòng Ngừa (PM)</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-transfers" data-bs-toggle="pill" data-bs-target="#tab-transfers" type="button">
                         <i class="bi bi-arrow-left-right"></i>
-                        <span>Bàn Giao & Check-out</span>
+                        <span>Điều Chuyển & Bàn Giao</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-accessories" data-bs-toggle="pill" data-bs-target="#tab-accessories" type="button">
                         <i class="bi bi-cpu"></i>
-                        <span>Linh Kiện & Phụ Tùng</span>
+                        <span>Kho Vật Tư & Phụ Tùng</span>
                     </button>
                 </li>
                 <li class="nav-item">
@@ -100,15 +101,15 @@
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-analytics" data-bs-toggle="pill" data-bs-target="#tab-analytics" type="button">
                         <i class="bi bi-pie-chart-fill"></i>
-                        <span>Báo Cáo & Tuân Thủ</span>
+                        <span>Phân Tích & Báo Cáo</span>
                     </button>
                 </li>
             </ul>
 
             <!-- Sidebar Footer Quick Actions -->
             <div class="sidebar-footer mt-auto p-3">
-                <button class="btn btn-danger w-100 btn-clinical fw-bold mb-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#incidentModal">
-                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Báo Hỏng Khẩn Cấp
+                <button class="btn btn-danger w-100 btn-clinical fw-bold mb-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">
+                    <i class="bi bi-plus-circle-fill me-1"></i> Tạo Phiếu Công Việc (WO)
                 </button>
                 <div class="d-flex gap-1">
                     <a href="/diagrams/system-architecture.html" target="_blank" class="btn btn-sm btn-outline-secondary w-50 btn-clinical text-truncate" title="Kiến trúc hệ thống">
@@ -135,8 +136,11 @@
                     <button id="btn-export-csv" class="btn btn-sm btn-success btn-clinical" title="Xuất file Excel / CSV UTF-8">
                         <i class="bi bi-file-earmark-excel me-1"></i> Xuất Excel (CSV)
                     </button>
-                    <button class="btn btn-sm btn-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#transferModal">
-                        <i class="bi bi-box-arrow-right me-1"></i> Bàn Giao Máy
+                    <button class="btn btn-sm btn-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">
+                        <i class="bi bi-plus-lg me-1"></i> + Thêm Công Việc
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#transferModal">
+                        <i class="bi bi-arrow-left-right me-1"></i> Bàn Giao Máy
                     </button>
                     <button class="btn btn-sm btn-outline-success btn-clinical" data-bs-toggle="modal" data-bs-target="#quickAuditModal">
                         <i class="bi bi-clipboard-check me-1"></i> Lập Phiếu Kiểm Kê
@@ -206,7 +210,7 @@
                             <div class="data-panel-header">
                                 <div class="panel-title">
                                     <i class="bi bi-journal-medical text-primary"></i>
-                                    <span>DANH MỤC TÀI SẢN TRANG THIẾT BỊ Y TẾ (SNIPE-IT MATRIX)</span>
+                                    <span>DANH MỤC TÀI SẢN TRANG THIẾT BỊ Y TẾ (SPEEDMAINT & SNIPE-IT)</span>
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
                                     <button id="btn-select-all-qr" class="btn btn-sm btn-outline-primary btn-clinical">
@@ -240,7 +244,67 @@
                         </div>
                     </div>
 
-                    <!-- TAB 2: DEDICATED AUDITS (TRUNG TÂM KIỂM KÊ TÀI SẢN RIÊNG) -->
+                    <!-- TAB 2: SPEEDMAINT WORK ORDERS (QUẢN LÝ CÔNG VIỆC CHUẨN SPEEDMAINT - ẢNH 5115 & 01bc & 605c) -->
+                    <div class="tab-pane fade" id="tab-workorders" role="tabpanel">
+                        <!-- SpeedMaint Task Filter Bar -->
+                        <div class="filter-panel mb-3">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div class="d-flex align-items-center gap-2 flex-grow-1">
+                                    <div class="input-group" style="max-width: 380px;">
+                                        <input type="text" id="wo-search-input" class="form-control filter-input" placeholder="Tìm theo: Mã, tên, nội dung, địa chỉ công việc...">
+                                        <button class="btn btn-primary btn-clinical" type="button"><i class="bi bi-search"></i></button>
+                                    </div>
+                                    <select class="form-select filter-input" style="width: 200px;">
+                                        <option value="all">Tất cả công việc</option>
+                                        <option value="pm">PM định kỳ</option>
+                                        <option value="repair">Sửa chữa</option>
+                                        <option value="transfer">Điều chuyển</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                    <div class="input-group" style="width: 260px;">
+                                        <span class="input-group-text bg-light"><i class="bi bi-calendar3"></i></span>
+                                        <input type="text" class="form-control filter-input font-mono text-center" value="01/08/2026 - 31/08/2026" readonly>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-primary btn-clinical fw-bold px-3" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal" style="background:#5b21b6; border-color:#4c1d95;">
+                                        <i class="bi bi-plus-lg me-1"></i> + Thêm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SpeedMaint Work Orders Table (Ảnh 5115f7b33d1abc44e50b.jpg) -->
+                        <div class="data-panel">
+                            <div class="data-panel-header">
+                                <div class="panel-title">
+                                    <i class="bi bi-tools text-primary"></i>
+                                    <span>DANH SÁCH PHIẾU CÔNG VIỆC (SPEEDMAINT WORK ORDER MATRIX)</span>
+                                </div>
+                                <span class="badge bg-light text-dark border font-mono" id="wo-count-label">0 Công việc</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-clinical">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 35px;"><input type="checkbox"></th>
+                                            <th style="width: 80px;">MÃ WO</th>
+                                            <th>THÔNG TIN CÔNG VIỆC & NGƯỜI GIAO/NHẬN</th>
+                                            <th>THỜI GIAN THỰC HIỆN</th>
+                                            <th>MÃ THIẾT BỊ / TÊN THIẾT BỊ</th>
+                                            <th style="width: 150px;">TIẾN ĐỘ</th>
+                                            <th style="width: 100px;" class="text-end">THAO TÁC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="workorders-body">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: DEDICATED AUDITS (TRUNG TÂM KIỂM KÊ TÀI SẢN RIÊNG) -->
                     <div class="tab-pane fade" id="tab-audits" role="tabpanel">
                         <div class="row g-3 mb-3">
                             <div class="col-md-4">
@@ -304,7 +368,7 @@
                         </div>
                     </div>
 
-                    <!-- TAB 3: CALENDAR & SCHEDULES (LỊCH KIỂM ĐỊNH & PM) -->
+                    <!-- TAB 4: CALENDAR & SCHEDULES (LỊCH KIỂM ĐỊNH & PM) -->
                     <div class="tab-pane fade" id="tab-calendar" role="tabpanel">
                         <div class="row g-4">
                             <div class="col-md-4">
@@ -344,40 +408,6 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 4: WORK ORDERS (BÁO HỎNG & SỬA CHỮA) -->
-                    <div class="tab-pane fade" id="tab-workorders" role="tabpanel">
-                        <div class="data-panel">
-                            <div class="data-panel-header">
-                                <div class="panel-title">
-                                    <i class="bi bi-tools text-danger"></i>
-                                    <span>TRUNG TÂM TIẾP NHẬN SỰ CỐ & WORK ORDERS SỬA CHỮA (TLHD MỤC 6)</span>
-                                </div>
-                                <button class="btn btn-sm btn-clinical-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#incidentModal">
-                                    <i class="bi bi-plus-circle me-1"></i> Tạo Phiếu Báo Hỏng
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-clinical">
-                                    <thead>
-                                        <tr>
-                                            <th>MÃ PHIẾU</th>
-                                            <th>NGÀY TẠO</th>
-                                            <th>THIẾT BỊ</th>
-                                            <th>KHOA / VỊ TRÍ</th>
-                                            <th>LOẠI CÔNG VIỆC</th>
-                                            <th>NGƯỜI BÁO CÁO / KTV</th>
-                                            <th>MÔ TẢ SỰ CỐ</th>
-                                            <th>TIẾN ĐỘ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="workorders-body">
-                                        <!-- Populated via JS -->
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -522,6 +552,212 @@
         </main>
     </div>
 
+    <!-- ==================== MODAL 1: SPEEDMAINT WORK ORDER DETAIL & EDIT (ẢNH 01bc & 605c) ==================== -->
+    <div class="modal fade" id="speedmaintWorkOrderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content modal-content-clinical">
+                <!-- Modal Top Header Purple Bar (SpeedMaint Style) -->
+                <div class="modal-header text-white" style="background: #4338ca; padding: 0.85rem 1.5rem;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-tools fs-5"></i>
+                        <h6 class="modal-title fw-bold mb-0" id="wo-modal-title">Thông tin chi tiết công việc</h6>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    <form id="speedmaint-wo-form">
+                        <!-- Top Row: Mã, Loại CV, Tên CV, Checkbox ngoài KH, Trạng thái, Tiến độ, Độ ưu tiên -->
+                        <div class="row g-3 mb-3 p-3 bg-light rounded-3 border">
+                            <div class="col-md-2">
+                                <label class="form-label small fw-bold text-muted">MÃ (*)</label>
+                                <input type="text" id="wo-code" class="form-control filter-input font-mono fw-bold text-primary" value="260777" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small fw-bold text-muted">LOẠI CÔNG VIỆC (*)</label>
+                                <select id="wo-type" class="form-select filter-input" required>
+                                    <option value="PM định kỳ">PM định kỳ</option>
+                                    <option value="Sửa chữa">Sửa chữa</option>
+                                    <option value="Điều chuyển">Điều chuyển</option>
+                                    <option value="Kiểm định">Kiểm định</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label small fw-bold text-muted">TÊN CÔNG VIỆC (*)</label>
+                                <input type="text" id="wo-title" class="form-control filter-input fw-bold" placeholder="Nhập tên công việc (ví dụ: PM định kỳ Monitor theo dõi bệnh nhân)" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">ĐỘ ƯU TIÊN</label>
+                                <select id="wo-priority" class="form-select filter-input">
+                                    <option value="Trung bình">Trung bình</option>
+                                    <option value="Cao">Cao</option>
+                                    <option value="Khẩn cấp">🔴 Khẩn cấp</option>
+                                    <option value="Thấp">Thấp</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">NGÀY BẮT ĐẦU (*)</label>
+                                <input type="date" id="wo-start-date" class="form-control filter-input" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">NGÀY KẾT THÚC (*)</label>
+                                <input type="date" id="wo-end-date" class="form-control filter-input" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">TRẠNG THÁI</label>
+                                <select id="wo-status" class="form-select filter-input">
+                                    <option value="Hoàn thành">Hoàn thành (100%)</option>
+                                    <option value="Đang thực hiện">Đang thực hiện</option>
+                                    <option value="Chưa phân công">Chưa phân công</option>
+                                    <option value="Hủy">Hủy</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">TIẾN ĐỘ</label>
+                                <div class="d-flex align-items-center gap-2 mt-2">
+                                    <div class="progress flex-grow-1" style="height: 10px;">
+                                        <div class="progress-bar bg-success" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="font-mono fw-bold small text-success">100%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SpeedMaint Sub-Tabs (Ảnh 01bc731ab9b338ed61a2.jpg) -->
+                        <ul class="nav nav-tabs mb-3" id="speedmaintSubTabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-wo-general" type="button">
+                                    <i class="bi bi-info-circle me-1"></i> Thông tin chung
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-wo-report" type="button">
+                                    <i class="bi bi-file-earmark-check me-1"></i> Báo cáo
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-wo-materials" type="button">
+                                    <i class="bi bi-cpu me-1"></i> Vật tư thay thế
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-wo-logs" type="button">
+                                    <i class="bi bi-clock-history me-1"></i> Nhật ký thực hiện
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Tab 1: General Info -->
+                            <div class="tab-pane fade show active" id="tab-wo-general">
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">THIẾT BỊ LIÊN KẾT (*)</label>
+                                            <select id="wo-device-select" class="form-select filter-input" required>
+                                                <option value="">-- Chọn thiết bị trong danh mục --</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">NỘI DUNG CÔNG VIỆC</label>
+                                            <textarea id="wo-desc" class="form-control filter-input" rows="3" placeholder="Nhập chi tiết nội dung công việc bảo dưỡng, kiểm tra thông số hoặc sửa chữa..." required></textarea>
+                                        </div>
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-6">
+                                                <label class="form-label small fw-bold text-muted">PHÒNG BAN THAM GIA</label>
+                                                <select id="wo-facility" class="form-select filter-input">
+                                                    <option value="">-- Chọn khoa phòng --</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label small fw-bold text-muted">ĐỊA ĐIỂM THỰC HIỆN</label>
+                                                <input type="text" id="wo-location" class="form-control filter-input" placeholder="Ví dụ: Phòng Khám 1 - Khoa Khám Bệnh">
+                                            </div>
+                                        </div>
+                                        <div class="row g-2">
+                                            <div class="col-4">
+                                                <label class="form-label small fw-bold text-muted">NGƯỜI THỰC HIỆN (*)</label>
+                                                <input type="text" id="wo-assigned-to" class="form-control filter-input" value="KS. Trương Hoài Thương" required>
+                                            </div>
+                                            <div class="col-4">
+                                                <label class="form-label small fw-bold text-muted">NGƯỜI ĐỒNG THỰC HIỆN</label>
+                                                <input type="text" id="wo-co-workers" class="form-control filter-input" placeholder="KS. Nguyễn Văn Thành">
+                                            </div>
+                                            <div class="col-4">
+                                                <label class="form-label small fw-bold text-muted">NGƯỜI NHẬN BÁO CÁO / GIÁM SÁT</label>
+                                                <input type="text" id="wo-supervisor" class="form-control filter-input" value="Nguyễn Minh Kỳ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="p-3 bg-light rounded-3 border text-center">
+                                            <div class="small fw-bold text-muted mb-2">MÃ QR PHIẾU CÔNG VIỆC</div>
+                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=SPEEDMAINT|BVQ7|WO-260777" alt="QR" class="img-fluid rounded mb-2 shadow-sm" style="width: 120px; height: 120px;">
+                                            <div class="font-mono fw-bold text-primary small">WO-260777</div>
+                                            <small class="text-muted d-block mt-1">Quét bằng Mobile App SpeedMaint</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tab 2: Reports -->
+                            <div class="tab-pane fade" id="tab-wo-report">
+                                <div class="p-3 bg-light rounded-3 border">
+                                    <h6 class="fw-bold mb-2 text-primary"><i class="bi bi-card-checklist me-1"></i>Biên Bản Nghiệm Thu Kỹ Thuật</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold text-muted">KẾT QUẢ ĐÁNH GIÁ</label>
+                                        <select class="form-select filter-input">
+                                            <option value="pass">Đạt tiêu chuẩn vận hành an toàn</option>
+                                            <option value="fail">Không đạt - Yêu cầu thay thế linh kiện</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label small fw-bold text-muted">GHI CHÚ CỦA KỸ SƯ (BME)</label>
+                                        <textarea class="form-control filter-input" rows="2" placeholder="Đã kiểm tra an toàn điện, hiệu chỉnh các cảm biến và bàn giao cho điều dưỡng trưởng khoa."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tab 3: Materials -->
+                            <div class="tab-pane fade" id="tab-wo-materials">
+                                <div class="p-3 bg-light rounded-3 border">
+                                    <h6 class="fw-bold mb-2 text-primary"><i class="bi bi-cpu me-1"></i>Linh Kiện & Vật Tư Sử Dụng</h6>
+                                    <input type="text" id="wo-materials" class="form-control filter-input mb-2" placeholder="Ví dụ: Thay lọc tinh, cảm biến SpO2, bao đo huyết áp...">
+                                    <small class="text-muted">Tự động trừ tồn kho trong phân hệ Vật tư & Phụ tùng.</small>
+                                </div>
+                            </div>
+
+                            <!-- Tab 4: Logs -->
+                            <div class="tab-pane fade" id="tab-wo-logs">
+                                <div class="list-group border-0" id="wo-modal-history-list">
+                                    <div class="list-group-item bg-light border-0 mb-2 p-3 rounded-3">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="fw-bold text-primary">Tạo phiếu công việc</span>
+                                            <span class="font-mono text-muted small">10/08/2026 08:00</span>
+                                        </div>
+                                        <small class="text-muted">Bởi: KS. Trương Hoài Thương</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary btn-clinical px-4" data-bs-dismiss="modal">
+                                <i class="bi bi-x-lg me-1"></i> Đóng
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-clinical px-4 fw-bold" style="background:#4338ca; border-color:#3730a3;">
+                                <i class="bi bi-save me-1"></i> Lưu Phiếu Công Việc
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Device Detail Modal (Lý lịch máy chuẩn Bộ Y Tế & Snipe-IT Dossier) -->
     <div class="modal fade" id="device-detail-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -581,57 +817,6 @@
                         </div>
                         <button type="submit" class="btn btn-success btn-clinical w-100 py-2 fw-bold">
                             <i class="bi bi-check2-circle me-1"></i> Lưu Kết Quả Kiểm Kê Vào Hồ Sơ Máy
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Incident / Work Order Modal (SpeedMaint Ticket) -->
-    <div class="modal fade" id="incidentModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header bg-danger text-light">
-                    <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Phiếu Báo Hỏng & Yêu Cầu Sửa Chữa</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="incident-form">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">THIẾT BỊ GẶP SỰ CỐ</label>
-                            <select id="incident-device-select" class="form-select filter-input" required>
-                                <option value="">-- Chọn thiết bị cần báo hỏng --</option>
-                            </select>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label fw-bold small text-muted">MỨC ĐỘ ƯU TIÊN</label>
-                                <select id="incident-priority" class="form-select filter-input">
-                                    <option value="NORMAL">Bình thường</option>
-                                    <option value="HIGH">Ưu tiên cao</option>
-                                    <option value="URGENT">🔴 KHẨN CẤP (Phòng mổ/Cấp cứu)</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fw-bold small text-muted">LOẠI YÊU CẦU</label>
-                                <select id="incident-type" class="form-select filter-input">
-                                    <option value="REPAIR">Sửa chữa hỏng hóc</option>
-                                    <option value="CALIBRATION">Yêu cầu kiểm định lại</option>
-                                    <option value="INSPECTION">Kiểm tra định kỳ</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">NGƯỜI BÁO CÁO / KHOA PHÒNG</label>
-                            <input type="text" id="incident-reporter" class="form-control filter-input" placeholder="Ví dụ: BS. Nguyễn Văn A - Khoa Cấp Cứu" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">MÔ TẢ HIỆN TƯỢNG HƯ HỎNG</label>
-                            <textarea id="incident-desc" class="form-control filter-input" rows="3" placeholder="Mô tả chi tiết sự cố gặp phải (không lên nguồn, báo lỗi cảm biến, rò rỉ khí...)" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-danger btn-clinical w-100 py-2 fw-bold">
-                            <i class="bi bi-send-fill me-1"></i> Gửi Yêu Cầu Cho Kỹ Sư Y Sinh (BME)
                         </button>
                     </form>
                 </div>
