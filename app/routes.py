@@ -658,3 +658,31 @@ async def remove_api_key(req: RemoveKeyRequest):
     elif req.service == "mistral":
         mistral_key_pool.remove_key(req.key)
     return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}
+
+
+# ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
+
+SOP_HTML_PATH = Path(r"C:\Users\tantt\Downloads\asset-management-tools\quy_trinh_ttbyt.html")
+
+@router.get("/sops")
+async def view_sop_handbook():
+    """Hiển thị trực tiếp Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế (quy_trinh_ttbyt.html)"""
+    if SOP_HTML_PATH.exists():
+        return FileResponse(SOP_HTML_PATH, media_type="text/html; charset=utf-8")
+    raise HTTPException(status_code=404, detail="Không tìm thấy tệp sổ tay quy trình quy_trinh_ttbyt.html")
+
+@router.get("/api/sops")
+async def list_standard_sops():
+    """Danh mục 9 Quy trình chuẩn (SOPs) & Chính sách quản lý TTBYT BV Quận 7"""
+    return [
+        {"code": "CS.TTBYT.04", "name": "Chính sách kiểm tra hiệu chuẩn & kiểm định thiết bị y tế", "type": "Chính sách", "ref": "/sops#cs-ttbyt-04"},
+        {"code": "QT.01", "name": "Kiểm soát chất lượng nước R.O tại đơn vị Thận nhân tạo", "type": "Quy trình", "ref": "/sops#qt-01"},
+        {"code": "QT.02", "name": "Vận hành hệ thống R.O tại đơn vị Thận nhân tạo", "type": "Quy trình", "ref": "/sops#qt-02"},
+        {"code": "QT.03", "name": "Vận hành và bảng kiểm an toàn hệ thống khí y tế (O2, CO2, Vac, Air)", "type": "Quy trình", "ref": "/sops#qt-03"},
+        {"code": "QT.04", "name": "Bàn giao, lắp đặt, nghiệm thu trang thiết bị y tế & Sổ lý lịch máy", "type": "Quy trình", "ref": "/sops#qt-04"},
+        {"code": "QT.05", "name": "Vận hành và bảo quản trang thiết bị y tế tại khoa phòng", "type": "Quy trình", "ref": "/sops#qt-05"},
+        {"code": "QT.06", "name": "Bảo trì, bảo dưỡng định kỳ (PM) và đào tạo hướng dẫn sử dụng", "type": "Quy trình", "ref": "/sops#qt-06"},
+        {"code": "QT.07", "name": "Thanh lý đồ dùng, trang thiết bị hư hỏng / hết hạn / không sử dụng", "type": "Quy trình", "ref": "/sops#qt-07"},
+        {"code": "QT.08", "name": "Điều chuyển trang thiết bị y tế giữa các đơn vị sử dụng", "type": "Quy trình", "ref": "/sops#qt-08"},
+        {"code": "QT.09", "name": "Giao nhận bình khí y tế di động", "type": "Quy trình", "ref": "/sops#qt-09"}
+    ]
