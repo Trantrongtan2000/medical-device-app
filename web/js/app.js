@@ -200,6 +200,55 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
+            // Create Device Form Submit (TLHD Mục 2a & Mục 3)
+            const createDevForm = document.getElementById('create-device-form');
+            if (createDevForm) {
+                createDevForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('new-dev-name').value.trim();
+                    const model = document.getElementById('new-dev-model').value.trim();
+                    const serial = document.getElementById('new-dev-serial').value.trim();
+                    const facilityId = document.getElementById('new-dev-facility').value;
+                    const categoryId = document.getElementById('new-dev-category').value;
+                    const riskLevel = document.getElementById('new-dev-risk').value;
+                    const mfg = document.getElementById('new-dev-mfg').value.trim();
+                    const country = document.getElementById('new-dev-country').value.trim();
+                    const year = document.getElementById('new-dev-year').value;
+                    const certNo = document.getElementById('new-dev-cert-no').value.trim();
+                    const calDate = document.getElementById('new-dev-cal-date').value;
+                    const recalDate = document.getElementById('new-dev-recal-date').value;
+                    const notes = document.getElementById('new-dev-notes').value.trim();
+
+                    try {
+                        const payload = {
+                            device_name: name,
+                            model: model,
+                            serial_no: serial,
+                            facility_id: facilityId ? parseInt(facilityId) : null,
+                            category_id: categoryId ? parseInt(categoryId) : null,
+                            risk_level: riskLevel,
+                            manufacturer: mfg || null,
+                            country_of_manufacturer: country || null,
+                            year_of_manufacture: year ? parseInt(year) : null,
+                            certification_no: certNo || null,
+                            calibration_date: calDate || null,
+                            recalibration_date: recalDate || null,
+                            notes: notes || null,
+                            status: 'IN_SERVICE'
+                        };
+
+                        const res = await apiClient.createDevice(payload);
+                        alert(`✅ ${res.message}\nMã tài sản cấp mới: ${res.asset_tag} (${res.speedmaint_code})`);
+                        createDevForm.reset();
+                        bootstrap.Modal.getInstance(document.getElementById('createDeviceModal'))?.hide();
+                        await this.loadInitialData();
+                        await this.loadDevices();
+                    } catch (err) {
+                        alert('Lỗi nhập thiết bị: ' + err.message);
+                    }
+                });
+            }
+
             // Gemini AI Chat Submit
             const aiForm = document.getElementById('ai-chat-form');
             const aiInput = document.getElementById('ai-chat-input');
@@ -270,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.renderFacilityOptions(this.facilities);
 
                 this.categories = await apiClient.getCategories();
+                this.renderCategoryOptions(this.categories);
                 await this.loadKeysConfig();
             } catch (err) {
                 console.error('Lỗi nạp dữ liệu khởi tạo:', err);
@@ -434,6 +484,7 @@ document.addEventListener('DOMContentLoaded', function () {
         renderFacilityOptions(facilities) {
             const select = document.getElementById('filter-facility');
             const transferTargetSelect = document.getElementById('transfer-target-facility');
+            const newDevFacilitySelect = document.getElementById('new-dev-facility');
 
             const optionsHtml = '<option value="">-- Chọn Khoa / Vị trí --</option>' +
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
@@ -442,6 +493,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
 
             if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
+            if (newDevFacilitySelect) newDevFacilitySelect.innerHTML = optionsHtml;
+        },
+
+        renderCategoryOptions(categories) {
+            const newDevCatSelect = document.getElementById('new-dev-category');
+            if (newDevCatSelect) {
+                newDevCatSelect.innerHTML = '<option value="">-- Chọn loại thiết bị --</option>' +
+                    categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            }
         },
 
         populateIncidentDeviceOptions(devices) {

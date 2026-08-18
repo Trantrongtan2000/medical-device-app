@@ -94,6 +94,9 @@
                     <i class="bi bi-grid-fill text-primary me-2"></i>Danh Mục Thiết Bị Y Tế
                 </h5>
                 <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm btn-primary btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
+                        <i class="bi bi-plus-circle-fill me-1"></i> Nhập Thêm Thiết Bị
+                    </button>
                     <button id="btn-export-csv" class="btn btn-sm btn-outline-secondary btn-clinical" title="Xuất file Excel CSV">
                         <i class="bi bi-download me-1"></i> Xuất Excel
                     </button>
@@ -417,6 +420,104 @@
                         <button type="submit" class="btn btn-primary btn-clinical w-100 fw-bold" style="background:#4338ca; border-color:#3730a3;">
                             Lưu Phiếu Công Việc
                         </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: NHẬP THIẾT BỊ MỚI (TLHD Mục 2a & Mục 3) ==================== -->
+    <div class="modal fade" id="createDeviceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content modal-content-clinical">
+                <div class="modal-header bg-primary text-white py-2">
+                    <h6 class="modal-title fw-bold mb-0"><i class="bi bi-plus-circle-fill me-2"></i>Nhập Mới Trang Thiết Bị Y Tế (Chuẩn TLHD & NĐ 98)</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="create-device-form">
+                        <!-- Nhóm 1: Định danh thiết bị -->
+                        <h6 class="fw-bold small text-primary text-uppercase border-bottom pb-1 mb-3">1. Thông tin định danh & Phân loại</h6>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">TÊN THIẾT BỊ (*)</label>
+                                <input type="text" id="new-dev-name" class="form-control form-control-sm" placeholder="Ví dụ: Monitor theo dõi 5 thông số..." required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">MODEL / KÝ HIỆU (*)</label>
+                                <input type="text" id="new-dev-model" class="form-control form-control-sm" placeholder="BSM-2301K" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">SỐ SERIAL (S/N) (*)</label>
+                                <input type="text" id="new-dev-serial" class="form-control form-control-sm font-mono" placeholder="NK-892301" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">KHOA TIẾP NHẬN (*)</label>
+                                <select id="new-dev-facility" class="form-select form-select-sm" required></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">LOẠI THIẾT BỊ</label>
+                                <select id="new-dev-category" class="form-select form-select-sm"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">MỨC RỦI RO (NĐ 98)</label>
+                                <select id="new-dev-risk" class="form-select form-select-sm">
+                                    <option value="A">Mức A (Rủi ro rất thấp)</option>
+                                    <option value="B" selected>Mức B (Rủi ro trung bình thấp)</option>
+                                    <option value="C">Mức C (Rủi ro trung bình cao)</option>
+                                    <option value="D">Mức D (Rủi ro đặc biệt cao)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Nhóm 2: Xuất xứ & Cung ứng -->
+                        <h6 class="fw-bold small text-primary text-uppercase border-bottom pb-1 mb-3">2. Nguồn gốc & Hãng sản xuất</h6>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">HÃNG SẢN XUẤT</label>
+                                <input type="text" id="new-dev-mfg" class="form-control form-control-sm" placeholder="Nihon Kohden, Drager...">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">XUẤT XỨ (NƯỚC SX)</label>
+                                <input type="text" id="new-dev-country" class="form-control form-control-sm" placeholder="Nhật Bản, Đức, Mỹ...">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">NĂM SẢN XUẤT</label>
+                                <input type="number" id="new-dev-year" class="form-control form-control-sm" value="2025" min="1990" max="2030">
+                            </div>
+                        </div>
+
+                        <!-- Nhóm 3: Kiểm định ban đầu -->
+                        <h6 class="fw-bold small text-primary text-uppercase border-bottom pb-1 mb-3">3. Hồ sơ kiểm định ban đầu (nếu có)</h6>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">SỐ GIẤY CHỨNG NHẬN (GCN)</label>
+                                <input type="text" id="new-dev-cert-no" class="form-control form-control-sm font-mono" placeholder="KĐ-2026/BVQ7-...">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">NGÀY KIỂM ĐỊNH</label>
+                                <input type="date" id="new-dev-cal-date" class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">HẠN KIỂM ĐỊNH KẾ TIẾP</label>
+                                <input type="date" id="new-dev-recal-date" class="form-control form-control-sm">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">GHI CHÚ / HỒ SƠ BÀN GIAO</label>
+                            <input type="text" id="new-dev-notes" class="form-control form-control-sm" placeholder="Nhập kho theo biên bản bàn giao số...">
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4 pt-2 border-top">
+                            <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4">
+                                <i class="bi bi-save me-1"></i> Lưu & Cấp Mã Tài Sản (Asset Tag)
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

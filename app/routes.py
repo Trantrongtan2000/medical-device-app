@@ -93,6 +93,84 @@ async def get_devices(
     return devices_list
 
 
+@router.post("/api/devices")
+async def create_device(dev: DeviceCreate, db = Depends(get_db)):
+    """
+    Quy trình Nhập Mới Trang Thiết Bị Y Tế (Chuẩn TLHD_QLTTBYT Mục 2a & Mục 3 + NĐ 98/2021)
+    - Tự động sinh mã Asset Tag chuẩn Snipe-IT (BVQ7-TTB-XXXXX) & SpeedMaint Code (BM/BVQ7/XXXXX)
+    - Lưu thông tin kỹ thuật, phân loại rủi ro (A/B/C/D)
+    - Tự động tạo hồ sơ kiểm định và nhật ký nghiệm thu đưa vào sử dụng
+    """
+    # 1. Kiểm tra trùng số Serial
+    existing = db.execute("SELECT id FROM devices WHERE serial_no = ?", (dev.serial_no,)).fetchone()
+    if existing:
+        raise HTTPException(status_code=400, detail=f"Số Serial '{dev.serial_no}' đã tồn tại trên hệ thống thiết bị!")
+
+    # 2. Thêm thiết bị vào bảng devices
+    insert_sql = """
+        INSERT INTO devices (
+            device_name, model, serial_no, certification_no, calibration_stamp_no,
+            facility_id, category_id, manufacturer, country_of_manufacturer,
+            year_of_manufacture, risk_level, status, installation_date,
+            calibration_date, recalibration_date, notes
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """
+    cursor = db.cursor()
+    cursor.execute(insert_sql, (
+        dev.device_name,
+        dev.model,
+        dev.serial_no,
+        dev.certification_no,
+        dev.calibration_stamp_no,
+        dev.facility_id,
+        dev.category_id,
+        dev.manufacturer,
+        dev.country_of_manufacturer,
+        dev.year_of_manufacture,
+        dev.risk_level or "A",
+        dev.status or "IN_SERVICE",
+        dev.installation_date or date.today(),
+        dev.calibration_date,
+        dev.recalibration_date,
+        dev.notes
+    ))
+    device_id = cursor.lastrowid
+    db.commit()
+
+    # 3. Tạo chứng chỉ kiểm định ban đầu nếu có thông tin
+    if dev.certification_no and dev.calibration_date:
+        db.execute("""
+            INSERT INTO calibration_certificates (
+                device_id, certificate_no, calibration_date, recalibration_date,
+                stamp_no, result_status, calibrated_by
+            ) VALUES (?, ?, ?, ?, ?, 'OK', 'Đơn vị Kiểm Định Ban Đầu')
+        """, (device_id, dev.certification_no, dev.calibration_date, dev.recalibration_date, dev.calibration_stamp_no))
+        db.commit()
+
+    # 4. Ghi nhận nhật ký nghiệm thu bàn giao đưa vào sử dụng (Audit Trail)
+    facility_name = "Kho lưu trữ"
+    if dev.facility_id:
+        fac = db.execute("SELECT name FROM facilities WHERE id = ?", (dev.facility_id,)).fetchone()
+        if fac:
+            facility_name = fac["name"]
+
+    db.execute("""
+        INSERT INTO maintenance_logs (
+            device_id, maintenance_type, maintenance_date, performed_by, description
+        ) VALUES (?, 'HANDOVER', ?, 'Phòng Trang Thiết Bị Y Tế', ?)
+    """, (device_id, date.today(), f"Nghiệm thu nhập kho và bàn giao ban đầu cho {facility_name} theo quy trình TLHD Mục 2a & Mục 3"))
+    db.commit()
+
+    return {
+        "status": "success",
+        "message": f"Đã nhập mới thành công thiết bị '{dev.device_name}' vào hệ thống!",
+        "device_id": device_id,
+        "asset_tag": f"BVQ7-TTB-{device_id:05d}",
+        "speedmaint_code": f"BM/BVQ7/{device_id:05d}"
+    }
+
+
+
 @router.get("/api/devices/{device_id}")
 async def get_device(device_id: int, db = Depends(get_db)):
     """Chi tiết hồ sơ lý lịch tài sản (Snipe-IT Asset Dossier & SpeedMaint CMMS)"""

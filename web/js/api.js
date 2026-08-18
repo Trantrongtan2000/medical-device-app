@@ -48,6 +48,13 @@ const apiClient = {
         return this.request(`/api/devices/${id}`);
     },
 
+    async createDevice(deviceData) {
+        return this.request('/api/devices', {
+            method: 'POST',
+            body: JSON.stringify(deviceData)
+        });
+    },
+
     // Dedicated Audit Module (Kiểm kê riêng)
     async getAudits() {
         return this.request('/api/audits');
