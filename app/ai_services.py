@@ -1,7 +1,7 @@
 """
 AI Services Module:
-1. Gemini Management Agent (Google GenAI Interactions API)
-2. Mistral OCR Engine (Mistral AI Document Understanding API)
+1. Gemini Management Agent (Google GenAI Interactions API with Auto Key Rotation)
+2. Mistral OCR Engine (Mistral AI Document Understanding API with Auto Key Rotation)
 """
 
 import os
@@ -11,12 +11,10 @@ from pathlib import Path
 from typing import Optional, Dict, Any, List
 from datetime import datetime, date
 
-# Check for API keys
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY")
+from .key_rotator import gemini_key_pool, mistral_key_pool
 
 class GeminiAgentService:
-    """Agent Quản lý Thiết bị Y tế thông minh được cung cấp bởi Google Gemini API"""
+    """Agent Quản lý Thiết bị Y tế thông minh được cung cấp bởi Google Gemini API có cơ chế xoay key"""
     
     SYSTEM_INSTRUCTION = """
     Bạn là Trợ lý AI Quản Lý Trang Thiết Bị Y Tế (BME AI Assistant) của Bệnh viện Quận 7.
@@ -32,20 +30,9 @@ class GeminiAgentService:
     - Đưa ra các khuyến nghị bảo trì an toàn và căn cứ pháp lý rõ ràng.
     """
 
-    def __init__(self):
-        self.api_key = GEMINI_API_KEY
-        self.client = None
-        if self.api_key:
-            try:
-                from google import genai
-                self.client = genai.Client(api_key=self.api_key)
-            except Exception as e:
-                print(f"[WARN] Không thể khởi tạo Google GenAI Client: {e}")
-
     async def chat(self, user_message: str, context_devices: List[Dict[str, Any]] = None, conversation_history: List[Dict[str, str]] = None) -> str:
-        """Xử lý hội thoại thông minh với Gemini hoặc Smart Fallback Engine"""
+        """Xử lý hội thoại thông minh với Gemini (Auto Rotate Key khi gặp lỗi) hoặc Fallback Engine"""
         
-        # Prepare context data from hospital database
         context_str = ""
         if context_devices:
             summary_info = [
@@ -56,17 +43,30 @@ class GeminiAgentService:
 
         full_prompt = f"{self.SYSTEM_INSTRUCTION}\n{context_str}\n\nNgười dùng hỏi: {user_message}"
 
-        if self.client and self.api_key:
+        # Thử gọi API với cơ chế xoay key (tối đa 3 lần thử xoay key nếu gặp lỗi quota / rate limit)
+        for attempt in range(3):
+            active_key = gemini_key_pool.get_next_active_key()
+            if not active_key:
+                break
+                
             try:
-                # Call Gemini API
-                response = self.client.models.generate_content(
+                from google import genai
+                client = genai.Client(api_key=active_key)
+                response = client.models.generate_content(
                     model="gemini-2.5-flash",
                     contents=full_prompt
                 )
                 if response and response.text:
                     return response.text
             except Exception as ex:
-                print(f"[Gemini API Error] {ex}, chuyển sang Chế độ Phân tích Tích hợp")
+                err_msg = str(ex).lower()
+                print(f"[Gemini Key Error] Key: {active_key[:6]}... Error: {ex}")
+                if "429" in err_msg or "quota" in err_msg or "resource_exhausted" in err_msg:
+                    gemini_key_pool.mark_rate_limited(active_key)
+                elif "401" in err_msg or "403" in err_msg or "api_key_invalid" in err_msg:
+                    gemini_key_pool.mark_invalid(active_key)
+                else:
+                    gemini_key_pool.mark_rate_limited(active_key)
 
         # Intelligent Built-in Knowledge & Clinical Rule-Based Fallback
         q_lower = user_message.lower()
@@ -88,8 +88,8 @@ class GeminiAgentService:
                 "• **Tổng số thiết bị:** 1.049 thiết bị đã được chuẩn hóa số liệu.\n"
                 "• **Nguyên tắc cảnh báo 3 cấp độ:**\n"
                 "  - 🟢 **Đạt chuẩn (OK):** Thiết bị có giấy chứng nhận kiểm định còn hiệu lực > 30 ngày.\n"
-                "  - 🟡 **Cảnh báo (WARNING):** Thiết bị còn dưới 30 ngày trước ngày tái kiểm định (cần lập kế hoạch mời Trung tâm KĐ đến viện).\n"
-                "  - 🔴 **Quá hạn (OVERDUE):** Thiết bị đã quá hạn kiểm định, hệ thống tự động gắn cờ yêu cầu tạm ngưng vận hành hoặc ưu tiên kiểm định gấp.\n\n"
+                "  - 🟡 **Cảnh báo (WARNING):** Thiết bị còn dưới 30 ngày trước ngày tái kiểm định.\n"
+                "  - 🔴 **Quá hạn (OVERDUE):** Thiết bị đã quá hạn kiểm định, yêu cầu tạm ngưng vận hành hoặc ưu tiên kiểm định gấp.\n\n"
                 "👉 Bạn có thể xem danh sách chi tiết tại Tab **'Lịch Kiểm Định & PM'**."
             )
             
@@ -112,34 +112,29 @@ class GeminiAgentService:
 
 
 class MistralOCRService:
-    """OCR Engine được cung cấp bởi Mistral AI OCR API (https://mistral.ai/news/ocr-4/)"""
-
-    def __init__(self):
-        self.api_key = MISTRAL_API_KEY
-        self.client = None
-        if self.api_key:
-            try:
-                from mistralai import Mistral
-                self.client = Mistral(api_key=self.api_key)
-            except Exception as e:
-                print(f"[WARN] Không thể khởi tạo Mistral Client: {e}")
+    """OCR Engine được cung cấp bởi Mistral AI OCR API có cơ chế xoay key (https://mistral.ai/news/ocr-4/)"""
 
     async def process_document(self, file_path: str = None, file_bytes: bytes = None, filename: str = "") -> Dict[str, Any]:
-        """Bóc tách văn bản, bảng biểu và cấu trúc tài liệu sang Markdown & JSON Metadata"""
+        """Bóc tách văn bản, bảng biểu và cấu trúc tài liệu sang Markdown & JSON Metadata có xoay key"""
         
-        # If real Mistral API key exists and client is ready
-        if self.client and self.api_key and file_path and Path(file_path).exists():
+        # Thử gọi Mistral OCR API với cơ chế xoay key
+        for attempt in range(3):
+            active_key = mistral_key_pool.get_next_active_key()
+            if not active_key or not file_path or not Path(file_path).exists():
+                break
+
             try:
-                # Call Mistral OCR Process API
-                # Ref: https://mistral.ai/news/ocr-4/ & client.ocr.process()
+                from mistralai import Mistral
+                client = Mistral(api_key=active_key)
+                
                 with open(file_path, "rb") as f:
-                    uploaded_file = self.client.files.upload(
+                    uploaded_file = client.files.upload(
                         file={"file_name": Path(file_path).name, "content": f},
                         purpose="ocr"
                     )
-                    signed_url = self.client.files.get_signed_url(file_id=uploaded_file.id)
+                    signed_url = client.files.get_signed_url(file_id=uploaded_file.id)
                     
-                    ocr_response = self.client.ocr.process(
+                    ocr_response = client.ocr.process(
                         model="mistral-ocr-latest",
                         document={"type": "document_url", "document_url": signed_url.url}
                     )
@@ -147,14 +142,21 @@ class MistralOCRService:
                     extracted_md = "\n\n".join([page.markdown for page in ocr_response.pages])
                     return {
                         "status": "success",
-                        "engine": "Mistral OCR-4 (mistral-ocr-latest)",
+                        "engine": f"Mistral OCR-4 (Key: {active_key[:6]}...)",
                         "filename": filename or Path(file_path).name,
                         "pages_count": len(ocr_response.pages),
                         "markdown": extracted_md,
                         "extracted_fields": self._extract_medical_fields_from_text(extracted_md)
                     }
             except Exception as ex:
-                print(f"[Mistral OCR API Error] {ex}, fallback sang parser nội bộ")
+                err_msg = str(ex).lower()
+                print(f"[Mistral OCR Key Error] Key: {active_key[:6]}... Error: {ex}")
+                if "429" in err_msg or "quota" in err_msg or "rate" in err_msg:
+                    mistral_key_pool.mark_rate_limited(active_key)
+                elif "401" in err_msg or "403" in err_msg:
+                    mistral_key_pool.mark_invalid(active_key)
+                else:
+                    mistral_key_pool.mark_rate_limited(active_key)
 
         # High-Fidelity Medical OCR Parser Engine for Hospital PDF/Images
         mock_result = {
@@ -209,7 +211,6 @@ class MistralOCRService:
             "result_status": "OK",
             "risk_level": "A"
         }
-        # Basic heuristic parsing
         for line in text.splitlines():
             l_lower = line.lower()
             if "serial" in l_lower or "s/n" in l_lower:

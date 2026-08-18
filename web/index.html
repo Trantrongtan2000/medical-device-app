@@ -232,13 +232,22 @@
                         </div>
                     </div>
 
-                    <!-- TAB 5: AI & OCR HUB (TRỢ LÝ THÔNG MINH) -->
+                    <!-- TAB 5: AI & OCR HUB (TRỢ LÝ THÔNG MINH & XOAY KEY) -->
                     <div class="tab-pane fade" id="tab-ai-hub" role="tabpanel">
+                        <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-white border rounded-3">
+                            <div class="small text-muted">
+                                <i class="bi bi-shield-check text-success me-1"></i><strong>Cơ chế xoay key:</strong> Tự động luân chuyển & dự phòng khi đạt giới hạn Quota / Rate-limit.
+                            </div>
+                            <button class="btn btn-sm btn-outline-dark btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#keySettingsModal">
+                                <i class="bi bi-key-fill text-warning me-1"></i> Quản Lý & Nhập API Keys
+                            </button>
+                        </div>
                         <div class="row g-3">
                             <div class="col-md-7">
                                 <div class="data-panel d-flex flex-column" style="height: 520px;">
-                                    <div class="data-panel-header">
+                                    <div class="data-panel-header d-flex justify-content-between align-items-center">
                                         <span class="fw-bold"><i class="bi bi-robot text-primary me-2"></i>Trợ Lý Gemini AI (BME Assistant)</span>
+                                        <span class="badge bg-light text-dark border font-mono small" id="gemini-keys-count-badge">0 Keys</span>
                                     </div>
                                     <div class="p-3 flex-grow-1 overflow-auto" id="ai-chat-messages" style="background: #f8fafc;">
                                         <div class="p-3 bg-white border rounded-3 small text-muted">
@@ -255,7 +264,10 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="data-panel p-3 h-100">
-                                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-file-earmark-medical text-warning me-1"></i>Mistral OCR Engine</h6>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="fw-bold text-dark mb-0"><i class="bi bi-file-earmark-medical text-warning me-1"></i>Mistral OCR Engine</h6>
+                                        <span class="badge bg-light text-dark border font-mono small" id="mistral-keys-count-badge">0 Keys</span>
+                                    </div>
                                     <p class="text-muted small mb-3">Tự động bóc tách chứng chỉ kiểm định PDF sang dữ liệu số.</p>
                                     <button id="btn-run-sample-ocr" class="btn btn-sm btn-warning btn-clinical w-100 fw-bold mb-3">
                                         <i class="bi bi-play-fill me-1"></i> Thử Nghiệm OCR Chứng Chỉ
@@ -271,6 +283,74 @@
 
         </main>
     </div>
+
+    <!-- ==================== KEY MANAGEMENT MODAL (NHẬP & XOAY KEY) ==================== -->
+    <div class="modal fade" id="keySettingsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content modal-content-clinical">
+                <div class="modal-header bg-dark text-white py-2">
+                    <h6 class="modal-title fw-bold"><i class="bi bi-key-fill text-warning me-2"></i>Cấu Hình & Xoay API Keys (Multi-Key Rotation Pool)</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <ul class="nav nav-tabs mb-3" id="keyConfigTabs">
+                        <li class="nav-item">
+                            <button class="nav-link active fw-bold small" data-bs-toggle="tab" data-bs-target="#tab-key-gemini">
+                                <i class="bi bi-robot text-primary me-1"></i> Google Gemini Keys
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link fw-bold small" data-bs-toggle="tab" data-bs-target="#tab-key-mistral">
+                                <i class="bi bi-file-earmark-medical text-warning me-1"></i> Mistral OCR Keys
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- Gemini Keys Pool -->
+                        <div class="tab-pane fade show active" id="tab-key-gemini">
+                            <div class="p-3 bg-light rounded-3 border mb-3">
+                                <label class="form-label fw-bold small text-muted">NHẬP THÊM GEMINI API KEYS (1 KEY/DÒNG HOẶC DẤU PHẨY)</label>
+                                <textarea id="input-gemini-keys" class="form-control form-control-sm font-mono" rows="2" placeholder="AIzaSyA...&#10;AIzaSyB..."></textarea>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <small class="text-muted">Hỗ trợ nhập nhiều key dự phòng để tự động xoay key khi bị giới hạn hạn mức (Rate-Limit).</small>
+                                    <button class="btn btn-sm btn-primary btn-clinical fw-bold" onclick="app.addKeys('gemini')">
+                                        <i class="bi bi-plus-lg me-1"></i> Thêm Gemini Keys
+                                    </button>
+                                </div>
+                            </div>
+                            <h6 class="fw-bold small text-muted mb-2">DANH SÁCH GEMINI KEYS ĐANG XOAY VÒNG:</h6>
+                            <div class="list-group border rounded-3" id="gemini-keys-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Mistral Keys Pool -->
+                        <div class="tab-pane fade" id="tab-key-mistral">
+                            <div class="p-3 bg-light rounded-3 border mb-3">
+                                <label class="form-label fw-bold small text-muted">NHẬP THÊM MISTRAL API KEYS (1 KEY/DÒNG HOẶC DẤU PHẨY)</label>
+                                <textarea id="input-mistral-keys" class="form-control form-control-sm font-mono" rows="2" placeholder="mistral_key_1...&#10;mistral_key_2..."></textarea>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <small class="text-muted">Dùng cho công cụ Mistral OCR-4 bóc tách giấy tờ kiểm định.</small>
+                                    <button class="btn btn-sm btn-warning btn-clinical fw-bold" onclick="app.addKeys('mistral')">
+                                        <i class="bi bi-plus-lg me-1"></i> Thêm Mistral Keys
+                                    </button>
+                                </div>
+                            </div>
+                            <h6 class="fw-bold small text-muted mb-2">DANH SÁCH MISTRAL KEYS ĐANG XOAY VÒNG:</h6>
+                            <div class="list-group border rounded-3" id="mistral-keys-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- ==================== DETAILED MODALS (CHỈ HIỂN THỊ KHI NGƯỜI DÙNG CẦN) ==================== -->
 

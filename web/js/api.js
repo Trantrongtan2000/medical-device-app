@@ -118,6 +118,25 @@ const apiClient = {
         });
     },
 
+    // API Key Rotation Management
+    async getKeysConfig() {
+        return this.request('/api/keys/config');
+    },
+
+    async addKeys(service, keys) {
+        return this.request('/api/keys/add', {
+            method: 'POST',
+            body: JSON.stringify({ service, keys })
+        });
+    },
+
+    async removeKey(service, key) {
+        return this.request('/api/keys/remove', {
+            method: 'POST',
+            body: JSON.stringify({ service, key })
+        });
+    },
+
     // PDF URL
     getPdfUrl(filename) {
         if (!filename) return '#';

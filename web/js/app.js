@@ -270,8 +270,102 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.renderFacilityOptions(this.facilities);
 
                 this.categories = await apiClient.getCategories();
+                await this.loadKeysConfig();
             } catch (err) {
                 console.error('Lỗi nạp dữ liệu khởi tạo:', err);
+            }
+        },
+
+        async loadKeysConfig() {
+            try {
+                const config = await apiClient.getKeysConfig();
+                this.renderKeysLists(config);
+            } catch (err) {
+                console.error('Lỗi nạp cấu hình keys:', err);
+            }
+        },
+
+        renderKeysLists(config) {
+            const geminiBadge = document.getElementById('gemini-keys-count-badge');
+            const mistralBadge = document.getElementById('mistral-keys-count-badge');
+            const geminiList = document.getElementById('gemini-keys-list');
+            const mistralList = document.getElementById('mistral-keys-list');
+
+            const gKeys = config.gemini || [];
+            const mKeys = config.mistral || [];
+
+            if (geminiBadge) geminiBadge.textContent = `${gKeys.length} Keys`;
+            if (mistralBadge) mistralBadge.textContent = `${mKeys.length} Keys`;
+
+            if (geminiList) {
+                if (gKeys.length === 0) {
+                    geminiList.innerHTML = '<div class="p-3 text-muted small text-center">Chưa có Gemini API key nào được lưu. Hãy nhập key ở trên.</div>';
+                } else {
+                    geminiList.innerHTML = gKeys.map((k, idx) => `
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
+                            <div>
+                                <span class="badge bg-light text-dark border font-mono me-2">#${k.id}</span>
+                                <strong class="font-mono text-primary">${k.masked_key}</strong>
+                                <span class="badge ${k.status === 'ACTIVE' ? 'bg-success' : k.status === 'RATE_LIMITED' ? 'bg-warning text-dark' : 'bg-danger'} ms-2" style="font-size: 0.68rem;">
+                                    ${k.status === 'ACTIVE' ? '🟢 Sẵn Sàng Xoay' : k.status === 'RATE_LIMITED' ? '🟡 Tạm Nghỉ (Rate-Limit)' : '🔴 Không Hợp Lệ'}
+                                </span>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger py-0 px-2 btn-clinical" onclick="app.removeKey('gemini', '${k.raw_key}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            if (mistralList) {
+                if (mKeys.length === 0) {
+                    mistralList.innerHTML = '<div class="p-3 text-muted small text-center">Chưa có Mistral API key nào được lưu. Hãy nhập key ở trên.</div>';
+                } else {
+                    mistralList.innerHTML = mKeys.map((k, idx) => `
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
+                            <div>
+                                <span class="badge bg-light text-dark border font-mono me-2">#${k.id}</span>
+                                <strong class="font-mono text-warning">${k.masked_key}</strong>
+                                <span class="badge ${k.status === 'ACTIVE' ? 'bg-success' : 'bg-warning text-dark'} ms-2" style="font-size: 0.68rem;">
+                                    ${k.status === 'ACTIVE' ? '🟢 Sẵn Sàng Xoay' : '🟡 Tạm Nghỉ'}
+                                </span>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger py-0 px-2 btn-clinical" onclick="app.removeKey('mistral', '${k.raw_key}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    `).join('');
+                }
+            }
+        },
+
+        async addKeys(service) {
+            const inputId = service === 'gemini' ? 'input-gemini-keys' : 'input-mistral-keys';
+            const inputEl = document.getElementById(inputId);
+            const val = inputEl?.value.trim();
+            if (!val) {
+                alert('Vui lòng nhập ít nhất 1 API key.');
+                return;
+            }
+
+            try {
+                const res = await apiClient.addKeys(service, val);
+                alert(res.message || 'Đã lưu keys thành công!');
+                if (inputEl) inputEl.value = '';
+                await this.loadKeysConfig();
+            } catch (err) {
+                alert('Lỗi thêm key: ' + err.message);
+            }
+        },
+
+        async removeKey(service, key) {
+            if (!confirm('Bạn có chắc muốn xóa API key này khỏi cơ chế xoay vòng?')) return;
+            try {
+                await apiClient.removeKey(service, key);
+                await this.loadKeysConfig();
+            } catch (err) {
+                alert('Lỗi xóa key: ' + err.message);
             }
         },
 

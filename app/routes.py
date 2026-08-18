@@ -18,8 +18,10 @@ from .models import (
     DeviceSummary, DeviceStatus
 )
 from .ai_services import gemini_service, mistral_ocr_service
+from .key_rotator import gemini_key_pool, mistral_key_pool
 
 router = APIRouter()
+
 
 
 PDF_ROOT_DIRS = [
@@ -535,3 +537,46 @@ async def process_ocr(req: OCRProcessRequest):
         filename=req.filename or "Tài liệu kiểm định TTBYT.pdf"
     )
     return result
+
+
+# ==================== KEY ROTATION & MANAGEMENT ENDPOINTS ====================
+
+class AddKeyRequest(BaseModel):
+    service: str # 'gemini' | 'mistral'
+    keys: str    # Comma or newline separated keys
+
+class RemoveKeyRequest(BaseModel):
+    service: str
+    key: str
+
+@router.get("/api/keys/config")
+async def get_keys_config():
+    """Lấy danh sách các API Key đã đăng ký và trạng thái xoay key"""
+    return {
+        "gemini": gemini_key_pool.get_status_summary(),
+        "mistral": mistral_key_pool.get_status_summary()
+    }
+
+@router.post("/api/keys/add")
+async def add_api_keys(req: AddKeyRequest):
+    """Thêm 1 hoặc nhiều API keys vào danh sách xoay key"""
+    if req.service == "gemini":
+        count = gemini_key_pool.add_keys(req.keys)
+    elif req.service == "mistral":
+        count = mistral_key_pool.add_keys(req.keys)
+    else:
+        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ (phải là 'gemini' hoặc 'mistral')")
+        
+    return {
+        "status": "success",
+        "message": f"Đã thêm thành công {count} API keys vào cơ chế xoay key của {req.service.upper()}!"
+    }
+
+@router.post("/api/keys/remove")
+async def remove_api_key(req: RemoveKeyRequest):
+    """Xóa API key khỏi danh sách xoay key"""
+    if req.service == "gemini":
+        gemini_key_pool.remove_key(req.key)
+    elif req.service == "mistral":
+        mistral_key_pool.remove_key(req.key)
+    return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}

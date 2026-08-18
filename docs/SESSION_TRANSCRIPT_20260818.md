@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `18/08/2026 16:39:16`  
+> **Thời gian xuất:** `18/08/2026 16:41:23`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7) & Công cụ Quản lý Tài sản  
 
 ---
@@ -15973,6 +15973,925 @@ The following code has been modified to include a line number before every line,
 59:             - cell [ref=s1e103]:
 60:               - checkbox [ref=s1e104]
 The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:39:15+07:00
+Completed At: 2026-08-18T16:39:16+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 860
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:39:20+07:00
+Completed At: 2026-08-18T16:39:20+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'web/css/style.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/js/app.js', LF will be replaced by CRLF the next time Git touches it
+[feat/device-management-v2 4f70227] refactor: streamline UI into clean, minimal, uncluttered design with 5 core tabs
+ 4 files changed, 615 insertions(+), 1756 deletions(-)
+On branch feat/device-management-v2
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# ✨ TINH GỌN GIAO DIỆN - TỐI GIẢN & TẬP TRUNG THÔNG TIN (LESS, BUT BETTER)
+
+Đã tái cấu trúc toàn diện giao diện web theo triết lý **"Less, but better"** — loại bỏ các bảng biểu, widget và khối thông tin rườm rà, đưa giao diện về trạng thái **tinh gọn, thoáng đãng, dễ nhìn và thao tác nhanh**:
+
+---
+
+### 🌿 1. Những Thay Đổi Tối Giản Trọng Tâm:
+
+#### 📌 A. Thu Gọn Menu Sidebar (Chỉ Còn 5 Phân Hệ Cốt Lõi):
+* **Trước:** 10 tab dàn trải gây ngợp thông tin.
+* **Hiện tại:** Gom lại thành **5 phân hệ cốt lõi**:
+  1. 📦 **Thiết Bị** (Bảng quản lý tài sản chính).
+  2. 📋 **Kiểm Kê** (Lịch sử & phiếu kiểm kê thực tế).
+  3. 🔧 **Bảo Trì & Báo Hỏng** (Phiếu công việc SpeedMaint).
+  4. 🏷️ **In Nhãn QR** (Trạm in tem dán máy).
+  5. ✨ **Trợ Lý AI & OCR** (Gom Gemini Agent & Mistral OCR vào 1 trung tâm thông minh).
+* **Sidebar Header:** Chỉ giữ 1 dòng KPI tối giản: *Tổng tài sản: `1.049` • Sẵn sàng: `100%`*.
+
+---
+
+#### 📋 B. Tối Giản Bảng Dữ Liệu Chính (Từ 11 Cột Xuống 6 Cột Trọng Tâm):
+Bảng danh mục thiết bị giờ đây chỉ hiển thị đúng **6 cột thông tin thiết yếu nhất**:
+
+| STT | Cột Thông Tin | Mô Tả |
+| :---: | :--- | :--- |
+| **1** | **MÃ TÀI SẢN** | Mã Asset Tag ngắn gọn dạng Badge (VD: `BVQ7-TTB-00377`). |
+| **2** | **TÊN THIẾT BỊ** | Tên máy nổi bật, kèm dòng phụ nhỏ hiển thị Model & Serial. |
+| **3** | **KHOA PHÒNG** | Vị trí bàn giao thực tế (VD: Khoa Cấp Cứu, Khám Bệnh). |
+| **4** | **HẠN KIỂM ĐỊNH** | Ngày đến hạn tái kiểm định tiếp theo. |
+| **5** | **TRẠNG THÁI** | Nhãn trạng thái gọn gàng (*🟢 Đạt chuẩn, 🔴 Quá hạn, 🟡 Cảnh báo 30N*). |
+| **6** | **CHI TIẾT** | Duy nhất 1 nút **"Xem hồ sơ"** $\rightarrow$ Khi bấm sẽ mở Modal lý lịch máy đầy đủ gồm: *Chứng chỉ kiểm định, file PDF gốc, thông số kỹ thuật, hãng sản xuất*. |
+
+---
+
+#### 🔍 C. Đơn Giản Hóa Thanh Tìm Kiếm & Lọc:
+* Gộp lại thành **1 thanh tìm kiếm toàn năng** + **1 dropdown chọn Khoa** + **1 dropdown chọn Trạng thái kiểm định**. Loại bỏ toàn bộ các nút chip gây rối mắt.
+
+---
+
+### 🌐 2. Trải Nghiệm Giao Diện Tinh Gọn:
+* 🏠 **Trang chủ ứng dụng:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000)
+* 🌿 **Git Branch:** Đã commit vào nhánh [`feat/device-management-v2`](file:///C:/Users/tantt/Downloads/medical-device-app).
+* 📄 **Bản ghi phiên làm việc:** [`C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md`](file:///C:/Users/tantt/Downloads/SESSION_TRANSCRIPT_20260818.md).
+
+
+### 👤 Lượt 31: Yêu cầu từ Người Dùng (USER)
+```text
+thiếu phần nhập api key của gemini và mistral, thêm cơ chế xoay key
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:06+07:00
+Completed At: 2026-08-18T16:40:06+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/app/key_rotator.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:14+07:00
+Completed At: 2026-08-18T16:40:14+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/app/ai_services.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:16+07:00
+Completed At: 2026-08-18T16:40:17+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -18,6 +18,7 @@
+     DeviceSummary, DeviceStatus
+ )
+ from .ai_services import gemini_service, mistral_ocr_service
++from .key_rotator import gemini_key_pool, mistral_key_pool
+ 
+ router = APIRouter()
+ 
+@@ -24,3 +24,4 @@
++
+ PDF_ROOT_DIRS = [
+     Path(r"G:\BV QUẬN 7_OCR_WORK_20260712"),
+     Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818"),
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:21+07:00
+Completed At: 2026-08-18T16:40:21+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 539
+Total Bytes: 21523
+Showing lines 515 to 539
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+515:         context_devices = [dict(r) for r in rows]
+516:         
+517:     ai_reply = await gemini_service.chat(
+518:         user_message=req.message,
+519:         context_devices=context_devices
+520:     )
+521:     return {
+522:         "status": "success",
+523:         "reply": ai_reply,
+524:         "engine": "Google Gemini 2.5 Flash / Interactions Agent"
+525:     }
+526: 
+527: 
+528: class OCRProcessRequest(BaseModel):
+529:     filename: Optional[str] = None
+530:     file_path: Optional[str] = None
+531: 
+532: @router.post("/api/ocr/process")
+533: async def process_ocr(req: OCRProcessRequest):
+534:     """Mistral OCR Engine (https://mistral.ai/news/ocr-4/) xử lý và bóc tách tài liệu y tế"""
+535:     result = await mistral_ocr_service.process_document(
+536:         file_path=req.file_path,
+537:         filename=req.filename or "Tài liệu kiểm định TTBYT.pdf"
+538:     )
+539:     return result
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:25+07:00
+Completed At: 2026-08-18T16:40:26+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -536,4 +536,47 @@
+         file_path=req.file_path,
+         filename=req.filename or "Tài liệu kiểm định TTBYT.pdf"
+     )
+-    return result
++    return result
++
++
++# ==================== KEY ROTATION & MANAGEMENT ENDPOINTS ====================
++
++class AddKeyRequest(BaseModel):
++    service: str # 'gemini' | 'mistral'
++    keys: str    # Comma or newline separated keys
++
++class RemoveKeyRequest(BaseModel):
++    service: str
++    key: str
++
++@router.get("/api/keys/config")
++async def get_keys_config():
++    """Lấy danh sách các API Key đã đăng ký và trạng thái xoay key"""
++    return {
++        "gemini": gemini_key_pool.get_status_summary(),
++        "mistral": mistral_key_pool.get_status_summary()
++    }
++
++@router.post("/api/keys/add")
++async def add_api_keys(req: AddKeyRequest):
++    """Thêm 1 hoặc nhiều API keys vào danh sách xoay key"""
++    if req.service == "gemini":
++        count = gemini_key_pool.add_keys(req.keys)
++    elif req.service == "mistral":
++        count = mistral_key_pool.add_keys(req.keys)
++    else:
++        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ (phải là 'gemini' hoặc 'mistral')")
++        
++    return {
++        "status": "success",
++        "message": f"Đã thêm thành công {count} API keys vào cơ chế xoay key của {req.service.upper()}!"
++    }
++
++@router.post("/api/keys/remove")
++async def remove_api_key(req: RemoveKeyRequest):
++    """Xóa API key khỏi danh sách xoay key"""
++    if req.service == "gemini":
++        gemini_key_pool.remove_key(req.key)
++    elif req.service == "mistral":
++        mistral_key_pool.remove_key(req.key)
++    return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:28+07:00
+Completed At: 2026-08-18T16:40:28+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\api.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -118,6 +118,25 @@
+         });
+     },
+ 
++    // API Key Rotation Management
++    async getKeysConfig() {
++        return this.request('/api/keys/config');
++    },
++
++    async addKeys(service, keys) {
++        return this.request('/api/keys/add', {
++            method: 'POST',
++            body: JSON.stringify({ service, keys })
++        });
++    },
++
++    async removeKey(service, key) {
++        return this.request('/api/keys/remove', {
++            method: 'POST',
++            body: JSON.stringify({ service, key })
++        });
++    },
++
+     // PDF URL
+     getPdfUrl(filename) {
+         if (!filename) return '#';
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:32+07:00
+Completed At: 2026-08-18T16:40:33+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 421
+Total Bytes: 25987
+Showing lines 150 to 220
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+150:                                             <th style="width: 130px;">HẠN KIỂM ĐỊNH</th>
+151:                                             <th style="width: 120px;">TRẠNG THÁI</th>
+152:                                             <th style="width: 110px;" class="text-end">CHI TIẾT</th>
+153:                                         </tr>
+154:                                     </thead>
+155:                                     <tbody id="devices-body">
+156:                                         <!-- Populated dynamically with clean rows -->
+157:                                     </tbody>
+158:                                 </table>
+159:                             </div>
+160:                         </div>
+161:                     </div>
+162: 
+163:                     <!-- TAB 2: AUDIT CENTER (KIỂM KÊ GỌN GÀNG) -->
+164:                     <div class="tab-pane fade" id="tab-audits" role="tabpanel">
+165:                         <div class="data-panel">
+166:                             <div class="data-panel-header d-flex justify-content-between align-items-center">
+167:                                 <span class="fw-bold"><i class="bi bi-clipboard-check text-success me-2"></i>Lịch Sử Kiểm Kê Thực Tế</span>
+168:                                 <button class="btn btn-sm btn-success btn-clinical" data-bs-toggle="modal" data-bs-target="#quickAuditModal">
+169:                                     <i class="bi bi-plus-circle me-1"></i> Thêm Bản Ghi Kiểm Kê
+170:                                 </button>
+171:                             </div>
+172:                             <div class="table-responsive">
+173:                                 <table class="table table-clean align-middle mb-0">
+174:                                     <thead>
+175:                                         <tr>
+176:                                             <th>NGÀY KIỂM KÊ</th>
+177:                                             <th>MÃ TÀI SẢN</th>
+178:                                             <th>TÊN THIẾT BỊ</th>
+179:                                             <th>KHOA / VỊ TRÍ</th>
+180:                                             <th>NGƯỜI KIỂM KÊ</th>
+181:                                             <th>KẾT QUẢ</th>
+182:                                         </tr>
+183:                                     </thead>
+184:                                     <tbody id="audits-table-body">
+185:                                         <!-- Populated via JS -->
+186:                                     </tbody>
+187:                                 </table>
+188:                             </div>
+189:                         </div>
+190:                     </div>
+191: 
+192:                     <!-- TAB 3: WORK ORDERS (BẢO TRÌ & SỬA CHỮA) -->
+193:                     <div class="tab-pane fade" id="tab-workorders" role="tabpanel">
+194:                         <div class="data-panel">
+195:                             <div class="data-panel-header d-flex justify-content-between align-items-center">
+196:                                 <span class="fw-bold"><i class="bi bi-tools text-primary me-2"></i>Phiếu Công Việc Bảo Trì (SpeedMaint)</span>
+197:                                 <button class="btn btn-sm btn-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">
+198:                                     <i class="bi bi-plus-lg me-1"></i> Tạo Phiếu Mới
+199:                                 </button>
+200:                             </div>
+201:                             <div class="table-responsive">
+202:                                 <table class="table table-clean align-middle mb-0">
+203:                                     <thead>
+204:                                         <tr>
+205:                                             <th>MÃ WO</th>
+206:                                             <th>CÔNG VIỆC</th>
+207:                                             <th>THIẾT BỊ</th>
+208:                                             <th>NGƯỜI THỰC HIỆN</th>
+209:                                             <th>TIẾN ĐỘ</th>
+210:                                         </tr>
+211:                                     </thead>
+212:                                     <tbody id="workorders-body">
+213:                                         <!-- Populated via JS -->
+214:                                     </tbody>
+215:                                 </table>
+216:                             </div>
+217:                         </div>
+218:                     </div>
+219: 
+220:                     <!-- TAB 4: QR CODE STUDIO -->
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:35+07:00
+Completed At: 2026-08-18T16:40:35+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 421
+Total Bytes: 25987
+Showing lines 230 to 285
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+230:                                 <!-- Populated dynamically -->
+231:                             </div>
+232:                         </div>
+233:                     </div>
+234: 
+235:                     <!-- TAB 5: AI & OCR HUB (TRỢ LÝ THÔNG MINH) -->
+236:                     <div class="tab-pane fade" id="tab-ai-hub" role="tabpanel">
+237:                         <div class="row g-3">
+238:                             <div class="col-md-7">
+239:                                 <div class="data-panel d-flex flex-column" style="height: 520px;">
+240:                                     <div class="data-panel-header">
+241:                                         <span class="fw-bold"><i class="bi bi-robot text-primary me-2"></i>Trợ Lý Gemini AI (BME Assistant)</span>
+242:                                     </div>
+243:                                     <div class="p-3 flex-grow-1 overflow-auto" id="ai-chat-messages" style="background: #f8fafc;">
+244:                                         <div class="p-3 bg-white border rounded-3 small text-muted">
+245:                                             Xin chào! Tôi có thể hỗ trợ bạn tra cứu thông số kỹ thuật, quy định kiểm định theo Thông tư 05/2022/TT-BYT, hoặc lập kế hoạch bảo dưỡng PM.
+246:                                         </div>
+247:                                     </div>
+248:                                     <div class="p-2 bg-white border-top">
+249:                                         <form id="ai-chat-form" class="d-flex gap-2">
+250:                                             <input type="text" id="ai-chat-input" class="form-control form-control-sm" placeholder="Hỏi về thiết bị y tế, quy trình kiểm định..." required>
+251:                                             <button type="submit" class="btn btn-sm btn-primary btn-clinical px-3 fw-bold">Gửi</button>
+252:                                         </form>
+253:                                     </div>
+254:                                 </div>
+255:                             </div>
+256:                             <div class="col-md-5">
+257:                                 <div class="data-panel p-3 h-100">
+258:                                     <h6 class="fw-bold text-dark mb-2"><i class="bi bi-file-earmark-medical text-warning me-1"></i>Mistral OCR Engine</h6>
+259:                                     <p class="text-muted small mb-3">Tự động bóc tách chứng chỉ kiểm định PDF sang dữ liệu số.</p>
+260:                                     <button id="btn-run-sample-ocr" class="btn btn-sm btn-warning btn-clinical w-100 fw-bold mb-3">
+261:                                         <i class="bi bi-play-fill me-1"></i> Thử Nghiệm OCR Chứng Chỉ
+262:                                     </button>
+263:                                     <pre id="ocr-json-preview" class="bg-light p-2 rounded border font-mono small text-success overflow-auto" style="height: 300px;">// Kết quả JSON bóc tách...</pre>
+264:                                 </div>
+265:                             </div>
+266:                         </div>
+267:                     </div>
+268: 
+269:                 </div>
+270:             </div>
+271: 
+272:         </main>
+273:     </div>
+274: 
+275:     <!-- ==================== DETAILED MODALS (CHỈ HIỂN THỊ KHI NGƯỜI DÙNG CẦN) ==================== -->
+276: 
+277:     <!-- Device Dossier Modal (Lý lịch máy chi tiết đầy đủ 3 tab) -->
+278:     <div class="modal fade" id="device-detail-modal" tabindex="-1" aria-hidden="true">
+279:         <div class="modal-dialog modal-lg modal-dialog-centered">
+280:             <div class="modal-content modal-content-clinical">
+281:                 <div class="modal-header modal-header-clinical">
+282:                     <h6 class="modal-title fw-bold" id="device-modal-title">Hồ Sơ Lý Lịch Thiết Bị</h6>
+283:                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+284:                 </div>
+285:                 <div class="modal-body p-4" id="device-modal-body">
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:43+07:00
+Completed At: 2026-08-18T16:40:43+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -232,13 +232,22 @@
+                         </div>
+                     </div>
+ 
+-                    <!-- TAB 5: AI & OCR HUB (TRỢ LÝ THÔNG MINH) -->
++                    <!-- TAB 5: AI & OCR HUB (TRỢ LÝ THÔNG MINH & XOAY KEY) -->
+                     <div class="tab-pane fade" id="tab-ai-hub" role="tabpanel">
++                        <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-white border rounded-3">
++                            <div class="small text-muted">
++                                <i class="bi bi-shield-check text-success me-1"></i><strong>Cơ chế xoay key:</strong> Tự động luân chuyển & dự phòng khi đạt giới hạn Quota / Rate-limit.
++                            </div>
++                            <button class="btn btn-sm btn-outline-dark btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#keySettingsModal">
++                                <i class="bi bi-key-fill text-warning me-1"></i> Quản Lý & Nhập API Keys
++                            </button>
++                        </div>
+                         <div class="row g-3">
+                             <div class="col-md-7">
+                                 <div class="data-panel d-flex flex-column" style="height: 520px;">
+-                                    <div class="data-panel-header">
++                                    <div class="data-panel-header d-flex justify-content-between align-items-center">
+                                         <span class="fw-bold"><i class="bi bi-robot text-primary me-2"></i>Trợ Lý Gemini AI (BME Assistant)</span>
++                                        <span class="badge bg-light text-dark border font-mono small" id="gemini-keys-count-badge">0 Keys</span>
+                                     </div>
+                                     <div class="p-3 flex-grow-1 overflow-auto" id="ai-chat-messages" style="background: #f8fafc;">
+                                         <div class="p-3 bg-white border rounded-3 small text-muted">
+@@ -254,7 +254,10 @@
+                             </div>
+                             <div class="col-md-5">
+                                 <div class="data-panel p-3 h-100">
+-                                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-file-earmark-medical text-warning me-1"></i>Mistral OCR Engine</h6>
++                                    <div class="d-flex justify-content-between align-items-center mb-2">
++                                        <h6 class="fw-bold text-dark mb-0"><i class="bi bi-file-earmark-medical text-warning me-1"></i>Mistral OCR Engine</h6>
++                                        <span class="badge bg-light text-dark border font-mono small" id="mistral-keys-count-badge">0 Keys</span>
++                                    </div>
+                                     <p class="text-muted small mb-3">Tự động bóc tách chứng chỉ kiểm định PDF sang dữ liệu số.</p>
+                                     <button id="btn-run-sample-ocr" class="btn btn-sm btn-warning btn-clinical w-100 fw-bold mb-3">
+                                         <i class="bi bi-play-fill me-1"></i> Thử Nghiệm OCR Chứng Chỉ
+@@ -270,6 +270,74 @@
+         </main>
+     </div>
+ 
++    <!-- ==================== KEY MANAGEMENT MODAL (NHẬP & XOAY KEY) ==================== -->
++    <div class="modal fade" id="keySettingsModal" tabindex="-1" aria-hidden="true">
++        <div class="modal-dialog modal-lg modal-dialog-centered">
++            <div class="modal-content modal-content-clinical">
++                <div class="modal-header bg-dark text-white py-2">
++                    <h6 class="modal-title fw-bold"><i class="bi bi-key-fill text-warning me-2"></i>Cấu Hình & Xoay API Keys (Multi-Key Rotation Pool)</h6>
++                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
++                </div>
++                <div class="modal-body p-4">
++                    <ul class="nav nav-tabs mb-3" id="keyConfigTabs">
++                        <li class="nav-item">
++                            <button class="nav-link active fw-bold small" data-bs-toggle="tab" data-bs-target="#tab-key-gemini">
++                                <i class="bi bi-robot text-primary me-1"></i> Google Gemini Keys
++                            </button>
++                        </li>
++                        <li class="nav-item">
++                            <button class="nav-link fw-bold small" data-bs-toggle="tab" data-bs-target="#tab-key-mistral">
++                                <i class="bi bi-file-earmark-medical text-warning me-1"></i> Mistral OCR Keys
++                            </button>
++                        </li>
++                    </ul>
++
++                    <div class="tab-content">
++                        <!-- Gemini Keys Pool -->
++                        <div class="tab-pane fade show active" id="tab-key-gemini">
++                            <div class="p-3 bg-light rounded-3 border mb-3">
++                                <label class="form-label fw-bold small text-muted">NHẬP THÊM GEMINI API KEYS (1 KEY/DÒNG HOẶC DẤU PHẨY)</label>
++                                <textarea id="input-gemini-keys" class="form-control form-control-sm font-mono" rows="2" placeholder="AIzaSyA...&#10;AIzaSyB..."></textarea>
++                                <div class="d-flex justify-content-between align-items-center mt-2">
++                                    <small class="text-muted">Hỗ trợ nhập nhiều key dự phòng để tự động xoay key khi bị giới hạn hạn mức (Rate-Limit).</small>
++                                    <button class="btn btn-sm btn-primary btn-clinical fw-bold" onclick="app.addKeys('gemini')">
++                                        <i class="bi bi-plus-lg me-1"></i> Thêm Gemini Keys
++                                    </button>
++                                </div>
++                            </div>
++                            <h6 class="fw-bold small text-muted mb-2">DANH SÁCH GEMINI KEYS ĐANG XOAY VÒNG:</h6>
++                            <div class="list-group border rounded-3" id="gemini-keys-list">
++                                <!-- Populated dynamically -->
++                            </div>
++                        </div>
++
++                        <!-- Mistral Keys Pool -->
++                        <div class="tab-pane fade" id="tab-key-mistral">
++                            <div class="p-3 bg-light rounded-3 border mb-3">
++                                <label class="form-label fw-bold small text-muted">NHẬP THÊM MISTRAL API KEYS (1 KEY/DÒNG HOẶC DẤU PHẨY)</label>
++                                <textarea id="input-mistral-keys" class="form-control form-control-sm font-mono" rows="2" placeholder="mistral_key_1...&#10;mistral_key_2..."></textarea>
++                                <div class="d-flex justify-content-between align-items-center mt-2">
++                                    <small class="text-muted">Dùng cho công cụ Mistral OCR-4 bóc tách giấy tờ kiểm định.</small>
++                                    <button class="btn btn-sm btn-warning btn-clinical fw-bold" onclick="app.addKeys('mistral')">
++                                        <i class="bi bi-plus-lg me-1"></i> Thêm Mistral Keys
++                                    </button>
++                                </div>
++                            </div>
++                            <h6 class="fw-bold small text-muted mb-2">DANH SÁCH MISTRAL KEYS ĐANG XOAY VÒNG:</h6>
++                            <div class="list-group border rounded-3" id="mistral-keys-list">
++                                <!-- Populated dynamically -->
++                            </div>
++                        </div>
++                    </div>
++                </div>
++                <div class="modal-footer bg-light py-2">
++                    <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
++                </div>
++            </div>
++        </div>
++    </div>
++
++
+     <!-- ==================== DETAILED MODALS (CHỈ HIỂN THỊ KHI NGƯỜI DÙNG CẦN) ==================== -->
+ 
+     <!-- Device Dossier Modal (Lý lịch máy chi tiết đầy đủ 3 tab) -->
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:46+07:00
+Completed At: 2026-08-18T16:40:46+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 574
+Total Bytes: 27587
+Showing lines 15 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+15:         schedules: [],
+16:         workOrders: [],
+17:         audits: [],
+18:         currentFilters: {
+19:             search: '',
+20:             facility_id: '',
+21:             alert_status: '',
+22:             limit: 300,
+23:             offset: 0
+24:         },
+25:         searchTimeout: null,
+26: 
+27:         async init() {
+28:             this.setupEventListeners();
+29:             await this.loadInitialData();
+30:             await this.loadDevices();
+31:             await this.loadAudits();
+32:             await this.loadWorkOrders();
+33:         },
+34: 
+35:         setupEventListeners() {
+36:             // Sidebar Nav Tab switching
+37:             const navButtons = document.querySelectorAll('.sidebar-nav .nav-link');
+38:             const pageHeading = document.getElementById('page-heading');
+39: 
+40:             navButtons.forEach(btn => {
+41:                 btn.addEventListener('click', (e) => {
+42:                     e.preventDefault();
+43:                     navButtons.forEach(b => b.classList.remove('active'));
+44:                     btn.classList.add('active');
+45: 
+46:                     const targetId = btn.getAttribute('data-bs-target');
+47:                     if (targetId) {
+48:                         document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+49:                         document.querySelector(targetId)?.classList.add('show', 'active');
+50:                     }
+51: 
+52:                     const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
+53:                     const iconClass = btn.querySelector('i')?.className || 'bi bi-grid-fill';
+54:                     if (pageHeading) {
+55:                         pageHeading.innerHTML = `<i class="${iconClass} text-primary me-2"></i>${text}`;
+56:                     }
+57:                 });
+58:             });
+59: 
+60:             // Search input
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:48+07:00
+Completed At: 2026-08-18T16:40:48+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 574
+Total Bytes: 27587
+Showing lines 200 to 280
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+200:                 });
+201:             }
+202: 
+203:             // Gemini AI Chat Submit
+204:             const aiForm = document.getElementById('ai-chat-form');
+205:             const aiInput = document.getElementById('ai-chat-input');
+206:             const aiMsgBox = document.getElementById('ai-chat-messages');
+207: 
+208:             if (aiForm) {
+209:                 aiForm.addEventListener('submit', async (e) => {
+210:                     e.preventDefault();
+211:                     const text = aiInput.value.trim();
+212:                     if (!text) return;
+213: 
+214:                     if (aiMsgBox) {
+215:                         aiMsgBox.innerHTML += `
+216:                             <div class="d-flex justify-content-end mb-2">
+217:                                 <div class="p-2 bg-primary text-white rounded-3 small" style="max-width: 80%;">
+218:                                     <strong>Bạn:</strong> ${text}
+219:                                 </div>
+220:                             </div>
+221:                         `;
+222:                         aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+223:                     }
+224: 
+225:                     aiInput.value = '';
+226: 
+227:                     try {
+228:                         const res = await apiClient.aiChat(text);
+229:                         if (aiMsgBox) {
+230:                             aiMsgBox.innerHTML += `
+231:                                 <div class="d-flex mb-2">
+232:                                     <div class="p-2 bg-white border rounded-3 small" style="max-width: 85%; white-space: pre-wrap;">
+233:                                         <strong class="text-primary">Gemini BME:</strong><br>${res.reply}
+234:                                     </div>
+235:                                 </div>
+236:                             `;
+237:                             aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+238:                         }
+239:                     } catch (err) {
+240:                         if (aiMsgBox) {
+241:                             aiMsgBox.innerHTML += `<div class="text-danger small">Lỗi: ${err.message}</div>`;
+242:                         }
+243:                     }
+244:                 });
+245:             }
+246: 
+247:             // Mistral OCR Sample trigger
+248:             const ocrBtn = document.getElementById('btn-run-sample-ocr');
+249:             if (ocrBtn) {
+250:                 ocrBtn.addEventListener('click', async () => {
+251:                     const jsonPre = document.getElementById('ocr-json-preview');
+252:                     if (jsonPre) jsonPre.textContent = '⏳ Đang bóc tách chứng chỉ...';
+253: 
+254:                     try {
+255:                         const ocrRes = await apiClient.processOcr('GCN_Monitor_2026.pdf');
+256:                         if (jsonPre) jsonPre.textContent = JSON.stringify(ocrRes.extracted_fields || {}, null, 2);
+257:                     } catch (err) {
+258:                         if (jsonPre) jsonPre.textContent = 'Lỗi: ' + err.message;
+259:                     }
+260:                 });
+261:             }
+262:         },
+263: 
+264:         async loadInitialData() {
+265:             try {
+266:                 const summary = await apiClient.getSummary();
+267:                 this.renderSummary(summary);
+268: 
+269:                 this.facilities = await apiClient.getFacilities();
+270:                 this.renderFacilityOptions(this.facilities);
+271: 
+272:                 this.categories = await apiClient.getCategories();
+273:             } catch (err) {
+274:                 console.error('Lỗi nạp dữ liệu khởi tạo:', err);
+275:             }
+276:         },
+277: 
+278:         async loadDevices() {
+279:             try {
+280:                 this.showLoading();
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:53+07:00
+Completed At: 2026-08-18T16:40:53+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\app.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -270,6 +270,7 @@
+                 this.renderFacilityOptions(this.facilities);
+ 
+                 this.categories = await apiClient.getCategories();
++                await this.loadKeysConfig();
+             } catch (err) {
+                 console.error('Lỗi nạp dữ liệu khởi tạo:', err);
+             }
+@@ -276,4 +276,97 @@
+ 
++        async loadKeysConfig() {
++            try {
++                const config = await apiClient.getKeysConfig();
++                this.renderKeysLists(config);
++            } catch (err) {
++                console.error('Lỗi nạp cấu hình keys:', err);
++            }
++        },
++
++        renderKeysLists(config) {
++            const geminiBadge = document.getElementById('gemini-keys-count-badge');
++            const mistralBadge = document.getElementById('mistral-keys-count-badge');
++            const geminiList = document.getElementById('gemini-keys-list');
++            const mistralList = document.getElementById('mistral-keys-list');
++
++            const gKeys = config.gemini || [];
++            const mKeys = config.mistral || [];
++
++            if (geminiBadge) geminiBadge.textContent = `${gKeys.length} Keys`;
++            if (mistralBadge) mistralBadge.textContent = `${mKeys.length} Keys`;
++
++            if (geminiList) {
++                if (gKeys.length === 0) {
++                    geminiList.innerHTML = '<div class="p-3 text-muted small text-center">Chưa có Gemini API key nào được lưu. Hãy nhập key ở trên.</div>';
++                } else {
++                    geminiList.innerHTML = gKeys.map((k, idx) => `
++                        <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
++                            <div>
++                                <span class="badge bg-light text-dark border font-mono me-2">#${k.id}</span>
++                                <strong class="font-mono text-primary">${k.masked_key}</strong>
++                                <span class="badge ${k.status === 'ACTIVE' ? 'bg-success' : k.status === 'RATE_LIMITED' ? 'bg-warning text-dark' : 'bg-danger'} ms-2" style="font-size: 0.68rem;">
++                                    ${k.status === 'ACTIVE' ? '🟢 Sẵn Sàng Xoay' : k.status === 'RATE_LIMITED' ? '🟡 Tạm Nghỉ (Rate-Limit)' : '🔴 Không Hợp Lệ'}
++                                </span>
++                            </div>
++                            <button class="btn btn-sm btn-outline-danger py-0 px-2 btn-clinical" onclick="app.removeKey('gemini', '${k.raw_key}')">
++                                <i class="bi bi-trash"></i>
++                            </button>
++                        </div>
++                    `).join('');
++                }
++            }
++
++            if (mistralList) {
++                if (mKeys.length === 0) {
++                    mistralList.innerHTML = '<div class="p-3 text-muted small text-center">Chưa có Mistral API key nào được lưu. Hãy nhập key ở trên.</div>';
++                } else {
++                    mistralList.innerHTML = mKeys.map((k, idx) => `
++                        <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
++                            <div>
++                                <span class="badge bg-light text-dark border font-mono me-2">#${k.id}</span>
++                                <strong class="font-mono text-warning">${k.masked_key}</strong>
++                                <span class="badge ${k.status === 'ACTIVE' ? 'bg-success' : 'bg-warning text-dark'} ms-2" style="font-size: 0.68rem;">
++                                    ${k.status === 'ACTIVE' ? '🟢 Sẵn Sàng Xoay' : '🟡 Tạm Nghỉ'}
++                                </span>
++                            </div>
++                            <button class="btn btn-sm btn-outline-danger py-0 px-2 btn-clinical" onclick="app.removeKey('mistral', '${k.raw_key}')">
++                                <i class="bi bi-trash"></i>
++                            </button>
++                        </div>
++                    `).join('');
++                }
++            }
++        },
++
++        async addKeys(service) {
++            const inputId = service === 'gemini' ? 'input-gemini-keys' : 'input-mistral-keys';
++            const inputEl = document.getElementById(inputId);
++            const val = inputEl?.value.trim();
++            if (!val) {
++                alert('Vui lòng nhập ít nhất 1 API key.');
++                return;
++            }
++
++            try {
++                const res = await apiClient.addKeys(service, val);
++                alert(res.message || 'Đã lưu keys thành công!');
++                if (inputEl) inputEl.value = '';
++                await this.loadKeysConfig();
++            } catch (err) {
++                alert('Lỗi thêm key: ' + err.message);
++            }
++        },
++
++        async removeKey(service, key) {
++            if (!confirm('Bạn có chắc muốn xóa API key này khỏi cơ chế xoay vòng?')) return;
++            try {
++                await apiClient.removeKey(service, key);
++                await this.loadKeysConfig();
++            } catch (err) {
++                alert('Lỗi xóa key: ' + err.message);
++            }
++        },
++
+         async loadDevices() {
+             try {
+                 this.showLoading();
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `manage_task`: *manage_task*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:40:58+07:00
+Completed At: 2026-08-18T16:40:58+07:00
+Task "4881bc7a-1a98-495d-aa16-c25753523ea5/task-773" cancelled.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:41:03+07:00
+Tool is running as a background task with task id: 4881bc7a-1a98-495d-aa16-c25753523ea5/task-896
+Task Description: python -c "import uvicorn; from app.main import app; uvicorn.run(app, host='127.0.0.1', port=8000, log_level='info')"
+Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-896.log
+YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
+ DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:41:09+07:00
+Completed At: 2026-08-18T16:41:10+07:00
+
+				The command exited with code 0.
+				Output:
+				Testing /api/keys/config: {'gemini': [], 'mistral': [{'id': 1, 'masked_key': 'ZuVhg5...Cdcv', 'raw_key': 'ZuVhg58uQjqxhg4jln6GFpjbKdmKCdcv', 'status': 'ACTIVE', 'fail_count': 0, 'last_used_seconds_ago': None}]}
+Adding Gemini Keys: {'status': 'success', 'message': 'Đã thêm thành công 2 API keys vào cơ chế xoay key của GEMINI!'}
+New /api/keys/config: {'gemini': [{'id': 1, 'masked_key': 'AIzaSy...Key1', 'raw_key': 'AIzaSyDemoKey1', 'status': 'ACTIVE', 'fail_count': 0, 'last_used_seconds_ago': None}, {'id': 2, 'masked_key': 'AIzaSy...Key2', 'raw_key': 'AIzaSyDemoKey2', 'status': 'ACTIVE', 'fail_count': 0, 'last_used_seconds_ago': None}], 'mistral': [{'id': 1, 'masked_key': 'ZuVhg5...Cdcv', 'raw_key': 'ZuVhg58uQjqxhg4jln6GFpjbKdmKCdcv', 'status': 'ACTIVE', 'fail_count': 0, 'last_used_seconds_ago': None}]}
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:41:14+07:00
+Completed At: 2026-08-18T16:41:18+07:00
+
+				The command exited with code 0.
+				Output:
+				=== RUNNING FULL API TESTS (WITH GEMINI AI & MISTRAL OCR) ===
+[200] / (text/html; charset=utf-8)
+[200] /health (application/json)
+  Summary: {'status': 'healthy', 'app': 'Medical Device Management System (BVQ7)', 'timestamp': '2026-08-18T16:41:15.348934'}
+[200] /api/dashboard/summary (application/json)
+  Summary: {'total_devices': 1049, 'overdue_count': 1, 'warning_count': 0}
+[200] /api/dashboard/facilities (application/json)
+  Count: 22, First item: Khoa/Phòng Chưa Phân Loại
+[200] /api/dashboard/categories (application/json)
+  Count: 10, First item: Chẩn đoán hình ảnh
+[200] /api/devices?limit=5 (application/json)
+  Count: 5, First item: Huyết áp kế lò xo / Áp kế y tế
+[200] /api/audits (application/json)
+  Count: 0, First item: Empty
+[200] /api/accessories (application/json)
+  Count: 7, First item: Bao đo huyết áp người lớn (Cuff Adult)
+[200] /api/schedules (application/json)
+  Count: 100, First item: Huyết áp kế lò xo / Áp kế y tế
+[200] /api/work-orders (application/json)
+  Count: 6, First item: Máy rửa màng lọc thận (Loại rửa 2 quả lọc) - Compact II
+
+--- Testing Gemini AI Agent ---
+[200] /api/ai/chat
+  Engine: Google Gemini 2.5 Flash / Interactions Agent, Status: success
+
+--- Testing Mistral OCR Engine ---
+[200] /api/ocr/process
+  OCR Engine: Mistral OCR Document Understanding Engine (Integrated Model), Extracted: Monitor theo dõi bệnh nhân 5 thông số
+
+✨ All API endpoints passed verification successfully!
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
