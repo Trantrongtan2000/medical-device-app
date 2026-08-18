@@ -1,112 +1,115 @@
 /**
- * API Client cho Medical Device Management System (BV Quận 7)
- * Tương thích linh hoạt môi trường web
+ * API Client Module cho Medical Device Management App
+ * Hỗ trợ các endpoint quản lý tài sản, kiểm định, lịch PM, work orders và xuất dữ liệu
  */
 
-const API_BASE_URL = window.location.origin.startsWith('http') 
-    ? `${window.location.origin}/api` 
-    : 'http://127.0.0.1:8000/api';
-
 const apiClient = {
-    /**
-     * Gọi API với xử lý lỗi chung
-     */
-    async request(endpoint, options = {}) {
-        const url = `${API_BASE_URL}${endpoint}`;
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers,
-            },
-            ...options,
-        };
+    baseUrl: '',
 
+    async request(endpoint, options = {}) {
+        const url = `${this.baseUrl}${endpoint}`;
         try {
-            const response = await fetch(url, config);
+            const response = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                },
+                ...options
+            });
+
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                const error = await response.json().catch(() => ({ detail: response.statusText }));
+                throw new Error(error.detail || `HTTP Error ${response.status}`);
             }
+
             return await response.json();
-        } catch (error) {
-            console.error(`API Error [${endpoint}]:`, error);
-            throw error;
+        } catch (err) {
+            console.error(`API Error on ${endpoint}:`, err);
+            throw err;
         }
     },
 
-    /**
-     * Lấy thống kê KPI dashboard
-     */
-    async getSummary() {
-        return await this.request('/dashboard/summary');
+    // Devices
+    async getDevices(filters = {}) {
+        const params = new URLSearchParams();
+        if (filters.facility_id) params.append('facility_id', filters.facility_id);
+        if (filters.category_id) params.append('category_id', filters.category_id);
+        if (filters.alert_status) params.append('alert_status', filters.alert_status);
+        if (filters.status) params.append('status', filters.status);
+        if (filters.risk_level) params.append('risk_level', filters.risk_level);
+        if (filters.search) params.append('search', filters.search);
+        if (filters.limit) params.append('limit', filters.limit);
+        if (filters.offset) params.append('offset', filters.offset);
+
+        return this.request(`/api/devices?${params.toString()}`);
     },
 
-    /**
-     * Lấy danh sách thiết bị kèm bộ lọc
-     */
-    async getDevices(params = {}) {
-        const queryParams = new URLSearchParams();
-        Object.entries(params).forEach(([key, value]) => {
-            if (value !== undefined && value !== null && value !== '') {
-                queryParams.append(key, value);
-            }
-        });
-        const queryStr = queryParams.toString();
-        const endpoint = queryStr ? `/devices?${queryStr}` : '/devices';
-        return await this.request(endpoint);
-    },
-
-    /**
-     * Lấy chi tiết 1 thiết bị theo ID (kèm chứng chỉ & lịch sử)
-     */
     async getDevice(id) {
-        return await this.request(`/devices/${id}`);
+        return this.request(`/api/devices/${id}`);
     },
 
-    /**
-     * Lấy danh sách khoa/phòng ban
-     */
+    // Dashboard KPI
+    async getSummary() {
+        return this.request('/api/dashboard/summary');
+    },
+
     async getFacilities() {
-        return await this.request('/dashboard/facilities');
+        return this.request('/api/dashboard/facilities');
     },
 
-    /**
-     * Lấy danh sách loại thiết bị
-     */
     async getCategories() {
-        return await this.request('/dashboard/categories');
+        return this.request('/api/dashboard/categories');
     },
 
-    /**
-     * Tạo đường dẫn xem PDF gốc
-     */
+    // Work Orders & Tickets
+    async getWorkOrders() {
+        return this.request('/api/work-orders');
+    },
+
+    async createWorkOrder(data) {
+        return this.request('/api/work-orders', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
+    // Schedules
+    async getSchedules() {
+        return this.request('/api/schedules');
+    },
+
+    // PDF URL
     getPdfUrl(filename) {
-        if (!filename) return null;
-        return `${API_BASE_URL}/pdf/view?filename=${encodeURIComponent(filename)}`;
+        if (!filename) return '#';
+        return `/api/pdf/view?filename=${encodeURIComponent(filename)}`;
     },
 
-    /**
-     * Định dạng ngày tháng VN (dd/mm/yyyy)
-     */
-    formatDate(dateString) {
-        if (!dateString) return '-';
+    // CSV Export URL
+    getCsvExportUrl(filters = {}) {
+        const params = new URLSearchParams();
+        if (filters.facility_id) params.append('facility_id', filters.facility_id);
+        if (filters.category_id) params.append('category_id', filters.category_id);
+        if (filters.alert_status) params.append('alert_status', filters.alert_status);
+        if (filters.search) params.append('search', filters.search);
+        return `/api/export/csv?${params.toString()}`;
+    },
+
+    // Utility formatting
+    formatDate(dateStr) {
+        if (!dateStr) return '-';
         try {
-            const parts = dateString.split('-');
+            const parts = dateStr.split(/[-/]/);
             if (parts.length === 3) {
-                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                if (parts[0].length === 4) {
+                    return `${parts[2].padStart(2, '0')}/${parts[1].padStart(2, '0')}/${parts[0]}`;
+                }
+                return dateStr;
             }
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return dateString;
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
-        } catch (e) {
-            return dateString;
+            return dateStr;
+        } catch {
+            return dateStr;
         }
     }
 };
 
-// Export cho browser & module
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = apiClient;
-}
+window.apiClient = apiClient;

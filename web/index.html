@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý Trang Thiết Bị Y Tế - BV Quận 7</title>
+    <title>Hệ Thống Quản Lý Trang Thiết Bị Y Tế Thông Minh - BV Quận 7</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Taste-Skill Clinical Design System CSS -->
+    <!-- Taste-Skill Design System CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-clinical py-2">
+    <!-- Header Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-clinical sticky-top">
         <div class="container-fluid px-4">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <div class="kpi-icon-wrap me-2" style="background: rgba(2, 132, 199, 0.2); color: #38bdf8; width: 38px; height: 38px;">
+                <div class="kpi-icon-wrap me-2" style="background: rgba(2, 132, 199, 0.25); color: #38bdf8; width: 38px; height: 38px;">
                     <i class="bi bi-hospital fs-5"></i>
                 </div>
                 <div>
@@ -25,33 +25,64 @@
                     <div class="brand-subtitle">BỆNH VIỆN QUẬN 7 • TP. HỒ CHÍ MINH</div>
                 </div>
             </a>
-            <div class="d-flex align-items-center gap-2">
-                <a href="/diagrams/system-architecture.html" target="_blank" class="btn btn-sm btn-outline-light btn-clinical">
-                    <i class="bi bi-diagram-3 me-1"></i> Kiến Trúc SDD
+
+            <!-- Smart Module Tabs -->
+            <ul class="nav nav-pills header-nav-tabs ms-4" id="mainTab" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="tab-devices-btn" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
+                        <i class="bi bi-boxes me-1"></i> Danh Mục Thiết Bị
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-calendar-btn" data-bs-toggle="pill" data-bs-target="#tab-calendar" type="button">
+                        <i class="bi bi-calendar-check me-1"></i> Lịch Kiểm Định & PM
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-workorders-btn" data-bs-toggle="pill" data-bs-target="#tab-workorders" type="button">
+                        <i class="bi bi-tools me-1"></i> Báo Hỏng & Sửa Chữa
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-qr-btn" data-bs-toggle="pill" data-bs-target="#tab-qr" type="button">
+                        <i class="bi bi-qr-code-scan me-1"></i> Trạm In Nhãn QR
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-analytics-btn" data-bs-toggle="pill" data-bs-target="#tab-analytics" type="button">
+                        <i class="bi bi-pie-chart-fill me-1"></i> Phân Tích & Báo Cáo
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Header Quick Action Tools -->
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <a href="/diagrams/system-architecture.html" target="_blank" class="btn btn-sm btn-outline-light btn-clinical" title="Xem sơ đồ luồng hệ thống">
+                    <i class="bi bi-diagram-3 me-1"></i> Kiến Trúc
                 </a>
-                <a href="/diagrams/device-lifecycle.html" target="_blank" class="btn btn-sm btn-outline-light btn-clinical">
-                    <i class="bi bi-arrow-repeat me-1"></i> Vòng Đời TTBYT
+                <a href="/diagrams/device-lifecycle.html" target="_blank" class="btn btn-sm btn-outline-light btn-clinical" title="Xem sơ đồ vòng đời NĐ98">
+                    <i class="bi bi-arrow-repeat me-1"></i> Vòng Đời
                 </a>
-                <span class="badge bg-dark text-light px-3 py-2 border border-secondary font-mono">
-                    <i class="bi bi-database-check text-success me-1"></i> 1.101 Devices
-                </span>
-                <a href="/docs" target="_blank" class="btn btn-sm btn-outline-light btn-clinical">
-                    <i class="bi bi-code-slash me-1"></i> Swagger API
+                <a href="/docs" target="_blank" class="btn btn-sm btn-outline-light btn-clinical" title="Tài liệu API Swagger">
+                    <i class="bi bi-code-slash me-1"></i> Swagger
                 </a>
+                <button class="btn btn-sm btn-danger btn-clinical fw-bold" id="btn-quick-incident" data-bs-toggle="modal" data-bs-target="#incidentModal">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Báo Hỏng Máy
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Container -->
+    <!-- Main Container -->
     <div class="container-fluid px-4 py-4">
 
-        <!-- KPI Grid -->
+        <!-- Top KPI Dashboard Summary -->
         <div class="kpi-grid">
             <div class="kpi-card-v2 kpi-total">
                 <div>
-                    <div class="kpi-label">Tổng Thiết Bị Y Tế</div>
+                    <div class="kpi-label">Tổng Thiết Bị Quản Lý</div>
                     <div class="kpi-value text-primary" id="kpi-total">0</div>
-                    <div class="kpi-sub"><i class="bi bi-shield-check text-primary"></i> 22 Khoa/Phòng ban</div>
+                    <div class="kpi-sub"><i class="bi bi-hospital text-primary"></i> <span id="kpi-fac-count">22 Khoa/Phòng</span></div>
                 </div>
                 <div class="kpi-icon-wrap"><i class="bi bi-boxes"></i></div>
             </div>
@@ -60,14 +91,14 @@
                 <div>
                     <div class="kpi-label">Kiểm Định Đạt Chuẩn</div>
                     <div class="kpi-value text-success" id="kpi-ok">0</div>
-                    <div class="kpi-sub"><i class="bi bi-check-circle-fill text-success"></i> Sẵn sàng vận hành</div>
+                    <div class="kpi-sub"><i class="bi bi-shield-check text-success"></i> Sẵn sàng vận hành</div>
                 </div>
                 <div class="kpi-icon-wrap"><i class="bi bi-check2-circle"></i></div>
             </div>
 
             <div class="kpi-card-v2 kpi-warning">
                 <div>
-                    <div class="kpi-label">Cảnh Báo Đến Hạn (30N)</div>
+                    <div class="kpi-label">Cảnh Báo Đến Hạn (30 Ngày)</div>
                     <div class="kpi-value text-warning" id="kpi-warning">0</div>
                     <div class="kpi-sub"><i class="bi bi-clock-history text-warning"></i> Cần lập kế hoạch KĐ</div>
                 </div>
@@ -78,80 +109,257 @@
                 <div>
                     <div class="kpi-label">Quá Hạn Kiểm Định</div>
                     <div class="kpi-value text-danger" id="kpi-overdue">0</div>
-                    <div class="kpi-sub"><i class="bi bi-exclamation-octagon-fill text-danger"></i> Ưu tiên xử lý</div>
+                    <div class="kpi-sub"><i class="bi bi-exclamation-octagon-fill text-danger"></i> Yêu cầu xử lý gấp</div>
                 </div>
                 <div class="kpi-icon-wrap"><i class="bi bi-x-octagon"></i></div>
             </div>
         </div>
 
-        <!-- Filter Panel -->
-        <div class="filter-panel">
-            <div class="row g-2 align-items-center">
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
-                        <input type="text" id="search-input" class="form-control filter-input border-start-0" placeholder="Tìm theo tên thiết bị, serial, model, hãng...">
+        <!-- Tab Contents -->
+        <div class="tab-content" id="mainTabContent">
+
+            <!-- TAB 1: ASSET EXPLORER (DANH MỤC THIẾT BỊ) -->
+            <div class="tab-pane fade show active" id="tab-devices" role="tabpanel">
+
+                <!-- Smart Quick Filter Chips -->
+                <div class="quick-chips-bar mb-3 d-flex align-items-center gap-2 flex-wrap">
+                    <span class="small fw-bold text-muted me-1"><i class="bi bi-funnel-fill"></i> Lọc nhanh:</span>
+                    <button class="chip-btn active" data-filter="all">Tất cả (1.049)</button>
+                    <button class="chip-btn chip-danger" data-filter="OVERDUE">🔴 Quá hạn KĐ</button>
+                    <button class="chip-btn chip-success" data-filter="OK">🟢 Đạt chuẩn KĐ</button>
+                    <button class="chip-btn" data-search="Cấp cứu">Khoa Cấp Cứu</button>
+                    <button class="chip-btn" data-search="Thận nhân tạo">Thận Nhân Tạo</button>
+                    <button class="chip-btn" data-search="Máy thở">Máy Thở</button>
+                    <button class="chip-btn" data-search="Monitor">Monitor Theo Dõi</button>
+                    <button class="chip-btn" data-risk="D">Mức Rủi Ro D</button>
+                    <button class="chip-btn" data-risk="C">Mức Rủi Ro C</button>
+                </div>
+
+                <!-- Filter Panel -->
+                <div class="filter-panel mb-3">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                                <input type="text" id="search-input" class="form-control filter-input border-start-0" placeholder="Tìm kiếm tên, serial, model, hãng...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="filter-facility" class="form-select filter-input">
+                                <option value="">-- Tất cả Khoa / Phòng ban --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select id="filter-category" class="form-select filter-input">
+                                <option value="">-- Tất cả Phân loại --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select id="filter-alert-status" class="form-select filter-input">
+                                <option value="">-- Trạng thái Kiểm định --</option>
+                                <option value="OVERDUE">🔴 Quá hạn KĐ</option>
+                                <option value="WARNING">🟡 Cảnh báo 30 ngày</option>
+                                <option value="OK">🟢 Đạt chuẩn</option>
+                                <option value="NO_DATA">⚪ Chưa có dữ liệu KĐ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex gap-2">
+                            <button id="btn-export-csv" class="btn btn-success btn-clinical w-100" title="Tải file Excel / CSV">
+                                <i class="bi bi-file-earmark-excel me-1"></i> Xuất CSV
+                            </button>
+                            <button id="btn-reset-filters" class="btn btn-outline-secondary btn-clinical" title="Đặt lại bộ lọc">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <select id="filter-facility" class="form-select filter-input">
-                        <option value="">-- Tất cả Khoa / Phòng ban --</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select id="filter-category" class="form-select filter-input">
-                        <option value="">-- Tất cả Phân loại --</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select id="filter-alert-status" class="form-select filter-input">
-                        <option value="">-- Trạng thái Kiểm định --</option>
-                        <option value="OVERDUE">🔴 Quá hạn KĐ</option>
-                        <option value="WARNING">🟡 Cảnh báo 30 ngày</option>
-                        <option value="OK">🟢 Đạt chuẩn</option>
-                        <option value="NO_DATA">⚪ Chưa có dữ liệu KĐ</option>
-                    </select>
-                </div>
-                <div class="col-md-1 d-flex gap-1">
-                    <button id="btn-reset-filters" class="btn btn-outline-secondary btn-clinical w-100" title="Đặt lại bộ lọc">
-                        <i class="bi bi-arrow-counterclockwise"></i>
-                    </button>
-                    <button id="btn-refresh" class="btn btn-clinical-primary btn-clinical" title="Làm mới">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
 
-        <!-- Data Panel -->
-        <div class="data-panel">
-            <div class="data-panel-header">
-                <div class="panel-title">
-                    <i class="bi bi-journal-medical text-primary"></i>
-                    <span>DANH MỤC TRANG THIẾT BỊ Y TẾ & HỒ SƠ KIỂM ĐỊNH</span>
+                <!-- Data Table Panel -->
+                <div class="data-panel">
+                    <div class="data-panel-header">
+                        <div class="panel-title">
+                            <i class="bi bi-journal-medical text-primary"></i>
+                            <span>DANH MỤC THIẾT BỊ Y TẾ & HỒ SƠ KIỂM ĐỊNH</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button id="btn-select-all-qr" class="btn btn-sm btn-outline-primary btn-clinical">
+                                <i class="bi bi-check2-all me-1"></i> Chọn tất cả để in QR
+                            </button>
+                            <span class="badge bg-light text-dark border font-mono" id="table-count">Đang tải...</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-clinical" id="devices-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"><input type="checkbox" id="check-all-devices"></th>
+                                    <th style="width: 140px;">MÃ SERIAL (S/N)</th>
+                                    <th>TÊN TRANG THIẾT BỊ & HÃNG</th>
+                                    <th>MODEL</th>
+                                    <th>RỦI RO</th>
+                                    <th>KHOA / PHÒNG BAN</th>
+                                    <th>NGÀY KĐ GẦN NHẤT</th>
+                                    <th>HẠN KĐ KẾ TIẾP</th>
+                                    <th>TRẠNG THÁI</th>
+                                    <th style="width: 110px;" class="text-end">THAO TÁC</th>
+                                </tr>
+                            </thead>
+                            <tbody id="devices-body">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <span class="badge bg-light text-dark border font-mono" id="table-count">Đang tải...</span>
             </div>
-            <div class="table-responsive">
-                <table class="table table-clinical" id="devices-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 140px;">MÃ SERIAL (S/N)</th>
-                            <th>TÊN THIẾT BỊ & HÃNG SẢN XUẤT</th>
-                            <th>MODEL</th>
-                            <th>RỦI RO</th>
-                            <th>KHOA / PHÒNG BAN</th>
-                            <th>NGÀY KĐ GẦN NHẤT</th>
-                            <th>HẠN KĐ KẾ TIẾP</th>
-                            <th>TRẠNG THÁI</th>
-                            <th style="width: 120px;" class="text-end">THAO TÁC</th>
-                        </tr>
-                    </thead>
-                    <tbody id="devices-body">
+
+            <!-- TAB 2: CALENDAR & SCHEDULES (LỊCH KIỂM ĐỊNH & PM) -->
+            <div class="tab-pane fade" id="tab-calendar" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="data-panel p-3 h-100">
+                            <h6 class="fw-bold mb-3 d-flex align-items-center gap-2 text-primary">
+                                <i class="bi bi-bell-fill"></i> Sắp Đến Hạn Kiểm Định
+                            </h6>
+                            <div id="schedule-alerts-list" class="list-group list-group-flush">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="data-panel">
+                            <div class="data-panel-header">
+                                <div class="panel-title">
+                                    <i class="bi bi-calendar-event text-primary"></i>
+                                    <span>LỊCH TRÌNH KIỂM ĐỊNH & HIỆU CHUẨN ĐỊNH KỲ (CALENDAR TIMELINE)</span>
+                                </div>
+                                <span class="badge bg-primary text-light font-mono" id="schedule-count">0 Lịch trình</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-clinical">
+                                    <thead>
+                                        <tr>
+                                            <th>HẠN KIỂM ĐỊNH</th>
+                                            <th>THIẾT BỊ</th>
+                                            <th>SỐ SERIAL</th>
+                                            <th>KHOA SỬ DỤNG</th>
+                                            <th>SỐ GCN GẦN NHẤT</th>
+                                            <th>TRẠNG THÁI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="schedules-body">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: WORK ORDERS (BÁO HỎNG & SỬA CHỮA) -->
+            <div class="tab-pane fade" id="tab-workorders" role="tabpanel">
+                <div class="data-panel">
+                    <div class="data-panel-header">
+                        <div class="panel-title">
+                            <i class="bi bi-tools text-danger"></i>
+                            <span>TRUNG TÂM TIẾP NHẬN BÁO HỎNG & WORK ORDERS SỬA CHỮA</span>
+                        </div>
+                        <button class="btn btn-sm btn-clinical-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#incidentModal">
+                            <i class="bi bi-plus-circle me-1"></i> Tạo Phiếu Báo Hỏng
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-clinical">
+                            <thead>
+                                <tr>
+                                    <th>MÃ PHIẾU</th>
+                                    <th>NGÀY TẠO</th>
+                                    <th>THIẾT BỊ</th>
+                                    <th>KHOA / VỊ TRÍ</th>
+                                    <th>LOẠI CÔNG VIỆC</th>
+                                    <th>NGƯỜI BÁO CÁO / THỰC HIỆN</th>
+                                    <th>MÔ TẢ SỰ CỐ & TIẾN ĐỘ</th>
+                                    <th>TRẠNG THÁI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="workorders-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: BULK QR TAG STUDIO (TRẠM IN MÃ NHÃN QR) -->
+            <div class="tab-pane fade" id="tab-qr" role="tabpanel">
+                <div class="data-panel p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+                        <div>
+                            <h5 class="fw-bold mb-1"><i class="bi bi-printer-fill text-primary me-2"></i>Trạm In Nhãn QR Code Hàng Loạt (Snipe-IT Style)</h5>
+                            <p class="text-muted small mb-0">Xuất nhãn in tiêu chuẩn dán trực tiếp lên thân máy để quét tra cứu hồ sơ lý lịch tức thì.</p>
+                        </div>
+                        <button class="btn btn-primary btn-clinical px-4" onclick="window.print()">
+                            <i class="bi bi-printer me-1"></i> In Toàn Bộ Nhãn Đã Chọn
+                        </button>
+                    </div>
+                    <div class="row g-3" id="qr-labels-grid">
                         <!-- Populated dynamically via JS -->
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
+
+            <!-- TAB 5: ANALYTICS & COMPLIANCE (PHÂN TÍCH & BÁO CÁO) -->
+            <div class="tab-pane fade" id="tab-analytics" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="data-panel p-4">
+                            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-hospital me-2"></i>Phân Bổ Thiết Bị Theo 22 Khoa / Phòng Ban</h6>
+                            <div id="analytics-facilities-list" class="list-group list-group-flush">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="data-panel p-4">
+                            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-lock me-2"></i>Phân Loại Mức Độ Rủi Ro (Nghị Định 98/2021/NĐ-CP)</h6>
+                            <div class="p-3 bg-light rounded-3 mb-3 border">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-bold">Mức A (Rủi ro rất thấp):</span>
+                                    <span class="font-mono fw-bold text-primary" id="stat-risk-a">850 máy</span>
+                                </div>
+                                <div class="progress mb-3" style="height: 8px;">
+                                    <div class="progress-bar bg-info" style="width: 80%;"></div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-bold">Mức B (Rủi ro trung bình thấp):</span>
+                                    <span class="font-mono fw-bold text-warning" id="stat-risk-b">120 máy</span>
+                                </div>
+                                <div class="progress mb-3" style="height: 8px;">
+                                    <div class="progress-bar bg-warning" style="width: 15%;"></div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-bold">Mức C (Rủi ro trung bình cao):</span>
+                                    <span class="font-mono fw-bold text-danger" id="stat-risk-c">50 máy</span>
+                                </div>
+                                <div class="progress mb-3" style="height: 8px;">
+                                    <div class="progress-bar bg-danger" style="width: 8%;"></div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-bold">Mức D (Rủi ro đặc biệt cao - Máy thở, ECMO, Phá rung):</span>
+                                    <span class="font-mono fw-bold text-dark" id="stat-risk-d">29 máy</span>
+                                </div>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-dark" style="width: 5%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -164,10 +372,61 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4" id="device-modal-body">
-                    <!-- Modal body loaded via JS -->
+                    <!-- Populated dynamically via JS -->
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incident / Work Order Modal -->
+    <div class="modal fade" id="incidentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-clinical">
+                <div class="modal-header bg-danger text-light">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Phiếu Báo Hỏng & Yêu Cầu Sửa Chữa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="incident-form">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">THIẾT BỊ GẶP SỰ CỐ</label>
+                            <select id="incident-device-select" class="form-select filter-input" required>
+                                <option value="">-- Chọn thiết bị cần báo hỏng --</option>
+                            </select>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-bold small text-muted">MỨC ĐỘ ƯU TIÊN</label>
+                                <select id="incident-priority" class="form-select filter-input">
+                                    <option value="NORMAL">Bình thường</option>
+                                    <option value="HIGH">Ưu tiên cao</option>
+                                    <option value="URGENT">🔴 KHẨN CẤP (Phòng mổ/Cấp cứu)</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold small text-muted">LOẠI YÊU CẦU</label>
+                                <select id="incident-type" class="form-select filter-input">
+                                    <option value="REPAIR">Sửa chữa hỏng hóc</option>
+                                    <option value="CALIBRATION">Yêu cầu kiểm định lại</option>
+                                    <option value="INSPECTION">Kiểm tra định kỳ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">NGƯỜI BÁO CÁO / KHOA PHÒNG</label>
+                            <input type="text" id="incident-reporter" class="form-control filter-input" placeholder="Ví dụ: BS. Nguyễn Văn A - Khoa Cấp Cứu" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">MÔ TẢ HIỆN TƯỢNG HƯ HỎNG</label>
+                            <textarea id="incident-desc" class="form-control filter-input" rows="3" placeholder="Mô tả chi tiết sự cố gặp phải (không lên nguồn, báo lỗi cảm biến, rò rỉ khí...)" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-clinical w-100 py-2 fw-bold">
+                            <i class="bi bi-send-fill me-1"></i> Gửi Yêu Cầu Cho Kỹ Sư Y Sinh (BME)
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
