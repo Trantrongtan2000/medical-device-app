@@ -13,7 +13,9 @@ if not transcript_path.exists():
 
 output_paths = [
     Path(r"C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md"),
-    Path(r"C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md")
+    Path(r"C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md"),
+    Path(r"C:\Users\tantt\Downloads\session.md"),
+    Path(r"C:\Users\tantt\Downloads\medical-device-app\docs\session.md")
 ]
 
 print(f"Reading transcript from: {transcript_path}")
