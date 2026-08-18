@@ -1,6 +1,6 @@
 /**
  * API Client Module cho Medical Device Management App
- * Hỗ trợ các endpoint quản lý tài sản, kiểm định, lịch PM, work orders và xuất dữ liệu
+ * Hỗ trợ các endpoint quản lý tài sản, điều chuyển, kiểm định, lịch PM, work orders và xuất dữ liệu
  */
 
 const apiClient = {
@@ -48,6 +48,14 @@ const apiClient = {
         return this.request(`/api/devices/${id}`);
     },
 
+    // Transfer Device (TLHD Mục 4 & Snipe-IT Check-out)
+    async transferDevice(data) {
+        return this.request('/api/devices/transfer', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
     // Dashboard KPI
     async getSummary() {
         return this.request('/api/dashboard/summary');
@@ -61,7 +69,7 @@ const apiClient = {
         return this.request('/api/dashboard/categories');
     },
 
-    // Work Orders & Tickets
+    // Work Orders & Tickets (SpeedMaint CMMS)
     async getWorkOrders() {
         return this.request('/api/work-orders');
     },
@@ -73,7 +81,7 @@ const apiClient = {
         });
     },
 
-    // Schedules
+    // Schedules (PM Calendar)
     async getSchedules() {
         return this.request('/api/schedules');
     },

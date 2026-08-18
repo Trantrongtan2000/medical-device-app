@@ -1,6 +1,7 @@
 /**
  * Medical Device Management System (BV Quận 7)
  * Smart Management Frontend Application Logic
+ * Chuẩn hóa theo TLHD_QLTTBYT_V1.2, SpeedMaint CMMS & Snipe-IT
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -160,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.devices.forEach(d => this.selectedDeviceIds.add(d.id));
                     this.updateCheckboxUI();
                     this.renderQrStudio();
-                    // Switch to QR Tab
                     const qrTabTrigger = document.getElementById('tab-qr-btn');
                     if (qrTabTrigger) {
                         const tab = new bootstrap.Tab(qrTabTrigger);
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // Incident form submit
+            // Incident form submit (SpeedMaint Work Order)
             const incidentForm = document.getElementById('incident-form');
             if (incidentForm) {
                 incidentForm.addEventListener('submit', async (e) => {
@@ -203,6 +203,39 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             }
+
+            // Transfer form submit (TLHD Mục 4 & Snipe-IT Check-out)
+            const transferForm = document.getElementById('transfer-form');
+            if (transferForm) {
+                transferForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const deviceId = document.getElementById('transfer-device-select').value;
+                    const toFacilityId = document.getElementById('transfer-target-facility').value;
+                    const transferredBy = document.getElementById('transfer-person').value;
+                    const reason = document.getElementById('transfer-reason').value;
+
+                    try {
+                        const res = await apiClient.transferDevice({
+                            device_id: parseInt(deviceId),
+                            to_facility_id: parseInt(toFacilityId),
+                            transferred_by: transferredBy,
+                            reason: reason
+                        });
+
+                        alert(res.message || '✅ Điều chuyển thiết bị thành công!');
+                        transferForm.reset();
+                        const modalEl = document.getElementById('transferModal');
+                        const modal = bootstrap.Modal.getInstance(modalEl);
+                        if (modal) modal.hide();
+
+                        await this.loadInitialData();
+                        await this.loadDevices();
+                        await this.loadWorkOrders();
+                    } catch (err) {
+                        alert('Lỗi điều chuyển: ' + err.message);
+                    }
+                });
+            }
         },
 
         async loadInitialData() {
@@ -228,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.devices = devices;
                 this.renderDevicesTable(devices);
                 this.populateIncidentDeviceOptions(devices);
+                this.populateTransferDeviceOptions(devices);
                 this.renderQrStudio();
             } catch (err) {
                 console.error('Lỗi khi tải danh sách thiết bị:', err);
@@ -250,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const orders = await apiClient.getWorkOrders();
                 this.workOrders = orders;
                 this.renderWorkOrders(orders);
+                this.renderTransfers(orders);
             } catch (err) {
                 console.error('Lỗi nạp work orders:', err);
             }
@@ -287,21 +322,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
         renderSummary(summary) {
             const elTotal = document.getElementById('kpi-total');
-            const elOk = document.getElementById('kpi-ok');
+            const elAvail = document.getElementById('kpi-avail-rate');
+            const elOkSub = document.getElementById('kpi-ok-sub');
             const elWarning = document.getElementById('kpi-warning');
             const elOverdue = document.getElementById('kpi-overdue');
 
             if (elTotal) elTotal.textContent = Number(summary.total_devices || 0).toLocaleString('vi-VN');
-            if (elOk) elOk.textContent = Number(summary.ok_count || 0).toLocaleString('vi-VN');
+            if (elAvail) elAvail.textContent = `${summary.availability_rate || 100}%`;
+            if (elOkSub) elOkSub.textContent = `${summary.ok_count || 0} máy đạt chuẩn KĐ`;
             if (elWarning) elWarning.textContent = Number(summary.warning_count || 0).toLocaleString('vi-VN');
             if (elOverdue) elOverdue.textContent = Number(summary.overdue_count || 0).toLocaleString('vi-VN');
         },
 
         renderFacilityOptions(facilities) {
             const select = document.getElementById('filter-facility');
-            if (!select) return;
-            select.innerHTML = '<option value="">-- Tất cả Khoa / Phòng ban --</option>' +
+            const transferTargetSelect = document.getElementById('transfer-target-facility');
+
+            const optionsHtml = '<option value="">-- Chọn Khoa / Phòng ban --</option>' +
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
+
+            if (select) select.innerHTML = '<option value="">-- Tất cả Khoa / Phòng ban --</option>' +
+                facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
+
+            if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
         },
 
         renderCategoryOptions(categories) {
@@ -316,6 +359,20 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!select) return;
             select.innerHTML = '<option value="">-- Chọn thiết bị cần báo hỏng --</option>' +
                 devices.map(d => `<option value="${d.id}">${d.device_name} (SN: ${d.serial_no}) - ${d.facility || 'Toàn viện'}</option>`).join('');
+        },
+
+        populateTransferDeviceOptions(devices) {
+            const select = document.getElementById('transfer-device-select');
+            if (!select) return;
+            select.innerHTML = '<option value="">-- Chọn thiết bị cần điều chuyển --</option>' +
+                devices.map(d => `<option value="${d.id}">${d.device_name} (SN: ${d.serial_no}) [Đang ở: ${d.facility || 'Chưa rõ'}]</option>`).join('');
+        },
+
+        openTransferModalForDevice(deviceId) {
+            const select = document.getElementById('transfer-device-select');
+            if (select) select.value = deviceId;
+            const modal = new bootstrap.Modal(document.getElementById('transferModal'));
+            modal.show();
         },
 
         toggleDeviceSelection(id) {
@@ -372,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const riskClass = `risk-tag risk-tag-${(d.risk_level || 'a').toLowerCase()}`;
                 const pdfBtn = d.source_pdf ? `
-                    <a href="${apiClient.getPdfUrl(d.source_pdf)}" target="_blank" class="btn btn-sm btn-clinical-pdf btn-clinical" title="Xem PDF gốc">
+                    <a href="${apiClient.getPdfUrl(d.source_pdf)}" target="_blank" class="btn btn-sm btn-clinical-pdf btn-clinical" title="Xem PDF chứng từ gốc">
                         <i class="bi bi-file-earmark-pdf"></i>
                     </a>
                 ` : '';
@@ -396,8 +453,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td class="font-mono"><strong class="${alertStatus === 'OVERDUE' ? 'text-danger' : alertStatus === 'WARNING' ? 'text-warning' : ''}">${apiClient.formatDate(d.recalibration_date)}</strong></td>
                         <td>${badgeHtml}</td>
                         <td class="text-end">
-                            <button class="btn btn-sm btn-clinical-primary btn-clinical me-1" onclick="app.viewDetails(${d.id})" title="Xem hồ sơ chi tiết">
+                            <button class="btn btn-sm btn-clinical-primary btn-clinical me-1" onclick="app.viewDetails(${d.id})" title="Xem hồ sơ lý lịch máy">
                                 <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary btn-clinical me-1" onclick="app.openTransferModalForDevice(${d.id})" title="Điều chuyển khoa phòng (Check-out)">
+                                <i class="bi bi-arrow-left-right"></i>
                             </button>
                             ${pdfBtn}
                         </td>
@@ -452,12 +512,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const tbody = document.getElementById('workorders-body');
             if (!tbody) return;
 
-            if (orders.length === 0) {
+            const repairs = orders.filter(o => o.maintenance_type !== 'HANDOVER');
+
+            if (repairs.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Chưa có phiếu báo hỏng nào.</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = orders.map(o => `
+            tbody.innerHTML = repairs.map(o => `
                 <tr>
                     <td class="font-mono fw-bold">WO-#${o.id}</td>
                     <td class="font-mono text-muted">${apiClient.formatDate(o.maintenance_date)}</td>
@@ -466,7 +528,30 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td><span class="badge bg-light text-dark border">${o.maintenance_type || 'REPAIR'}</span></td>
                     <td>${o.performed_by || '-'}</td>
                     <td class="small">${o.description || '-'}</td>
-                    <td><span class="badge-status-pill status-ok">Đang xử lý</span></td>
+                    <td><span class="badge-status-pill status-warning">Đang xử lý</span></td>
+                </tr>
+            `).join('');
+        },
+
+        renderTransfers(orders) {
+            const tbody = document.getElementById('transfers-body');
+            if (!tbody) return;
+
+            const transfers = orders.filter(o => o.maintenance_type === 'HANDOVER' || o.description?.includes('Điều chuyển'));
+
+            if (transfers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có lịch sử điều chuyển thiết bị.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = transfers.map(t => `
+                <tr>
+                    <td class="font-mono fw-bold text-primary">${apiClient.formatDate(t.maintenance_date)}</td>
+                    <td><div class="fw-bold">${t.device_name}</div><small class="text-muted">Model: ${t.model}</small></td>
+                    <td><span class="font-mono badge bg-light text-dark border">${t.serial_no}</span></td>
+                    <td><strong>${t.performed_by || '-'}</strong></td>
+                    <td class="small">${t.description || '-'}</td>
+                    <td><span class="badge-status-pill status-ok">Đã bàn giao</span></td>
                 </tr>
             `).join('');
         },
@@ -521,7 +606,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const modalBody = document.getElementById('device-modal-body');
 
                 if (modalTitle) {
-                    modalTitle.innerHTML = `<i class="bi bi-heart-pulse-fill text-primary me-2"></i>Hồ Sơ Thiết Bị: ${device.device_name}`;
+                    modalTitle.innerHTML = `<i class="bi bi-heart-pulse-fill text-primary me-2"></i>Lý Lịch Máy: ${device.device_name}`;
                 }
 
                 if (modalBody) {
@@ -549,63 +634,108 @@ document.addEventListener('DOMContentLoaded', function () {
                         `).join('')
                         : '<p class="text-muted p-3 bg-light rounded-3">Chưa có lịch sử chứng chỉ kiểm định.</p>';
 
+                    const historyHtml = (device.maintenance_logs && device.maintenance_logs.length > 0)
+                        ? device.maintenance_logs.map(l => `
+                            <div class="list-group-item border-0 mb-2 p-3 bg-light rounded-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary text-light">${l.maintenance_type || 'HANDOVER'}</span>
+                                    <span class="font-mono small text-muted">${apiClient.formatDate(l.maintenance_date)}</span>
+                                </div>
+                                <div class="mt-2 small text-dark">${l.description || '-'}</div>
+                                <small class="text-muted d-block mt-1">Người thực hiện: <strong>${l.performed_by || '-'}</strong></small>
+                            </div>
+                        `).join('')
+                        : '<p class="text-muted p-3 bg-light rounded-3">Chưa có nhật ký bảo trì / điều chuyển.</p>';
+
                     const qrData = encodeURIComponent(`TB:${device.device_name}|SN:${device.serial_no}|MD:${device.model}|KHOA:${device.facility || ''}`);
                     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${qrData}`;
 
                     modalBody.innerHTML = `
-                        <div class="row g-3">
-                            <div class="col-md-8">
-                                <div class="device-spec-grid">
-                                    <div class="spec-item">
-                                        <div class="spec-label">Tên thiết bị</div>
-                                        <div class="spec-value text-primary">${device.device_name}</div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Số Serial (S/N)</div>
-                                        <div class="spec-value font-mono">${device.serial_no}</div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Model / Ký hiệu</div>
-                                        <div class="spec-value font-mono">${device.model}</div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Khoa / Phòng ban</div>
-                                        <div class="spec-value">${device.facility || 'Chưa phân bổ'}</div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Hãng sản xuất</div>
-                                        <div class="spec-value">${device.manufacturer || '-'}</div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Nước sản xuất</div>
-                                        <div class="spec-value">${device.country_of_manufacturer || '-'}</div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Phân loại rủi ro</div>
-                                        <div class="spec-value"><span class="risk-tag risk-tag-${(device.risk_level || 'a').toLowerCase()}">Mức ${device.risk_level || 'A'} (Nghị định 98)</span></div>
-                                    </div>
-                                    <div class="spec-item">
-                                        <div class="spec-label">Trạng thái vận hành</div>
-                                        <div class="spec-value"><span class="badge-status-pill status-ok">${device.status || 'Đang sử dụng'}</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <div class="p-3 bg-light rounded-3 border">
-                                    <img src="${qrUrl}" alt="QR Code" class="img-fluid rounded mb-2 shadow-sm" style="width: 130px; height: 130px;">
-                                    <div class="small fw-bold">NHÃN MÃ QR CODE</div>
-                                    <small class="text-muted d-block">Quét camera xem hồ sơ</small>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Nav tabs inside Dossier Modal -->
+                        <ul class="nav nav-tabs mb-3" id="dossierTabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-dossier-spec" type="button">
+                                    <i class="bi bi-info-circle me-1"></i> Thông Số Kỹ Thuật
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-dossier-certs" type="button">
+                                    <i class="bi bi-award me-1"></i> Hồ Sơ Kiểm Định (${device.certificates?.length || 0})
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-dossier-logs" type="button">
+                                    <i class="bi bi-clock-history me-1"></i> Lịch Sử Bàn Giao & Sửa Chữa
+                                </button>
+                            </li>
+                        </ul>
 
-                        <hr class="my-4">
-                        <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
-                            <i class="bi bi-journal-check text-success"></i>
-                            <span>Lịch Sử Kiểm Định & Hiệu Chuẩn</span>
-                        </h6>
-                        <div class="list-group border-0">
-                            ${certsHtml}
+                        <div class="tab-content">
+                            <!-- Spec Tab -->
+                            <div class="tab-pane fade show active" id="tab-dossier-spec">
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <div class="device-spec-grid">
+                                            <div class="spec-item">
+                                                <div class="spec-label">Tên thiết bị y tế</div>
+                                                <div class="spec-value text-primary">${device.device_name}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Số Serial (S/N)</div>
+                                                <div class="spec-value font-mono">${device.serial_no}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Model / Ký hiệu</div>
+                                                <div class="spec-value font-mono">${device.model}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Khoa / Vị trí lắp đặt</div>
+                                                <div class="spec-value text-dark fw-bold">${device.facility || 'Chưa phân bổ'}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Hãng sản xuất</div>
+                                                <div class="spec-value">${device.manufacturer || '-'}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Nước sản xuất</div>
+                                                <div class="spec-value">${device.country_of_manufacturer || '-'}</div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Phân loại rủi ro</div>
+                                                <div class="spec-value"><span class="risk-tag risk-tag-${(device.risk_level || 'a').toLowerCase()}">Mức ${device.risk_level || 'A'} (Nghị định 98)</span></div>
+                                            </div>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Tình trạng kỹ thuật</div>
+                                                <div class="spec-value"><span class="badge-status-pill status-ok">${device.status || 'Đang sử dụng'}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <div class="p-3 bg-light rounded-3 border">
+                                            <img src="${qrUrl}" alt="QR Code" class="img-fluid rounded mb-2 shadow-sm" style="width: 130px; height: 130px;">
+                                            <div class="small fw-bold">NHÃN MÃ QR CODE</div>
+                                            <small class="text-muted d-block">Quét camera xem hồ sơ</small>
+                                            <button class="btn btn-sm btn-outline-primary btn-clinical mt-2 w-100" onclick="app.openTransferModalForDevice(${device.id})">
+                                                <i class="bi bi-arrow-left-right me-1"></i> Điều chuyển khoa
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Certs Tab -->
+                            <div class="tab-pane fade" id="tab-dossier-certs">
+                                <div class="list-group border-0">
+                                    ${certsHtml}
+                                </div>
+                            </div>
+
+                            <!-- Logs Tab -->
+                            <div class="tab-pane fade" id="tab-dossier-logs">
+                                <div class="list-group border-0">
+                                    ${historyHtml}
+                                </div>
+                            </div>
                         </div>
                     `;
                 }

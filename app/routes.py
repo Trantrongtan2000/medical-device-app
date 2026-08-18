@@ -1,11 +1,12 @@
 """
 API Routes cho Medical Device Management System (BV Quận 7)
+Chuẩn hóa theo TLHD_QLTTBYT_V1.2, SpeedMaint CMMS & Snipe-IT
 """
 import io
 import csv
 from datetime import date, timedelta, datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse
 from pathlib import Path
 from typing import Optional, List
 from pydantic import BaseModel
@@ -36,11 +37,11 @@ async def get_devices(
     status: Optional[str] = Query(None, description="Lọc trạng thái hoạt động"),
     risk_level: Optional[str] = Query(None, description="Lọc mức độ rủi ro (A, B, C, D)"),
     search: Optional[str] = Query(None, description="Tìm kiếm theo tên, model, serial, hãng sản xuất"),
-    limit: int = Query(200, ge=1, le=1000),
+    limit: int = Query(300, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     db = Depends(get_db)
 ):
-    """Liệt kê danh sách thiết bị với bộ lọc đa tiêu chí"""
+    """Liệt kê danh sách thiết bị với bộ lọc đa tiêu chí (Snipe-IT / SpeedMaint)"""
     query = "SELECT * FROM device_status_summary"
     conditions = []
     params = []
@@ -82,7 +83,7 @@ async def get_devices(
 
 @router.get("/api/devices/{device_id}")
 async def get_device(device_id: int, db = Depends(get_db)):
-    """Chi tiết hồ sơ lý lịch thiết bị"""
+    """Chi tiết hồ sơ lý lịch thiết bị y tế (Lý lịch máy chuẩn Bộ Y Tế & Snipe-IT Dossier)"""
     query = """
         SELECT d.*, f.name as facility, c.name as category
         FROM devices d
@@ -96,7 +97,7 @@ async def get_device(device_id: int, db = Depends(get_db)):
     
     device_data = dict(row)
     
-    # Lấy lịch sử chứng chỉ kiểm định
+    # Lấy lịch sử chứng chỉ kiểm định (1:N)
     certs_query = """
         SELECT * FROM calibration_certificates
         WHERE device_id = ?
@@ -105,11 +106,11 @@ async def get_device(device_id: int, db = Depends(get_db)):
     certs = db.execute(certs_query, (device_id,)).fetchall()
     device_data["certificates"] = [dict(c) for c in certs]
     
-    # Lấy nhật ký bảo trì
+    # Lấy nhật ký bảo trì & điều chuyển (Maintenance & Transfer History)
     logs_query = """
         SELECT * FROM maintenance_logs
         WHERE device_id = ?
-        ORDER BY maintenance_date DESC
+        ORDER BY maintenance_date DESC, id DESC
     """
     logs = db.execute(logs_query, (device_id,)).fetchall()
     device_data["maintenance_logs"] = [dict(l) for l in logs]
@@ -117,11 +118,55 @@ async def get_device(device_id: int, db = Depends(get_db)):
     return device_data
 
 
-# ==================== DASHBOARD ENDPOINTS ====================
+# ==================== TRANSFER & CHECK-IN / CHECK-OUT ====================
+
+class DeviceTransferRequest(BaseModel):
+    device_id: int
+    to_facility_id: int
+    transferred_by: str
+    reason: str
+
+@router.post("/api/devices/transfer")
+async def transfer_device(req: DeviceTransferRequest, db = Depends(get_db)):
+    """Điều chuyển thiết bị giữa các khoa phòng (TLHD_QLTTBYT Mục 4 & Snipe-IT Check-out)"""
+    cur = db.cursor()
+    
+    # Lấy tên khoa cũ và khoa mới
+    old_fac = db.execute("""
+        SELECT f.name FROM devices d
+        LEFT JOIN facilities f ON d.facility_id = f.id
+        WHERE d.id = ?
+    """, (req.device_id,)).fetchone()
+    old_fac_name = old_fac[0] if old_fac and old_fac[0] else "Chưa phân bổ"
+    
+    new_fac = db.execute("SELECT name FROM facilities WHERE id = ?", (req.to_facility_id,)).fetchone()
+    if not new_fac:
+        raise HTTPException(status_code=400, detail="Khoa phòng đích không tồn tại")
+    new_fac_name = new_fac[0]
+    
+    # Cập nhật khoa mới
+    cur.execute("UPDATE devices SET facility_id = ? WHERE id = ?", (req.to_facility_id, req.device_id))
+    
+    # Ghi nhận vào nhật ký điều chuyển
+    today_str = date.today().isoformat()
+    desc = f"Điều chuyển từ [{old_fac_name}] sang [{new_fac_name}]. Lý do: {req.reason}"
+    cur.execute("""
+        INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+        VALUES (?, ?, ?, 'HANDOVER', ?)
+    """, (req.device_id, today_str, req.transferred_by, desc))
+    
+    db.commit()
+    return {
+        "status": "success",
+        "message": f"Đã điều chuyển thiết bị thành công sang {new_fac_name}!"
+    }
+
+
+# ==================== DASHBOARD KPI & SPEEDMAINT METRICS ====================
 
 @router.get("/api/dashboard/summary")
 async def get_dashboard_summary(db = Depends(get_db)):
-    """Thống kê tổng quan KPI trang thiết bị y tế"""
+    """Thống kê tổng quan KPI trang thiết bị y tế (SpeedMaint & Snipe-IT Dashboard)"""
     total = db.execute("SELECT COUNT(*) FROM devices").fetchone()[0]
     
     overdue = db.execute("""
@@ -144,14 +189,19 @@ async def get_dashboard_summary(db = Depends(get_db)):
         SELECT COUNT(*) FROM devices WHERE status = 'REPAIR'
     """).fetchone()[0]
     
-    return DeviceSummary(
-        total_devices=total,
-        overdue_count=overdue,
-        warning_count=warning,
-        ok_count=ok,
-        in_service_count=in_service,
-        repair_count=repair
-    )
+    # Tính tỷ lệ sẵn sàng vận hành (Equipment Availability Rate)
+    avail_rate = round((in_service / total * 100), 1) if total > 0 else 100.0
+    
+    return {
+        "total_devices": total,
+        "overdue_count": overdue,
+        "warning_count": warning,
+        "ok_count": ok,
+        "in_service_count": in_service,
+        "repair_count": repair,
+        "availability_rate": avail_rate,
+        "compliance_rate": round(((ok) / (ok + overdue + warning) * 100), 1) if (ok + overdue + warning) > 0 else 100.0
+    }
 
 
 @router.get("/api/dashboard/facilities")
@@ -168,7 +218,6 @@ async def get_facilities(db = Depends(get_db)):
     return [dict(row) for row in result]
 
 
-
 @router.get("/api/dashboard/categories")
 async def get_categories(db = Depends(get_db)):
     """Danh sách loại thiết bị"""
@@ -183,7 +232,7 @@ async def get_categories(db = Depends(get_db)):
     return [dict(row) for row in result]
 
 
-# ==================== WORK ORDERS & TICKETS ====================
+# ==================== WORK ORDERS & INCIDENTS (SPEEDMAINT CMMS) ====================
 
 class WorkOrderCreate(BaseModel):
     device_id: int
@@ -194,7 +243,7 @@ class WorkOrderCreate(BaseModel):
 
 @router.get("/api/work-orders")
 async def list_work_orders(db = Depends(get_db)):
-    """Danh sách phiếu báo hỏng & bảo dưỡng"""
+    """Danh sách phiếu báo hỏng & bảo dưỡng (SpeedMaint Work Orders)"""
     query = """
         SELECT l.id, l.device_id, l.maintenance_date, l.performed_by, l.maintenance_type, 
                l.description, d.device_name, d.serial_no, d.model, f.name as facility
@@ -208,7 +257,7 @@ async def list_work_orders(db = Depends(get_db)):
 
 @router.post("/api/work-orders")
 async def create_work_order(ticket: WorkOrderCreate, db = Depends(get_db)):
-    """Tạo phiếu báo hỏng / yêu cầu bảo dưỡng mới"""
+    """Tạo phiếu báo hỏng / yêu cầu bảo dưỡng mới (TLHD_QLTTBYT Mục 6)"""
     today_str = date.today().isoformat()
     cur = db.cursor()
     cur.execute("""
@@ -216,7 +265,6 @@ async def create_work_order(ticket: WorkOrderCreate, db = Depends(get_db)):
         VALUES (?, ?, ?, ?, ?)
     """, (ticket.device_id, today_str, ticket.reported_by, ticket.issue_type, f"[{ticket.priority}] {ticket.description}"))
     
-    # Cập nhật trạng thái máy nếu khẩn cấp
     if ticket.priority in ("URGENT", "HIGH"):
         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
         
@@ -228,7 +276,7 @@ async def create_work_order(ticket: WorkOrderCreate, db = Depends(get_db)):
 
 @router.get("/api/schedules")
 async def get_schedules(db = Depends(get_db)):
-    """Lịch kiểm định và bảo dưỡng thiết bị y tế"""
+    """Lịch kiểm định và bảo dưỡng thiết bị y tế (PM Calendar)"""
     query = """
         SELECT d.id as device_id, d.device_name, d.serial_no, d.model, f.name as facility,
                c.recalibration_date as due_date, c.certificate_no, 'CALIBRATION' as schedule_type,
@@ -239,7 +287,7 @@ async def get_schedules(db = Depends(get_db)):
         LEFT JOIN facilities f ON d.facility_id = f.id
         WHERE c.recalibration_date IS NOT NULL
         ORDER BY c.recalibration_date ASC
-        LIMIT 200
+        LIMIT 300
     """
     rows = db.execute(query).fetchall()
     return [dict(r) for r in rows]
@@ -281,7 +329,6 @@ async def export_devices_csv(
     rows = db.execute(query, params).fetchall()
     
     output = io.StringIO()
-    # Write BOM for Excel Vietnamese display
     output.write('\ufeff')
     writer = csv.writer(output)
     
