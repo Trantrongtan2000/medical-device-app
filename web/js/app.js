@@ -44,7 +44,22 @@ document.addEventListener('DOMContentLoaded', function () {
             const pageHeading = document.getElementById('page-heading');
 
             navButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const targetId = btn.getAttribute('data-bs-target');
+                    if (targetId) {
+                        document.querySelectorAll('.tab-pane').forEach(p => {
+                            p.classList.remove('show', 'active');
+                        });
+                        const targetPane = document.querySelector(targetId);
+                        if (targetPane) {
+                            targetPane.classList.add('show', 'active');
+                        }
+                    }
+
                     const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
                     const iconClass = btn.querySelector('i')?.className || 'bi bi-boxes';
                     if (pageHeading) {
