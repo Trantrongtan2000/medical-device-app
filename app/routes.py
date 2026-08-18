@@ -17,8 +17,10 @@ from .models import (
     CalibrationCertificate, CalibrationCertificateCreate,
     DeviceSummary, DeviceStatus
 )
+from .ai_services import gemini_service, mistral_ocr_service
 
 router = APIRouter()
+
 
 PDF_ROOT_DIRS = [
     Path(r"G:\BV QUẬN 7_OCR_WORK_20260712"),
@@ -489,3 +491,47 @@ async def view_pdf(filename: str = Query(..., description="Tên file hoặc đư
             return FileResponse(matches[0], media_type="application/pdf")
             
     raise HTTPException(status_code=404, detail=f"Không tìm thấy file PDF: {filename}")
+
+
+# ==================== GEMINI AI AGENT & MISTRAL OCR ENDPOINTS ====================
+
+class AIChatRequest(BaseModel):
+    message: str
+    device_id: Optional[int] = None
+
+@router.post("/api/ai/chat")
+async def ai_chat(req: AIChatRequest, db = Depends(get_db)):
+    """Trợ lý AI Gemini chuyên sâu quản lý TTBYT BV Quận 7"""
+    context_devices = []
+    if req.device_id:
+        row = db.execute("SELECT * FROM device_status_summary WHERE id = ?", (req.device_id,)).fetchone()
+        if row:
+            context_devices.append(dict(row))
+    else:
+        # Lấy mẫu top thiết bị để làm context
+        rows = db.execute("SELECT * FROM device_status_summary ORDER BY alert_status ASC LIMIT 10").fetchall()
+        context_devices = [dict(r) for r in rows]
+        
+    ai_reply = await gemini_service.chat(
+        user_message=req.message,
+        context_devices=context_devices
+    )
+    return {
+        "status": "success",
+        "reply": ai_reply,
+        "engine": "Google Gemini 2.5 Flash / Interactions Agent"
+    }
+
+
+class OCRProcessRequest(BaseModel):
+    filename: Optional[str] = None
+    file_path: Optional[str] = None
+
+@router.post("/api/ocr/process")
+async def process_ocr(req: OCRProcessRequest):
+    """Mistral OCR Engine (https://mistral.ai/news/ocr-4/) xử lý và bóc tách tài liệu y tế"""
+    result = await mistral_ocr_service.process_document(
+        file_path=req.file_path,
+        filename=req.filename or "Tài liệu kiểm định TTBYT.pdf"
+    )
+    return result

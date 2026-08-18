@@ -103,6 +103,21 @@ const apiClient = {
         return this.request('/api/schedules');
     },
 
+    // Gemini AI Management Agent & Mistral OCR
+    async aiChat(message, deviceId = null) {
+        return this.request('/api/ai/chat', {
+            method: 'POST',
+            body: JSON.stringify({ message, device_id: deviceId })
+        });
+    },
+
+    async processOcr(filename = '', filePath = '') {
+        return this.request('/api/ocr/process', {
+            method: 'POST',
+            body: JSON.stringify({ filename, file_path: filePath })
+        });
+    },
+
     // PDF URL
     getPdfUrl(filename) {
         if (!filename) return '#';

@@ -303,6 +303,112 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             }
+
+            // Gemini AI Chat Form Submit
+            const aiForm = document.getElementById('ai-chat-form');
+            const aiInput = document.getElementById('ai-chat-input');
+            const aiMsgBox = document.getElementById('ai-chat-messages');
+
+            if (aiForm) {
+                aiForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const text = aiInput.value.trim();
+                    if (!text) return;
+
+                    // Append user message
+                    if (aiMsgBox) {
+                        aiMsgBox.innerHTML += `
+                            <div class="d-flex gap-2 mb-3 justify-content-end">
+                                <div class="p-3 bg-primary text-white rounded-3 shadow-sm" style="max-width: 80%;">
+                                    <div class="small fw-bold mb-1">Kỹ sư BME (Bạn)</div>
+                                    <div class="small">${text}</div>
+                                </div>
+                            </div>
+                        `;
+                        aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+                    }
+
+                    aiInput.value = '';
+
+                    // Show typing indicator
+                    const typingId = 'typing-' + Date.now();
+                    if (aiMsgBox) {
+                        aiMsgBox.innerHTML += `
+                            <div class="d-flex gap-2 mb-3" id="${typingId}">
+                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px; height:36px;">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="p-3 bg-white border rounded-3 shadow-sm text-muted small">
+                                    <span class="spinner-border spinner-border-sm me-1"></span> Gemini BME Agent đang suy luận...
+                                </div>
+                            </div>
+                        `;
+                        aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+                    }
+
+                    try {
+                        const res = await apiClient.aiChat(text);
+                        document.getElementById(typingId)?.remove();
+
+                        if (aiMsgBox) {
+                            aiMsgBox.innerHTML += `
+                                <div class="d-flex gap-2 mb-3">
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px; height:36px;">
+                                        <i class="bi bi-robot"></i>
+                                    </div>
+                                    <div class="p-3 bg-white border rounded-3 shadow-sm" style="max-width: 85%;">
+                                        <div class="fw-bold text-primary small mb-1">Gemini BME Agent</div>
+                                        <div class="small" style="white-space: pre-wrap;">${res.reply}</div>
+                                    </div>
+                                </div>
+                            `;
+                            aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+                        }
+                    } catch (err) {
+                        document.getElementById(typingId)?.remove();
+                        if (aiMsgBox) {
+                            aiMsgBox.innerHTML += `
+                                <div class="d-flex gap-2 mb-3">
+                                    <div class="p-3 bg-danger text-white rounded-3 small">
+                                        Lỗi kết nối Gemini AI: ${err.message}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                });
+            }
+
+            // Quick Prompt buttons
+            document.querySelectorAll('.ai-prompt-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const prompt = btn.getAttribute('data-prompt');
+                    if (aiInput && prompt) {
+                        aiInput.value = prompt;
+                        aiForm?.dispatchEvent(new Event('submit'));
+                    }
+                });
+            });
+
+            // Mistral OCR Sample trigger
+            const ocrBtn = document.getElementById('btn-run-sample-ocr');
+            if (ocrBtn) {
+                ocrBtn.addEventListener('click', async () => {
+                    const mdPre = document.getElementById('ocr-markdown-preview');
+                    const jsonPre = document.getElementById('ocr-json-preview');
+
+                    if (mdPre) mdPre.textContent = '⏳ Mistral OCR Engine đang bóc tách cấu trúc tài liệu PDF/Scan...';
+                    if (jsonPre) jsonPre.textContent = '// Đang trích xuất JSON Schema...';
+
+                    try {
+                        const ocrRes = await apiClient.processOcr('GCN_Kiem_Dinh_Monitor_2026.pdf');
+                        if (mdPre) mdPre.textContent = ocrRes.markdown || 'Hoàn tất bóc tách.';
+                        if (jsonPre) jsonPre.textContent = JSON.stringify(ocrRes.extracted_fields || {}, null, 2);
+                    } catch (err) {
+                        if (mdPre) mdPre.textContent = 'Lỗi OCR: ' + err.message;
+                    }
+                });
+            }
         },
 
         async loadInitialData() {
