@@ -1,0 +1,19 @@
+{
+  "name": "medical-device-frontend",
+  "version": "1.0.0",
+  "description": "Frontend cho Medical Device Management System",
+  "scripts": {
+    "dev": "python start_server.py",
+    "build": "echo 'Build script here'",
+    "serve": "npx serve web -p 8080"
+  },
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "keywords": [
+    "medical-device",
+    "healthcare",
+    "dashboard"
+  ],
+  "license": "MIT"
+}

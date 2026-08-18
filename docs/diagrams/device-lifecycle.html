@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vòng Đời Quản Lý & Tuân Thủ TTBYT - BV Quận 7</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --paper-color: #ffffff;
+            --ink-primary: #0f172a;
+            --ink-secondary: #475569;
+            --line-color: #cbd5e1;
+            --accent-blue: #0284c7;
+            --accent-emerald: #059669;
+            --accent-amber: #d97706;
+            --accent-rose: #e11d48;
+            --accent-purple: #7c3aed;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--ink-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .diagram-container {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--paper-color);
+            border: 1px solid var(--line-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+            padding: 2.5rem;
+        }
+
+        .diagram-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--line-color);
+            padding-bottom: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .diagram-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .diagram-subtitle {
+            font-size: 0.875rem;
+            color: var(--ink-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .diagram-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #f1f5f9;
+            border: 1px solid var(--line-color);
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            color: var(--accent-blue);
+        }
+
+        svg { width: 100%; height: auto; display: block; }
+
+        .state-box {
+            fill: #ffffff;
+            stroke-width: 1.75px;
+            rx: 8px;
+            transition: all 0.2s;
+        }
+
+        .state-box:hover {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+        }
+
+        .state-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            fill: var(--ink-primary);
+        }
+
+        .state-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            fill: var(--ink-secondary);
+        }
+
+        .state-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .trans-line {
+            stroke: #94a3b8;
+            stroke-width: 1.5px;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .trans-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            fill: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="diagram-container">
+        <header class="diagram-header">
+            <div>
+                <h1 class="diagram-title">Sơ Đồ Vòng Đời Vận Hành & Tuân Thủ Thiết Bị Y Tế</h1>
+                <p class="diagram-subtitle">State Machine chuẩn hóa theo Nghị định 98/2021/NĐ-CP & Quy trình TA5.TTBYT.QT.01 - QT.09</p>
+            </div>
+            <div class="diagram-badge">STATE MACHINE · COMPLIANCE</div>
+        </header>
+
+        <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/>
+                </marker>
+                <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#059669"/>
+                </marker>
+                <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#d97706"/>
+                </marker>
+                <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#e11d48"/>
+                </marker>
+            </defs>
+
+            <!-- State 1: Tiếp nhận / Nghiệm thu -->
+            <g transform="translate(30, 60)">
+                <rect width="180" height="90" class="state-box" stroke="#0284c7"/>
+                <text x="15" y="28" class="state-title">1. Tiếp Nhận & Nghiệm Thu</text>
+                <text x="15" y="50" class="state-desc">Biên bản bàn giao BM04</text>
+                <text x="15" y="68" class="state-desc">Quy trình TA5.TTBYT.QT.04</text>
+                <text x="135" y="28" class="state-code" fill="#0284c7">QT.04</text>
+            </g>
+
+            <!-- State 2: Bàn giao Khoa / Vận hành -->
+            <g transform="translate(260, 60)">
+                <rect width="190" height="90" class="state-box" stroke="#059669"/>
+                <text x="15" y="28" class="state-title">2. Sẵn Sàng / Đang Vận Hành</text>
+                <text x="15" y="50" class="state-desc">Phân bổ theo 22 Khoa/Phòng</text>
+                <text x="15" y="68" class="state-desc">Dán nhãn QR Code (Snipe-IT)</text>
+                <text x="145" y="28" class="state-code" fill="#059669">IN_SERVICE</text>
+            </g>
+
+            <!-- State 3: Cảnh báo Hạn KĐ (30 Ngày) -->
+            <g transform="translate(500, 60)">
+                <rect width="200" height="90" class="state-box" stroke="#d97706"/>
+                <text x="15" y="28" class="state-title">3. Cảnh Báo Đến Hạn (30N)</text>
+                <text x="15" y="50" class="state-desc">Kế hoạch KĐ/HC định kỳ</text>
+                <text x="15" y="68" class="state-desc">Quy trình CS.TTBYT.04</text>
+                <text x="140" y="28" class="state-code" fill="#d97706">WARNING</text>
+            </g>
+
+            <!-- State 4: Quá Hạn KĐ (Dừng máy / Lock) -->
+            <g transform="translate(750, 60)">
+                <rect width="210" height="90" class="state-box" stroke="#e11d48"/>
+                <text x="15" y="28" class="state-title">4. Quá Hạn Kiểm Định</text>
+                <text x="15" y="50" class="state-desc">Nguy cơ mất an toàn khám bệnh</text>
+                <text x="15" y="68" class="state-desc">Khóa tạm thời hoặc ưu tiên KĐ</text>
+                <text x="145" y="28" class="state-code" fill="#e11d48">OVERDUE</text>
+            </g>
+
+            <!-- State 5: Thực Hiện Kiểm Định / Hiệu Chuẩn -->
+            <g transform="translate(500, 240)">
+                <rect width="200" height="95" class="state-box" stroke="#0284c7"/>
+                <text x="15" y="28" class="state-title">5. Kiểm Định / Hiệu Chuẩn</text>
+                <text x="15" y="50" class="state-desc">Đơn vị: Vinacontrol / KĐ y tế</text>
+                <text x="15" y="68" class="state-desc">Cấp GCN & Dán tem KĐ mới</text>
+                <text x="15" y="84" class="state-desc">Lưu PDF gốc vào CSDL</text>
+                <text x="135" y="28" class="state-code" fill="#0284c7">CALIBRATION</text>
+            </g>
+
+            <!-- State 6: Báo Hỏng & Sửa Chữa (Work Order) -->
+            <g transform="translate(260, 240)">
+                <rect width="190" height="95" class="state-box" stroke="#7c3aed"/>
+                <text x="15" y="28" class="state-title">6. Báo Hỏng & Sửa Chữa</text>
+                <text x="15" y="50" class="state-desc">Ticket báo hỏng từ khoa lâm sàng</text>
+                <text x="15" y="68" class="state-desc">KTV thay linh kiện / Gọi hãng</text>
+                <text x="15" y="84" class="state-desc">Quy trình QT.06 (Bảo trì/Sửa chữa)</text>
+                <text x="140" y="28" class="state-code" fill="#7c3aed">REPAIR</text>
+            </g>
+
+            <!-- State 7: Thanh Lý / Hết Niên Hạn -->
+            <g transform="translate(30, 240)">
+                <rect width="180" height="95" class="state-box" stroke="#64748b"/>
+                <text x="15" y="28" class="state-title">7. Hội Đồng Thanh Lý</text>
+                <text x="15" y="50" class="state-desc">Đánh giá kỹ thuật không phục hồi</text>
+                <text x="15" y="68" class="state-desc">Hết niên hạn khấu hao</text>
+                <text x="15" y="84" class="state-desc">Quy trình TA5.TTBYT.QT.07</text>
+                <text x="135" y="28" class="state-code" fill="#64748b">RETIRED</text>
+            </g>
+
+            <!-- Transitions -->
+            <!-- 1 -> 2: Nghiệm thu đạt -->
+            <path d="M 210 105 L 260 105" class="trans-line" marker-end="url(#arrow-green)"/>
+            
+            <!-- 2 -> 3: Thời gian trôi qua (còn 30 ngày) -->
+            <path d="M 450 105 L 500 105" class="trans-line" marker-end="url(#arrow-amber)"/>
+            
+            <!-- 3 -> 4: Quá ngày hết hạn -->
+            <path d="M 700 105 L 750 105" class="trans-line" marker-end="url(#arrow-red)"/>
+
+            <!-- 3 -> 5: KĐ định kỳ trước hạn -->
+            <path d="M 600 150 L 600 240" class="trans-line" marker-end="url(#arrow)"/>
+
+            <!-- 4 -> 5: KĐ bổ sung sau khi quá hạn -->
+            <path d="M 855 150 L 855 285 L 700 285" class="trans-line" marker-end="url(#arrow)"/>
+
+            <!-- 5 -> 2: Đạt chuẩn KĐ -> Quay lại Vận hành -->
+            <path d="M 500 285 L 355 285 L 355 150" class="trans-line" marker-end="url(#arrow-green)"/>
+
+            <!-- 2 -> 6: Phát sinh sự cố / Hỏng hóc -->
+            <path d="M 320 150 L 320 240" class="trans-line" marker-end="url(#arrow)"/>
+
+            <!-- 6 -> 2: Sửa chữa xong & nghiệm thu -->
+            <path d="M 390 240 L 390 150" class="trans-line" marker-end="url(#arrow-green)"/>
+
+            <!-- 6 -> 7: Hỏng nặng không thể phục hồi -> Đề xuất thanh lý -->
+            <path d="M 260 285 L 210 285" class="trans-line" marker-end="url(#arrow)"/>
+        </svg>
+    </div>
+
+</body>
+</html>

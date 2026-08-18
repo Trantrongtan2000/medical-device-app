@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiến Trúc Hệ Thống Quản Lý Trang Thiết Bị Y Tế - BV Quận 7</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --paper-color: #ffffff;
+            --ink-primary: #0f172a;
+            --ink-secondary: #475569;
+            --ink-muted: #94a3b8;
+            --line-color: #cbd5e1;
+            --accent-primary: #0284c7;
+            --accent-teal: #0d9488;
+            --accent-amber: #d97706;
+            --accent-rose: #e11d48;
+            --accent-emerald: #059669;
+            --badge-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--ink-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .diagram-container {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--paper-color);
+            border: 1px solid var(--line-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            padding: 2.5rem;
+        }
+
+        .diagram-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--line-color);
+            padding-bottom: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .diagram-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--ink-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .diagram-subtitle {
+            font-size: 0.875rem;
+            color: var(--ink-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .diagram-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--badge-bg);
+            border: 1px solid var(--line-color);
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            color: var(--accent-primary);
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .node-box {
+            fill: #ffffff;
+            stroke: var(--line-color);
+            stroke-width: 1.5px;
+            rx: 8px;
+            transition: stroke 0.2s, filter 0.2s;
+        }
+
+        .node-box:hover {
+            stroke: var(--accent-primary);
+            filter: drop-shadow(0 4px 6px rgba(2, 132, 199, 0.12));
+        }
+
+        .node-header {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            fill: var(--ink-primary);
+        }
+
+        .node-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            fill: var(--ink-secondary);
+        }
+
+        .node-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .edge-line {
+            stroke: var(--line-color);
+            stroke-width: 1.75px;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .edge-line-active {
+            stroke: var(--accent-primary);
+            stroke-width: 2px;
+            stroke-dasharray: 4 4;
+            animation: dash 20s linear infinite;
+        }
+
+        .cluster-box {
+            fill: #f8fafc;
+            stroke: #e2e8f0;
+            stroke-width: 1.2px;
+            stroke-dasharray: 4 4;
+            rx: 10px;
+        }
+
+        .cluster-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            fill: var(--ink-secondary);
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="diagram-container">
+        <header class="diagram-header">
+            <div>
+                <h1 class="diagram-title">Kiến Trúc Hệ Thống & Luồng Dữ Liệu Quản Lý TTBYT</h1>
+                <p class="diagram-subtitle">Mô hình Spec-Driven Architecture kết hợp chuẩn Snipe-IT & SpeedMaint CMMS (BV Quận 7)</p>
+            </div>
+            <div class="diagram-badge">SDD · FASTAPI · SQLITE · OCR</div>
+        </header>
+
+        <svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/>
+                </marker>
+                <marker id="arrow-gray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8"/>
+                </marker>
+            </defs>
+
+            <!-- Cluster 1: Source Data (G: Drive) -->
+            <rect x="20" y="30" width="220" height="460" class="cluster-box"/>
+            <text x="35" y="55" class="cluster-title">1. Nguồn Hồ Sơ & OCR (Ổ G:)</text>
+
+            <!-- G: Drive PDF -->
+            <g transform="translate(35, 75)">
+                <rect width="190" height="85" class="node-box" stroke="#e11d48"/>
+                <circle cx="20" cy="22" r="5" fill="#e11d48"/>
+                <text x="32" y="26" class="node-header">Tệp PDF Gốc</text>
+                <text x="15" y="48" class="node-desc">G:\BV QUẬN 7_OCR_WORK_20260712</text>
+                <text x="15" y="65" class="node-desc">BBBG, GCN Kiểm định, Hợp đồng</text>
+                <text x="150" y="26" class="node-tag" fill="#e11d48">PDF</text>
+            </g>
+
+            <!-- G: Drive MD -->
+            <g transform="translate(35, 185)">
+                <rect width="190" height="85" class="node-box" stroke="#0d9488"/>
+                <circle cx="20" cy="22" r="5" fill="#0d9488"/>
+                <text x="32" y="26" class="node-header">7.715 Tệp MD (OCR)</text>
+                <text x="15" y="48" class="node-desc">YAML Frontmatter Metadata</text>
+                <text x="15" y="65" class="node-desc">Serial, Model, Hạn KĐ, Khoa</text>
+                <text x="145" y="26" class="node-tag" fill="#0d9488">YAML</text>
+            </g>
+
+            <!-- Quy trình ISO/QT -->
+            <g transform="translate(35, 295)">
+                <rect width="190" height="85" class="node-box" stroke="#64748b"/>
+                <circle cx="20" cy="22" r="5" fill="#64748b"/>
+                <text x="32" y="26" class="node-header">Quy Trình TA5.TTBYT</text>
+                <text x="15" y="48" class="node-desc">QT.01 -> QT.09 & CS.TTBYT.04</text>
+                <text x="15" y="65" class="node-desc">Nghiệm thu, KĐ/HC, Bảo trì</text>
+                <text x="145" y="26" class="node-tag" fill="#64748b">DOC</text>
+            </g>
+
+            <!-- Cluster 2: Ingestion & Core Storage -->
+            <rect x="270" y="30" width="220" height="460" class="cluster-box"/>
+            <text x="285" y="55" class="cluster-title">2. Xử Lý & Chuẩn Hóa CSDL</text>
+
+            <!-- Importer Script -->
+            <g transform="translate(285, 130)">
+                <rect width="190" height="85" class="node-box" stroke="#0284c7"/>
+                <circle cx="20" cy="22" r="5" fill="#0284c7"/>
+                <text x="32" y="26" class="node-header">Parser & Normalizer</text>
+                <text x="15" y="48" class="node-desc">import_md_data.py</text>
+                <text x="15" y="65" class="node-desc">Trích xuất rủi ro A/B/C/D & GCN</text>
+                <text x="135" y="26" class="node-tag" fill="#0284c7">PYTHON</text>
+            </g>
+
+            <!-- SQLite DB -->
+            <g transform="translate(285, 260)">
+                <rect width="190" height="110" class="node-box" stroke="#059669"/>
+                <circle cx="20" cy="22" r="5" fill="#059669"/>
+                <text x="32" y="26" class="node-header">SQLite WAL Database</text>
+                <text x="15" y="48" class="node-desc">1.101 Devices · 329 GCN KĐ</text>
+                <text x="15" y="65" class="node-desc">22 Facilities · Triggers</text>
+                <text x="15" y="82" class="node-desc">View: device_status_summary</text>
+                <text x="145" y="26" class="node-tag" fill="#059669">SQLITE</text>
+            </g>
+
+            <!-- Cluster 3: Backend REST Services -->
+            <rect x="520" y="30" width="210" height="460" class="cluster-box"/>
+            <text x="535" y="55" class="cluster-title">3. Dịch Vụ API Backend</text>
+
+            <!-- FastAPI Server -->
+            <g transform="translate(530, 95)">
+                <rect width="190" height="110" class="node-box" stroke="#0284c7"/>
+                <circle cx="20" cy="22" r="5" fill="#0284c7"/>
+                <text x="32" y="26" class="node-header">FastAPI REST Server</text>
+                <text x="15" y="48" class="node-desc">app/main.py · Uvicorn :8000</text>
+                <text x="15" y="65" class="node-desc">Pydantic v2 Models Validation</text>
+                <text x="15" y="82" class="node-desc">Interactive Swagger UI /docs</text>
+                <text x="135" y="26" class="node-tag" fill="#0284c7">FASTAPI</text>
+            </g>
+
+            <!-- API Endpoints -->
+            <g transform="translate(530, 240)">
+                <rect width="190" height="130" class="node-box" stroke="#6366f1"/>
+                <circle cx="20" cy="22" r="5" fill="#6366f1"/>
+                <text x="32" y="26" class="node-header">Core REST Endpoints</text>
+                <text x="15" y="48" class="node-desc">GET /api/dashboard/summary</text>
+                <text x="15" y="65" class="node-desc">GET /api/devices (Multi-Filter)</text>
+                <text x="15" y="82" class="node-desc">GET /api/devices/{id} (Profile)</text>
+                <text x="15" y="99" class="node-desc">GET /api/pdf/view (Stream PDF)</text>
+                <text x="145" y="26" class="node-tag" fill="#6366f1">REST</text>
+            </g>
+
+            <!-- Cluster 4: Web Experience -->
+            <rect x="760" y="30" width="220" height="460" class="cluster-box"/>
+            <text x="775" y="55" class="cluster-title">4. Giao Diện & Tiện Ích</text>
+
+            <!-- KPI & Dashboard -->
+            <g transform="translate(775, 75)">
+                <rect width="190" height="85" class="node-box" stroke="#d97706"/>
+                <circle cx="20" cy="22" r="5" fill="#d97706"/>
+                <text x="32" y="26" class="node-header">Bảng Điều Khiển KPI</text>
+                <text x="15" y="48" class="node-desc">Đạt chuẩn · Cảnh báo 30N</text>
+                <text x="15" y="65" class="node-desc">Quá hạn đỏ · Phân loại rủi ro</text>
+                <text x="145" y="26" class="node-tag" fill="#d97706">SPEEDMAINT</text>
+            </g>
+
+            <!-- Asset Tracking & QR -->
+            <g transform="translate(775, 185)">
+                <rect width="190" height="85" class="node-box" stroke="#0284c7"/>
+                <circle cx="20" cy="22" r="5" fill="#0284c7"/>
+                <text x="32" y="26" class="node-header">Lý Lịch & Mã QR Code</text>
+                <text x="15" y="48" class="node-desc">In nhãn dán thiết bị y tế</text>
+                <text x="15" y="65" class="node-desc">Quét camera xem hồ sơ tức thì</text>
+                <text x="145" y="26" class="node-tag" fill="#0284c7">SNIPE-IT</text>
+            </g>
+
+            <!-- PDF Viewer -->
+            <g transform="translate(775, 295)">
+                <rect width="190" height="85" class="node-box" stroke="#e11d48"/>
+                <circle cx="20" cy="22" r="5" fill="#e11d48"/>
+                <text x="32" y="26" class="node-header">Đối Soát Hồ Sơ PDF</text>
+                <text x="15" y="48" class="node-desc">Mở chứng chỉ kiểm định gốc</text>
+                <text x="15" y="65" class="node-desc">Biên bản bàn giao đính kèm</text>
+                <text x="145" y="26" class="node-tag" fill="#e11d48">VIEWER</text>
+            </g>
+
+            <!-- Connectors / Edges -->
+            <!-- MD -> Importer -->
+            <path d="M 225 227 L 285 172" class="edge-line-active" marker-end="url(#arrow)"/>
+            <!-- Importer -> SQLite -->
+            <path d="M 380 215 L 380 260" class="edge-line-active" marker-end="url(#arrow)"/>
+            <!-- SQLite -> FastAPI -->
+            <path d="M 475 315 L 530 150" class="edge-line-active" marker-end="url(#arrow)"/>
+            <!-- FastAPI -> Endpoints -->
+            <path d="M 625 205 L 625 240" class="edge-line" marker-end="url(#arrow)"/>
+            <!-- Endpoints -> Dashboard -->
+            <path d="M 720 280 L 775 117" class="edge-line-active" marker-end="url(#arrow)"/>
+            <!-- Endpoints -> QR -->
+            <path d="M 720 305 L 775 227" class="edge-line" marker-end="url(#arrow)"/>
+            <!-- Endpoints -> PDF Viewer -->
+            <path d="M 720 335 L 775 337" class="edge-line" marker-end="url(#arrow)"/>
+            <!-- PDF File -> PDF Viewer Direct Link -->
+            <path d="M 225 117 C 400 10, 700 10, 870 295" class="edge-line" stroke="#e11d48" stroke-dasharray="3 3" marker-end="url(#arrow-gray)"/>
+        </svg>
+    </div>
+
+</body>
+</html>
