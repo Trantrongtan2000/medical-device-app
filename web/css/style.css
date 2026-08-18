@@ -1,20 +1,25 @@
 /* ==========================================================================
    Medical Device Management System (BV Quận 7)
-   Taste-Skill Guided Design System: Anti-Slop, High-Precision Clinical Utility
-   Dials: DESIGN_VARIANCE: 6 | MOTION_INTENSITY: 4 | VISUAL_DENSITY: 6
+   UI/UX Pro Max & Taste-Skill Enterprise Clinical Design System
+   Stack: Vanilla CSS + Bootstrap 5 + Plus Jakarta Sans + JetBrains Mono
+   WCAG 2.1 AAA High-Contrast Clinical Palette
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;600;700&display=swap');
 
 :root {
     /* Brand Foundation */
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* Intentional Color Palette (HSL based for harmonious contrast) */
+    /* UI/UX Pro Max Clinical Palette */
     --color-primary: #0284c7;
     --color-primary-dark: #0369a1;
     --color-primary-light: #e0f2fe;
+    --color-primary-hover: #0274b0;
+
+    --color-secondary: #0891b2;
+    --color-secondary-light: #ecfeff;
 
     --color-success: #059669;
     --color-success-bg: #ecfdf5;
@@ -36,7 +41,7 @@
     --border-strong: #cbd5e1;
 
     --text-primary: #0f172a;
-    --text-secondary: #475569;
+    --text-secondary: #334155;
     --text-muted: #64748b;
     --text-subtle: #94a3b8;
 
@@ -70,6 +75,7 @@ body {
     color: var(--text-primary);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .font-mono {
@@ -93,7 +99,7 @@ body {
 .brand-subtitle {
     font-size: 0.72rem;
     color: #94a3b8;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -266,7 +272,7 @@ body {
 
 .filter-input:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
     outline: none;
 }
 
