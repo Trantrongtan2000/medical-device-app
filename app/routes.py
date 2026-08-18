@@ -1,6 +1,6 @@
 """
 API Routes cho Medical Device Management System (BV Quận 7)
-Chuẩn hóa theo TLHD_QLTTBYT_V1.2, SpeedMaint CMMS & Snipe-IT
+Chuẩn hóa toàn diện theo Snipe-IT Asset Management, SpeedMaint CMMS & TLHD_QLTTBYT
 """
 import io
 import csv
@@ -27,7 +27,7 @@ PDF_ROOT_DIRS = [
 ]
 
 
-# ==================== DEVICE ENDPOINTS ====================
+# ==================== DEVICE ENDPOINTS (SNIPE-IT ASSET API) ====================
 
 @router.get("/api/devices")
 async def get_devices(
@@ -41,7 +41,7 @@ async def get_devices(
     offset: int = Query(0, ge=0),
     db = Depends(get_db)
 ):
-    """Liệt kê danh sách thiết bị với bộ lọc đa tiêu chí (Snipe-IT / SpeedMaint)"""
+    """Liệt kê danh sách tài sản TTBYT với mã Asset Tag chuẩn Snipe-IT"""
     query = "SELECT * FROM device_status_summary"
     conditions = []
     params = []
@@ -78,12 +78,20 @@ async def get_devices(
     params.extend([limit, offset])
     
     result = db.execute(query, params).fetchall()
-    return [dict(row) for row in result]
+    
+    # Bổ sung Asset Tag chuẩn Snipe-IT (e.g. BVQ7-00123)
+    devices_list = []
+    for row in result:
+        d = dict(row)
+        d["asset_tag"] = f"BVQ7-TTB-{d['id']:05d}"
+        devices_list.append(d)
+        
+    return devices_list
 
 
 @router.get("/api/devices/{device_id}")
 async def get_device(device_id: int, db = Depends(get_db)):
-    """Chi tiết hồ sơ lý lịch thiết bị y tế (Lý lịch máy chuẩn Bộ Y Tế & Snipe-IT Dossier)"""
+    """Chi tiết hồ sơ lý lịch tài sản (Snipe-IT Asset Dossier & TLHD Mẫu Biểu)"""
     query = """
         SELECT d.*, f.name as facility, c.name as category
         FROM devices d
@@ -96,8 +104,9 @@ async def get_device(device_id: int, db = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
     
     device_data = dict(row)
+    device_data["asset_tag"] = f"BVQ7-TTB-{device_data['id']:05d}"
     
-    # Lấy lịch sử chứng chỉ kiểm định (1:N)
+    # Lịch sử kiểm định (Certificates)
     certs_query = """
         SELECT * FROM calibration_certificates
         WHERE device_id = ?
@@ -106,7 +115,7 @@ async def get_device(device_id: int, db = Depends(get_db)):
     certs = db.execute(certs_query, (device_id,)).fetchall()
     device_data["certificates"] = [dict(c) for c in certs]
     
-    # Lấy nhật ký bảo trì & điều chuyển (Maintenance & Transfer History)
+    # Nhật ký bàn giao, bảo trì & Audit Trail (Snipe-IT History)
     logs_query = """
         SELECT * FROM maintenance_logs
         WHERE device_id = ?
@@ -118,7 +127,7 @@ async def get_device(device_id: int, db = Depends(get_db)):
     return device_data
 
 
-# ==================== TRANSFER & CHECK-IN / CHECK-OUT ====================
+# ==================== CHECK-IN / CHECK-OUT / AUDIT (SNIPE-IT) ====================
 
 class DeviceTransferRequest(BaseModel):
     device_id: int
@@ -128,28 +137,25 @@ class DeviceTransferRequest(BaseModel):
 
 @router.post("/api/devices/transfer")
 async def transfer_device(req: DeviceTransferRequest, db = Depends(get_db)):
-    """Điều chuyển thiết bị giữa các khoa phòng (TLHD_QLTTBYT Mục 4 & Snipe-IT Check-out)"""
+    """Check-out / Bàn giao thiết bị sang khoa khác (Snipe-IT Check-out)"""
     cur = db.cursor()
     
-    # Lấy tên khoa cũ và khoa mới
     old_fac = db.execute("""
         SELECT f.name FROM devices d
         LEFT JOIN facilities f ON d.facility_id = f.id
         WHERE d.id = ?
     """, (req.device_id,)).fetchone()
-    old_fac_name = old_fac[0] if old_fac and old_fac[0] else "Chưa phân bổ"
+    old_fac_name = old_fac[0] if old_fac and old_fac[0] else "Kho lưu trữ"
     
     new_fac = db.execute("SELECT name FROM facilities WHERE id = ?", (req.to_facility_id,)).fetchone()
     if not new_fac:
         raise HTTPException(status_code=400, detail="Khoa phòng đích không tồn tại")
     new_fac_name = new_fac[0]
     
-    # Cập nhật khoa mới
-    cur.execute("UPDATE devices SET facility_id = ? WHERE id = ?", (req.to_facility_id, req.device_id))
+    cur.execute("UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?", (req.to_facility_id, req.device_id))
     
-    # Ghi nhận vào nhật ký điều chuyển
     today_str = date.today().isoformat()
-    desc = f"Điều chuyển từ [{old_fac_name}] sang [{new_fac_name}]. Lý do: {req.reason}"
+    desc = f"Bàn giao / Check-out từ [{old_fac_name}] -> [{new_fac_name}]. Lý do: {req.reason}"
     cur.execute("""
         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
         VALUES (?, ?, ?, 'HANDOVER', ?)
@@ -158,8 +164,26 @@ async def transfer_device(req: DeviceTransferRequest, db = Depends(get_db)):
     db.commit()
     return {
         "status": "success",
-        "message": f"Đã điều chuyển thiết bị thành công sang {new_fac_name}!"
+        "message": f"Đã bàn giao tài sản thành công sang {new_fac_name}!"
     }
+
+
+class AuditConfirmRequest(BaseModel):
+    device_id: int
+    audited_by: str
+    notes: Optional[str] = "Đã kiểm kê thực tế tại khoa phòng"
+
+@router.post("/api/devices/audit")
+async def audit_device(req: AuditConfirmRequest, db = Depends(get_db)):
+    """Xác nhận kiểm kê tài sản thực tế (Snipe-IT Asset Audit)"""
+    today_str = date.today().isoformat()
+    cur = db.cursor()
+    cur.execute("""
+        INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+        VALUES (?, ?, ?, 'INSPECTION', ?)
+    """, (req.device_id, today_str, req.audited_by, f"[KIỂM KÊ ĐỊNH KỲ] {req.notes}"))
+    db.commit()
+    return {"status": "success", "message": "Đã ghi nhận kết quả kiểm kê tài sản!"}
 
 
 # ==================== DASHBOARD KPI & SPEEDMAINT METRICS ====================
@@ -189,7 +213,6 @@ async def get_dashboard_summary(db = Depends(get_db)):
         SELECT COUNT(*) FROM devices WHERE status = 'REPAIR'
     """).fetchone()[0]
     
-    # Tính tỷ lệ sẵn sàng vận hành (Equipment Availability Rate)
     avail_rate = round((in_service / total * 100), 1) if total > 0 else 100.0
     
     return {
@@ -232,18 +255,18 @@ async def get_categories(db = Depends(get_db)):
     return [dict(row) for row in result]
 
 
-# ==================== WORK ORDERS & INCIDENTS (SPEEDMAINT CMMS) ====================
+# ==================== WORK ORDERS & TICKETS (SPEEDMAINT CMMS) ====================
 
 class WorkOrderCreate(BaseModel):
     device_id: int
     reported_by: str
-    priority: str = "NORMAL"  # URGENT, HIGH, NORMAL, LOW
+    priority: str = "NORMAL"
     description: str
-    issue_type: str = "REPAIR" # REPAIR, CALIBRATION, INSPECTION
+    issue_type: str = "REPAIR"
 
 @router.get("/api/work-orders")
 async def list_work_orders(db = Depends(get_db)):
-    """Danh sách phiếu báo hỏng & bảo dưỡng (SpeedMaint Work Orders)"""
+    """Danh sách phiếu báo hỏng & sửa chữa"""
     query = """
         SELECT l.id, l.device_id, l.maintenance_date, l.performed_by, l.maintenance_type, 
                l.description, d.device_name, d.serial_no, d.model, f.name as facility
@@ -257,7 +280,7 @@ async def list_work_orders(db = Depends(get_db)):
 
 @router.post("/api/work-orders")
 async def create_work_order(ticket: WorkOrderCreate, db = Depends(get_db)):
-    """Tạo phiếu báo hỏng / yêu cầu bảo dưỡng mới (TLHD_QLTTBYT Mục 6)"""
+    """Tạo phiếu báo hỏng / yêu cầu sửa chữa mới"""
     today_str = date.today().isoformat()
     cur = db.cursor()
     cur.execute("""
@@ -333,14 +356,14 @@ async def export_devices_csv(
     writer = csv.writer(output)
     
     writer.writerow([
-        "STT", "Mã Serial (S/N)", "Tên Thiết Bị", "Model", "Hãng Sản Xuất",
-        "Nước Sản Xuất", "Mức Rủi Ro (NĐ98)", "Khoa / Phòng Ban", "Ngày Kiểm Định",
+        "Mã Tài Sản (Asset Tag)", "Mã Serial (S/N)", "Tên Thiết Bị", "Model", "Hãng Sản Xuất",
+        "Nước Sản Xuất", "Mức Rủi Ro (NĐ98)", "Khoa / Vị Trí", "Ngày Kiểm Định",
         "Hạn Kiểm Định", "Trạng Thái KĐ", "Tệp PDF Gốc"
     ])
     
-    for idx, r in enumerate(rows, 1):
+    for r in rows:
         writer.writerow([
-            idx,
+            f"BVQ7-TTB-{r['id']:05d}",
             r["serial_no"] or "",
             r["device_name"] or "",
             r["model"] or "",

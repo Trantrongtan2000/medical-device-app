@@ -1,6 +1,6 @@
 /**
  * API Client Module cho Medical Device Management App
- * Hỗ trợ các endpoint quản lý tài sản, điều chuyển, kiểm định, lịch PM, work orders và xuất dữ liệu
+ * Hỗ trợ các endpoint quản lý tài sản, Asset Tag, Audit, điều chuyển, kiểm định, lịch PM, work orders và xuất dữ liệu
  */
 
 const apiClient = {
@@ -29,7 +29,7 @@ const apiClient = {
         }
     },
 
-    // Devices
+    // Devices (Snipe-IT Asset API)
     async getDevices(filters = {}) {
         const params = new URLSearchParams();
         if (filters.facility_id) params.append('facility_id', filters.facility_id);
@@ -51,6 +51,14 @@ const apiClient = {
     // Transfer Device (TLHD Mục 4 & Snipe-IT Check-out)
     async transferDevice(data) {
         return this.request('/api/devices/transfer', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
+    // Physical Audit Check (Snipe-IT Audit)
+    async auditDevice(data) {
+        return this.request('/api/devices/audit', {
             method: 'POST',
             body: JSON.stringify(data)
         });

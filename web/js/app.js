@@ -1,11 +1,11 @@
 /**
  * Medical Device Management System (BV Quận 7)
  * Smart Management Frontend Application Logic
- * Chuẩn hóa theo TLHD_QLTTBYT_V1.2, SpeedMaint CMMS & Snipe-IT
+ * Chuẩn hóa theo Snipe-IT Asset Management, SpeedMaint CMMS & TLHD_QLTTBYT_V1.2
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('🏥 Hệ thống Quản lý Trang thiết bị Y tế Thông minh đã sẵn sàng');
+    console.log('🏥 Hệ thống Quản lý Trang thiết bị Y tế Snipe-IT & SpeedMaint đã sẵn sàng');
 
     const app = {
         devices: [],
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             reason: reason
                         });
 
-                        alert(res.message || '✅ Điều chuyển thiết bị thành công!');
+                        alert(res.message || '✅ Bàn giao thiết bị thành công!');
                         transferForm.reset();
                         const modalEl = document.getElementById('transferModal');
                         const modal = bootstrap.Modal.getInstance(modalEl);
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         await this.loadDevices();
                         await this.loadWorkOrders();
                     } catch (err) {
-                        alert('Lỗi điều chuyển: ' + err.message);
+                        alert('Lỗi bàn giao: ' + err.message);
                     }
                 });
             }
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (tbody) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="10" class="text-center py-5">
+                        <td colspan="11" class="text-center py-5">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Đang tải...</span>
                             </div>
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (tbody) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="10" class="text-center py-4 text-danger">
+                        <td colspan="11" class="text-center py-4 text-danger">
                             <i class="bi bi-exclamation-triangle-fill fs-3"></i>
                             <p class="mt-2 fw-semibold">${msg}</p>
                         </td>
@@ -338,10 +338,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const select = document.getElementById('filter-facility');
             const transferTargetSelect = document.getElementById('transfer-target-facility');
 
-            const optionsHtml = '<option value="">-- Chọn Khoa / Phòng ban --</option>' +
+            const optionsHtml = '<option value="">-- Chọn Khoa / Vị trí --</option>' +
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
 
-            if (select) select.innerHTML = '<option value="">-- Tất cả Khoa / Phòng ban --</option>' +
+            if (select) select.innerHTML = '<option value="">-- Tất cả Khoa / Vị trí --</option>' +
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
 
             if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
@@ -364,8 +364,8 @@ document.addEventListener('DOMContentLoaded', function () {
         populateTransferDeviceOptions(devices) {
             const select = document.getElementById('transfer-device-select');
             if (!select) return;
-            select.innerHTML = '<option value="">-- Chọn thiết bị cần điều chuyển --</option>' +
-                devices.map(d => `<option value="${d.id}">${d.device_name} (SN: ${d.serial_no}) [Đang ở: ${d.facility || 'Chưa rõ'}]</option>`).join('');
+            select.innerHTML = '<option value="">-- Chọn thiết bị cần bàn giao --</option>' +
+                devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} (SN: ${d.serial_no}) [Đang ở: ${d.facility || 'Chưa rõ'}]</option>`).join('');
         },
 
         openTransferModalForDevice(deviceId) {
@@ -373,6 +373,23 @@ document.addEventListener('DOMContentLoaded', function () {
             if (select) select.value = deviceId;
             const modal = new bootstrap.Modal(document.getElementById('transferModal'));
             modal.show();
+        },
+
+        async triggerAuditCheck(deviceId, deviceName) {
+            const auditor = prompt(`Xác nhận kiểm kê thực tế cho thiết bị: [${deviceName}]\nNhập tên Kỹ sư / Cán bộ kiểm kê:`, 'KS. Ban Kiểm Kê');
+            if (auditor) {
+                try {
+                    await apiClient.auditDevice({
+                        device_id: deviceId,
+                        audited_by: auditor,
+                        notes: 'Kiểm kê định kỳ hiện diện tại khoa'
+                    });
+                    alert('✅ Đã xác nhận kiểm kê tài sản thành công!');
+                    await this.loadWorkOrders();
+                } catch (err) {
+                    alert('Lỗi kiểm kê: ' + err.message);
+                }
+            }
         },
 
         toggleDeviceSelection(id) {
@@ -404,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!devices || devices.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="10" class="text-center py-5 text-muted">
+                        <td colspan="11" class="text-center py-5 text-muted">
                             <i class="bi bi-inbox fs-2"></i>
                             <p class="mt-2">Không tìm thấy thiết bị nào phù hợp với bộ lọc.</p>
                         </td>
@@ -418,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let badgeHtml = '';
 
                 if (alertStatus === 'OVERDUE') {
-                    badgeHtml = `<span class="badge-status-pill status-overdue"><i class="bi bi-x-circle-fill"></i> Quá hạn KĐ</span>`;
+                    badgeHtml = `<span class="badge-status-pill status-overdue"><i class="bi bi-x-circle-fill"></i> Quá hạn</span>`;
                 } else if (alertStatus === 'WARNING') {
                     badgeHtml = `<span class="badge-status-pill status-warning"><i class="bi bi-exclamation-triangle-fill"></i> Cảnh báo 30N</span>`;
                 } else if (alertStatus === 'OK') {
@@ -441,6 +458,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td>
                             <input type="checkbox" class="device-checkbox" data-id="${d.id}" ${isChecked} onchange="app.toggleDeviceSelection(${d.id})">
                         </td>
+                        <td><span class="badge bg-dark text-light border font-mono">${d.asset_tag || `BVQ7-TTB-${d.id}`}</span></td>
                         <td><span class="fw-bold text-primary font-mono">${d.serial_no || '-'}</span></td>
                         <td>
                             <div class="fw-bold text-dark">${d.device_name || 'Thiết bị y tế'}</div>
@@ -448,16 +466,19 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                         <td><span class="badge bg-light text-dark border font-mono">${d.model || '-'}</span></td>
                         <td><span class="${riskClass}">Mức ${d.risk_level || 'A'}</span></td>
-                        <td><i class="bi bi-hospital text-muted me-1"></i>${d.facility || 'Chưa phân bổ'}</td>
+                        <td><i class="bi bi-geo-alt-fill text-muted me-1"></i>${d.facility || 'Kho lưu trữ'}</td>
                         <td class="font-mono text-muted">${apiClient.formatDate(d.calibration_date)}</td>
                         <td class="font-mono"><strong class="${alertStatus === 'OVERDUE' ? 'text-danger' : alertStatus === 'WARNING' ? 'text-warning' : ''}">${apiClient.formatDate(d.recalibration_date)}</strong></td>
                         <td>${badgeHtml}</td>
                         <td class="text-end">
-                            <button class="btn btn-sm btn-clinical-primary btn-clinical me-1" onclick="app.viewDetails(${d.id})" title="Xem hồ sơ lý lịch máy">
+                            <button class="btn btn-sm btn-clinical-primary btn-clinical me-1" onclick="app.viewDetails(${d.id})" title="Xem hồ sơ lý lịch máy (Dossier)">
                                 <i class="bi bi-eye"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary btn-clinical me-1" onclick="app.openTransferModalForDevice(${d.id})" title="Điều chuyển khoa phòng (Check-out)">
+                            <button class="btn btn-sm btn-outline-secondary btn-clinical me-1" onclick="app.openTransferModalForDevice(${d.id})" title="Bàn giao / Check-out">
                                 <i class="bi bi-arrow-left-right"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-success btn-clinical me-1" onclick="app.triggerAuditCheck(${d.id}, '${d.device_name}')" title="Xác nhận kiểm kê (Audit)">
+                                <i class="bi bi-clipboard-check"></i>
                             </button>
                             ${pdfBtn}
                         </td>
@@ -512,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const tbody = document.getElementById('workorders-body');
             if (!tbody) return;
 
-            const repairs = orders.filter(o => o.maintenance_type !== 'HANDOVER');
+            const repairs = orders.filter(o => o.maintenance_type !== 'HANDOVER' && !o.description?.startsWith('[KIỂM KÊ'));
 
             if (repairs.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Chưa có phiếu báo hỏng nào.</td></tr>';
@@ -537,21 +558,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const tbody = document.getElementById('transfers-body');
             if (!tbody) return;
 
-            const transfers = orders.filter(o => o.maintenance_type === 'HANDOVER' || o.description?.includes('Điều chuyển'));
+            const auditAndTransfers = orders.filter(o => o.maintenance_type === 'HANDOVER' || o.maintenance_type === 'INSPECTION' || o.description?.includes('Bàn giao') || o.description?.includes('Kiểm kê'));
 
-            if (transfers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có lịch sử điều chuyển thiết bị.</td></tr>';
+            if (auditAndTransfers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có lịch sử bàn giao hoặc kiểm kê.</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = transfers.map(t => `
+            tbody.innerHTML = auditAndTransfers.map(t => `
                 <tr>
                     <td class="font-mono fw-bold text-primary">${apiClient.formatDate(t.maintenance_date)}</td>
                     <td><div class="fw-bold">${t.device_name}</div><small class="text-muted">Model: ${t.model}</small></td>
                     <td><span class="font-mono badge bg-light text-dark border">${t.serial_no}</span></td>
                     <td><strong>${t.performed_by || '-'}</strong></td>
                     <td class="small">${t.description || '-'}</td>
-                    <td><span class="badge-status-pill status-ok">Đã bàn giao</span></td>
+                    <td>
+                        <span class="badge ${t.maintenance_type === 'INSPECTION' ? 'bg-success' : 'bg-primary'} text-light">
+                            ${t.maintenance_type === 'INSPECTION' ? 'Kiểm Kê Audit' : 'Bàn Giao Check-out'}
+                        </span>
+                    </td>
                 </tr>
             `).join('');
         },
@@ -564,7 +589,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const listToRender = selectedList.length > 0 ? selectedList : this.devices.slice(0, 12);
 
             grid.innerHTML = listToRender.map(d => {
-                const qrData = encodeURIComponent(`BVQ7|TB:${d.device_name}|SN:${d.serial_no}|MD:${d.model}|KHOA:${d.facility || ''}`);
+                const assetTag = d.asset_tag || `BVQ7-TTB-${d.id}`;
+                const qrData = encodeURIComponent(`TAG:${assetTag}|TB:${d.device_name}|SN:${d.serial_no}|MD:${d.model}|LOC:${d.facility || ''}`);
                 const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${qrData}`;
 
                 return `
@@ -574,8 +600,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="qr-label-info">
                                 <div class="qr-hospital">BV QUẬN 7 • TP.HCM</div>
                                 <div class="qr-dev-name">${d.device_name}</div>
-                                <div class="qr-serial">S/N: ${d.serial_no}</div>
-                                <div class="text-muted" style="font-size: 0.72rem;">Model: ${d.model} • ${d.facility || 'Toàn viện'}</div>
+                                <div class="qr-serial font-mono">TAG: ${assetTag}</div>
+                                <div class="text-muted" style="font-size: 0.72rem;">S/N: ${d.serial_no} • ${d.facility || 'Toàn viện'}</div>
                                 <div class="text-muted" style="font-size: 0.68rem;">Hạn KĐ: ${apiClient.formatDate(d.recalibration_date)}</div>
                             </div>
                         </div>
@@ -606,7 +632,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const modalBody = document.getElementById('device-modal-body');
 
                 if (modalTitle) {
-                    modalTitle.innerHTML = `<i class="bi bi-heart-pulse-fill text-primary me-2"></i>Lý Lịch Máy: ${device.device_name}`;
+                    modalTitle.innerHTML = `<i class="bi bi-heart-pulse-fill text-primary me-2"></i>Hồ Sơ Lý Lịch Máy: ${device.device_name} <span class="badge bg-dark ms-2 font-mono">${device.asset_tag}</span>`;
                 }
 
                 if (modalBody) {
@@ -645,13 +671,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <small class="text-muted d-block mt-1">Người thực hiện: <strong>${l.performed_by || '-'}</strong></small>
                             </div>
                         `).join('')
-                        : '<p class="text-muted p-3 bg-light rounded-3">Chưa có nhật ký bảo trì / điều chuyển.</p>';
+                        : '<p class="text-muted p-3 bg-light rounded-3">Chưa có nhật ký bảo trì / bàn giao.</p>';
 
-                    const qrData = encodeURIComponent(`TB:${device.device_name}|SN:${device.serial_no}|MD:${device.model}|KHOA:${device.facility || ''}`);
+                    const qrData = encodeURIComponent(`TAG:${device.asset_tag}|TB:${device.device_name}|SN:${device.serial_no}|MD:${device.model}|LOC:${device.facility || ''}`);
                     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${qrData}`;
 
                     modalBody.innerHTML = `
-                        <!-- Nav tabs inside Dossier Modal -->
+                        <!-- Nav tabs inside Dossier Modal (Snipe-IT / Ministry of Health style) -->
                         <ul class="nav nav-tabs mb-3" id="dossierTabs" role="tablist">
                             <li class="nav-item">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-dossier-spec" type="button">
@@ -665,7 +691,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </li>
                             <li class="nav-item">
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-dossier-logs" type="button">
-                                    <i class="bi bi-clock-history me-1"></i> Lịch Sử Bàn Giao & Sửa Chữa
+                                    <i class="bi bi-clock-history me-1"></i> Lịch Sử Bàn Giao & Audit Trail
                                 </button>
                             </li>
                         </ul>
@@ -677,20 +703,24 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <div class="col-md-8">
                                         <div class="device-spec-grid">
                                             <div class="spec-item">
-                                                <div class="spec-label">Tên thiết bị y tế</div>
-                                                <div class="spec-value text-primary">${device.device_name}</div>
+                                                <div class="spec-label">Mã tài sản (Asset Tag)</div>
+                                                <div class="spec-value text-primary font-mono fw-bold">${device.asset_tag}</div>
                                             </div>
                                             <div class="spec-item">
                                                 <div class="spec-label">Số Serial (S/N)</div>
                                                 <div class="spec-value font-mono">${device.serial_no}</div>
                                             </div>
                                             <div class="spec-item">
+                                                <div class="spec-label">Tên thiết bị y tế</div>
+                                                <div class="spec-value text-dark fw-bold">${device.device_name}</div>
+                                            </div>
+                                            <div class="spec-item">
                                                 <div class="spec-label">Model / Ký hiệu</div>
                                                 <div class="spec-value font-mono">${device.model}</div>
                                             </div>
                                             <div class="spec-item">
-                                                <div class="spec-label">Khoa / Vị trí lắp đặt</div>
-                                                <div class="spec-value text-dark fw-bold">${device.facility || 'Chưa phân bổ'}</div>
+                                                <div class="spec-label">Vị trí / Khoa bàn giao</div>
+                                                <div class="spec-value text-dark fw-bold">${device.facility || 'Kho lưu trữ'}</div>
                                             </div>
                                             <div class="spec-item">
                                                 <div class="spec-label">Hãng sản xuất</div>
@@ -713,10 +743,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <div class="col-md-4 text-center">
                                         <div class="p-3 bg-light rounded-3 border">
                                             <img src="${qrUrl}" alt="QR Code" class="img-fluid rounded mb-2 shadow-sm" style="width: 130px; height: 130px;">
-                                            <div class="small fw-bold">NHÃN MÃ QR CODE</div>
+                                            <div class="small fw-bold font-mono">${device.asset_tag}</div>
                                             <small class="text-muted d-block">Quét camera xem hồ sơ</small>
                                             <button class="btn btn-sm btn-outline-primary btn-clinical mt-2 w-100" onclick="app.openTransferModalForDevice(${device.id})">
-                                                <i class="bi bi-arrow-left-right me-1"></i> Điều chuyển khoa
+                                                <i class="bi bi-arrow-left-right me-1"></i> Bàn giao / Check-out
                                             </button>
                                         </div>
                                     </div>
