@@ -55,6 +55,20 @@ const apiClient = {
         });
     },
 
+    async updateDevice(id, deviceData) {
+        return this.request(`/api/devices/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(deviceData)
+        });
+    },
+
+    async updateWorkOrder(id, woData) {
+        return this.request(`/api/work-orders/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(woData)
+        });
+    },
+
     // Dedicated Audit Module (Kiểm kê riêng)
     async getAudits() {
         return this.request('/api/audits');

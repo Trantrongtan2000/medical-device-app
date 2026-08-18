@@ -66,6 +66,9 @@ class DeviceCreate(DeviceBase):
 class DeviceUpdate(BaseModel):
     device_name: Optional[str] = None
     model: Optional[str] = None
+    serial_no: Optional[str] = None
+    certification_no: Optional[str] = None
+    calibration_stamp_no: Optional[str] = None
     facility_id: Optional[int] = None
     category_id: Optional[int] = None
     manufacturer: Optional[str] = None

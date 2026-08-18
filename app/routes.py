@@ -210,6 +210,48 @@ async def get_device(device_id: int, db = Depends(get_db)):
     return device_data
 
 
+@router.put("/api/devices/{device_id}")
+async def update_device(device_id: int, dev: DeviceUpdate, db = Depends(get_db)):
+    """Chỉnh sửa và cập nhật thông tin hồ sơ thiết bị y tế (TLHD Mục 2a & Snipe-IT Asset Edit)"""
+    existing = db.execute("SELECT * FROM devices WHERE id = ?", (device_id,)).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+
+    # Kiểm tra trùng Serial nếu thay đổi serial
+    if dev.serial_no and dev.serial_no != existing["serial_no"]:
+        dup = db.execute("SELECT id FROM devices WHERE serial_no = ? AND id != ?", (dev.serial_no, device_id)).fetchone()
+        if dup:
+            raise HTTPException(status_code=400, detail=f"Số Serial '{dev.serial_no}' đã tồn tại trên thiết bị khác!")
+
+    update_fields = []
+    params = []
+    
+    for field, val in dev.model_dump(exclude_unset=True).items():
+        if val is not None:
+            update_fields.append(f"{field} = ?")
+            params.append(val)
+
+    if update_fields:
+        update_fields.append("updated_at = ?")
+        params.append(datetime.now())
+        params.append(device_id)
+        
+        sql = f"UPDATE devices SET {', '.join(update_fields)} WHERE id = ?"
+        db.execute(sql, params)
+        
+        # Ghi nhận nhật ký Audit Trail chỉnh sửa
+        db.execute("""
+            INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
+            VALUES (?, 'INSPECTION', ?, 'Phòng Trang Thiết Bị Y Tế', ?)
+        """, (device_id, date.today(), "Chỉnh sửa & cập nhật thông tin hồ sơ thiết bị theo quy trình TLHD Mục 2a"))
+        db.commit()
+
+    return {
+        "status": "success",
+        "message": f"Đã cập nhật thông tin thiết bị '{existing['device_name']}' thành công!"
+    }
+
+
 # ==================== SPEEDMAINT WORK ORDERS & TASKS (CHUẨN HOÀN MỸ SPEEDMAINT) ====================
 
 class SpeedMaintWorkOrderCreate(BaseModel):
@@ -268,13 +310,60 @@ async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_
     cur.execute("""
         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
         VALUES (?, ?, ?, ?, ?)
-    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, ticket.work_type, full_desc))
+    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, normalize_work_type(ticket.work_type), full_desc))
     
     if ticket.priority in ("Khẩn cấp", "Cao"):
         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
         
     db.commit()
     return {"status": "success", "message": "Đã tạo phiếu công việc SpeedMaint thành công!"}
+
+
+class SpeedMaintWorkOrderUpdate(BaseModel):
+    title: Optional[str] = None
+    work_type: Optional[str] = None
+    assigned_to: Optional[str] = None
+    progress: Optional[int] = None
+    description: Optional[str] = None
+    materials: Optional[str] = None
+    status: Optional[str] = None
+
+def normalize_work_type(val: str) -> str:
+    if not val:
+        return "PREVENTIVE"
+    v = val.upper()
+    if "SỬA" in v or "REPAIR" in v or "HỎNG" in v:
+        return "REPAIR"
+    if "KIỂM ĐỊNH" in v or "HIỆU CHUẨN" in v or "CALIBRATION" in v:
+        return "CALIBRATION"
+    if "ĐIỀU CHUYỂN" in v or "BÀN GIAO" in v or "HANDOVER" in v:
+        return "HANDOVER"
+    if "KIỂM TRA" in v or "INSPECTION" in v or "KIỂM KÊ" in v:
+        return "INSPECTION"
+    return "PREVENTIVE"
+
+@router.put("/api/work-orders/{wo_id}")
+async def update_work_order(wo_id: int, ticket: SpeedMaintWorkOrderUpdate, db = Depends(get_db)):
+    """Chỉnh sửa phiếu công việc, nội dung sửa chữa và cập nhật tiến độ SpeedMaint (Ảnh 605c)"""
+    existing = db.execute("SELECT * FROM maintenance_logs WHERE id = ?", (wo_id,)).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Không tìm thấy phiếu công việc")
+
+    new_desc = ticket.description or existing["description"]
+    if ticket.materials and "Vật tư:" not in new_desc:
+        new_desc += f" (Vật tư: {ticket.materials})"
+
+    new_type = normalize_work_type(ticket.work_type) if ticket.work_type else existing["maintenance_type"]
+    new_assignee = ticket.assigned_to or existing["performed_by"]
+
+    db.execute("""
+        UPDATE maintenance_logs
+        SET maintenance_type = ?, performed_by = ?, description = ?
+        WHERE id = ?
+    """, (new_type, new_assignee, new_desc, wo_id))
+    db.commit()
+
+    return {"status": "success", "message": f"Đã cập nhật thành công phiếu công việc #{wo_id:03d}!"}
 
 
 # ==================== DEDICATED AUDIT MODULE (TRUNG TÂM KIỂM KÊ) ====================

@@ -249,6 +249,92 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
+            // Edit Device Button inside Details Modal
+            const btnOpenEditDevice = document.getElementById('btn-open-edit-device');
+            if (btnOpenEditDevice) {
+                btnOpenEditDevice.addEventListener('click', () => {
+                    if (this.currentViewedDeviceId) {
+                        bootstrap.Modal.getInstance(document.getElementById('device-detail-modal'))?.hide();
+                        this.openEditDeviceModal(this.currentViewedDeviceId);
+                    }
+                });
+            }
+
+            // Edit Device Form Submit
+            const editDevForm = document.getElementById('edit-device-form');
+            if (editDevForm) {
+                editDevForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const deviceId = parseInt(document.getElementById('edit-dev-id').value);
+                    const name = document.getElementById('edit-dev-name').value.trim();
+                    const model = document.getElementById('edit-dev-model').value.trim();
+                    const serial = document.getElementById('edit-dev-serial').value.trim();
+                    const facilityId = document.getElementById('edit-dev-facility').value;
+                    const categoryId = document.getElementById('edit-dev-category').value;
+                    const riskLevel = document.getElementById('edit-dev-risk').value;
+                    const mfg = document.getElementById('edit-dev-mfg').value.trim();
+                    const country = document.getElementById('edit-dev-country').value.trim();
+                    const status = document.getElementById('edit-dev-status').value;
+                    const calDate = document.getElementById('edit-dev-cal-date').value;
+                    const recalDate = document.getElementById('edit-dev-recal-date').value;
+                    const notes = document.getElementById('edit-dev-notes').value.trim();
+
+                    try {
+                        const payload = {
+                            device_name: name,
+                            model: model,
+                            serial_no: serial,
+                            facility_id: facilityId ? parseInt(facilityId) : null,
+                            category_id: categoryId ? parseInt(categoryId) : null,
+                            risk_level: riskLevel,
+                            manufacturer: mfg || null,
+                            country_of_manufacturer: country || null,
+                            status: status,
+                            calibration_date: calDate || null,
+                            recalibration_date: recalDate || null,
+                            notes: notes || null
+                        };
+
+                        const res = await apiClient.updateDevice(deviceId, payload);
+                        alert(res.message || '✅ Đã cập nhật thành công!');
+                        bootstrap.Modal.getInstance(document.getElementById('editDeviceModal'))?.hide();
+                        await this.loadInitialData();
+                        await this.loadDevices();
+                    } catch (err) {
+                        alert('Lỗi cập nhật thiết bị: ' + err.message);
+                    }
+                });
+            }
+
+            // Edit Work Order Form Submit
+            const editWoForm = document.getElementById('edit-wo-form');
+            if (editWoForm) {
+                editWoForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const woId = parseInt(document.getElementById('edit-wo-id').value);
+                    const workType = document.getElementById('edit-wo-type').value;
+                    const assignee = document.getElementById('edit-wo-assignee').value.trim();
+                    const desc = document.getElementById('edit-wo-desc').value.trim();
+                    const materials = document.getElementById('edit-wo-materials').value.trim();
+
+                    try {
+                        const payload = {
+                            work_type: workType,
+                            assigned_to: assignee,
+                            description: desc,
+                            materials: materials || null
+                        };
+
+                        const res = await apiClient.updateWorkOrder(woId, payload);
+                        alert(res.message || '✅ Đã cập nhật phiếu công việc!');
+                        bootstrap.Modal.getInstance(document.getElementById('editWorkOrderModal'))?.hide();
+                        await this.loadWorkOrders();
+                    } catch (err) {
+                        alert('Lỗi cập nhật phiếu: ' + err.message);
+                    }
+                });
+            }
+
             // Gemini AI Chat Submit
             const aiForm = document.getElementById('ai-chat-form');
             const aiInput = document.getElementById('ai-chat-input');
@@ -485,6 +571,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const select = document.getElementById('filter-facility');
             const transferTargetSelect = document.getElementById('transfer-target-facility');
             const newDevFacilitySelect = document.getElementById('new-dev-facility');
+            const editDevFacilitySelect = document.getElementById('edit-dev-facility');
 
             const optionsHtml = '<option value="">-- Chọn Khoa / Vị trí --</option>' +
                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
@@ -494,14 +581,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
             if (newDevFacilitySelect) newDevFacilitySelect.innerHTML = optionsHtml;
+            if (editDevFacilitySelect) editDevFacilitySelect.innerHTML = optionsHtml;
         },
 
         renderCategoryOptions(categories) {
             const newDevCatSelect = document.getElementById('new-dev-category');
-            if (newDevCatSelect) {
-                newDevCatSelect.innerHTML = '<option value="">-- Chọn loại thiết bị --</option>' +
-                    categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-            }
+            const editDevCatSelect = document.getElementById('edit-dev-category');
+
+            const optionsHtml = '<option value="">-- Chọn loại thiết bị --</option>' +
+                categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+            if (newDevCatSelect) newDevCatSelect.innerHTML = optionsHtml;
+            if (editDevCatSelect) editDevCatSelect.innerHTML = optionsHtml;
         },
 
         populateIncidentDeviceOptions(devices) {
@@ -616,7 +707,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!tbody) return;
 
             if (orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3 text-muted">Không có phiếu công việc.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-3 text-muted">Không có phiếu công việc.</td></tr>';
                 return;
             }
 
@@ -627,6 +718,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${o.device_name || 'Thiết bị y tế'}</td>
                     <td>${o.assigned_to || '-'}</td>
                     <td><span class="badge-clean-status status-ok">Hoàn thành</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary btn-clinical py-0 px-2" onclick="app.openEditWorkOrderModal(${o.id})">
+                            <i class="bi bi-pencil me-1"></i>Sửa
+                        </button>
+                    </td>
                 </tr>
             `).join('');
         },
@@ -661,6 +757,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         async viewDetails(deviceId) {
             try {
+                this.currentViewedDeviceId = deviceId;
                 const device = await apiClient.getDevice(deviceId);
                 const modalTitle = document.getElementById('device-modal-title');
                 const modalBody = document.getElementById('device-modal-body');
@@ -720,6 +817,42 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (err) {
                 alert('Không thể tải chi tiết thiết bị.');
             }
+        },
+
+        async openEditDeviceModal(deviceId) {
+            try {
+                const device = await apiClient.getDevice(deviceId);
+                document.getElementById('edit-dev-id').value = device.id;
+                document.getElementById('edit-dev-name').value = device.device_name || '';
+                document.getElementById('edit-dev-model').value = device.model || '';
+                document.getElementById('edit-dev-serial').value = device.serial_no || '';
+                document.getElementById('edit-dev-facility').value = device.facility_id || '';
+                document.getElementById('edit-dev-category').value = device.category_id || '';
+                document.getElementById('edit-dev-risk').value = device.risk_level || 'A';
+                document.getElementById('edit-dev-mfg').value = device.manufacturer || '';
+                document.getElementById('edit-dev-country').value = device.country_of_manufacturer || '';
+                document.getElementById('edit-dev-status').value = device.status || 'IN_SERVICE';
+                document.getElementById('edit-dev-cal-date').value = device.calibration_date || '';
+                document.getElementById('edit-dev-recal-date').value = device.recalibration_date || '';
+                document.getElementById('edit-dev-notes').value = device.notes || '';
+
+                bootstrap.Modal.getOrCreateInstance(document.getElementById('editDeviceModal')).show();
+            } catch (err) {
+                alert('Không thể nạp dữ liệu chỉnh sửa thiết bị.');
+            }
+        },
+
+        openEditWorkOrderModal(woId) {
+            const wo = this.workOrders.find(o => o.id === woId);
+            if (!wo) return;
+
+            document.getElementById('edit-wo-id').value = wo.id;
+            document.getElementById('edit-wo-type').value = wo.work_type || 'PM định kỳ';
+            document.getElementById('edit-wo-assignee').value = wo.assigned_to || '';
+            document.getElementById('edit-wo-desc').value = wo.description || '';
+            document.getElementById('edit-wo-materials').value = '';
+
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('editWorkOrderModal')).show();
         }
     };
 

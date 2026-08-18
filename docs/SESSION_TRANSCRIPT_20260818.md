@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `18/08/2026 16:48:31`  
+> **Thời gian xuất:** `18/08/2026 16:51:34`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7) & Công cụ Quản lý Tài sản  
 
 ---
@@ -20353,6 +20353,2001 @@ Completed At: 2026-08-18T16:48:27+07:00
   Count: 103, First item: Huyết áp kế lò xo / Áp kế y tế
 [200] /api/work-orders (application/json)
   Count: 7, First item: Máy Siêu Âm Màu Doppler 4D
+
+--- Testing Gemini AI Agent ---
+[200] /api/ai/chat
+  Engine: Google Gemini 2.5 Flash / Interactions Agent, Status: success
+
+--- Testing Mistral OCR Engine ---
+[200] /api/ocr/process
+  OCR Engine: Mistral OCR Document Understanding Engine (Integrated Model), Extracted: Monitor theo dõi bệnh nhân 5 thông số
+
+✨ All API endpoints passed verification successfully!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:48:30+07:00
+Completed At: 2026-08-18T16:48:31+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 1067
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:48:33+07:00
+Completed At: 2026-08-18T16:48:34+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'app/ai_services.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/routes.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scratch/parse_quy_trinh.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/test_sops.py', LF will be replaced by CRLF the next time Git touches it
+[feat/device-management-v2 55f0c61] feat: integrate official SOP Handbook quy_trinh_ttbyt.html and embed 9 clinical SOPs into Gemini BME agent
+ 6 files changed, 972 insertions(+), 9 deletions(-)
+ create mode 100644 scratch/parse_quy_trinh.py
+ create mode 100644 scripts/test_sops.py
+On branch feat/device-management-v2
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 🩺 XÁC NHẬN BÁM SÁT 100% SỔ TAY QUY TRÌNH CHUẨN (`quy_trinh_ttbyt.html`)
+
+Đã tiến hành đối chiếu và tích hợp trực tiếp **Sổ tay Quy trình và Biểu mẫu Phòng Trang Thiết Bị Y Tế** từ tệp [`C:\Users\tantt\Downloads\asset-management-tools\quy_trinh_ttbyt.html`](file:///C:/Users/tantt/Downloads/asset-management-tools/quy_trinh_ttbyt.html) vào toàn bộ hệ thống phần mềm:
+
+---
+
+### 📋 1. Ma Trận Đối Chiếu & Bám Sát Toàn Bộ 9 Quy Trình Chuẩn (SOPs) & Biểu Mẫu:
+
+| Mã Quy Trình / Chính Sách | Tên Quy Trình Chuẩn Theo Sổ Tay | Biểu Mẫu Áp Dụng | Phân Hệ Triển Khai Trong Ứng Dụng |
+| :---: | :--- | :--- | :--- |
+| **`CS.TTBYT.04`** | **Hiệu chuẩn & Kiểm định TTBYT** | Phiếu yêu cầu KĐ, Giấy chứng nhận KĐ | **Phân hệ Thiết Bị & Lịch KĐ**: Theo dõi hạn KĐ 3 cấp độ (*Đạt chuẩn, Cảnh báo 30 ngày, Quá hạn*). |
+| **`QT.01` & `QT.02`** | **Chất lượng & Vận hành nước R.O Thận Nhân Tạo** | Bảng kiểm chất lượng R.O, Nhật ký R.O | **Phân hệ Thiết Bị**: Quản lý 40 máy lọc máu & hệ thống R.O đơn vị Thận nhân tạo. |
+| **`QT.03`** | **Vận hành hệ thống Khí Y Tế** | Bảng kiểm hằng ngày O2, CO2, Vac, Air | **SpeedMaint Work Orders**: Lập phiếu kiểm tra định kỳ hệ thống khí trung tâm. |
+| **`QT.04`** | **Bàn giao, Lắp đặt, Nghiệm thu TTBYT** | *Biên bản bàn giao & lắp đặt*, *Biên bản nghiệm thu*, *Sổ lý lịch thiết bị* | **Modal Nhập Mới Thiết Bị & Hồ Sơ Lý Lịch Máy**: Tự động sinh mã Asset Tag `BVQ7-TTB-XXXXX`, khởi tạo Sổ lý lịch và nhật ký bàn giao ban đầu. |
+| **`QT.05`** | **Vận hành & Bảo quản TTBYT** | Nhật ký vận hành tại khoa lâm sàng | **Trung Tâm Kiểm Kê**: Ghi nhận tình trạng thiết bị tại 22 khoa phòng. |
+| **`QT.06`** | **Bảo trì, Bảo dưỡng định kỳ (PM) & Đào tạo** | Phiếu bảo trì SpeedMaint, Báo cáo nghiệm thu | **Phân hệ Bảo Trì & Báo Hỏng**: Quản lý phiếu WO `#2607XX`, vật tư thay thế, thanh tiến độ 100%. |
+| **`QT.07`** | **Thanh lý TTBYT** | Biên bản đánh giá hư hỏng, Phiếu thanh lý | **Trạng thái Thiết bị**: Chuyển trạng thái `RETIRED` (Đã thanh lý). |
+| **`QT.08`** | **Điều chuyển TTBYT giữa các đơn vị** | Phiếu đề xuất điều chuyển, Biên bản bàn giao | **Modal Bàn Giao Máy**: Cập nhật vị trí khoa phòng mới và lưu lịch sử điều chuyển. |
+| **`QT.09`** | **Giao nhận bình khí y tế di động** | Sổ giao nhận bình khí | **Quản lý VTYT & Khí y tế**. |
+
+---
+
+### 🚀 2. Các Nâng Cấp Vừa Hoàn Thành:
+
+1. **Tích Hợp Trực Tiếp Sổ Tay Quy Trình:**
+   * Nút bấm **`📖 Sổ Tay Quy Trình (SOPs)`** được đưa lên **Top Bar** của ứng dụng $\rightarrow$ Khi bấm sẽ mở trực tiếp cuốn sổ tay quy trình tương tác đầy đủ tại đường dẫn [`http://127.0.0.1:8000/sops`](http://127.0.0.1:8000/sops).
+2. **Endpoint Danh Mục SOPs:**
+   * Endpoint [`GET /api/sops`](http://127.0.0.1:8000/api/sops) trả về danh sách 10 chính sách và quy trình chuẩn có liên kết tra cứu nhanh.
+3. **Nạp Kiến Thức SOPs Vào Trợ Lý Y Sinh Gemini AI:**
+   * Agent Gemini BME đã được trang bị toàn diện kiến thức từ `CS.TTBYT.04` và `QT.01` đến `QT.09`. Khi người dùng hoặc kỹ sư đặt câu hỏi, AI sẽ **trích dẫn chính xác mã quy trình tương ứng** (VD: *Theo quy trình QT.04, quy trình QT.06...*).
+
+---
+
+### 🌐 3. Trải Nghiệm Trực Tiếp:
+* 🏠 **Trang chủ ứng dụng:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000)
+* 📖 **Sổ tay Quy trình Chuẩn:** [`http://127.0.0.1:8000/sops`](http://127.0.0.1:8000/sops)
+* 🌿 **Git Branch:** Đã commit vào nhánh [`feat/device-management-v2`](file:///C:/Users/tantt/Downloads/medical-device-app).
+* 📄 **Bản ghi phiên làm việc:** [`C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md`](file:///C:/Users/tantt/Downloads/SESSION_TRANSCRIPT_20260818.md).
+
+
+### 👤 Lượt 35: Yêu cầu từ Người Dùng (USER)
+```text
+các thông tin thiết bị, phiếu report, sửa chữa có thể edit
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:48:46+07:00
+Completed At: 2026-08-18T16:48:46+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 688
+Total Bytes: 28811
+Showing lines 170 to 250
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+170:     }
+171: 
+172: 
+173: 
+174: @router.get("/api/devices/{device_id}")
+175: async def get_device(device_id: int, db = Depends(get_db)):
+176:     """Chi tiết hồ sơ lý lịch tài sản (Snipe-IT Asset Dossier & SpeedMaint CMMS)"""
+177:     query = """
+178:         SELECT d.*, f.name as facility, c.name as category
+179:         FROM devices d
+180:         LEFT JOIN facilities f ON d.facility_id = f.id
+181:         LEFT JOIN device_categories c ON d.category_id = c.id
+182:         WHERE d.id = ?
+183:     """
+184:     row = db.execute(query, (device_id,)).fetchone()
+185:     if not row:
+186:         raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+187:     
+188:     device_data = dict(row)
+189:     device_data["asset_tag"] = f"BVQ7-TTB-{device_data['id']:05d}"
+190:     device_data["speedmaint_code"] = f"BM/BVQ7/{device_data['id']:05d}"
+191:     
+192:     # Lịch sử kiểm định (Certificates)
+193:     certs_query = """
+194:         SELECT * FROM calibration_certificates
+195:         WHERE device_id = ?
+196:         ORDER BY calibration_date DESC
+197:     """
+198:     certs = db.execute(certs_query, (device_id,)).fetchall()
+199:     device_data["certificates"] = [dict(c) for c in certs]
+200:     
+201:     # Nhật ký bàn giao, bảo trì & Audit Trail (SpeedMaint Work Orders)
+202:     logs_query = """
+203:         SELECT * FROM maintenance_logs
+204:         WHERE device_id = ?
+205:         ORDER BY maintenance_date DESC, id DESC
+206:     """
+207:     logs = db.execute(logs_query, (device_id,)).fetchall()
+208:     device_data["maintenance_logs"] = [dict(l) for l in logs]
+209:     
+210:     return device_data
+211: 
+212: 
+213: # ==================== SPEEDMAINT WORK ORDERS & TASKS (CHUẨN HOÀN MỸ SPEEDMAINT) ====================
+214: 
+215: class SpeedMaintWorkOrderCreate(BaseModel):
+216:     device_id: int
+217:     title: str
+218:     work_type: str = "PM định kỳ"  # PM định kỳ, Sửa chữa, Điều chuyển, Kiểm định, Khác
+219:     start_date: str
+220:     end_date: str
+221:     assigned_to: str
+222:     co_workers: Optional[str] = None
+223:     supervisor: Optional[str] = None
+224:     reporter: str
+225:     priority: str = "Trung bình"  # Khẩn cấp, Cao, Trung bình, Thấp
+226:     progress: int = 100
+227:     is_unplanned: bool = False
+228:     location: Optional[str] = None
+229:     description: str
+230:     materials: Optional[str] = None
+231: 
+232: @router.get("/api/work-orders")
+233: async def list_work_orders(db = Depends(get_db)):
+234:     """Danh sách phiếu công việc chuẩn SpeedMaint CMMS"""
+235:     query = """
+236:         SELECT l.id, l.device_id, l.maintenance_date as start_date, l.performed_by as assigned_to, 
+237:                l.maintenance_type as work_type, l.description, d.device_name, d.serial_no, d.model, 
+238:                f.name as facility
+239:         FROM maintenance_logs l
+240:         JOIN devices d ON l.device_id = d.id
+241:         LEFT JOIN facilities f ON d.facility_id = f.id
+242:         WHERE l.maintenance_type != 'INSPECTION'
+243:         ORDER BY l.maintenance_date DESC, l.id DESC
+244:     """
+245:     rows = db.execute(query).fetchall()
+246:     
+247:     work_orders = []
+248:     for r in rows:
+249:         item = dict(r)
+250:         item["task_code"] = f"260{item['id']:03d}"
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:48:58+07:00
+Completed At: 2026-08-18T16:48:58+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 688
+Total Bytes: 28811
+Showing lines 250 to 310
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+250:         item["task_code"] = f"260{item['id']:03d}"
+251:         item["speedmaint_device_code"] = f"BM/BVQ7/{item['device_id']:05d}"
+252:         item["progress"] = 100
+253:         item["status"] = "Hoàn thành"
+254:         work_orders.append(item)
+255:         
+256:     return work_orders
+257: 
+258: @router.post("/api/work-orders")
+259: async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_db)):
+260:     """Tạo phiếu công việc chi tiết chuẩn SpeedMaint Cloud CMMS (Ảnh 01bc & 605c)"""
+261:     cur = db.cursor()
+262:     full_desc = f"[{ticket.work_type}] {ticket.title}. {ticket.description}"
+263:     if ticket.materials:
+264:         full_desc += f" (Vật tư: {ticket.materials})"
+265:     if ticket.location:
+266:         full_desc += f" (Địa điểm: {ticket.location})"
+267:         
+268:     cur.execute("""
+269:         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+270:         VALUES (?, ?, ?, ?, ?)
+271:     """, (ticket.device_id, ticket.start_date, ticket.assigned_to, ticket.work_type, full_desc))
+272:     
+273:     if ticket.priority in ("Khẩn cấp", "Cao"):
+274:         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
+275:         
+276:     db.commit()
+277:     return {"status": "success", "message": "Đã tạo phiếu công việc SpeedMaint thành công!"}
+278: 
+279: 
+280: # ==================== DEDICATED AUDIT MODULE (TRUNG TÂM KIỂM KÊ) ====================
+281: 
+282: class AuditConfirmRequest(BaseModel):
+283:     device_id: int
+284:     audited_by: str
+285:     location_checked: Optional[str] = None
+286:     condition: Optional[str] = "GOOD"
+287:     notes: Optional[str] = "Đã kiểm kê hiện diện thực tế tại khoa phòng"
+288: 
+289: @router.get("/api/audits")
+290: async def list_audits(db = Depends(get_db)):
+291:     """Danh sách các lượt kiểm kê tài sản (Snipe-IT Physical Asset Audits)"""
+292:     query = """
+293:         SELECT l.id, l.device_id, l.maintenance_date as audit_date, l.performed_by as auditor,
+294:                l.description, d.device_name, d.serial_no, d.model, f.name as facility
+295:         FROM maintenance_logs l
+296:         JOIN devices d ON l.device_id = d.id
+297:         LEFT JOIN facilities f ON d.facility_id = f.id
+298:         WHERE l.maintenance_type = 'INSPECTION' OR l.description LIKE '%KIỂM KÊ%'
+299:         ORDER BY l.maintenance_date DESC, l.id DESC
+300:     """
+301:     rows = db.execute(query).fetchall()
+302:     
+303:     audits_list = []
+304:     for r in rows:
+305:         item = dict(r)
+306:         item["asset_tag"] = f"BVQ7-TTB-{item['device_id']:05d}"
+307:         audits_list.append(item)
+308:         
+309:     return audits_list
+310: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:01+07:00
+Completed At: 2026-08-18T16:49:01+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/models.py`
+Total Lines: 148
+Total Bytes: 3973
+Showing lines 60 to 90
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+60: 
+61: 
+62: class DeviceCreate(DeviceBase):
+63:     pass
+64: 
+65: 
+66: class DeviceUpdate(BaseModel):
+67:     device_name: Optional[str] = None
+68:     model: Optional[str] = None
+69:     facility_id: Optional[int] = None
+70:     category_id: Optional[int] = None
+71:     manufacturer: Optional[str] = None
+72:     country_of_manufacturer: Optional[str] = None
+73:     year_of_manufacture: Optional[int] = None
+74:     risk_level: Optional[str] = None
+75:     status: Optional[str] = None
+76:     calibration_date: Optional[date] = None
+77:     recalibration_date: Optional[date] = None
+78:     notes: Optional[str] = None
+79: 
+80: 
+81: class Device(DeviceBase):
+82:     id: int
+83:     created_at: Optional[datetime] = None
+84:     updated_at: Optional[datetime] = None
+85:     facility: Optional[str] = None
+86:     category: Optional[str] = None
+87: 
+88:     class Config:
+89:         from_attributes = True
+90: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:05+07:00
+Completed At: 2026-08-18T16:49:05+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\models.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -66,6 +66,9 @@
+ class DeviceUpdate(BaseModel):
+     device_name: Optional[str] = None
+     model: Optional[str] = None
++    serial_no: Optional[str] = None
++    certification_no: Optional[str] = None
++    calibration_stamp_no: Optional[str] = None
+     facility_id: Optional[int] = None
+     category_id: Optional[int] = None
+     manufacturer: Optional[str] = None
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:10+07:00
+Completed At: 2026-08-18T16:49:10+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 688
+Total Bytes: 28811
+Showing lines 205 to 235
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+205:         ORDER BY maintenance_date DESC, id DESC
+206:     """
+207:     logs = db.execute(logs_query, (device_id,)).fetchall()
+208:     device_data["maintenance_logs"] = [dict(l) for l in logs]
+209:     
+210:     return device_data
+211: 
+212: 
+213: # ==================== SPEEDMAINT WORK ORDERS & TASKS (CHUẨN HOÀN MỸ SPEEDMAINT) ====================
+214: 
+215: class SpeedMaintWorkOrderCreate(BaseModel):
+216:     device_id: int
+217:     title: str
+218:     work_type: str = "PM định kỳ"  # PM định kỳ, Sửa chữa, Điều chuyển, Kiểm định, Khác
+219:     start_date: str
+220:     end_date: str
+221:     assigned_to: str
+222:     co_workers: Optional[str] = None
+223:     supervisor: Optional[str] = None
+224:     reporter: str
+225:     priority: str = "Trung bình"  # Khẩn cấp, Cao, Trung bình, Thấp
+226:     progress: int = 100
+227:     is_unplanned: bool = False
+228:     location: Optional[str] = None
+229:     description: str
+230:     materials: Optional[str] = None
+231: 
+232: @router.get("/api/work-orders")
+233: async def list_work_orders(db = Depends(get_db)):
+234:     """Danh sách phiếu công việc chuẩn SpeedMaint CMMS"""
+235:     query = """
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:19+07:00
+Completed At: 2026-08-18T16:49:19+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -210,6 +210,48 @@
+     return device_data
+ 
+ 
++@router.put("/api/devices/{device_id}")
++async def update_device(device_id: int, dev: DeviceUpdate, db = Depends(get_db)):
++    """Chỉnh sửa và cập nhật thông tin hồ sơ thiết bị y tế (TLHD Mục 2a & Snipe-IT Asset Edit)"""
++    existing = db.execute("SELECT * FROM devices WHERE id = ?", (device_id,)).fetchone()
++    if not existing:
++        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
++
++    # Kiểm tra trùng Serial nếu thay đổi serial
++    if dev.serial_no and dev.serial_no != existing["serial_no"]:
++        dup = db.execute("SELECT id FROM devices WHERE serial_no = ? AND id != ?", (dev.serial_no, device_id)).fetchone()
++        if dup:
++            raise HTTPException(status_code=400, detail=f"Số Serial '{dev.serial_no}' đã tồn tại trên thiết bị khác!")
++
++    update_fields = []
++    params = []
++    
++    for field, val in dev.model_dump(exclude_unset=True).items():
++        if val is not None:
++            update_fields.append(f"{field} = ?")
++            params.append(val)
++
++    if update_fields:
++        update_fields.append("updated_at = ?")
++        params.append(datetime.now())
++        params.append(device_id)
++        
++        sql = f"UPDATE devices SET {', '.join(update_fields)} WHERE id = ?"
++        db.execute(sql, params)
++        
++        # Ghi nhận nhật ký Audit Trail chỉnh sửa
++        db.execute("""
++            INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
++            VALUES (?, 'INSPECTION', ?, 'Phòng Trang Thiết Bị Y Tế', ?)
++        """, (device_id, date.today(), "Chỉnh sửa & cập nhật thông tin hồ sơ thiết bị theo quy trình TLHD Mục 2a"))
++        db.commit()
++
++    return {
++        "status": "success",
++        "message": f"Đã cập nhật thông tin thiết bị '{existing['device_name']}' thành công!"
++    }
++
++
+ # ==================== SPEEDMAINT WORK ORDERS & TASKS (CHUẨN HOÀN MỸ SPEEDMAINT) ====================
+ 
+ class SpeedMaintWorkOrderCreate(BaseModel):
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:25+07:00
+Completed At: 2026-08-18T16:49:25+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 730
+Total Bytes: 30716
+Showing lines 310 to 335
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+310:     cur.execute("""
+311:         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+312:         VALUES (?, ?, ?, ?, ?)
+313:     """, (ticket.device_id, ticket.start_date, ticket.assigned_to, ticket.work_type, full_desc))
+314:     
+315:     if ticket.priority in ("Khẩn cấp", "Cao"):
+316:         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
+317:         
+318:     db.commit()
+319:     return {"status": "success", "message": "Đã tạo phiếu công việc SpeedMaint thành công!"}
+320: 
+321: 
+322: # ==================== DEDICATED AUDIT MODULE (TRUNG TÂM KIỂM KÊ) ====================
+323: 
+324: class AuditConfirmRequest(BaseModel):
+325:     device_id: int
+326:     audited_by: str
+327:     location_checked: Optional[str] = None
+328:     condition: Optional[str] = "GOOD"
+329:     notes: Optional[str] = "Đã kiểm kê hiện diện thực tế tại khoa phòng"
+330: 
+331: @router.get("/api/audits")
+332: async def list_audits(db = Depends(get_db)):
+333:     """Danh sách các lượt kiểm kê tài sản (Snipe-IT Physical Asset Audits)"""
+334:     query = """
+335:         SELECT l.id, l.device_id, l.maintenance_date as audit_date, l.performed_by as auditor,
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:30+07:00
+Completed At: 2026-08-18T16:49:30+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -319,6 +319,39 @@
+     return {"status": "success", "message": "Đã tạo phiếu công việc SpeedMaint thành công!"}
+ 
+ 
++class SpeedMaintWorkOrderUpdate(BaseModel):
++    title: Optional[str] = None
++    work_type: Optional[str] = None
++    assigned_to: Optional[str] = None
++    progress: Optional[int] = None
++    description: Optional[str] = None
++    materials: Optional[str] = None
++    status: Optional[str] = None
++
++@router.put("/api/work-orders/{wo_id}")
++async def update_work_order(wo_id: int, ticket: SpeedMaintWorkOrderUpdate, db = Depends(get_db)):
++    """Chỉnh sửa phiếu công việc, nội dung sửa chữa và cập nhật tiến độ SpeedMaint (Ảnh 605c)"""
++    existing = db.execute("SELECT * FROM maintenance_logs WHERE id = ?", (wo_id,)).fetchone()
++    if not existing:
++        raise HTTPException(status_code=404, detail="Không tìm thấy phiếu công việc")
++
++    new_desc = ticket.description or existing["description"]
++    if ticket.materials and "Vật tư:" not in new_desc:
++        new_desc += f" (Vật tư: {ticket.materials})"
++
++    new_type = ticket.work_type or existing["maintenance_type"]
++    new_assignee = ticket.assigned_to or existing["performed_by"]
++
++    db.execute("""
++        UPDATE maintenance_logs
++        SET maintenance_type = ?, performed_by = ?, description = ?
++        WHERE id = ?
++    """, (new_type, new_assignee, new_desc, wo_id))
++    db.commit()
++
++    return {"status": "success", "message": f"Đã cập nhật thành công phiếu công việc #{wo_id:03d}!"}
++
++
+ # ==================== DEDICATED AUDIT MODULE (TRUNG TÂM KIỂM KÊ) ====================
+ 
+ class AuditConfirmRequest(BaseModel):
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:34+07:00
+Completed At: 2026-08-18T16:49:34+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\api.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -55,6 +55,20 @@
+         });
+     },
+ 
++    async updateDevice(id, deviceData) {
++        return this.request(`/api/devices/${id}`, {
++            method: 'PUT',
++            body: JSON.stringify(deviceData)
++        });
++    },
++
++    async updateWorkOrder(id, woData) {
++        return this.request(`/api/work-orders/${id}`, {
++            method: 'PUT',
++            body: JSON.stringify(woData)
++        });
++    },
++
+     // Dedicated Audit Module (Kiểm kê riêng)
+     async getAudits() {
+         return this.request('/api/audits');
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:36+07:00
+Completed At: 2026-08-18T16:49:36+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 605
+Total Bytes: 39896
+Showing lines 500 to 580
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+500:                                 <label class="form-label small fw-bold text-muted">SỐ GIẤY CHỨNG NHẬN (GCN)</label>
+501:                                 <input type="text" id="new-dev-cert-no" class="form-control form-control-sm font-mono" placeholder="KĐ-2026/BVQ7-...">
+502:                             </div>
+503:                             <div class="col-md-4">
+504:                                 <label class="form-label small fw-bold text-muted">NGÀY KIỂM ĐỊNH</label>
+505:                                 <input type="date" id="new-dev-cal-date" class="form-control form-control-sm">
+506:                             </div>
+507:                             <div class="col-md-4">
+508:                                 <label class="form-label small fw-bold text-muted">HẠN KIỂM ĐỊNH KẾ TIẾP</label>
+509:                                 <input type="date" id="new-dev-recal-date" class="form-control form-control-sm">
+510:                             </div>
+511:                         </div>
+512: 
+513:                         <div class="mb-3">
+514:                             <label class="form-label small fw-bold text-muted">GHI CHÚ / HỒ SƠ BÀN GIAO</label>
+515:                             <input type="text" id="new-dev-notes" class="form-control form-control-sm" placeholder="Nhập kho theo biên bản bàn giao số...">
+516:                         </div>
+517: 
+518:                         <div class="d-flex justify-content-end gap-2 mt-4 pt-2 border-top">
+519:                             <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+520:                             <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4">
+521:                                 <i class="bi bi-save me-1"></i> Lưu & Cấp Mã Tài Sản (Asset Tag)
+522:                             </button>
+523:                         </div>
+524:                     </form>
+525:                 </div>
+526:             </div>
+527:         </div>
+528:     </div>
+529: 
+530:     <!-- Quick Audit Modal -->
+531:     <div class="modal fade" id="quickAuditModal" tabindex="-1" aria-hidden="true">
+532:         <div class="modal-dialog modal-dialog-centered">
+533:             <div class="modal-content modal-content-clinical">
+534:                 <div class="modal-header bg-success text-light py-2">
+535:                     <h6 class="modal-title fw-bold"><i class="bi bi-clipboard-check me-2"></i>Xác Nhận Kiểm Kê Thực Tế</h6>
+536:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+537:                 </div>
+538:                 <div class="modal-body p-4">
+539:                     <form id="audit-form">
+540:                         <div class="mb-3">
+541:                             <label class="form-label fw-bold small text-muted">THIẾT BỊ</label>
+542:                             <select id="audit-device-select" class="form-select form-select-sm" required></select>
+543:                         </div>
+544:                         <div class="mb-3">
+545:                             <label class="form-label fw-bold small text-muted">NGƯỜI KIỂM KÊ</label>
+546:                             <input type="text" id="audit-person" class="form-control form-control-sm" value="KS. Nguyễn Văn C - Ban Kiểm Kê" required>
+547:                         </div>
+548:                         <div class="mb-3">
+549:                             <label class="form-label fw-bold small text-muted">TÌNH TRẠNG</label>
+550:                             <select id="audit-condition" class="form-select form-select-sm">
+551:                                 <option value="Tốt / Đang hoạt động">🟢 Tốt / Hoạt động bình thường</option>
+552:                                 <option value="Cần bảo dưỡng nhẹ">🟡 Cần bảo dưỡng</option>
+553:                                 <option value="Hỏng / Tạm ngưng">🔴 Hỏng / Tạm ngưng</option>
+554:                             </select>
+555:                         </div>
+556:                         <button type="submit" class="btn btn-success btn-clinical w-100 fw-bold py-2">
+557:                             Lưu Kết Quả Kiểm Kê
+558:                         </button>
+559:                     </form>
+560:                 </div>
+561:             </div>
+562:         </div>
+563:     </div>
+564: 
+565:     <!-- Transfer Modal -->
+566:     <div class="modal fade" id="transferModal" tabindex="-1" aria-hidden="true">
+567:         <div class="modal-dialog modal-dialog-centered">
+568:             <div class="modal-content modal-content-clinical">
+569:                 <div class="modal-header bg-primary text-light py-2">
+570:                     <h6 class="modal-title fw-bold"><i class="bi bi-arrow-left-right me-2"></i>Bàn Giao / Check-out Thiết Bị</h6>
+571:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+572:                 </div>
+573:                 <div class="modal-body p-4">
+574:                     <form id="transfer-form">
+575:                         <div class="mb-3">
+576:                             <label class="form-label fw-bold small text-muted">THIẾT BỊ CẦN BÀN GIAO</label>
+577:                             <select id="transfer-device-select" class="form-select form-select-sm" required></select>
+578:                         </div>
+579:                         <div class="mb-3">
+580:                             <label class="form-label fw-bold small text-muted">KHOA TIẾP NHẬN</label>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:49+07:00
+Completed At: 2026-08-18T16:49:49+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 605
+Total Bytes: 39896
+Showing lines 360 to 385
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+360: 
+361:     <!-- ==================== DETAILED MODALS (CHỈ HIỂN THỊ KHI NGƯỜI DÙNG CẦN) ==================== -->
+362: 
+363:     <!-- Device Dossier Modal (Lý lịch máy chi tiết đầy đủ 3 tab) -->
+364:     <div class="modal fade" id="device-detail-modal" tabindex="-1" aria-hidden="true">
+365:         <div class="modal-dialog modal-lg modal-dialog-centered">
+366:             <div class="modal-content modal-content-clinical">
+367:                 <div class="modal-header modal-header-clinical">
+368:                     <h6 class="modal-title fw-bold" id="device-modal-title">Hồ Sơ Lý Lịch Thiết Bị</h6>
+369:                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+370:                 </div>
+371:                 <div class="modal-body p-4" id="device-modal-body">
+372:                     <!-- Populated dynamically -->
+373:                 </div>
+374:                 <div class="modal-footer bg-light py-2">
+375:                     <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+376:                 </div>
+377:             </div>
+378:         </div>
+379:     </div>
+380: 
+381:     <!-- SpeedMaint Work Order Modal -->
+382:     <div class="modal fade" id="speedmaintWorkOrderModal" tabindex="-1" aria-hidden="true">
+383:         <div class="modal-dialog modal-lg modal-dialog-centered">
+384:             <div class="modal-content modal-content-clinical">
+385:                 <div class="modal-header text-white" style="background: #4338ca; padding: 0.75rem 1.25rem;">
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:52+07:00
+Completed At: 2026-08-18T16:49:52+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -371,7 +371,10 @@
+                 <div class="modal-body p-4" id="device-modal-body">
+                     <!-- Populated dynamically -->
+                 </div>
+-                <div class="modal-footer bg-light py-2">
++                <div class="modal-footer bg-light py-2 d-flex justify-content-between">
++                    <button type="button" class="btn btn-sm btn-outline-primary btn-clinical fw-bold" id="btn-open-edit-device">
++                        <i class="bi bi-pencil-square me-1"></i> Chỉnh Sửa Hồ Sơ Thiết Bị
++                    </button>
+                     <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+                 </div>
+             </div>
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:49:55+07:00
+Completed At: 2026-08-18T16:49:55+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 608
+Total Bytes: 40187
+Showing lines 580 to 608
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+580:                             <select id="transfer-device-select" class="form-select form-select-sm" required></select>
+581:                         </div>
+582:                         <div class="mb-3">
+583:                             <label class="form-label fw-bold small text-muted">KHOA TIẾP NHẬN</label>
+584:                             <select id="transfer-target-facility" class="form-select form-select-sm" required></select>
+585:                         </div>
+586:                         <div class="mb-3">
+587:                             <label class="form-label fw-bold small text-muted">NGƯỜI THỰC HIỆN</label>
+588:                             <input type="text" id="transfer-person" class="form-control form-control-sm" value="KS. Trần Văn B - Phòng VTYT" required>
+589:                         </div>
+590:                         <div class="mb-3">
+591:                             <label class="form-label fw-bold small text-muted">LÝ DO BÀN GIAO</label>
+592:                             <input type="text" id="transfer-reason" class="form-control form-control-sm" value="Điều chuyển phục vụ công tác khám chữa bệnh" required>
+593:                         </div>
+594:                         <button type="submit" class="btn btn-primary btn-clinical w-100 fw-bold py-2">
+595:                             Xác Nhận Bàn Giao
+596:                         </button>
+597:                     </form>
+598:                 </div>
+599:             </div>
+600:         </div>
+601:     </div>
+602: 
+603:     <!-- Scripts -->
+604:     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+605:     <script src="js/api.js"></script>
+606:     <script src="js/app.js"></script>
+607: </body>
+608: </html>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:00+07:00
+Completed At: 2026-08-18T16:50:00+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -600,6 +600,150 @@
+         </div>
+     </div>
+ 
++    <!-- ==================== MODAL: CHỈNH SỬA HỒ SƠ THIẾT BỊ (EDIT DEVICE) ==================== -->
++    <div class="modal fade" id="editDeviceModal" tabindex="-1" aria-hidden="true">
++        <div class="modal-dialog modal-lg modal-dialog-centered">
++            <div class="modal-content modal-content-clinical">
++                <div class="modal-header bg-primary text-white py-2">
++                    <h6 class="modal-title fw-bold mb-0"><i class="bi bi-pencil-square me-2"></i>Chỉnh Sửa Thông Tin Thiết Bị Y Tế</h6>
++                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
++                </div>
++                <div class="modal-body p-4">
++                    <form id="edit-device-form">
++                        <input type="hidden" id="edit-dev-id">
++                        <div class="row g-2 mb-3">
++                            <div class="col-md-6">
++                                <label class="form-label small fw-bold text-muted">TÊN THIẾT BỊ (*)</label>
++                                <input type="text" id="edit-dev-name" class="form-control form-control-sm" required>
++                            </div>
++                            <div class="col-md-3">
++                                <label class="form-label small fw-bold text-muted">MODEL (*)</label>
++                                <input type="text" id="edit-dev-model" class="form-control form-control-sm" required>
++                            </div>
++                            <div class="col-md-3">
++                                <label class="form-label small fw-bold text-muted">SỐ SERIAL (S/N) (*)</label>
++                                <input type="text" id="edit-dev-serial" class="form-control form-control-sm font-mono" required>
++                            </div>
++                        </div>
++
++                        <div class="row g-2 mb-3">
++                            <div class="col-md-4">
++                                <label class="form-label small fw-bold text-muted">KHOA / PHÒNG BAN</label>
++                                <select id="edit-dev-facility" class="form-select form-select-sm" required></select>
++                            </div>
++                            <div class="col-md-4">
++                                <label class="form-label small fw-bold text-muted">LOẠI THIẾT BỊ</label>
++                                <select id="edit-dev-category" class="form-select form-select-sm"></select>
++                            </div>
++                            <div class="col-md-4">
++                                <label class="form-label small fw-bold text-muted">MỨC RỦI RO (NĐ 98)</label>
++                                <select id="edit-dev-risk" class="form-select form-select-sm">
++                                    <option value="A">Mức A (Rất thấp)</option>
++                                    <option value="B">Mức B (Trung bình thấp)</option>
++                                    <option value="C">Mức C (Trung bình cao)</option>
++                                    <option value="D">Mức D (Đặc biệt cao)</option>
++                                </select>
++                            </div>
++                        </div>
++
++                        <div class="row g-2 mb-3">
++                            <div class="col-md-4">
++                                <label class="form-label small fw-bold text-muted">HÃNG SẢN XUẤT</label>
++                                <input type="text" id="edit-dev-mfg" class="form-control form-control-sm">
++                            </div>
++                            <div class="col-md-4">
++                                <label class="form-label small fw-bold text-muted">XUẤT XỨ</label>
++                                <input type="text" id="edit-dev-country" class="form-control form-control-sm">
++                            </div>
++                            <div class="col-md-4">
++                                <label class="form-label small fw-bold text-muted">TRẠNG THÁI VẬN HÀNH</label>
++                                <select id="edit-dev-status" class="form-select form-select-sm">
++                                    <option value="IN_SERVICE">🟢 Đang sử dụng (IN_SERVICE)</option>
++                                    <option value="MAINTENANCE">🟡 Đang bảo dưỡng (MAINTENANCE)</option>
++                                    <option value="REPAIR">🔴 Đang sửa chữa (REPAIR)</option>
++                                    <option value="RETIRED">⚪ Đã thanh lý (RETIRED)</option>
++                                </select>
++                            </div>
++                        </div>
++
++                        <div class="row g-2 mb-3">
++                            <div class="col-md-6">
++                                <label class="form-label small fw-bold text-muted">NGÀY KIỂM ĐỊNH GẦN NHẤT</label>
++                                <input type="date" id="edit-dev-cal-date" class="form-control form-control-sm">
++                            </div>
++                            <div class="col-md-6">
++                                <label class="form-label small fw-bold text-muted">HẠN KIỂM ĐỊNH KẾ TIẾP</label>
++                                <input type="date" id="edit-dev-recal-date" class="form-control form-control-sm">
++                            </div>
++                        </div>
++
++                        <div class="mb-3">
++                            <label class="form-label small fw-bold text-muted">GHI CHÚ / HỒ SƠ</label>
++                            <textarea id="edit-dev-notes" class="form-control form-control-sm" rows="2"></textarea>
++                        </div>
++
++                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
++                            <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
++                            <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4">
++                                <i class="bi bi-check2-circle me-1"></i> Lưu Cập Nhật Hồ Sơ
++                            </button>
++                        </div>
++                    </form>
++                </div>
++            </div>
++        </div>
++    </div>
++
++    <!-- ==================== MODAL: CHỈNH SỬA PHIẾU CÔNG VIỆC SPEEDMAINT (EDIT WORK ORDER) ==================== -->
++    <div class="modal fade" id="editWorkOrderModal" tabindex="-1" aria-hidden="true">
++        <div class="modal-dialog modal-lg modal-dialog-centered">
++            <div class="modal-content modal-content-clinical">
++                <div class="modal-header text-white" style="background: #4338ca; padding: 0.75rem 1.25rem;">
++                    <h6 class="modal-title fw-bold mb-0"><i class="bi bi-tools me-2"></i>Chỉnh Sửa Phiếu Công Việc / Báo Cáo Sửa Chữa</h6>
++                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
++                </div>
++                <div class="modal-body p-4">
++                    <form id="edit-wo-form">
++                        <input type="hidden" id="edit-wo-id">
++                        <div class="row g-2 mb-3">
++                            <div class="col-md-6">
++                                <label class="form-label small fw-bold text-muted">LOẠI CÔNG VIỆC</label>
++                                <select id="edit-wo-type" class="form-select form-select-sm">
++                                    <option value="PM định kỳ">PM định kỳ</option>
++                                    <option value="Sửa chữa">Sửa chữa</option>
++                                    <option value="Điều chuyển">Điều chuyển</option>
++                                    <option value="Kiểm định">Kiểm định</option>
++                                    <option value="Kiểm tra an toàn">Kiểm tra an toàn</option>
++                                </select>
++                            </div>
++                            <div class="col-md-6">
++                                <label class="form-label small fw-bold text-muted">NGƯỜI THỰC HIỆN (*)</label>
++                                <input type="text" id="edit-wo-assignee" class="form-control form-control-sm" required>
++                            </div>
++                        </div>
++
++                        <div class="mb-3">
++                            <label class="form-label small fw-bold text-muted">MÔ TẢ CHI TIẾT & BIỆN PHÁP XỬ LÝ</label>
++                            <textarea id="edit-wo-desc" class="form-control form-control-sm" rows="3" required></textarea>
++                        </div>
++
++                        <div class="mb-3">
++                            <label class="form-label small fw-bold text-muted">VẬT TƯ / PHỤ TÙNG THAY THẾ</label>
++                            <input type="text" id="edit-wo-materials" class="form-control form-control-sm" placeholder="VD: Cảm biến O2, Dây nguồn y tế...">
++                        </div>
++
++                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
++                            <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
++                            <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4" style="background:#4338ca; border-color:#3730a3;">
++                                <i class="bi bi-save me-1"></i> Lưu Thay Đổi Phiếu
++                            </button>
++                        </div>
++                    </form>
++                </div>
++            </div>
++        </div>
++    </div>
++
+     <!-- Scripts -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="js/api.js"></script>
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:05+07:00
+Completed At: 2026-08-18T16:50:05+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 728
+Total Bytes: 36130
+Showing lines 100 to 160
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+100:             if (checkAll) {
+101:                 checkAll.addEventListener('change', (e) => {
+102:                     const isChecked = e.target.checked;
+103:                     this.devices.forEach(d => {
+104:                         if (isChecked) this.selectedDeviceIds.add(d.id);
+105:                         else this.selectedDeviceIds.delete(d.id);
+106:                     });
+107:                     this.updateCheckboxUI();
+108:                     this.renderQrStudio();
+109:                 });
+110:             }
+111: 
+112:             // SpeedMaint Work Order Form Submit
+113:             const woForm = document.getElementById('speedmaint-wo-form');
+114:             if (woForm) {
+115:                 woForm.addEventListener('submit', async (e) => {
+116:                     e.preventDefault();
+117:                     const deviceId = document.getElementById('wo-device-select').value;
+118:                     const title = document.getElementById('wo-title').value;
+119:                     const workType = document.getElementById('wo-type').value;
+120:                     const assignedTo = document.getElementById('wo-assigned-to').value;
+121:                     const desc = document.getElementById('wo-desc').value;
+122: 
+123:                     try {
+124:                         await apiClient.createWorkOrder({
+125:                             device_id: parseInt(deviceId),
+126:                             title: title,
+127:                             work_type: workType,
+128:                             start_date: new Date().toISOString().split('T')[0],
+129:                             end_date: new Date().toISOString().split('T')[0],
+130:                             assigned_to: assignedTo,
+131:                             reporter: assignedTo,
+132:                             description: desc
+133:                         });
+134: 
+135:                         alert('✅ Đã lưu phiếu công việc thành công!');
+136:                         woForm.reset();
+137:                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
+138:                         await this.loadInitialData();
+139:                         await this.loadWorkOrders();
+140:                     } catch (err) {
+141:                         alert('Lỗi: ' + err.message);
+142:                     }
+143:                 });
+144:             }
+145: 
+146:             // Quick Audit Form Submit
+147:             const auditForm = document.getElementById('audit-form');
+148:             if (auditForm) {
+149:                 auditForm.addEventListener('submit', async (e) => {
+150:                     e.preventDefault();
+151:                     const deviceId = document.getElementById('audit-device-select').value;
+152:                     const condition = document.getElementById('audit-condition').value;
+153:                     const person = document.getElementById('audit-person').value;
+154: 
+155:                     try {
+156:                         await apiClient.auditDevice({
+157:                             device_id: parseInt(deviceId),
+158:                             audited_by: person,
+159:                             condition: condition,
+160:                             notes: 'Kiểm kê định kỳ hiện trường'
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:07+07:00
+Completed At: 2026-08-18T16:50:07+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 728
+Total Bytes: 36130
+Showing lines 1 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: /**
+2:  * Medical Device Management System (BV Quận 7)
+3:  * Minimalist, High-Clarity Clinical Frontend Logic
+4:  * Triết lý: "Less, but better" - Tối giản, tập trung vào thông tin cốt lõi
+5:  */
+6: 
+7: document.addEventListener('DOMContentLoaded', function () {
+8:     console.log('🏥 Hệ thống Quản lý Thiết bị Y tế BV Quận 7 (Giao diện Tinh Gọn) đã sẵn sàng');
+9: 
+10:     const app = {
+11:         devices: [],
+12:         selectedDeviceIds: new Set(),
+13:         facilities: [],
+14:         categories: [],
+15:         schedules: [],
+16:         workOrders: [],
+17:         audits: [],
+18:         currentFilters: {
+19:             search: '',
+20:             facility_id: '',
+21:             alert_status: '',
+22:             limit: 300,
+23:             offset: 0
+24:         },
+25:         searchTimeout: null,
+26: 
+27:         async init() {
+28:             this.setupEventListeners();
+29:             await this.loadInitialData();
+30:             await this.loadDevices();
+31:             await this.loadAudits();
+32:             await this.loadWorkOrders();
+33:         },
+34: 
+35:         setupEventListeners() {
+36:             // Sidebar Nav Tab switching
+37:             const navButtons = document.querySelectorAll('.sidebar-nav .nav-link');
+38:             const pageHeading = document.getElementById('page-heading');
+39: 
+40:             navButtons.forEach(btn => {
+41:                 btn.addEventListener('click', (e) => {
+42:                     e.preventDefault();
+43:                     navButtons.forEach(b => b.classList.remove('active'));
+44:                     btn.classList.add('active');
+45: 
+46:                     const targetId = btn.getAttribute('data-bs-target');
+47:                     if (targetId) {
+48:                         document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+49:                         document.querySelector(targetId)?.classList.add('show', 'active');
+50:                     }
+51: 
+52:                     const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
+53:                     const iconClass = btn.querySelector('i')?.className || 'bi bi-grid-fill';
+54:                     if (pageHeading) {
+55:                         pageHeading.innerHTML = `<i class="${iconClass} text-primary me-2"></i>${text}`;
+56:                     }
+57:                 });
+58:             });
+59: 
+60:             // Search input
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:09+07:00
+Completed At: 2026-08-18T16:50:10+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 728
+Total Bytes: 36130
+Showing lines 240 to 300
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+240:                         const res = await apiClient.createDevice(payload);
+241:                         alert(`✅ ${res.message}\nMã tài sản cấp mới: ${res.asset_tag} (${res.speedmaint_code})`);
+242:                         createDevForm.reset();
+243:                         bootstrap.Modal.getInstance(document.getElementById('createDeviceModal'))?.hide();
+244:                         await this.loadInitialData();
+245:                         await this.loadDevices();
+246:                     } catch (err) {
+247:                         alert('Lỗi nhập thiết bị: ' + err.message);
+248:                     }
+249:                 });
+250:             }
+251: 
+252:             // Gemini AI Chat Submit
+253:             const aiForm = document.getElementById('ai-chat-form');
+254:             const aiInput = document.getElementById('ai-chat-input');
+255:             const aiMsgBox = document.getElementById('ai-chat-messages');
+256: 
+257:             if (aiForm) {
+258:                 aiForm.addEventListener('submit', async (e) => {
+259:                     e.preventDefault();
+260:                     const text = aiInput.value.trim();
+261:                     if (!text) return;
+262: 
+263:                     if (aiMsgBox) {
+264:                         aiMsgBox.innerHTML += `
+265:                             <div class="d-flex justify-content-end mb-2">
+266:                                 <div class="p-2 bg-primary text-white rounded-3 small" style="max-width: 80%;">
+267:                                     <strong>Bạn:</strong> ${text}
+268:                                 </div>
+269:                             </div>
+270:                         `;
+271:                         aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+272:                     }
+273: 
+274:                     aiInput.value = '';
+275: 
+276:                     try {
+277:                         const res = await apiClient.aiChat(text);
+278:                         if (aiMsgBox) {
+279:                             aiMsgBox.innerHTML += `
+280:                                 <div class="d-flex mb-2">
+281:                                     <div class="p-2 bg-white border rounded-3 small" style="max-width: 85%; white-space: pre-wrap;">
+282:                                         <strong class="text-primary">Gemini BME:</strong><br>${res.reply}
+283:                                     </div>
+284:                                 </div>
+285:                             `;
+286:                             aiMsgBox.scrollTop = aiMsgBox.scrollHeight;
+287:                         }
+288:                     } catch (err) {
+289:                         if (aiMsgBox) {
+290:                             aiMsgBox.innerHTML += `<div class="text-danger small">Lỗi: ${err.message}</div>`;
+291:                         }
+292:                     }
+293:                 });
+294:             }
+295: 
+296:             // Mistral OCR Sample trigger
+297:             const ocrBtn = document.getElementById('btn-run-sample-ocr');
+298:             if (ocrBtn) {
+299:                 ocrBtn.addEventListener('click', async () => {
+300:                     const jsonPre = document.getElementById('ocr-json-preview');
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:14+07:00
+Completed At: 2026-08-18T16:50:14+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\app.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -249,6 +249,92 @@
+                 });
+             }
+ 
++            // Edit Device Button inside Details Modal
++            const btnOpenEditDevice = document.getElementById('btn-open-edit-device');
++            if (btnOpenEditDevice) {
++                btnOpenEditDevice.addEventListener('click', () => {
++                    if (this.currentViewedDeviceId) {
++                        bootstrap.Modal.getInstance(document.getElementById('device-detail-modal'))?.hide();
++                        this.openEditDeviceModal(this.currentViewedDeviceId);
++                    }
++                });
++            }
++
++            // Edit Device Form Submit
++            const editDevForm = document.getElementById('edit-device-form');
++            if (editDevForm) {
++                editDevForm.addEventListener('submit', async (e) => {
++                    e.preventDefault();
++                    const deviceId = parseInt(document.getElementById('edit-dev-id').value);
++                    const name = document.getElementById('edit-dev-name').value.trim();
++                    const model = document.getElementById('edit-dev-model').value.trim();
++                    const serial = document.getElementById('edit-dev-serial').value.trim();
++                    const facilityId = document.getElementById('edit-dev-facility').value;
++                    const categoryId = document.getElementById('edit-dev-category').value;
++                    const riskLevel = document.getElementById('edit-dev-risk').value;
++                    const mfg = document.getElementById('edit-dev-mfg').value.trim();
++                    const country = document.getElementById('edit-dev-country').value.trim();
++                    const status = document.getElementById('edit-dev-status').value;
++                    const calDate = document.getElementById('edit-dev-cal-date').value;
++                    const recalDate = document.getElementById('edit-dev-recal-date').value;
++                    const notes = document.getElementById('edit-dev-notes').value.trim();
++
++                    try {
++                        const payload = {
++                            device_name: name,
++                            model: model,
++                            serial_no: serial,
++                            facility_id: facilityId ? parseInt(facilityId) : null,
++                            category_id: categoryId ? parseInt(categoryId) : null,
++                            risk_level: riskLevel,
++                            manufacturer: mfg || null,
++                            country_of_manufacturer: country || null,
++                            status: status,
++                            calibration_date: calDate || null,
++                            recalibration_date: recalDate || null,
++                            notes: notes || null
++                        };
++
++                        const res = await apiClient.updateDevice(deviceId, payload);
++                        alert(res.message || '✅ Đã cập nhật thành công!');
++                        bootstrap.Modal.getInstance(document.getElementById('editDeviceModal'))?.hide();
++                        await this.loadInitialData();
++                        await this.loadDevices();
++                    } catch (err) {
++                        alert('Lỗi cập nhật thiết bị: ' + err.message);
++                    }
++                });
++            }
++
++            // Edit Work Order Form Submit
++            const editWoForm = document.getElementById('edit-wo-form');
++            if (editWoForm) {
++                editWoForm.addEventListener('submit', async (e) => {
++                    e.preventDefault();
++                    const woId = parseInt(document.getElementById('edit-wo-id').value);
++                    const workType = document.getElementById('edit-wo-type').value;
++                    const assignee = document.getElementById('edit-wo-assignee').value.trim();
++                    const desc = document.getElementById('edit-wo-desc').value.trim();
++                    const materials = document.getElementById('edit-wo-materials').value.trim();
++
++                    try {
++                        const payload = {
++                            work_type: workType,
++                            assigned_to: assignee,
++                            description: desc,
++                            materials: materials || null
++                        };
++
++                        const res = await apiClient.updateWorkOrder(woId, payload);
++                        alert(res.message || '✅ Đã cập nhật phiếu công việc!');
++                        bootstrap.Modal.getInstance(document.getElementById('editWorkOrderModal'))?.hide();
++                        await this.loadWorkOrders();
++                    } catch (err) {
++                        alert('Lỗi cập nhật phiếu: ' + err.message);
++                    }
++                });
++            }
++
+             // Gemini AI Chat Submit
+             const aiForm = document.getElementById('ai-chat-form');
+             const aiInput = document.getElementById('ai-chat-input');
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:20+07:00
+Completed At: 2026-08-18T16:50:20+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 814
+Total Bytes: 40964
+Showing lines 565 to 615
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+565:             if (sideAvail) sideAvail.textContent = `${summary.availability_rate || 100}%`;
+566:             if (navBadgeTotal) navBadgeTotal.textContent = Number(summary.total_devices || 0).toLocaleString('vi-VN');
+567:             if (navBadgeAudits) navBadgeAudits.textContent = `${summary.audited_count || 0}`;
+568:         },
+569: 
+570:         renderFacilityOptions(facilities) {
+571:             const select = document.getElementById('filter-facility');
+572:             const transferTargetSelect = document.getElementById('transfer-target-facility');
+573:             const newDevFacilitySelect = document.getElementById('new-dev-facility');
+574: 
+575:             const optionsHtml = '<option value="">-- Chọn Khoa / Vị trí --</option>' +
+576:                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
+577: 
+578:             if (select) select.innerHTML = '<option value="">-- Tất cả Khoa / Vị trí --</option>' +
+579:                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
+580: 
+581:             if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
+582:             if (newDevFacilitySelect) newDevFacilitySelect.innerHTML = optionsHtml;
+583:         },
+584: 
+585:         renderCategoryOptions(categories) {
+586:             const newDevCatSelect = document.getElementById('new-dev-category');
+587:             if (newDevCatSelect) {
+588:                 newDevCatSelect.innerHTML = '<option value="">-- Chọn loại thiết bị --</option>' +
+589:                     categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+590:             }
+591:         },
+592: 
+593:         populateIncidentDeviceOptions(devices) {
+594:             const select = document.getElementById('wo-device-select');
+595:             if (!select) return;
+596:             select.innerHTML = '<option value="">-- Chọn thiết bị --</option>' +
+597:                 devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} (SN: ${d.serial_no})</option>`).join('');
+598:         },
+599: 
+600:         populateTransferDeviceOptions(devices) {
+601:             const select = document.getElementById('transfer-device-select');
+602:             if (!select) return;
+603:             select.innerHTML = '<option value="">-- Chọn thiết bị cần bàn giao --</option>' +
+604:                 devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} [${d.facility || 'Chưa rõ'}]</option>`).join('');
+605:         },
+606: 
+607:         populateAuditDeviceOptions(devices) {
+608:             const select = document.getElementById('audit-device-select');
+609:             if (!select) return;
+610:             select.innerHTML = '<option value="">-- Chọn thiết bị cần kiểm kê --</option>' +
+611:                 devices.map(d => `<option value="${d.id}">${d.asset_tag || ''} - ${d.device_name} (SN: ${d.serial_no})</option>`).join('');
+612:         },
+613: 
+614:         toggleDeviceSelection(id) {
+615:             if (this.selectedDeviceIds.has(id)) this.selectedDeviceIds.delete(id);
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:27+07:00
+Completed At: 2026-08-18T16:50:27+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 814
+Total Bytes: 40964
+Showing lines 660 to 730
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+660:                         <td>
+661:                             <div class="fw-bold text-dark">${d.device_name || 'Thiết bị y tế'}</div>
+662:                             <div class="text-muted font-mono" style="font-size: 0.75rem;">Model: ${d.model || '-'} • SN: ${d.serial_no || '-'}</div>
+663:                         </td>
+664:                         <td class="text-secondary">${d.facility || 'Kho lưu trữ'}</td>
+665:                         <td class="font-mono ${alertStatus === 'OVERDUE' ? 'text-danger fw-bold' : ''}">${apiClient.formatDate(d.recalibration_date)}</td>
+666:                         <td>${badgeHtml}</td>
+667:                         <td class="text-end">
+668:                             <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.viewDetails(${d.id})">
+669:                                 Xem hồ sơ
+670:                             </button>
+671:                         </td>
+672:                     </tr>
+673:                 `;
+674:             }).join('');
+675:         },
+676: 
+677:         renderAudits(audits) {
+678:             const tbody = document.getElementById('audits-table-body');
+679:             if (!tbody) return;
+680: 
+681:             if (audits.length === 0) {
+682:                 tbody.innerHTML = '<tr><td colspan="6" class="text-center py-3 text-muted">Chưa có bản ghi kiểm kê nào.</td></tr>';
+683:                 return;
+684:             }
+685: 
+686:             tbody.innerHTML = audits.map(a => `
+687:                 <tr>
+688:                     <td class="font-mono text-muted">${apiClient.formatDate(a.audit_date)}</td>
+689:                     <td><span class="badge bg-light text-dark border font-mono">${a.asset_tag}</span></td>
+690:                     <td class="fw-semibold">${a.device_name}</td>
+691:                     <td>${a.facility || 'Toàn viện'}</td>
+692:                     <td>${a.auditor || '-'}</td>
+693:                     <td><span class="badge-clean-status status-ok"><i class="bi bi-check2"></i> Đã kiểm kê</span></td>
+694:                 </tr>
+695:             `).join('');
+696:         },
+697: 
+698:         renderWorkOrders(orders) {
+699:             const tbody = document.getElementById('workorders-body');
+700:             const countBadge = document.getElementById('nav-badge-wo');
+701:             if (countBadge) countBadge.textContent = `${orders.length}`;
+702:             if (!tbody) return;
+703: 
+704:             if (orders.length === 0) {
+705:                 tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3 text-muted">Không có phiếu công việc.</td></tr>';
+706:                 return;
+707:             }
+708: 
+709:             tbody.innerHTML = orders.map(o => `
+710:                 <tr>
+711:                     <td><span class="font-mono fw-bold text-primary">#${o.task_code || `260${o.id}`}</span></td>
+712:                     <td><div class="fw-semibold">${o.work_type || 'PM định kỳ'}</div><small class="text-muted">${o.description || '-'}</small></td>
+713:                     <td>${o.device_name || 'Thiết bị y tế'}</td>
+714:                     <td>${o.assigned_to || '-'}</td>
+715:                     <td><span class="badge-clean-status status-ok">Hoàn thành</span></td>
+716:                 </tr>
+717:             `).join('');
+718:         },
+719: 
+720:         renderQrStudio() {
+721:             const grid = document.getElementById('qr-labels-grid');
+722:             if (!grid) return;
+723: 
+724:             const selectedList = this.devices.filter(d => this.selectedDeviceIds.has(d.id));
+725:             const listToRender = selectedList.length > 0 ? selectedList : this.devices.slice(0, 8);
+726: 
+727:             grid.innerHTML = listToRender.map(d => {
+728:                 const assetTag = d.asset_tag || `BVQ7-TTB-${d.id}`;
+729:                 const qrData = encodeURIComponent(`TAG:${assetTag}|TB:${d.device_name}|SN:${d.serial_no}`);
+730:                 const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=${qrData}`;
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:30+07:00
+Completed At: 2026-08-18T16:50:30+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 814
+Total Bytes: 40964
+Showing lines 740 to 814
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+740:                                 <div class="text-muted small">SN: ${d.serial_no}</div>
+741:                             </div>
+742:                         </div>
+743:                     </div>
+744:                 `;
+745:             }).join('');
+746:         },
+747: 
+748:         async viewDetails(deviceId) {
+749:             try {
+750:                 const device = await apiClient.getDevice(deviceId);
+751:                 const modalTitle = document.getElementById('device-modal-title');
+752:                 const modalBody = document.getElementById('device-modal-body');
+753: 
+754:                 if (modalTitle) {
+755:                     modalTitle.innerHTML = `<i class="bi bi-info-circle text-primary me-2"></i>${device.device_name} <span class="badge bg-light text-dark border ms-2 font-mono">${device.asset_tag}</span>`;
+756:                 }
+757: 
+758:                 if (modalBody) {
+759:                     const certsHtml = (device.certificates && device.certificates.length > 0)
+760:                         ? device.certificates.map(c => `
+761:                             <div class="p-2 bg-light rounded-2 border mb-2 small">
+762:                                 <div class="d-flex justify-content-between">
+763:                                     <strong>Số GCN: ${c.certificate_no || 'N/A'}</strong>
+764:                                     <span class="badge-clean-status status-ok">Đạt chuẩn</span>
+765:                                 </div>
+766:                                 <div class="text-muted mt-1">Hạn KĐ: <span class="font-mono text-dark fw-bold">${apiClient.formatDate(c.recalibration_date)}</span> • Đơn vị: ${c.calibrated_by || '-'}</div>
+767:                                 ${c.source_pdf ? `<div class="mt-1"><a href="${apiClient.getPdfUrl(c.source_pdf)}" target="_blank" class="btn btn-sm btn-outline-danger btn-clinical"><i class="bi bi-file-earmark-pdf me-1"></i>Xem PDF gốc</a></div>` : ''}
+768:                             </div>
+769:                         `).join('')
+770:                         : '<p class="text-muted small">Chưa có lịch sử chứng chỉ kiểm định.</p>';
+771: 
+772:                     modalBody.innerHTML = `
+773:                         <div class="device-spec-grid mb-3">
+774:                             <div class="spec-item">
+775:                                 <div class="spec-label">Mã tài sản</div>
+776:                                 <div class="spec-value text-primary font-mono">${device.asset_tag}</div>
+777:                             </div>
+778:                             <div class="spec-item">
+779:                                 <div class="spec-label">Số Serial (S/N)</div>
+780:                                 <div class="spec-value font-mono">${device.serial_no}</div>
+781:                             </div>
+782:                             <div class="spec-item">
+783:                                 <div class="spec-label">Model</div>
+784:                                 <div class="spec-value font-mono">${device.model}</div>
+785:                             </div>
+786:                             <div class="spec-item">
+787:                                 <div class="spec-label">Khoa / Vị trí</div>
+788:                                 <div class="spec-value">${device.facility || 'Kho lưu trữ'}</div>
+789:                             </div>
+790:                             <div class="spec-item">
+791:                                 <div class="spec-label">Hãng sản xuất</div>
+792:                                 <div class="spec-value">${device.manufacturer || '-'}</div>
+793:                             </div>
+794:                             <div class="spec-item">
+795:                                 <div class="spec-label">Mức rủi ro (NĐ 98)</div>
+796:                                 <div class="spec-value font-mono">Mức ${device.risk_level || 'A'}</div>
+797:                             </div>
+798:                         </div>
+799: 
+800:                         <h6 class="fw-bold small text-muted text-uppercase mb-2">Hồ sơ kiểm định & Chứng từ</h6>
+801:                         ${certsHtml}
+802:                     `;
+803:                 }
+804: 
+805:                 bootstrap.Modal.getOrCreateInstance(document.getElementById('device-detail-modal')).show();
+806:             } catch (err) {
+807:                 alert('Không thể tải chi tiết thiết bị.');
+808:             }
+809:         }
+810:     };
+811: 
+812:     window.app = app;
+813:     app.init();
+814: });
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:43+07:00
+Completed At: 2026-08-18T16:50:44+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\app.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -571,6 +571,7 @@
+             const select = document.getElementById('filter-facility');
+             const transferTargetSelect = document.getElementById('transfer-target-facility');
+             const newDevFacilitySelect = document.getElementById('new-dev-facility');
++            const editDevFacilitySelect = document.getElementById('edit-dev-facility');
+ 
+             const optionsHtml = '<option value="">-- Chọn Khoa / Vị trí --</option>' +
+                 facilities.map(f => `<option value="${f.id}">${f.name} (${f.device_count || 0})</option>`).join('');
+@@ -579,6 +579,7 @@
+ 
+             if (transferTargetSelect) transferTargetSelect.innerHTML = optionsHtml;
+             if (newDevFacilitySelect) newDevFacilitySelect.innerHTML = optionsHtml;
++            if (editDevFacilitySelect) editDevFacilitySelect.innerHTML = optionsHtml;
+         },
+ 
+         renderCategoryOptions(categories) {
+@@ -585,7 +585,10 @@
+-            if (newDevCatSelect) {
+-                newDevCatSelect.innerHTML = '<option value="">-- Chọn loại thiết bị --</option>' +
+-                    categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+-            }
++            const editDevCatSelect = document.getElementById('edit-dev-category');
++
++            const optionsHtml = '<option value="">-- Chọn loại thiết bị --</option>' +
++                categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
++
++            if (newDevCatSelect) newDevCatSelect.innerHTML = optionsHtml;
++            if (editDevCatSelect) editDevCatSelect.innerHTML = optionsHtml;
+         },
+ 
+         populateIncidentDeviceOptions(devices) {
+@@ -699,7 +699,7 @@
+             if (!tbody) return;
+ 
+             if (orders.length === 0) {
+-                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3 text-muted">Không có phiếu công việc.</td></tr>';
++                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-3 text-muted">Không có phiếu công việc.</td></tr>';
+                 return;
+             }
+ 
+@@ -709,6 +709,11 @@
+                     <td>${o.device_name || 'Thiết bị y tế'}</td>
+                     <td>${o.assigned_to || '-'}</td>
+                     <td><span class="badge-clean-status status-ok">Hoàn thành</span></td>
++                    <td class="text-end">
++                        <button class="btn btn-sm btn-outline-primary btn-clinical py-0 px-2" onclick="app.openEditWorkOrderModal(${o.id})">
++                            <i class="bi bi-pencil me-1"></i>Sửa
++                        </button>
++                    </td>
+                 </tr>
+             `).join('');
+         },
+@@ -742,6 +742,7 @@
+ 
+         async viewDetails(deviceId) {
+             try {
++                this.currentViewedDeviceId = deviceId;
+                 const device = await apiClient.getDevice(deviceId);
+                 const modalTitle = document.getElementById('device-modal-title');
+                 const modalBody = document.getElementById('device-modal-body');
+@@ -800,6 +800,42 @@
+             } catch (err) {
+                 alert('Không thể tải chi tiết thiết bị.');
+             }
++        },
++
++        async openEditDeviceModal(deviceId) {
++            try {
++                const device = await apiClient.getDevice(deviceId);
++                document.getElementById('edit-dev-id').value = device.id;
++                document.getElementById('edit-dev-name').value = device.device_name || '';
++                document.getElementById('edit-dev-model').value = device.model || '';
++                document.getElementById('edit-dev-serial').value = device.serial_no || '';
++                document.getElementById('edit-dev-facility').value = device.facility_id || '';
++                document.getElementById('edit-dev-category').value = device.category_id || '';
++                document.getElementById('edit-dev-risk').value = device.risk_level || 'A';
++                document.getElementById('edit-dev-mfg').value = device.manufacturer || '';
++                document.getElementById('edit-dev-country').value = device.country_of_manufacturer || '';
++                document.getElementById('edit-dev-status').value = device.status || 'IN_SERVICE';
++                document.getElementById('edit-dev-cal-date').value = device.calibration_date || '';
++                document.getElementById('edit-dev-recal-date').value = device.recalibration_date || '';
++                document.getElementById('edit-dev-notes').value = device.notes || '';
++
++                bootstrap.Modal.getOrCreateInstance(document.getElementById('editDeviceModal')).show();
++            } catch (err) {
++                alert('Không thể nạp dữ liệu chỉnh sửa thiết bị.');
++            }
++        },
++
++        openEditWorkOrderModal(woId) {
++            const wo = this.workOrders.find(o => o.id === woId);
++            if (!wo) return;
++
++            document.getElementById('edit-wo-id').value = wo.id;
++            document.getElementById('edit-wo-type').value = wo.work_type || 'PM định kỳ';
++            document.getElementById('edit-wo-assignee').value = wo.assigned_to || '';
++            document.getElementById('edit-wo-desc').value = wo.description || '';
++            document.getElementById('edit-wo-materials').value = '';
++
++            bootstrap.Modal.getOrCreateInstance(document.getElementById('editWorkOrderModal')).show();
+         }
+     };
+ 
+@@ -806,2 +806,2 @@
+     app.init();
+-});
++});
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `manage_task`: *manage_task*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:46+07:00
+Completed At: 2026-08-18T16:50:46+07:00
+Task "4881bc7a-1a98-495d-aa16-c25753523ea5/task-1061" cancelled.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:49+07:00
+Tool is running as a background task with task id: 4881bc7a-1a98-495d-aa16-c25753523ea5/task-1126
+Task Description: python -c "import uvicorn; from app.main import app; uvicorn.run(app, host='127.0.0.1', port=8000, log_level='info')"
+Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-1126.log
+YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
+ DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:57+07:00
+Completed At: 2026-08-18T16:50:57+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/test_edit.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:50:59+07:00
+Completed At: 2026-08-18T16:51:00+07:00
+
+				The command exited with code 1.
+				Output:
+				1. Testing PUT /api/devices/1104 (Edit Device) ...
+✅ Update Device Response: {'status': 'success', 'message': "Đã cập nhật thông tin thiết bị 'Máy Siêu Âm Màu Doppler 4D' thành công!"}
+   Verified New Name: Máy Siêu Âm Màu Doppler 4D (Đã Hiệu Chỉnh Kỹ Thuật)
+   Verified New Notes: Đã nghiệm thu và cập nhật cấu hình đầu dò tim/mạch
+
+2. Testing PUT /api/work-orders/1 (Edit Work Order) ...
+Traceback (most recent call last):
+  File "C:\Users\tantt\Downloads\medical-device-app\scripts\test_edit.py", line 45, in <module>
+    res_wo = json.loads(urllib.request.urlopen(req_wo).read().decode('utf-8'))
+                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\urllib\request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\urllib\request.py", line 493, in open
+    response = meth(req, response)
+  File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\urllib\request.py", line 602, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\urllib\request.py", line 531, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\urllib\request.py", line 464, in _call_chain
+    result = func(*args)
+  File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\urllib\request.py", line 611, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 500: Internal Server Error
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:02+07:00
+Completed At: 2026-08-18T16:51:02+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-1126.log`
+Total Lines: 76
+Total Bytes: 5164
+Showing lines 1 to 76
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: INFO:     Started server process [22224]
+2: INFO:     Waiting for application startup.
+3: INFO:     Application startup complete.
+4: INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+5: [INFO] Khởi tạo cơ sở dữ liệu SQLite...
+6: [OK] Database sẵn sàng hoạt động!
+7: INFO:     127.0.0.1:60575 - "PUT /api/devices/1104 HTTP/1.1" 200 OK
+8: INFO:     127.0.0.1:60576 - "GET /api/devices/1104 HTTP/1.1" 200 OK
+9: INFO:     127.0.0.1:60577 - "PUT /api/work-orders/1 HTTP/1.1" 500 Internal Server Error
+10: ERROR:    Exception in ASGI application
+11: Traceback (most recent call last):
+12:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 421, in run_asgi
+13:     result = await app(  # type: ignore[func-returns-value]
+14:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15:         self.scope, self.receive, self.send
+16:         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17:     )
+18:     ^
+19:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 56, in __call__
+20:     return await self.app(scope, receive, send)
+21:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+22:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\applications.py", line 1159, in __call__
+23:     await super().__call__(scope, receive, send)
+24:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\applications.py", line 90, in __call__
+25:     await self.middleware_stack(scope, receive, send)
+26:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+27:     raise exc
+28:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+29:     await self.app(scope, receive, _send)
+30:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+31:     await self.app(scope, receive, send)
+32:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+33:     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+34:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+35:     raise exc
+36:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+37:     await app(scope, receive, sender)
+38:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+39:     await self.app(scope, receive, send)
+40:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\routing.py", line 660, in __call__
+41:     await self.middleware_stack(scope, receive, send)
+42:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\routing.py", line 680, in app
+43:     await route.handle(scope, receive, send)
+44:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\routing.py", line 276, in handle
+45:     await self.app(scope, receive, send)
+46:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\routing.py", line 134, in app
+47:     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+48:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+49:     raise exc
+50:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+51:     await app(scope, receive, sender)
+52:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\routing.py", line 120, in app
+53:     response = await f(request)
+54:                ^^^^^^^^^^^^^^^^
+55:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\routing.py", line 674, in app
+56:     raw_response = await run_endpoint_function(
+57:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+58:     ...<3 lines>...
+59:     )
+60:     ^
+61:   File "C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\routing.py", line 328, in run_endpoint_function
+62:     return await dependant.call(**values)
+63:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+64:   File "C:\Users\tantt\Downloads\medical-device-app\app\routes.py", line 345, in update_work_order
+65:     db.execute("""
+66:     ~~~~~~~~~~^^^^
+67:         UPDATE maintenance_logs
+68:         ^^^^^^^^^^^^^^^^^^^^^^^
+69:         SET maintenance_type = ?, performed_by = ?, description = ?
+70:         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+71:         WHERE id = ?
+72:         ^^^^^^^^^^^^
+73:     """, (new_type, new_assignee, new_desc, wo_id))
+74:     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+75: sqlite3.IntegrityError: CHECK constraint failed: maintenance_type IN ('CALIBRATION', 'REPAIR', 'PREVENTIVE', 'INSPECTION', 'HANDOVER')
+76: 
+The above content shows the entire, complete file contents of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:06+07:00
+Completed At: 2026-08-18T16:51:06+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -328,6 +328,20 @@
+     materials: Optional[str] = None
+     status: Optional[str] = None
+ 
++def normalize_work_type(val: str) -> str:
++    if not val:
++        return "PREVENTIVE"
++    v = val.upper()
++    if "SỬA" in v or "REPAIR" in v or "HỎNG" in v:
++        return "REPAIR"
++    if "KIỂM ĐỊNH" in v or "HIỆU CHUẨN" in v or "CALIBRATION" in v:
++        return "CALIBRATION"
++    if "ĐIỀU CHUYỂN" in v or "BÀN GIAO" in v or "HANDOVER" in v:
++        return "HANDOVER"
++    if "KIỂM TRA" in v or "INSPECTION" in v or "KIỂM KÊ" in v:
++        return "INSPECTION"
++    return "PREVENTIVE"
++
+ @router.put("/api/work-orders/{wo_id}")
+ async def update_work_order(wo_id: int, ticket: SpeedMaintWorkOrderUpdate, db = Depends(get_db)):
+     """Chỉnh sửa phiếu công việc, nội dung sửa chữa và cập nhật tiến độ SpeedMaint (Ảnh 605c)"""
+@@ -338,7 +338,7 @@
+     if ticket.materials and "Vật tư:" not in new_desc:
+         new_desc += f" (Vật tư: {ticket.materials})"
+ 
+-    new_type = ticket.work_type or existing["maintenance_type"]
++    new_type = normalize_work_type(ticket.work_type) if ticket.work_type else existing["maintenance_type"]
+     new_assignee = ticket.assigned_to or existing["performed_by"]
+ 
+     db.execute("""
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:09+07:00
+Completed At: 2026-08-18T16:51:09+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 777
+Total Bytes: 32666
+Showing lines 305 to 330
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+305:     if ticket.materials:
+306:         full_desc += f" (Vật tư: {ticket.materials})"
+307:     if ticket.location:
+308:         full_desc += f" (Địa điểm: {ticket.location})"
+309:         
+310:     cur.execute("""
+311:         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+312:         VALUES (?, ?, ?, ?, ?)
+313:     """, (ticket.device_id, ticket.start_date, ticket.assigned_to, ticket.work_type, full_desc))
+314:     
+315:     if ticket.priority in ("Khẩn cấp", "Cao"):
+316:         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
+317:         
+318:     db.commit()
+319:     return {"status": "success", "message": "Đã tạo phiếu công việc SpeedMaint thành công!"}
+320: 
+321: 
+322: class SpeedMaintWorkOrderUpdate(BaseModel):
+323:     title: Optional[str] = None
+324:     work_type: Optional[str] = None
+325:     assigned_to: Optional[str] = None
+326:     progress: Optional[int] = None
+327:     description: Optional[str] = None
+328:     materials: Optional[str] = None
+329:     status: Optional[str] = None
+330: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:12+07:00
+Completed At: 2026-08-18T16:51:12+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -310,7 +310,7 @@
+     cur.execute("""
+         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+         VALUES (?, ?, ?, ?, ?)
+-    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, ticket.work_type, full_desc))
++    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, normalize_work_type(ticket.work_type), full_desc))
+     
+     if ticket.priority in ("Khẩn cấp", "Cao"):
+         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:14+07:00
+Completed At: 2026-08-18T16:51:14+07:00
+Task "4881bc7a-1a98-495d-aa16-c25753523ea5/task-1126" cancelled.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `manage_task`: *manage_task*
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:20+07:00
+Tool is running as a background task with task id: 4881bc7a-1a98-495d-aa16-c25753523ea5/task-1143
+Task Description: python -c "import uvicorn; from app.main import app; uvicorn.run(app, host='127.0.0.1', port=8000, log_level='info')"
+Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-1143.log
+YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
+ DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:25+07:00
+Completed At: 2026-08-18T16:51:26+07:00
+
+				The command exited with code 0.
+				Output:
+				1. Testing PUT /api/devices/1104 (Edit Device) ...
+✅ Update Device Response: {'status': 'success', 'message': "Đã cập nhật thông tin thiết bị 'Máy Siêu Âm Màu Doppler 4D (Đã Hiệu Chỉnh Kỹ Thuật)' thành công!"}
+   Verified New Name: Máy Siêu Âm Màu Doppler 4D (Đã Hiệu Chỉnh Kỹ Thuật)
+   Verified New Notes: Đã nghiệm thu và cập nhật cấu hình đầu dò tim/mạch
+
+2. Testing PUT /api/work-orders/1 (Edit Work Order) ...
+✅ Update Work Order Response: {'status': 'success', 'message': 'Đã cập nhật thành công phiếu công việc #001!'}
+   Verified WO #001: REPAIR - Đã thay thế van áp lực và kiểm tra an toàn điện đạt chuẩn QT.06 (Vật tư: Van áp lực 2.5 bar, Gioăng cao su y tế)
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-18T16:51:28+07:00
+Completed At: 2026-08-18T16:51:32+07:00
+
+				The command exited with code 0.
+				Output:
+				=== RUNNING FULL API TESTS (WITH GEMINI AI & MISTRAL OCR) ===
+[200] / (text/html; charset=utf-8)
+[200] /health (application/json)
+  Summary: {'status': 'healthy', 'app': 'Medical Device Management System (BVQ7)', 'timestamp': '2026-08-18T16:51:29.369367'}
+[200] /api/dashboard/summary (application/json)
+  Summary: {'total_devices': 1052, 'overdue_count': 1, 'warning_count': 0}
+[200] /api/dashboard/facilities (application/json)
+  Count: 22, First item: Khoa/Phòng Chưa Phân Loại
+[200] /api/dashboard/categories (application/json)
+  Count: 10, First item: Chẩn đoán hình ảnh
+[200] /api/devices?limit=5 (application/json)
+  Count: 5, First item: Huyết áp kế lò xo / Áp kế y tế
+[200] /api/audits (application/json)
+  Count: 2, First item: Máy Siêu Âm Màu Doppler 4D (Đã Hiệu Chỉnh Kỹ Thuật)
+[200] /api/accessories (application/json)
+  Count: 7, First item: Bao đo huyết áp người lớn (Cuff Adult)
+[200] /api/schedules (application/json)
+  Count: 103, First item: Huyết áp kế lò xo / Áp kế y tế
+[200] /api/work-orders (application/json)
+  Count: 7, First item: Máy Siêu Âm Màu Doppler 4D (Đã Hiệu Chỉnh Kỹ Thuật)
 
 --- Testing Gemini AI Agent ---
 [200] /api/ai/chat
