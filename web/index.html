@@ -53,12 +53,12 @@
                 </div>
             </div>
 
-            <!-- 4 Organized Functional Groups (Taste-Skill Precision) -->
+                        <!-- 4 Organized Functional Groups (Taste-Skill Precision) -->
             <ul class="nav flex-column sidebar-nav" id="sidebarMenu" role="tablist">
                 <li class="sidebar-section-header" role="presentation">
                     <span>ĐIỀU HÀNH TỔNG THỂ</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="btn-tab-overview" data-bs-toggle="pill" data-bs-target="#tab-overview" type="button">
                         <i class="bi bi-speedometer2 text-info"></i>
                         <span>Dashboard & Kanban</span>
@@ -70,20 +70,22 @@
                 <li class="sidebar-section-header" role="presentation">
                     <span>DANH MỤC & ĐỐI TÁC</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
                         <i class="bi bi-grid-fill"></i>
                         <span>Thiết Bị & Phụ Kiện</span>
                         <span class="badge bg-secondary rounded-pill ms-auto font-mono" id="nav-badge-total">1.073</span>
                     </button>
                 </li>
-                <li class="nav-item">
-                                            <button class="nav-link" id="btn-tab-staff" data-bs-toggle="pill" data-bs-target="#tab-staff" type="button">
-                            <i class="bi bi-people-fill text-info"></i>
-                            <span>Nhân Sự TTBYT</span>
-                            <span class="badge bg-info text-dark rounded-pill ms-auto font-mono" id="badge-staff-count">6 KS (Q7)</span>
-                        </button>
-                        <button class="nav-link" id="btn-tab-suppliers" data-bs-toggle="pill" data-bs-target="#tab-suppliers" type="button">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="btn-tab-staff" data-bs-toggle="pill" data-bs-target="#tab-staff" type="button">
+                        <i class="bi bi-people-fill text-info"></i>
+                        <span>Nhân Sự TTBYT</span>
+                        <span class="badge bg-info text-dark rounded-pill ms-auto font-mono" id="badge-staff-count">6 KS (Q7)</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="btn-tab-suppliers" data-bs-toggle="pill" data-bs-target="#tab-suppliers" type="button">
                         <i class="bi bi-building text-warning"></i>
                         <span>Nhà Cung Cấp & HĐ</span>
                         <span class="badge bg-warning-subtle text-dark rounded-pill ms-auto font-mono">24 NCC</span>
@@ -94,52 +96,51 @@
                 <li class="sidebar-section-header" role="presentation">
                     <span>QUY TRÌNH LÂM SÀNG</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-inspections" data-bs-toggle="pill" data-bs-target="#tab-inspections" type="button">
                         <i class="bi bi-shield-check text-success"></i>
                         <span>Kiểm Tra Đầu Ngày</span>
                         <span class="badge bg-success rounded-pill ms-auto font-mono">Pre-use</span>
                     </button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-schedule" data-bs-toggle="pill" data-bs-target="#tab-schedule" type="button">
                         <i class="bi bi-calendar-event text-info"></i>
                         <span>Lịch Bảo Trì & Kiểm Định</span>
                         <span class="badge bg-danger rounded-pill ms-auto font-mono">30 Ngày</span>
                     </button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-transfers" data-bs-toggle="pill" data-bs-target="#tab-transfers" type="button">
                         <i class="bi bi-arrow-left-right text-primary"></i>
                         <span>Điều Chuyển Máy (QT.08)</span>
                     </button>
                 </li>
 
-
                 <!-- GROUP 4: CMMS & ĐỒ THỊ TRI THỨC -->
                 <li class="sidebar-section-header" role="presentation">
                     <span>CMMS & TRÍ TUỆ NHÂN TẠO</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-diagrams" data-bs-toggle="pill" data-bs-target="#tab-diagrams" type="button">
                         <i class="bi bi-diagram-3-fill text-info"></i>
                         <span>Sơ Đồ Quy Trình SVG</span>
                     </button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-speedmaint" data-bs-toggle="pill" data-bs-target="#tab-speedmaint" type="button">
                         <i class="bi bi-tools text-warning"></i>
                         <span>Bảo Trì SpeedMaint</span>
                         <span class="badge bg-secondary rounded-pill ms-auto font-mono" id="nav-badge-wo">7</span>
                     </button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-semantica" data-bs-toggle="pill" data-bs-target="#tab-semantica" type="button">
                         <i class="bi bi-share-fill text-warning"></i>
                         <span>Semantica Context Graph</span>
                     </button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="btn-tab-ai-hub" data-bs-toggle="pill" data-bs-target="#tab-ai-hub" type="button">
                         <i class="bi bi-stars text-info"></i>
                         <span>Trợ Lý AI & OCR Hub</span>
@@ -158,15 +159,16 @@
         <!-- ==================== MAIN WORKSPACE ==================== -->
         <main class="main-content">
 
-            <!-- Top Header -->
+                        <!-- Top Header -->
             <header class="top-header d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-2">
                     <button id="btn-toggle-sidebar" class="btn btn-sm btn-light border btn-toggle-sidebar shadow-sm" onclick="app.toggleSidebar()" title="Ẩn/Hiện Menu bên trái (Ctrl+B)">
                         <i class="bi bi-layout-sidebar-inset text-primary fs-6"></i>
                     </button>
                     <h5 class="mb-0 fw-bold text-dark" id="page-heading">
-                    <i class="bi bi-grid-fill text-primary me-2"></i>Danh Mục Thiết Bị Y Tế & Cấu Kiện Phụ Kiện
-                </h5>
+                        <i class="bi bi-speedometer2 text-primary me-2"></i>Dashboard & Kanban
+                    </h5>
+                </div>
                 <div class="d-flex align-items-center gap-2">
                     <button class="btn btn-sm btn-outline-secondary btn-clinical d-none d-md-inline-flex align-items-center gap-1 font-mono" onclick="document.getElementById('search-input')?.focus();" title="Phím tắt tìm kiếm toàn viện">
                         <i class="bi bi-search"></i>
