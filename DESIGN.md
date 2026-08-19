@@ -1,164 +1,189 @@
 ---
+version: alpha
 name: Tam Anh Q7 HTM Design System
 description: Clinical-grade, high-density Design System for Medical Device Management & Clinical Engineering (HTM V3) at Tam Anh General Clinic District 7.
-version: 3.0.0
-author: Tam Anh Biomedical Engineering & Clinical Informatics
-tokens:
-  colors:
-    brand:
-      primary: "#0284c7" # Clinical Sky/Teal
-      primary-dark: "#002d62" # Tam Anh Deep Hospital Navy
-      primary-light: "#e0f2fe" # Soft Clinical Sky Tint
-      secondary: "#3b82f6" # Diagnostic Blue
-      accent: "#f59e0b" # Golden Amber for On-call / SpeedMaint
-    surfaces:
-      background: "#f8fafc" # Clean Slate Canvas
-      card: "#ffffff" # Pure White Clinical Card
-      sidebar: "#0f172a" # Deep Navy Slate
-      header: "#ffffff"
-      border: "#e2e8f0" # High-precision border
-      subtle: "#f1f5f9"
-    text:
-      primary: "#0f172a" # High contrast slate
-      secondary: "#475569" # Subtitle slate
-      muted: "#64748b" # Helper text
-      inverse: "#ffffff" # White on dark
-    status:
-      in-service: "#16a34a" # Emerald Green (Hoạt động tốt)
-      maintenance: "#f59e0b" # Amber (Đang bảo trì/hiệu chuẩn)
-      broken: "#dc2626" # Crimson Red (Báo hỏng khẩn cấp)
-      quarantine: "#9333ea" # Purple (Chờ thanh lý/Niêm phong)
-      oncall: "#ef4444" # Pulsing Emergency Red
-    risk-levels:
-      risk-a: "#16a34a" # Class A - Low Risk (Green)
-      risk-b: "#2563eb" # Class B - Moderate Risk (Blue)
-      risk-c: "#d97706" # Class C - Medium-High Risk (Amber)
-      risk-d: "#dc2626" # Class D - High Risk / Life Support (Red)
-  typography:
-    font-family:
-      sans: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-      mono: "'JetBrains Mono', 'SF Mono', Consolas, Menlo, monospace"
-    font-size:
-      xs: "0.75rem" # 12px - Badges, stamps, meta
-      sm: "0.875rem" # 14px - Card meta, table body
-      base: "1rem" # 16px - Standard UI text
-      lg: "1.125rem" # 18px - Sub-headers
-      xl: "1.25rem" # 20px - Card titles
-      2xl: "1.5rem" # 24px - Section headers
-      3xl: "1.875rem" # 30px - KPI Metric numbers
-    font-weight:
-      regular: 400
-      medium: 500
-      semibold: 600
-      bold: 700
-      black: 900
-  spacing:
-    xs: "0.25rem" # 4px
-    sm: "0.5rem" # 8px
-    md: "1rem" # 16px
-    lg: "1.5rem" # 24px
-    xl: "2rem" # 32px
-  radii:
-    none: "0px"
-    sm: "4px"
-    md: "8px" # Clinical cards & buttons
-    lg: "12px" # Modals & Hero cards
-    full: "9999px" # Status pills & chips
-  shadows:
-    sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
-    card: "0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06)"
-    hover: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.08)"
-    modal: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
+colors:
+  primary: "#0284c7"
+  primary-dark: "#002d62"
+  primary-light: "#e0f2fe"
+  secondary: "#3b82f6"
+  accent: "#f59e0b"
+  surface-background: "#f8fafc"
+  surface-card: "#ffffff"
+  surface-sidebar: "#0f172a"
+  surface-header: "#ffffff"
+  surface-border: "#e2e8f0"
+  surface-subtle: "#f1f5f9"
+  text-primary: "#0f172a"
+  text-secondary: "#475569"
+  text-muted: "#64748b"
+  text-inverse: "#ffffff"
+  status-in-service: "#16a34a"
+  status-maintenance: "#f59e0b"
+  status-broken: "#dc2626"
+  status-quarantine: "#9333ea"
+  status-oncall: "#ef4444"
+  risk-a: "#16a34a"
+  risk-b: "#2563eb"
+  risk-c: "#d97706"
+  risk-d: "#dc2626"
+typography:
+  display-kpi:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 30px
+    fontWeight: 800
+    lineHeight: 1.2
+  h1:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 24px
+    fontWeight: 700
+    lineHeight: 1.3
+  h2:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 20px
+    fontWeight: 700
+    lineHeight: 1.3
+  h3:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 16px
+    fontWeight: 600
+    lineHeight: 1.4
+  body-md:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 14px
+    fontWeight: 400
+    lineHeight: 1.5
+  body-sm:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 13px
+    fontWeight: 400
+    lineHeight: 1.4
+  label-caps:
+    fontFamily: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+    fontSize: 11.5px
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: 0.04em
+  mono-code:
+    fontFamily: JetBrains Mono, SF Mono, Consolas, monospace
+    fontSize: 12.5px
+    fontWeight: 600
+    lineHeight: 1.4
+rounded:
+  none: 0px
+  sm: 4px
+  md: 8px
+  lg: 12px
+  full: 9999px
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 24px
+  xl: 32px
+components:
+  card-clinical:
+    backgroundColor: "{colors.surface-card}"
+    textColor: "{colors.text-primary}"
+    rounded: "{rounded.md}"
+    padding: 16px
+  badge-risk-a:
+    backgroundColor: "#dcfce7"
+    textColor: "{colors.risk-a}"
+    rounded: "{rounded.full}"
+    padding: 4px 8px
+  badge-risk-d:
+    backgroundColor: "#fee2e2"
+    textColor: "{colors.risk-d}"
+    rounded: "{rounded.full}"
+    padding: 4px 8px
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.text-inverse}"
+    rounded: "{rounded.md}"
+    padding: 8px 16px
+  button-warning:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.text-primary}"
+    rounded: "{rounded.md}"
+    padding: 8px 16px
 ---
 
-# DESIGN.md — Tâm Anh Q7 Healthcare Technology Management (HTM V3)
+# Tam Anh Q7 HTM Design System
 
-> **Design System for High-Stakes Biomedical Engineering & Clinical Equipment Operations.**
-> Tailored for Phòng Trang Thiết Bị Y Tế — Phòng Khám Đa Khoa Tâm Anh Quận 7 (1.073 Thiết Bị, 21 Khoa Phòng, 6 Kỹ Sư BME).
+Official Google Stitch `DESIGN.md` specification for Medical Device Management and Biomedical Clinical Engineering (HTM V3) at Phòng Khám Đa Khoa Tâm Anh Quận 7.
 
----
+## Overview
 
-## 1. Triết Lý Thiết Kế (Design Philosophy)
+Clinical Rigor meets Modern Information Architecture. The UI evokes a high-reliability aerospace/medical telemetry station — clean, deterministic, calm under pressure, and optimized for split-second decisions during 24/7 on-call emergency operations.
 
-Hệ thống HTM V3 tuân thủ nguyên tắc cốt lõi: **"Less, but better" (Dieter Rams)** kết hợp tiêu chuẩn **Clinical UX Safety**:
+- **Primary Persona:** Kỹ sư Y sinh (BME Engineers), Điều dưỡng Trưởng, và Ban Lãnh đạo Khoa/Phòng.
+- **Core Philosophy:** "Less, but better" (Dieter Rams) combined with ISO 13485 / IEC 62304 Medical Device Usability standards.
+- **Information Density:** High density with generous micro-padding to display 1.073 devices, serial passports, calibrations, and 24h on-call assignments without eye fatigue.
 
-1. **Zero Ambiguity (Không mơ hồ trong tình huống lâm sàng khẩn cấp):**
-   - Màu sắc trạng thái và mã rủi ro (A/B/C/D) phải nổi bật ngay lập tức trong điều kiện ánh sáng phòng khám/khoa cấp cứu.
-   - Mã tài sản (`BVQ7-TTB-XXXXX`) và Số Serial (`S/N`) luôn sử dụng font Monospace (`JetBrains Mono`) với độ tương phản cao để tránh nhầm lẫn ký tự (`0` vs `O`, `1` vs `l`).
+## Colors
 
-2. **High Information Density with Zero Clutter (Mật độ thông tin cao nhưng thoáng đãng):**
-   - Bố cục lưới thẻ lâm sàng (Clinical Cards Grid) với padding chuẩn mực 12px–16px.
-   - Thẻ hiển thị ngay 4 trường quan trọng nhất: Tên máy, Model, Serial, Khoa phòng phụ trách và Badge Rủi ro.
+The palette is engineered for clinical contrast, zero color ambiguity, and strict adherence to Ministry of Health (Nghị định 98/2021/NĐ-CP) risk classifications:
 
-3. **Deterministic & Evidence-First (Minh chứng xác thực):**
-   - Hồ sơ nhân sự và chứng chỉ tuân thủ nghiêm ngặt nguyên tắc chỉ hiển thị khi có số hiệu quyết định/văn bản minh chứng gốc.
-   - Huy hiệu `VĂN BẰNG & CHỨNG CHỈ` hiển thị trung thực trạng thái xác thực.
+- **Primary (`#0284c7` - Clinical Sky):** Primary brand driver for interactive elements, filters, and active tab highlights.
+- **Primary Dark (`#002d62` - Tam Anh Hospital Navy):** Foundational anchor representing institutional trust, security, and clinical authority.
+- **Surface Background (`#f8fafc` - Slate Canvas):** Neutral cool gray foundation reducing glare in high-brightness clinical environments.
+- **Risk Class A (`#16a34a` - Emerald):** Low risk devices (e.g. SpO2 sensors, examination couches).
+- **Risk Class B (`#2563eb` - Diagnostic Blue):** Moderate risk diagnostic equipment (e.g. Patient Monitors, ECG units).
+- **Risk Class C (`#d97706` - Amber):** Medium-high risk intervention devices (e.g. Digital X-Rays, Ultrasonic Scalers, Endoscopes).
+- **Risk Class D (`#dc2626` - Crimson Emergency):** High risk / life support systems (e.g. Invasive Vela Ventilators, TEC-5600 Defibrillators, RO Dialysis).
 
----
+## Typography
 
-## 2. Bảng Màu & Hệ Thống Nhận Diện (Color Palette)
+A dual-typeface system pairing **Inter** (for maximum human reading legibility) with **JetBrains Mono** (for high-precision serial numbers, asset tags, and calibration certificates).
 
-### 🏥 Màu Thương Hiệu & Giao Diện
-* **Tam Anh Hospital Navy (`#002d62`):** Màu sắc đại diện cho sự uy tín, chuyên nghiệp và chuẩn mực y khoa.
-* **Clinical Sky (`#0284c7` / `#0ea5e9`):** Màu chỉ đạo giao diện, thanh công cụ, nút chính và các liên kết hành động.
-* **Slate Canvas (`#f8fafc`):** Nền tổng thể mát dịu, giảm mỏi mắt cho kỹ sư trực máy 24/7.
-* **Pure White Card (`#ffffff`):** Nền thẻ thiết bị với đường viền mảnh `#e2e8f0`.
+- **Display KPI (`30px / 800`):** Bold, high-visibility operational metrics (e.g., 1.073 Total Assets, 98.6% Operational Readiness).
+- **Section Headers (`20px / 700`):** Crisp division headers for clinical modules and on-call calendars.
+- **Mono Code (`12.5px / 600 Monospace`):** Unambiguous alphanumeric rendering for Asset Tags (`BVQ7-TTB-XXXXX`) and Serial Numbers (`S/N`) to prevent character confusion between `0` and `O`, `1` and `l`.
 
-### ⚠️ Phân Loại Mức Độ Rủi Ro (Theo Nghị Định 98/2021/NĐ-CP & Bộ Y Tế)
+## Layout
 
-| Mức Rủi Ro | Mã Màu | Badge UI | Ví Dụ Thiết Bị |
-|:---:|:---:|:---:|:---|
-| **Loại A** | `#16a34a` (Emerald) | `badge bg-success-subtle text-success` | Cảm biến SpO2, Bàn khám, Đèn khám |
-| **Loại B** | `#2563eb` (Blue) | `badge bg-primary-subtle text-primary` | Máy theo dõi Monitor B125M, ECG |
-| **Loại C** | `#d97706` (Amber) | `badge bg-warning-subtle text-warning` | X-Quang Revolution, Máy cạo vôi, Ống nội soi |
-| **Loại D** | `#dc2626` (Red) | `badge bg-danger-subtle text-danger` | Máy thở xâm lấn Vela, Máy sốc tim TEC-5600, RO Thận |
+A responsive, grid-first layout structured into three functional zones:
 
----
+1. **Collapsible Clinical Sidebar (`#0f172a`):** Persistent navigation across Global Operations, Equipment Directory, Clinical SOPs (QT.01 - QT.09), and SpeedMaint CMMS.
+2. **Top Telemetry Header:** Real-time search (`Ctrl+K`), Fast Asset Intake, SOP Documentation Link, and Live Excel Export.
+3. **Multi-Tab Clinical Workspace:** Responsive 12-column grid cards (`col-12 col-md-6 col-xl-4`) optimized for 1080p desktop monitors and mobile tablets.
 
-## 3. Hệ Thống Typography
+## Elevation & Depth
 
-| Thành Phần | Font Family | Size | Weight | Dùng Cho |
-|:---|:---|:---:|:---:|:---|
-| **KPI Numbers** | `Inter` | 1.875rem (30px) | 800 (Bold) | Tổng thiết bị 1.073, Sẵn sàng 98.6% |
-| **Section Headings** | `Inter` | 1.25rem (20px) | 700 (Bold) | Tiêu đề phân hệ, Lịch On-call |
-| **Device Name** | `Inter` | 0.95rem (15px) | 700 (Bold) | Tên thiết bị y tế chính |
-| **Asset Tag / S/N** | `JetBrains Mono` | 0.78rem (12.5px) | 600 (SemiBold) | `BVQ7-TTB-00012`, `S/N: SR724460006SA` |
-| **Badges / Meta** | `Inter` | 0.72rem (11.5px) | 600 (SemiBold) | Tem kiểm định, Khoa phòng phụ trách |
+Subtle, high-precision elevation using soft border outlines and directional drop shadows to delineate cards without visual noise:
 
----
+- **Resting Clinical Cards:** `box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08)` paired with a 1px border (`#e2e8f0`).
+- **Interactive Hover:** `box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1)` with `-2px` translateY lift.
+- **Emergency / On-Call Pulsing:** Subtle CSS keyframe animation (`pulse-emergency`) drawing instant focus to active 24h on-call engineers.
 
-## 4. Thành Phần Giao Diện Chuẩn (Component Specs)
+## Shapes
 
-### 🩺 Thẻ Thiết Bị Y Tế (`.clinical-card`)
-```html
-<div class="clinical-card p-3 h-100 shadow-sm border">
-    <div class="d-flex justify-content-between align-items-start mb-2">
-        <span class="badge bg-danger-subtle text-danger font-mono fw-bold">LOẠI D</span>
-        <span class="badge bg-dark font-mono text-white">BVQ7-TTB-00108</span>
-    </div>
-    <h6 class="fw-bold text-dark mb-1">Máy Sốc Tim Phá Rung Defibrillator</h6>
-    <div class="text-muted small font-mono mb-2">Model: TEC-5600 • S/N: 2024-NK991</div>
-    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-        <span class="badge bg-light text-dark border">📍 Khoa Cấp Cứu</span>
-        <button class="btn btn-sm btn-outline-primary btn-clinical">Sổ Lý Lịch Máy</button>
-    </div>
-</div>
-```
+- **Base Radius (`8px`):** Used for all clinical equipment cards, action buttons, and form inputs for a refined, modern feel.
+- **Large Radius (`12px`):** Used for Clinical Modals, Quick-Assign Planner Dialogs, and Executive KPI panels.
+- **Pill Radius (`9999px`):** Exclusively reserved for Risk Badges (A/B/C/D), Status Indicators, and Department Location chips.
 
-### ⚡ Phân Hệ On-Call 24/7 (3 Kỹ Sư: Tấn — Thiện — Hiếu)
-* **Banner Trực 24h:** Nổi bật ở đỉnh trang với hiệu ứng `pulse-emergency` màu đỏ cảnh báo.
-* **Xoay Vòng Tuần:** Mỗi kỹ sư luân phiên trực trọn vẹn 1 tuần (Thứ 2 $\rightarrow$ CN).
-* **Nút Chỉnh Nhanh:** `btn-warning text-dark fw-bold` kích hoạt modal phân công xoay vòng 1-click trọn tháng.
+## Components
 
-### 📋 Bảng Tiến Độ Kanban Lâm Sàng (4 Cột)
-1. `1. Chờ Tiếp Nhận` (Border `#dc2626` - Báo hỏng khẩn cấp)
-2. `2. Đang Xử Lý` (Border `#0284c7` - Kỹ thuật hãng / P.TTBYT sửa chữa)
-3. `3. Chờ Nghiệm Thu` (Border `#f59e0b` - ĐD Trưởng ký BM04)
-4. `4. Đã Hoàn Tất` (Border `#16a34a` - Dán tem kiểm định & đưa vào hoạt động)
+### Clinical Equipment Card (`.clinical-card`)
+- Container with pure white background (`#ffffff`), 16px padding, 8px border radius, and top colored border matching risk level or category.
+- Displays Device Name, Model, Serial, Department, and Action buttons (Passport, Edit, Transfer).
 
----
+### 4-Column Clinical Kanban Board
+- Columns: `1. Chờ Tiếp Nhận` (Red border), `2. Đang Xử Lý` (Sky border), `3. Chờ Nghiệm Thu` (Amber border), `4. Đã Hoàn Tất` (Green border).
+- Supports 1-click stage advancement (`Lùi ◀`, `Tiếp ▶`).
 
-## 5. Quy Tắc Trợ Năng & Kiểm Soát Lỗi (Accessibility & Safety)
-* **Độ Tương Phản:** Tất cả văn bản và nhãn dữ liệu đạt chuẩn **WCAG 2.1 Level AA** (độ tương phản tối thiểu 4.5:1).
-* **Không Phụ Thuộc Vào Màu Đơn Lẻ:** Mọi trạng thái luôn đi kèm **Icon biểu thị** + **Nhãn chữ** (Ví dụ: `🔴 LOẠI D - KHẨN CẤP`, `🟢 LOẠI A - AN TOÀN`).
-* **Phím Tắt Toàn Cục:** `Ctrl+K` kích hoạt thanh tìm kiếm thiết bị nhanh tức thì.
+### 24/7 On-Call Weekly Planner Modal
+- 1-Click automatic rotation across 3 primary engineers (**Tấn $\rightarrow$ Thiện $\rightarrow$ Hiếu**) with 1-week continuous rotation.
+
+## Do's and Don'ts
+
+### Do's
+- **DO** always display both color and icon for risk levels (e.g. `🔴 LOẠI D`) to support colorblind clinical staff.
+- **DO** use `JetBrains Mono` for all Asset Tags, Serial Numbers, and Decision Codes.
+- **DO** maintain strict zero-hallucination policies for staff credentials and certifications (only display verified documentation).
+
+### Don'ts
+- **DON'T** use low-contrast text on colored badges (must pass WCAG AA 4.5:1 ratio).
+- **DON'T** use ambiguous abbreviations for medical risk levels; always write out `Loại A`, `Loại B`, `Loại C`, `Loại D`.
+- **DON'T** clutter the primary viewport with unverified or mock data.
