@@ -1,0 +1,233 @@
+{
+  "metadata": {
+    "system": "Medical Device Management System (BV Quận 7)",
+    "organization": "Phòng Khám Đa Khoa Tâm Anh Quận 7 / BV Quận 7",
+    "version": "2.0.0 (Snipe-IT & SpeedMaint Edition)",
+    "generated_at": "2026-08-19T07:23:28.141542",
+    "standards": [
+      "Nghị định 98/2021/NĐ-CP",
+      "Thông tư 05/2022/TT-BYT",
+      "ISO 13485",
+      "TLHD_QLTTBYT_V1.2"
+    ]
+  },
+  "summary": {
+    "total_devices": 1052,
+    "total_facilities": 22,
+    "total_categories": 10,
+    "total_certificates": 107,
+    "total_maintenance_logs": 9
+  },
+  "risk_level_distribution": {
+    "Level_A": 851,
+    "Level_B": 71,
+    "Level_C": 90,
+    "Level_D": 40
+  },
+  "facilities_master": [
+    {
+      "id": 1,
+      "name": "Khoa/Phòng Chưa Phân Loại",
+      "code": "KHOAPH",
+      "device_count": 952
+    },
+    {
+      "id": 13,
+      "name": "Khoa Khám Bệnh",
+      "code": "KHOAKH",
+      "device_count": 31
+    },
+    {
+      "id": 12,
+      "name": "Khoa Chẩn Đoán Hình Ảnh",
+      "code": "KHOACH",
+      "device_count": 22
+    },
+    {
+      "id": 4,
+      "name": "KHOA CẤP CỨU",
+      "code": "KHOACP",
+      "device_count": 20
+    },
+    {
+      "id": 7,
+      "name": "KHOA NỘI SOI TIÊU HOÁ",
+      "code": "KHOANI",
+      "device_count": 4
+    },
+    {
+      "id": 18,
+      "name": "CẤP CỨU-ĐƠN VỊ LỌC MÁU",
+      "code": "CPCUNV",
+      "device_count": 3
+    },
+    {
+      "id": 16,
+      "name": "PHÒNG KHÁM ĐA KHOA",
+      "code": "PHNGKH",
+      "device_count": 3
+    },
+    {
+      "id": 23,
+      "name": "CHẨN ĐOÁN HÌNH ẢNH",
+      "code": "CHNONH",
+      "device_count": 2
+    },
+    {
+      "id": 17,
+      "name": "Phòng 3002 khu da liễu",
+      "code": "PHNG30",
+      "device_count": 2
+    },
+    {
+      "id": 5,
+      "name": "KHOA LỌC MÁU",
+      "code": "KHOALC",
+      "device_count": 1
+    },
+    {
+      "id": 6,
+      "name": "KHOA MẮT",
+      "code": "KHOAMT",
+      "device_count": 1
+    },
+    {
+      "id": 11,
+      "name": "KHOA UNG BƯỚU",
+      "code": "KHOAUN",
+      "device_count": 1
+    },
+    {
+      "id": 64,
+      "name": "KIỂM SOÁT NHIỄM KHUẨN",
+      "code": "KIMSOT",
+      "device_count": 1
+    },
+    {
+      "id": 15,
+      "name": "Khoa Kiểm Soát Nhiễm Khuẩn",
+      "code": "KHOAKI",
+      "device_count": 1
+    },
+    {
+      "id": 68,
+      "name": "NHÀ THUỐC",
+      "code": "NHTHUC",
+      "device_count": 1
+    },
+    {
+      "id": 20,
+      "name": "NỘI SOI TIÊU HÓA",
+      "code": "NISOIT",
+      "device_count": 1
+    },
+    {
+      "id": 2,
+      "name": "P.TTB Q7",
+      "code": "PTTBQ7",
+      "device_count": 1
+    },
+    {
+      "id": 3,
+      "name": "Phòng Trang Thiết Bị Y Tế",
+      "code": "PHNGTR",
+      "device_count": 1
+    },
+    {
+      "id": 14,
+      "name": "Quầy đánh giá ban đầu – Trung tâm thẩm mỹ",
+      "code": "QUYNHG",
+      "device_count": 1
+    },
+    {
+      "id": 67,
+      "name": "XÉT NGHIỆM",
+      "code": "XTNGHI",
+      "device_count": 1
+    },
+    {
+      "id": 22,
+      "name": "CẤP CỨU",
+      "code": "CPCU",
+      "device_count": 0
+    },
+    {
+      "id": 19,
+      "name": "KHÁM BỆNH - MẮT",
+      "code": "KHMBNH",
+      "device_count": 0
+    }
+  ],
+  "categories_master": [
+    {
+      "id": 3,
+      "name": "Thiết bị y tế khác",
+      "description": "Nhóm Thiết bị y tế khác",
+      "safety_level": "Basic",
+      "device_count": 478
+    },
+    {
+      "id": 4,
+      "name": "Dụng cụ đo lường y tế",
+      "description": "Nhóm Dụng cụ đo lường y tế",
+      "safety_level": "Basic",
+      "device_count": 431
+    },
+    {
+      "id": 1,
+      "name": "Thận nhân tạo & Lọc máu",
+      "description": "Nhóm Thận nhân tạo & Lọc máu",
+      "safety_level": "Critical",
+      "device_count": 43
+    },
+    {
+      "id": 2,
+      "name": "Theo dõi bệnh nhân & Điện tim",
+      "description": "Nhóm Theo dõi bệnh nhân & Điện tim",
+      "safety_level": "Advanced",
+      "device_count": 21
+    },
+    {
+      "id": 6,
+      "name": "Thiết bị xét nghiệm & lab",
+      "description": "Nhóm Thiết bị xét nghiệm & lab",
+      "safety_level": "Advanced",
+      "device_count": 19
+    },
+    {
+      "id": 8,
+      "name": "Cấp cứu & Máy phá rung tim",
+      "description": "Nhóm Cấp cứu & Máy phá rung tim",
+      "safety_level": "Critical",
+      "device_count": 17
+    },
+    {
+      "id": 7,
+      "name": "Thiết bị tiệt trùng & khử khuẩn",
+      "description": "Nhóm Thiết bị tiệt trùng & khử khuẩn",
+      "safety_level": "Advanced",
+      "device_count": 16
+    },
+    {
+      "id": 9,
+      "name": "Máy thở & Hô hấp",
+      "description": "Nhóm Máy thở & Hô hấp",
+      "safety_level": "Critical",
+      "device_count": 14
+    },
+    {
+      "id": 5,
+      "name": "Phẫu thuật & Dao mổ điện",
+      "description": "Nhóm Phẫu thuật & Dao mổ điện",
+      "safety_level": "Critical",
+      "device_count": 13
+    },
+    {
+      "id": 10,
+      "name": "Chẩn đoán hình ảnh",
+      "description": "Nhóm Chẩn đoán hình ảnh",
+      "safety_level": "Critical",
+      "device_count": 0
+    }
+  ]
+}
