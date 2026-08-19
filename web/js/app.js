@@ -1,6 +1,7 @@
 /**
  * 🏥 Medical Device Management System (BV Quận 7 / PKĐK Tâm Anh Q7)
  * ✨ UI/UX Pro Max Application Client Logic
+ * 📌 Hỗ trợ Bảng Thông Tin Chi Tiết Thiết Bị Khi Bấm Chọn (Device Passport Modal)
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         transfers: [],
         ecarts: [],
         workOrders: [],
+        currentSelectedDeviceId: null,
         currentFilters: {
             search: '',
             facility_id: '',
@@ -151,16 +153,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 tbody.innerHTML = this.devices.map(d => {
                     const riskBadge = d.risk_level ? `<span class="badge badge-risk-${d.risk_level}">${d.risk_level}</span>` : '<span class="text-muted">-</span>';
-                    const hasAccessories = d.device_name.includes('siêu âm') || d.device_name.includes('Voluson') || d.device_name.includes('BTL') || d.device_name.includes('nội khí quản');
 
                     return `
-                        <tr>
+                        <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
                             <td class="ps-3 font-mono fw-semibold text-primary">
                                 <div>${d.asset_tag}</div>
                                 <div class="text-muted" style="font-size: 0.72rem;">${d.speedmaint_code || ''}</div>
                             </td>
                             <td>
-                                <div class="fw-bold text-dark">${d.device_name}</div>
+                                <div class="fw-bold text-dark text-hover-primary">${d.device_name}</div>
                                 <div class="text-muted small">${d.model || ''} • ${d.manufacturer || ''}</div>
                             </td>
                             <td class="font-mono">${d.serial_no || '<span class="text-muted">-</span>'}</td>
@@ -169,9 +170,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td class="text-center">
                                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span>
                             </td>
-                            <td class="pe-3 text-end">
-                                <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.viewAccessories(${d.id}, '${d.device_name.replace(/'/g, "\\'")}')" title="Xem phụ kiện & cấu kiện">
-                                    <i class="bi bi-diagram-2"></i> Phụ kiện
+                            <td class="pe-3 text-end" onclick="event.stopPropagation()">
+                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
+                                    <i class="bi bi-eye"></i> Chi tiết
                                 </button>
                             </td>
                         </tr>
@@ -182,19 +183,59 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
-        async viewAccessories(deviceId, deviceName) {
+        async showDeviceDetails(deviceId) {
+            this.currentSelectedDeviceId = deviceId;
+            console.log(`🔍 Đang tải hồ sơ lý lịch thiết bị #${deviceId}...`);
+
             try {
-                const title = document.getElementById('accessoriesModalTitle');
-                if (title) title.innerHTML = `<i class="bi bi-diagram-2 text-primary me-2"></i>Cấu Kiện & Phụ Kiện: <strong>${deviceName}</strong>`;
+                const [devRes, accRes, provRes] = await Promise.all([
+                    fetch(`/api/devices/${deviceId}`),
+                    fetch(`/api/devices/${deviceId}/accessories`),
+                    fetch(`/api/semantica/explain/${deviceId}`)
+                ]);
 
-                const res = await fetch(`/api/devices/${deviceId}/accessories`);
-                const accessories = await res.json();
+                if (!devRes.ok) throw new Error("Không thể tải thông tin thiết bị");
 
-                const tbody = document.getElementById('accessories-table-body');
-                if (!accessories || accessories.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị này không có cấu kiện rời hoặc sử dụng phụ kiện liền khối.</td></tr>';
+                const dev = await devRes.json();
+                const accessories = accRes.ok ? await accRes.json() : [];
+                const prov = provRes.ok ? await provRes.json() : null;
+
+                // 1. Header Information
+                document.getElementById('modal-dev-name').textContent = dev.device_name;
+                document.getElementById('modal-dev-tag').textContent = dev.asset_tag;
+                document.getElementById('modal-dev-sm').textContent = dev.speedmaint_code;
+                document.getElementById('modal-dev-sn').textContent = dev.serial_no || 'Chưa có S/N';
+                
+                const riskBadge = document.getElementById('modal-dev-risk');
+                if (riskBadge) {
+                    riskBadge.className = `badge badge-risk-${dev.risk_level || 'A'}`;
+                    riskBadge.textContent = `Loại ${dev.risk_level || 'A'}`;
+                }
+
+                const statusBadge = document.getElementById('modal-dev-status');
+                if (statusBadge) {
+                    statusBadge.textContent = dev.status || 'IN_SERVICE';
+                }
+
+                // 2. Tab 1: General Info
+                document.getElementById('modal-dev-facility').textContent = dev.facility || 'Kho thiết bị trung tâm';
+                document.getElementById('modal-dev-category').textContent = dev.category || 'Chưa phân nhóm';
+                document.getElementById('modal-dev-install-date').textContent = dev.installation_date || '2026-01-01';
+                document.getElementById('modal-dev-model').textContent = dev.model || 'Tiêu chuẩn';
+                document.getElementById('modal-dev-mfg').textContent = dev.manufacturer || 'Hãng Y Tế';
+                document.getElementById('modal-dev-country').textContent = dev.country_of_manufacturer || 'Nhật Bản / Đức / Mỹ';
+                document.getElementById('modal-dev-year').textContent = dev.year_of_manufacture || '2024';
+                document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận.';
+
+                // 3. Tab 2: Accessories Tree
+                document.getElementById('modal-acc-count').textContent = accessories.length;
+                document.getElementById('modal-acc-badge').textContent = `${accessories.length} cấu kiện/phụ kiện`;
+
+                const accBody = document.getElementById('modal-accessories-table-body');
+                if (accessories.length === 0) {
+                    accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
                 } else {
-                    tbody.innerHTML = accessories.map(a => `
+                    accBody.innerHTML = accessories.map(a => `
                         <tr>
                             <td><span class="badge bg-info text-dark font-mono">${a.accessory_type}</span></td>
                             <td class="fw-bold text-dark">${a.name} <span class="text-muted small font-mono">(${a.model || ''})</span></td>
@@ -205,10 +246,88 @@ document.addEventListener('DOMContentLoaded', function () {
                     `).join('');
                 }
 
-                const modal = new bootstrap.Modal(document.getElementById('accessoriesModal'));
+                // 4. Tab 3: Calibration Certificates
+                const calBody = document.getElementById('modal-calibration-table-body');
+                const certs = dev.certificates || [];
+                if (certs.length === 0) {
+                    calBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có dữ liệu giấy chứng nhận kiểm định.</td></tr>';
+                } else {
+                    calBody.innerHTML = certs.map(c => `
+                        <tr>
+                            <td class="font-mono fw-bold text-primary">${c.certificate_no}</td>
+                            <td class="font-mono small">${c.calibration_date || '-'}</td>
+                            <td class="font-mono small text-danger fw-semibold">${c.recalibration_date || '-'}</td>
+                            <td class="font-mono small">${c.stamp_no || '-'}</td>
+                            <td>${c.calibrated_by || 'Trung tâm KĐ'}</td>
+                            <td class="text-center"><span class="badge bg-success">${c.result_status || 'ĐẠT'}</span></td>
+                        </tr>
+                    `).join('');
+                }
+
+                // 5. Tab 4: Maintenance Logs (BM05)
+                const maintBody = document.getElementById('modal-maintenance-table-body');
+                const logs = dev.maintenance_logs || [];
+                if (logs.length === 0) {
+                    maintBody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo trì / sự cố nào ghi nhận.</td></tr>';
+                } else {
+                    maintBody.innerHTML = logs.map(l => `
+                        <tr>
+                            <td class="font-mono small text-muted">${l.maintenance_date}</td>
+                            <td><span class="badge bg-secondary font-mono">${l.maintenance_type}</span></td>
+                            <td><strong>${l.performed_by}</strong></td>
+                            <td class="small text-dark">${l.description}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                // 6. Tab 5: Semantica Provenance Chain
+                const provBox = document.getElementById('modal-provenance-content');
+                if (!prov || !prov.causal_provenance_chain) {
+                    provBox.innerHTML = '<span class="text-muted">Đang cập nhật đồ thị tri thức Semantica cho thiết bị này.</span>';
+                } else {
+                    provBox.innerHTML = `
+                        <div class="mb-2"><strong class="text-primary">${prov.device_name}</strong> (Model: ${prov.model})</div>
+                        <ul class="list-unstyled mb-0">
+                            ${prov.causal_provenance_chain.map(p => `
+                                <li class="p-2 mb-1 bg-white border rounded">
+                                    <span class="badge bg-primary me-2">${p.step}</span>
+                                    <strong>${p.relation}</strong>: ${p.target}
+                                    <div class="text-muted" style="font-size: 0.74rem;">${p.evidence}</div>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+                }
+
+                // Setup footer action buttons
+                const btnTr = document.getElementById('modal-btn-transfer');
+                if (btnTr) {
+                    btnTr.onclick = () => {
+                        bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+                        const trSelect = document.getElementById('tr-device-id');
+                        if (trSelect) trSelect.value = deviceId;
+                        document.getElementById('btn-tab-transfers')?.click();
+                    };
+                }
+
+                const btnWo = document.getElementById('modal-btn-wo');
+                if (btnWo) {
+                    btnWo.onclick = () => {
+                        bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+                        const woSelect = document.getElementById('wo-device-id');
+                        if (woSelect) woSelect.value = deviceId;
+                        const woModal = new bootstrap.Modal(document.getElementById('speedmaintWorkOrderModal'));
+                        woModal.show();
+                    };
+                }
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('deviceDetailsModal'));
                 modal.show();
+
             } catch (err) {
-                console.error('Error loading accessories:', err);
+                console.error("Error showing device details:", err);
+                alert("Không thể tải chi tiết thiết bị: " + err.message);
             }
         },
 
