@@ -128,14 +128,18 @@ log = {
     'unresolved': [],
 }
 
+def lp(p):
+    """Long-path prefix cho Windows nếu path vượt ngưỡng."""
+    return '\\\\?\\' + os.path.abspath(p) if len(os.path.abspath(p)) > 240 else p
+
 def backup_and_write(mf, newtxt, reason, detail):
     rel = os.path.relpath(mf['path'], G_ROOT)
     if not DRY:
         bk = os.path.join(BK_ROOT, rel)
-        os.makedirs(os.path.dirname(bk), exist_ok=True)
-        if not os.path.exists(bk):
-            shutil.copy2(mf['path'], bk)
-        with open(mf['path'], 'w', encoding='utf-8') as fh:
+        os.makedirs(lp(os.path.dirname(bk)), exist_ok=True)
+        if not os.path.exists(lp(bk)):
+            shutil.copy2(lp(mf['path']), lp(bk))
+        with open(lp(mf['path']), 'w', encoding='utf-8') as fh:
             fh.write(newtxt)
     return {'md': mf['path'], 'rel': rel, 'reason': reason, 'detail': detail}
 

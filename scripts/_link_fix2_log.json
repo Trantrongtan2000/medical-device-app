@@ -1,0 +1,1042 @@
+{
+ "generated": "2026-08-19T16:38:54.383845",
+ "dry": true,
+ "items": [
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\BBBG NB_B125M_2_CT GE_SN SR724460006SA.md",
+   "src": "BBBG NB_B125M_2_CT GE_SN SR724460006SA.pdf",
+   "best": null,
+   "ratio": null,
+   "action": "skip_low_confidence"
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0024.01.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-5VSA0Z25-07-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0024.01.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-5VSA0Z25-07-01-2026.md",
+   "detail": {
+    "src_old": "0024.01.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-5VSA0Z25-07-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0024.01.26Y-MÁY THẬN NHÂN TẠO-5VSA0Z25-07-01-2026.pdf",
+    "ratio": 0.866
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026.md",
+   "detail": {
+    "src_old": "0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\0086.02.26Y-DAO MỔ ĐIỆN CAO TẦN-1157011-07-02-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\0086.02.26Y-DAO MỔ ĐIỆN CAO TẦN-1157011-07-02-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0087.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557010-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0087.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557010-07-02-2026.md",
+   "detail": {
+    "src_old": "0087.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557010-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0087.02.26Y-DAO MỎ ĐIỆN CAO TÀN-11557010-07-02-2026.pdf",
+    "ratio": 0.774
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0087.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557010-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0087.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557010-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0087.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557010-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0087.02.26Y-DAO MỎ ĐIỆN CAO TÀN-11557010-07-02-2026.pdf",
+    "ratio": 0.766
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0088.02.26Y-MÁY ĐỐT CAO TẦN VIO 300D-11558120-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0088.02.26Y-MÁY ĐỐT CAO TẦN VIO 300D-11558120-07-02-2026.md",
+   "detail": {
+    "src_old": "0088.02.26Y-MÁY ĐỐT CAO TẦN VIO 300D-11558120-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\0088.02.26Y-DAO MỎ ĐIỆN CAO TÀN-11558120-07-02-2026.pdf",
+    "ratio": 0.8
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0088.02.26Y-MÁY ĐỐT CAO TẦN VIO 300D-11558120-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0088.02.26Y-MÁY ĐỐT CAO TẦN VIO 300D-11558120-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0088.02.26Y-MÁY ĐỐT CAO TẦN VIO 300D-11558120-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\0088.02.26Y-DAO MỎ ĐIỆN CAO TÀN-11558120-07-02-2026.pdf",
+    "ratio": 0.791
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0089.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557008-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0089.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557008-07-02-2026.md",
+   "detail": {
+    "src_old": "0089.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557008-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0089.02.26Y-DAO MỎ ĐIỆN CAO TÀN-11557008-07-02-2026.pdf",
+    "ratio": 0.774
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0090.02.26Y-MÁY PHÁ RUNG TIM-16564-unknown-date.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0090.02.26Y-MÁY PHÁ RUNG TIM-16564-unknown-date.md",
+   "detail": {
+    "src_old": "0090.02.26Y-MÁY PHÁ RUNG TIM-16564-unknown-date.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\0090.02.26Y-MÁY PHÁ RUNG TIM-16564-05-02-2026_page2.pdf",
+    "ratio": 0.762
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0089.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557008-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0089.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557008-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0089.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557008-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0089.02.26Y-DAO MỎ ĐIỆN CAO TÀN-11557008-07-02-2026.pdf",
+    "ratio": 0.766
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0090.02.26Y-MÁY PHÁ RUNG TIM-16564-unknown-date_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0090.02.26Y-MÁY PHÁ RUNG TIM-16564-unknown-date_1.md",
+   "detail": {
+    "src_old": "0090.02.26Y-MÁY PHÁ RUNG TIM-16564-unknown-date_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\0090.02.26Y-MÁY PHÁ RUNG TIM-16564-05-02-2026_page2.pdf",
+    "ratio": 0.753
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0091.02.26Y-MÁY PHÁ RUNG TIM-10102-unknown-date.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0091.02.26Y-MÁY PHÁ RUNG TIM-10102-unknown-date.md",
+   "detail": {
+    "src_old": "0091.02.26Y-MÁY PHÁ RUNG TIM-10102-unknown-date.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\0091.02.26Y-MÁY PHÁ RUNG TIM-10102-05-02-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0091.02.26Y-MÁY PHÁ RUNG TIM-10102-unknown-date_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0091.02.26Y-MÁY PHÁ RUNG TIM-10102-unknown-date_1.md",
+   "detail": {
+    "src_old": "0091.02.26Y-MÁY PHÁ RUNG TIM-10102-unknown-date_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\0091.02.26Y-MÁY PHÁ RUNG TIM-10102-05-02-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0092.02.26Y-MÁY THỞ-22241721443-unknown-date_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0092.02.26Y-MÁY THỞ-22241721443-unknown-date_1.md",
+   "detail": {
+    "src_old": "0092.02.26Y-MÁY THỞ-22241721443-unknown-date_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\0092.02.26Y-MÁY THỞ-22241721443-07-02-2026.pdf",
+    "ratio": 0.744
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0093.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRT-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0093.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRT-07-02-2026.md",
+   "detail": {
+    "src_old": "0093.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRT-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\0093.02.26Y-MÁY THẬN NHÂN TẠO-4SXA5JRT-07-02-2026.pdf",
+    "ratio": 0.84
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0092.02.26Y-MÁY THỞ-22241721443-unknown-date.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0092.02.26Y-MÁY THỞ-22241721443-unknown-date.md",
+   "detail": {
+    "src_old": "0092.02.26Y-MÁY THỞ-22241721443-unknown-date.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\0092.02.26Y-MÁY THỞ-22241721443-07-02-2026.pdf",
+    "ratio": 0.753
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0093.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRT-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0093.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRT-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0093.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRT-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\0093.02.26Y-MÁY THẬN NHÂN TẠO-4SXA5JRT-07-02-2026.pdf",
+    "ratio": 0.832
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0094.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRR-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0094.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRR-07-02-2026.md",
+   "detail": {
+    "src_old": "0094.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRR-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\0094.02.26Y-MÁY THẬN NHÂN TẠO-4SXA5JRR-07-02-2026.pdf",
+    "ratio": 0.84
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0094.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRR-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0094.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRR-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0094.02.26Y-MÁY CHẠY THẬN NHÂN TẠO CHU KỲ HD 4008S-4SXA5JRR-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0094.02.26Y-MÁY THẬN NHÂN TẠO-4SXA5JRR-07-02-2026.pdf",
+    "ratio": 0.832
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0095.02.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-4VSA0LMZ-07-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0095.02.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-4VSA0LMZ-07-02-2026.md",
+   "detail": {
+    "src_old": "0095.02.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-4VSA0LMZ-07-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0095.02.26Y-MÁY THẬN NHÂN TẠO-4VSA0LMZ-07-02-2026.pdf",
+    "ratio": 0.866
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\0095.02.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-4VSA0LMZ-07-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\0095.02.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-4VSA0LMZ-07-02-2026_1.md",
+   "detail": {
+    "src_old": "0095.02.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-4VSA0LMZ-07-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\0095.02.26Y-MÁY THẬN NHÂN TẠO-4VSA0LMZ-07-02-2026.pdf",
+    "ratio": 0.857
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\023.01.26Y-MÁY GIÚP THỞ CHỨC NĂNG CAO TV-100-TX2301031-07-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\023.01.26Y-MÁY GIÚP THỞ CHỨC NĂNG CAO TV-100-TX2301031-07-01-2026.md",
+   "detail": {
+    "src_old": "023.01.26Y-MÁY GIÚP THỞ CHỨC NĂNG CAO TV-100-TX2301031-07-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\07120-MÁY THỞ CHỦNG LOẠI_ MODEL_ TV - 100-TX2301031-07-01-2026.pdf",
+    "ratio": 0.788
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-001_01.26H-HUYẾT ÁP KỂ LÒ XO-Nơi sản xuất_-unknown-date.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-001_01.26H-HUYẾT ÁP KỂ LÒ XO-Nơi sản xuất_-unknown-date.md",
+   "detail": {
+    "src_old": "056-001_01.26H-HUYẾT ÁP KỂ LÒ XO-Nơi sản xuất_-unknown-date.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-001_01.26H-HUYẾT ÁP KẾ LÒ XO-997011-30-01-2026.pdf",
+    "ratio": 0.607
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-001_01.26H-HUYẾT ÁP KỂ LÒ XO-Nơi sản xuất_-unknown-date_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-001_01.26H-HUYẾT ÁP KỂ LÒ XO-Nơi sản xuất_-unknown-date_1.md",
+   "detail": {
+    "src_old": "056-001_01.26H-HUYẾT ÁP KỂ LÒ XO-Nơi sản xuất_-unknown-date_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-001_01.26H-HUYẾT ÁP KẾ LÒ XO-997011-30-01-2026.pdf",
+    "ratio": 0.622
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-002_01.26H-OBJECT_-Nơi sản xuất_-unknown-date.md",
+   "src": "056-002_01.26H-OBJECT_-Nơi sản xuất_-unknown-date.pdf",
+   "best": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-002_01.26H-HUYẾT ÁP KẾ LÒ XO-875255-30-01-2026.pdf",
+   "ratio": 0.39,
+   "action": "skip_low_confidence"
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-003_01.26H-HUYẾT ÁP KẾ CƠ-996676-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-003_01.26H-HUYẾT ÁP KẾ CƠ-996676-30-01-2026.md",
+   "detail": {
+    "src_old": "056-003_01.26H-HUYẾT ÁP KẾ CƠ-996676-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-003_01.26H-H HUYẾT ÁP KÊ LÒ XO-996676-30-01-2026.pdf",
+    "ratio": 0.938
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-004_01.26H-HUYẾT ÁP KẾ CƠ-997019-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-004_01.26H-HUYẾT ÁP KẾ CƠ-997019-30-01-2026.md",
+   "detail": {
+    "src_old": "056-004_01.26H-HUYẾT ÁP KẾ CƠ-997019-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-004_01.26H-HUYẾT ÁP KẾ LÒ XO-997019-30-01-2026.pdf",
+    "ratio": 0.95
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-005_01.26H-HUYẾT ÁP KẾ CƠ-992116-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-005_01.26H-HUYẾT ÁP KẾ CƠ-992116-30-01-2026.md",
+   "detail": {
+    "src_old": "056-005_01.26H-HUYẾT ÁP KẾ CƠ-992116-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-005_01.26H-HUYẾT ÁP KẾ LÒ XO-992116-30-01-2026.pdf",
+    "ratio": 0.95
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-005_01.26H-HUYẾT ÁP KẾ CƠ-992116-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-005_01.26H-HUYẾT ÁP KẾ CƠ-992116-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-005_01.26H-HUYẾT ÁP KẾ CƠ-992116-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-005_01.26H-HUYẾT ÁP KẾ LÒ XO-992116-30-01-2026.pdf",
+    "ratio": 0.938
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-006_01.26H-HUYẾT ÁP KẾ CƠ-035371-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-006_01.26H-HUYẾT ÁP KẾ CƠ-035371-30-01-2026.md",
+   "detail": {
+    "src_old": "056-006_01.26H-HUYẾT ÁP KẾ CƠ-035371-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-006_01.26H-HUYẾT ÁP KẾ LÒ XO-035371-30-01-2026.pdf",
+    "ratio": 0.95
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-006_01.26H-HUYẾT ÁP KẾ CƠ-035371-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-006_01.26H-HUYẾT ÁP KẾ CƠ-035371-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-006_01.26H-HUYẾT ÁP KẾ CƠ-035371-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-006_01.26H-HUYẾT ÁP KẾ LÒ XO-035371-30-01-2026.pdf",
+    "ratio": 0.938
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-007_01.26H-HUYẾT ÁP KẾ CƠ-035350-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-007_01.26H-HUYẾT ÁP KẾ CƠ-035350-30-01-2026.md",
+   "detail": {
+    "src_old": "056-007_01.26H-HUYẾT ÁP KẾ CƠ-035350-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-007_01.26H-HUYẾT ÁP KẾ LÒ XO-035350-30-01-2026.pdf",
+    "ratio": 0.95
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-007_01.26H-HUYẾT ÁP KẾ CƠ-035350-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-007_01.26H-HUYẾT ÁP KẾ CƠ-035350-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-007_01.26H-HUYẾT ÁP KẾ CƠ-035350-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-007_01.26H-HUYẾT ÁP KẾ LÒ XO-035350-30-01-2026.pdf",
+    "ratio": 0.938
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1000_01.26P-ÁP KẾ-P014632-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1000_01.26P-ÁP KẾ-P014632-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1000_01.26P-ÁP KẾ-P014632-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1000_01.26P-ÁP KÊ LÒ XO-P014632-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1000_01.26P-ÁP KẾ-P014632-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1000_01.26P-ÁP KẾ-P014632-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1000_01.26P-ÁP KẾ-P014632-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1000_01.26P-ÁP KÊ LÒ XO-P014632-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1001_01.26P-ÁP KẾ-P014556-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1001_01.26P-ÁP KẾ-P014556-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1001_01.26P-ÁP KẾ-P014556-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1001_01.26P-ÁP KÊ LÒ XO-P014556-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1001_01.26P-ÁP KẾ-P014556-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1001_01.26P-ÁP KẾ-P014556-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1001_01.26P-ÁP KẾ-P014556-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1001_01.26P-ÁP KÊ LÒ XO-P014556-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1002_01.26P-ÁP KẾ-P014470-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1002_01.26P-ÁP KẾ-P014470-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1002_01.26P-ÁP KẾ-P014470-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1002_01.26P-ÁP KẾ LÒ XO-P014470-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1002_01.26P-ÁP KẾ-P014470-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1002_01.26P-ÁP KẾ-P014470-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1002_01.26P-ÁP KẾ-P014470-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1002_01.26P-ÁP KẾ LÒ XO-P014470-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1003_01.26P-ÁP KẾ-P014557-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1003_01.26P-ÁP KẾ-P014557-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1003_01.26P-ÁP KẾ-P014557-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1003_01.26P-ÁP KẾ LÒ XO-P014557-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1003_01.26P-ÁP KẾ-P014557-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1003_01.26P-ÁP KẾ-P014557-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1003_01.26P-ÁP KẾ-P014557-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1003_01.26P-ÁP KẾ LÒ XO-P014557-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1004_01.26P-ÁP KẾ-P014466-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1004_01.26P-ÁP KẾ-P014466-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1004_01.26P-ÁP KẾ-P014466-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1004_01.26P-ÁP KẾ LÒ XO-P014466-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1004_01.26P-ÁP KẾ-P014466-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1004_01.26P-ÁP KẾ-P014466-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1004_01.26P-ÁP KẾ-P014466-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1004_01.26P-ÁP KẾ LÒ XO-P014466-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1005_01.26P-ÁP KẾ-P014471-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1005_01.26P-ÁP KẾ-P014471-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1005_01.26P-ÁP KẾ-P014471-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1005_01.26P-ÁP KẾ LÒ XO-P014471-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1005_01.26P-ÁP KẾ-P014471-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1005_01.26P-ÁP KẾ-P014471-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1005_01.26P-ÁP KẾ-P014471-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1005_01.26P-ÁP KẾ LÒ XO-P014471-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1006_01.26P-ÁP KẾ-P014630-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1006_01.26P-ÁP KẾ-P014630-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1006_01.26P-ÁP KẾ-P014630-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1006_01.26P-ÁP KẾ LÒ XO-P014630-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1006_01.26P-ÁP KẾ-P014630-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1006_01.26P-ÁP KẾ-P014630-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1006_01.26P-ÁP KẾ-P014630-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1006_01.26P-ÁP KẾ LÒ XO-P014630-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1007_01.26P-ÁP KẾ-H21491-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1007_01.26P-ÁP KẾ-H21491-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1007_01.26P-ÁP KẾ-H21491-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-1007_01.26P-ÁP KẾ LÒ XO-H21491-30-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1007_01.26P-ÁP KẾ-H21491-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1007_01.26P-ÁP KẾ-H21491-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1007_01.26P-ÁP KẾ-H21491-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-1007_01.26P-ÁP KẾ LÒ XO-H21491-30-01-2026.pdf",
+    "ratio": 0.93
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1008_01.26P-ÁP KẾ-H21506-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1008_01.26P-ÁP KẾ-H21506-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1008_01.26P-ÁP KẾ-H21506-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1008_01.26P-ÁP KẾ LÒ XO-H21506-30-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1008_01.26P-ÁP KẾ-H21506-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1008_01.26P-ÁP KẾ-H21506-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1008_01.26P-ÁP KẾ-H21506-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1008_01.26P-ÁP KẾ LÒ XO-H21506-30-01-2026.pdf",
+    "ratio": 0.93
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1009_01.26P-ÁP KẾ-P014625-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1009_01.26P-ÁP KẾ-P014625-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1009_01.26P-ÁP KẾ-P014625-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1009_01.26P-ÁP KẾ LÒ XO-P014625-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1009_01.26P-ÁP KẾ-P014625-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1009_01.26P-ÁP KẾ-P014625-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1009_01.26P-ÁP KẾ-P014625-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1009_01.26P-ÁP KẾ LÒ XO-P014625-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1010_01.26P-ÁP KẾ-P014561-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1010_01.26P-ÁP KẾ-P014561-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1010_01.26P-ÁP KẾ-P014561-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1010_01.26P-ÁP KẾ LÒ XO-P014561-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1010_01.26P-ÁP KẾ-P014561-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1010_01.26P-ÁP KẾ-P014561-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1010_01.26P-ÁP KẾ-P014561-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1010_01.26P-ÁP KẾ LÒ XO-P014561-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1011_01.26P-ÁP KẾ-P014633-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1011_01.26P-ÁP KẾ-P014633-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1011_01.26P-ÁP KẾ-P014633-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1011_01.26P-ÁP KẾ LÒ XO-P014633-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1011_01.26P-ÁP KẾ-P014633-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1011_01.26P-ÁP KẾ-P014633-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1011_01.26P-ÁP KẾ-P014633-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1011_01.26P-ÁP KẾ LÒ XO-P014633-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1012_01.26P-ÁP KẾ-P014629-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1012_01.26P-ÁP KẾ-P014629-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1012_01.26P-ÁP KẾ-P014629-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1012_01.26P-ÁP KẾ LÒ XO-P014629-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1012_01.26P-ÁP KẾ-P014629-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1012_01.26P-ÁP KẾ-P014629-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1012_01.26P-ÁP KẾ-P014629-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1012_01.26P-ÁP KẾ LÒ XO-P014629-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1013_01.26P-ÁP KẾ-P014558-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1013_01.26P-ÁP KẾ-P014558-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1013_01.26P-ÁP KẾ-P014558-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1013_01.26P-ÁP KẾ LÒ XO-P014558-30-01-2026.pdf",
+    "ratio": 0.944
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1013_01.26P-ÁP KẾ-P014558-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1013_01.26P-ÁP KẾ-P014558-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1013_01.26P-ÁP KẾ-P014558-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-1013_01.26P-ÁP KẾ LÒ XO-P014558-30-01-2026.pdf",
+    "ratio": 0.932
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1014_01.26P-ÁP KẾ-1561-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1014_01.26P-ÁP KẾ-1561-30-01-2026.md",
+   "detail": {
+    "src_old": "056-1014_01.26P-ÁP KẾ-1561-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1014_01.26P-ÁP KẾ LÒ XO-1561-30-01-2026.pdf",
+    "ratio": 0.939
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1014_01.26P-ÁP KẾ-1561-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1014_01.26P-ÁP KẾ-1561-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-1014_01.26P-ÁP KẾ-1561-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1014_01.26P-ÁP KẾ LÒ XO-1561-30-01-2026.pdf",
+    "ratio": 0.925
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1672_03.26-CÂN ĐO SỨC KHỎE TỰ ĐỘNG MS4980-T24004101-27-03-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1672_03.26-CÂN ĐO SỨC KHỎE TỰ ĐỘNG MS4980-T24004101-27-03-2026.md",
+   "detail": {
+    "src_old": "056-1672_03.26-CÂN ĐO SỨC KHỎE TỰ ĐỘNG MS4980-T24004101-27-03-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-1672_03.26-CÂN BÀN-T24004101-27-03-2026.pdf",
+    "ratio": 0.761
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1675_01.26-NHIỆT ẨM KẾ CƠ-KSNK01-27-03-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1675_01.26-NHIỆT ẨM KẾ CƠ-KSNK01-27-03-2026.md",
+   "detail": {
+    "src_old": "056-1675_01.26-NHIỆT ẨM KẾ CƠ-KSNK01-27-03-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1675_01.26-NHIỆT ẨM KẾ-KSNK01-27-03-2026.pdf",
+    "ratio": 0.974
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1676_01.26-NHIỆT ẨM KẾ TỰ GHI-A0C1038984C5-27-03-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1676_01.26-NHIỆT ẨM KẾ TỰ GHI-A0C1038984C5-27-03-2026.md",
+   "detail": {
+    "src_old": "056-1676_01.26-NHIỆT ẨM KẾ TỰ GHI-A0C1038984C5-27-03-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-1676_01.26-NHIỆT ẨM KẾ-A0C1038984C5-27-03-2026.pdf",
+    "ratio": 0.945
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-1677_03.26-NHIỆT ẨM KẾ ĐIỆN TỬ-Q7NAK01-27-03-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-1677_03.26-NHIỆT ẨM KẾ ĐIỆN TỬ-Q7NAK01-27-03-2026.md",
+   "detail": {
+    "src_old": "056-1677_03.26-NHIỆT ẨM KẾ ĐIỆN TỬ-Q7NAK01-27-03-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-1677_03.26-NHIỆT ẨM KẾ-Q7NAK01-27-03-2026.pdf",
+    "ratio": 0.927
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-377_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA11-23-01-2016.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-377_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA11-23-01-2016.md",
+   "detail": {
+    "src_old": "056-377_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA11-23-01-2016.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-377_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA11-23-01-2026.pdf",
+    "ratio": 0.953
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-377_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA11-23-01-2016_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-377_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA11-23-01-2016_1.md",
+   "detail": {
+    "src_old": "056-377_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA11-23-01-2016_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-377_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA11-23-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-378_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA12-23-01-2016.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-378_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA12-23-01-2016.md",
+   "detail": {
+    "src_old": "056-378_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA12-23-01-2016.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-378_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA12-23-01-2026.pdf",
+    "ratio": 0.953
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-378_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA12-23-01-2016_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-378_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA12-23-01-2016_1.md",
+   "detail": {
+    "src_old": "056-378_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA12-23-01-2016_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-378_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA12-23-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-379_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA13-23-01-2016_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-379_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA13-23-01-2016_1.md",
+   "detail": {
+    "src_old": "056-379_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA13-23-01-2016_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-379_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA13-23-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-379_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA13-23-01-2016.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-379_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA13-23-01-2016.md",
+   "detail": {
+    "src_old": "056-379_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA13-23-01-2016.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-379_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA13-23-01-2026.pdf",
+    "ratio": 0.953
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-380_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA14-23-01-2016.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-380_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA14-23-01-2016.md",
+   "detail": {
+    "src_old": "056-380_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA14-23-01-2016.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-380_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA14-23-01-2026.pdf",
+    "ratio": 0.953
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-380_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA14-23-01-2016_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-380_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA14-23-01-2016_1.md",
+   "detail": {
+    "src_old": "056-380_01.26-NHIỆT ẨM KẾ CƠ-TH600B-CĐHA14-23-01-2016_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-380_01.26-NHIỆT ẨM KẾ-TH600B-CĐHA14-23-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-383_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-EF7222103694-23-01-2016.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-383_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-EF7222103694-23-01-2016.md",
+   "detail": {
+    "src_old": "056-383_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-EF7222103694-23-01-2016.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-383_01.26-NHIỆT KẾ ẨM ĐIỆN TỬ-EF7222103694-23-01-2026.pdf",
+    "ratio": 0.938
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-383_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-EF7222103694-23-01-2016_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-383_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-EF7222103694-23-01-2016_1.md",
+   "detail": {
+    "src_old": "056-383_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-EF7222103694-23-01-2016_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-383_01.26-NHIỆT KẾ ẨM ĐIỆN TỬ-EF7222103694-23-01-2026.pdf",
+    "ratio": 0.928
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-384_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB3-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-384_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB3-23-01-2026.md",
+   "detail": {
+    "src_old": "056-384_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB3-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-384_01.26-NHIỆT ẨM KẾ-TH600B-KB3-23-01-2026.pdf",
+    "ratio": 0.975
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-385_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB1-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-385_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB1-23-01-2026.md",
+   "detail": {
+    "src_old": "056-385_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB1-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-385_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB1-23-01-2026.pdf",
+    "ratio": 0.976
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-384_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB3-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-384_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB3-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-384_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB3-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-384_01.26-NHIỆT ẨM KẾ-TH600B-KB3-23-01-2026.pdf",
+    "ratio": 0.963
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-385_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB1-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-385_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB1-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-385_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB1-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-385_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB1-23-01-2026.pdf",
+    "ratio": 0.965
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-386_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB2-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-386_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB2-23-01-2026.md",
+   "detail": {
+    "src_old": "056-386_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB2-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-386_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB2-23-01-2026.pdf",
+    "ratio": 0.976
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-387_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB3-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-387_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB3-23-01-2026.md",
+   "detail": {
+    "src_old": "056-387_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB3-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-387_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB3-23-01-2026.pdf",
+    "ratio": 0.976
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-386_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB2-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-386_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB2-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-386_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB2-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-386_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB2-23-01-2026.pdf",
+    "ratio": 0.965
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-387_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB3-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-387_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB3-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-387_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB3-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-387_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB3-23-01-2026.pdf",
+    "ratio": 0.965
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-388_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB4-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-388_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB4-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-388_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB4-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-388_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB4-23-01-2026.pdf",
+    "ratio": 0.965
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-388_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB4-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-388_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB4-23-01-2026.md",
+   "detail": {
+    "src_old": "056-388_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-UB4-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-388_01.26-NHIỆT ẨM KẾ-TH600B-KB-UB4-23-01-2026.pdf",
+    "ratio": 0.976
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-389_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-KB1-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-389_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-KB1-23-01-2026.md",
+   "detail": {
+    "src_old": "056-389_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-KB1-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-389_01.26-NHIỆT ẨM KẾ-HTC-2-KB1-23-01-2026.pdf",
+    "ratio": 0.925
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-390_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-RHM1-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-390_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-RHM1-23-01-2026.md",
+   "detail": {
+    "src_old": "056-390_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-RHM1-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-390_01.26-NHIỆT ẨM KẾ-HTC-2-RHM1-23-01-2026.pdf",
+    "ratio": 0.927
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-389_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-KB1-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-389_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-KB1-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-389_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-KB1-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-389_01.26-NHIỆT ẨM KẾ-HTC-2-KB1-23-01-2026.pdf",
+    "ratio": 0.914
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-390_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-RHM1-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-390_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-RHM1-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-390_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-HTC-2-RHM1-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-390_01.26-NHIỆT ẨM KẾ-HTC-2-RHM1-23-01-2026.pdf",
+    "ratio": 0.916
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-391_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-JR913-KB1-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-391_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-JR913-KB1-23-01-2026.md",
+   "detail": {
+    "src_old": "056-391_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-JR913-KB1-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-391_01.26-NHIỆT ẨM KẾ-JR913-KB1-23-01-2026.pdf",
+    "ratio": 0.927
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026.md",
+   "detail": {
+    "src_old": "056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-392_01.26-NHIỆT ẨM KẾ-TH600B-KB-3020-25-02-2026.pdf",
+    "ratio": 0.977
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-391_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-JR913-KB1-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-391_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-JR913-KB1-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-391_01.26-NHIỆT ẨM KẾ ĐIỆN TỬ-JR913-KB1-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-391_01.26-NHIỆT ẨM KẾ-JR913-KB1-23-01-2026.pdf",
+    "ratio": 0.916
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_1.md",
+   "detail": {
+    "src_old": "056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-392_01.26-NHIỆT ẨM KẾ-TH600B-KB-3020-25-02-2026.pdf",
+    "ratio": 0.966
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_2.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_2.md",
+   "detail": {
+    "src_old": "056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_2.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-392_01.26-NHIỆT ẨM KẾ-TH600B-KB-3020-25-02-2026.pdf",
+    "ratio": 0.966
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_3.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_3.md",
+   "detail": {
+    "src_old": "056-392_01.26-NHIỆT ẨM KẾ CƠ-TH600B-KB-3020-25-02-2026_3.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-392_01.26-NHIỆT ẨM KẾ-TH600B-KB-3020-25-02-2026.pdf",
+    "ratio": 0.966
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-395_01.26-MÁY HẤP TIỆT TRÙNG PERSON MEDICAL-S-60224104-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-395_01.26-MÁY HẤP TIỆT TRÙNG PERSON MEDICAL-S-60224104-23-01-2026.md",
+   "detail": {
+    "src_old": "056-395_01.26-MÁY HẤP TIỆT TRÙNG PERSON MEDICAL-S-60224104-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-395_01.26-NỒI HẤP TIỆT TRÙNG-S-60224104-23-01-2026.pdf",
+    "ratio": 0.816
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-395_01.26-MÁY HẤP TIỆT TRÙNG PERSON MEDICAL-S-60224104-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-395_01.26-MÁY HẤP TIỆT TRÙNG PERSON MEDICAL-S-60224104-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-395_01.26-MÁY HẤP TIỆT TRÙNG PERSON MEDICAL-S-60224104-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-395_01.26-NỒI HẤP TIỆT TRÙNG-S-60224104-23-01-2026.pdf",
+    "ratio": 0.808
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-397_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ BSM370-S9823000753-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-397_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ BSM370-S9823000753-23-01-2026.md",
+   "detail": {
+    "src_old": "056-397_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ BSM370-S9823000753-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-397_01.26-CÂN BÀN-S9823000753-23-01-2026.pdf",
+    "ratio": 0.733
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-397_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ BSM370-S9823000753-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-397_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ BSM370-S9823000753-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-397_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ BSM370-S9823000753-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-397_01.26-CÂN BÀN-S9823000753-23-01-2026.pdf",
+    "ratio": 0.725
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-398_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ-S9823000760-23-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-398_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ-S9823000760-23-01-2026.md",
+   "detail": {
+    "src_old": "056-398_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ-S9823000760-23-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-398_01.26-CÂN BÀN-S9823000760-23-01-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-398_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ-S9823000760-23-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-398_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ-S9823000760-23-01-2026_1.md",
+   "detail": {
+    "src_old": "056-398_01.26-CÂN PHÂN TÍCH THÀNH PHẦN CƠ THỂ-S9823000760-23-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\pdf\\2026\\056-398_01.26-CÂN BÀN-S9823000760-23-01-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-994_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-994_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.md",
+   "detail": {
+    "src_old": "056-994_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-994_01.26P-ÁP KẾ LÒ XO-P014628-30-01-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-994_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-994_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.md",
+   "detail": {
+    "src_old": "056-994_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-994_01.26P-ÁP KẾ LÒ XO-P014628-30-01-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-995_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.md",
+   "src": "056-995_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.pdf",
+   "best": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-995_01.26P-ÁP KẾ LÒ XO-P014563-30-01-2026.pdf",
+   "ratio": 0.541,
+   "action": "skip_low_confidence"
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-995_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.md",
+   "src": "056-995_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.pdf",
+   "best": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-995_01.26P-ÁP KẾ LÒ XO-P014563-30-01-2026.pdf",
+   "ratio": 0.558,
+   "action": "skip_low_confidence"
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-996_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.md",
+   "src": "056-996_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.pdf",
+   "best": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-996_01.26P-ÁP KẾ LÒ XO-P014626-30-01-2026.pdf",
+   "ratio": 0.541,
+   "action": "skip_low_confidence"
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-996_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.md",
+   "src": "056-996_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.pdf",
+   "best": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\056-996_01.26P-ÁP KẾ LÒ XO-P014626-30-01-2026.pdf",
+   "ratio": 0.558,
+   "action": "skip_low_confidence"
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-997_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-997_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.md",
+   "detail": {
+    "src_old": "056-997_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-997_01.26P-ÁP KẾ LÒ XO-P014473-30-01-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-997_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-997_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.md",
+   "detail": {
+    "src_old": "056-997_01.26P-ÁP KẾ LÒ XO-Nơi sản xuất_ Kaipu-unknown-date_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-997_01.26P-ÁP KẾ LÒ XO-P014473-30-01-2026.pdf",
+    "ratio": 0.9
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-998_01.26P-ÁP KẾ-P014472-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-998_01.26P-ÁP KẾ-P014472-30-01-2026.md",
+   "detail": {
+    "src_old": "056-998_01.26P-ÁP KẾ-P014472-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-998_01.26P-ÁP KẾ LÒ XO-P014472-30-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-999_01.26P-ÁP KẾ-P014596-30-01-2026.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-999_01.26P-ÁP KẾ-P014596-30-01-2026.md",
+   "detail": {
+    "src_old": "056-999_01.26P-ÁP KẾ-P014596-30-01-2026.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-999_01.26P-ÁP KẾ LÒ XO-P014596-30-01-2026.pdf",
+    "ratio": 0.943
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-998_01.26P-ÁP KẾ-P014472-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-998_01.26P-ÁP KẾ-P014472-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-998_01.26P-ÁP KẾ-P014472-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\03_BAN_GIAO_VA_NGHIEM_THU\\docs_raw\\056-998_01.26P-ÁP KẾ LÒ XO-P014472-30-01-2026.pdf",
+    "ratio": 0.93
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\05_KIEM DINH\\backup_original\\056-999_01.26P-ÁP KẾ-P014596-30-01-2026_1.md",
+   "rel": "md\\05_KIEM DINH\\backup_original\\056-999_01.26P-ÁP KẾ-P014596-30-01-2026_1.md",
+   "detail": {
+    "src_old": "056-999_01.26P-ÁP KẾ-P014596-30-01-2026_1.pdf",
+    "pdf_new": "G:\\BV QUẬN 7_OCR_WORK_20260712\\04_KIEM_DINH_VA_HIEU_CHUAN\\05_KIEM_DINH_GOC\\2026_pdf\\056-999_01.26P-ÁP KẾ LÒ XO-P014596-30-01-2026.pdf",
+    "ratio": 0.93
+   }
+  },
+  {
+   "md": "G:\\BV QUẬN 7_OCR_WORK_20260712\\md\\_debug_out\\debug_test.md",
+   "action": "skip_debug"
+  }
+ ]
+}

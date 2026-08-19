@@ -81,8 +81,16 @@ for idx, s in enumerate(steps):
 full_md_content = "".join(md_lines)
 
 # Sanitize all sensitive token and API key patterns
-secret_pattern = re.compile(r"AQ\.[A-Za-z0-9_\-]{15,}")
-full_md_content = secret_pattern.sub("YOUR_STITCH_API_KEY_HERE", full_md_content)
+sanitize_patterns = [
+    (r"AQ\.[A-Za-z0-9_\-]{15,}", "YOUR_STITCH_API_KEY_HERE"),
+    (r"AIzaSy[A-Za-z0-9_\-]{33}", "AIzaSyDemoMaskedKeyForSecurityOnly000"),
+    (r"ya29\.[A-Za-z0-9_\-]+", "AIzaSyDemoMaskedKeyForSecurityOnly000"),
+    (r"1//0[A-Za-z0-9_\-]+", "AIzaSyDemoMaskedKeyForSecurityOnly000"),
+    (r'AIzaSyDemoMaskedKeyForSecurityOnly000]+"', 'AIzaSyDemoMaskedKeyForSecurityOnly000'),
+    (r'AIzaSyDemoMaskedKeyForSecurityOnly000]+"', 'AIzaSyDemoMaskedKeyForSecurityOnly000'),
+]
+for pat, repl in sanitize_patterns:
+    full_md_content = re.sub(pat, repl, full_md_content)
 
 for p in output_paths:
     p.parent.mkdir(parents=True, exist_ok=True)
