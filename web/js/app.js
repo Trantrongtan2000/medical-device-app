@@ -1170,6 +1170,134 @@ document.addEventListener('DOMContentLoaded', function () {
             if (elBadge) elBadge.textContent = `${total} KS`;
         },
 
+        
+        currentStaffView: 'bme', // 'bme', 'leaders', 'suppliers'
+        leadersList: [],
+        supplierContactsList: [],
+
+        async switchStaffView(viewType) {
+            this.currentStaffView = viewType;
+            
+            // Update Toggle Button Styles
+            const btnBme = document.getElementById('btn-view-bme-staff');
+            const btnLeaders = document.getElementById('btn-view-leaders');
+            const btnSuppliers = document.getElementById('btn-view-suppliers-contacts');
+
+            [btnBme, btnLeaders, btnSuppliers].forEach(btn => {
+                if (btn) {
+                    btn.className = 'btn btn-outline-secondary fw-semibold btn-clinical';
+                }
+            });
+
+            if (viewType === 'bme' && btnBme) btnBme.className = 'btn btn-primary fw-bold btn-clinical';
+            if (viewType === 'leaders' && btnLeaders) btnLeaders.className = 'btn btn-primary fw-bold btn-clinical';
+            if (viewType === 'suppliers' && btnSuppliers) btnSuppliers.className = 'btn btn-primary fw-bold btn-clinical';
+
+            if (viewType === 'bme') {
+                this.renderStaff(this.staffList);
+            } else if (viewType === 'leaders') {
+                await this.loadAndRenderLeaders();
+            } else if (viewType === 'suppliers') {
+                await this.loadAndRenderSupplierContacts();
+            }
+        },
+
+        async loadAndRenderLeaders() {
+            try {
+                if (this.leadersList.length === 0) {
+                    const res = await fetch('/api/directory/leaders');
+                    this.leadersList = await res.json();
+                }
+                const container = document.getElementById('staff-grid-container');
+                const countLabel = document.getElementById('staff-count-label');
+                if (countLabel) countLabel.textContent = `Hiển thị ${this.leadersList.length} Lãnh Đạo & Trưởng Khoa`;
+
+                if (!container) return;
+                container.innerHTML = this.leadersList.map(l => `
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="clinical-card h-100 p-3 d-flex flex-column justify-content-between shadow-sm" style="border-top: 4px solid #dc2626;">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" 
+                                         style="width: 44px; height: 44px; font-size: 1.15rem; background: #dc2626;">
+                                        ${l.full_name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-dark">${l.full_name}</h6>
+                                        <span class="badge bg-danger text-white" style="font-size: 0.68rem;">${l.group_name}</span>
+                                    </div>
+                                </div>
+                                <div class="p-2 rounded bg-light border mb-2">
+                                    <span class="small text-muted d-block" style="font-size: 0.72rem; font-weight: 700;">CHỨC VỤ:</span>
+                                    <strong class="text-dark small d-block">${l.title}</strong>
+                                </div>
+                                <div class="mb-3 small text-muted">
+                                    <i class="bi bi-info-circle me-1 text-primary"></i>${l.notes || 'Chỉ đạo chuyên môn'}
+                                </div>
+                            </div>
+                            <div class="pt-2 border-top d-flex align-items-center justify-content-between">
+                                <a href="tel:${l.phone}" class="btn btn-sm btn-outline-danger btn-clinical font-mono fw-bold">
+                                    <i class="bi bi-telephone-fill me-1"></i>${l.phone || 'N/A'}
+                                </a>
+                                <a href="mailto:${l.email || ''}" class="btn btn-sm btn-light border btn-clinical text-dark">
+                                    <i class="bi bi-envelope-fill me-1"></i>Email
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
+        async loadAndRenderSupplierContacts() {
+            try {
+                if (this.supplierContactsList.length === 0) {
+                    const res = await fetch('/api/directory/suppliers');
+                    this.supplierContactsList = await res.json();
+                }
+                const container = document.getElementById('staff-grid-container');
+                const countLabel = document.getElementById('staff-count-label');
+                if (countLabel) countLabel.textContent = `Hiển thị ${this.supplierContactsList.length} Đối Tác Nhà Cung Cấp & Kỹ Sư Hãng`;
+
+                if (!container) return;
+                container.innerHTML = this.supplierContactsList.map(s => `
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="clinical-card h-100 p-3 d-flex flex-column justify-content-between shadow-sm" style="border-top: 4px solid #f59e0b;">
+                            <div>
+                                <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.92rem;">${s.supplier_name}</h6>
+                                        <span class="badge bg-warning text-dark font-mono mt-1" style="font-size: 0.68rem;">ĐỐI TÁC HÃNG</span>
+                                    </div>
+                                    <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" 
+                                         style="width: 36px; height: 36px; font-size: 1rem; background: #f59e0b;">
+                                        🏢
+                                    </div>
+                                </div>
+                                <div class="p-2 rounded bg-light border mb-2">
+                                    <span class="small text-muted d-block" style="font-size: 0.72rem; font-weight: 700;">NGƯỜI LIÊN HỆ / ĐẠI DIỆN HÃNG:</span>
+                                    <strong class="text-dark small d-block">${s.contact_person || 'Phòng Kỹ Thuật / Dịch Vụ'}</strong>
+                                </div>
+                                <div class="mb-3 small text-muted">
+                                    <i class="bi bi-wrench me-1 text-warning"></i>${s.service_scope || 'Bảo trì & Cung cấp vật tư'}
+                                </div>
+                            </div>
+                            <div class="pt-2 border-top d-flex align-items-center justify-content-between">
+                                <a href="tel:${s.phone}" class="btn btn-sm btn-outline-warning text-dark btn-clinical font-mono fw-bold">
+                                    <i class="bi bi-telephone-fill me-1"></i>${s.phone || 'Đang cập nhật'}
+                                </a>
+                                <span class="badge bg-light text-muted border font-mono">${s.email ? s.email : 'Hotline Kỹ Thuật'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
         renderStaff(list) {
             const container = document.getElementById('staff-grid-container');
             const countLabel = document.getElementById('staff-count-label');

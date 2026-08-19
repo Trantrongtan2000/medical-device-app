@@ -1353,3 +1353,24 @@ async def delete_bme_staff(staff_id: int, db = Depends(get_db)):
     cur.execute("DELETE FROM bme_staff WHERE id = ?", (staff_id,))
     db.commit()
     return {"status": "success", "message": f"Đã xóa hồ sơ nhân sự {row['full_name']} khỏi hệ thống"}
+
+
+
+@router.get("/api/directory/leaders")
+async def list_hospital_leaders(db = Depends(get_db)):
+    """Danh bạ Ban Giám Đốc, Lãnh Đạo Phòng Ban & Trưởng Khoa Lâm Sàng"""
+    rows = db.execute("SELECT * FROM hospital_directory ORDER BY id ASC").fetchall()
+    return [dict(r) for r in rows]
+
+@router.get("/api/directory/suppliers")
+async def list_supplier_contacts(search: Optional[str] = Query(None), db = Depends(get_db)):
+    """Danh bạ Đối Tác Nhà Cung Cấp & Kỹ Sư Hãng Chính Thức (45 Hãng)"""
+    query = "SELECT * FROM supplier_contacts"
+    params = []
+    if search and search.strip():
+        s = f"%{search.strip()}%"
+        query += " WHERE supplier_name LIKE ? OR contact_person LIKE ?"
+        params.extend([s, s])
+    query += " ORDER BY supplier_name ASC"
+    rows = db.execute(query, params).fetchall()
+    return [dict(r) for r in rows]

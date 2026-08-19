@@ -127,12 +127,22 @@ def test_bme_staff_endpoints():
     data = res.json()
     assert isinstance(data, list)
     assert len(data) >= 6
-    assert any(s["staff_code"] == "BME-001" for s in data)
+    assert any("BME-Q7" in s["staff_code"] for s in data)
 
     # 2. Test GET /api/staff/1
     res_single = client.get("/api/staff/1")
     assert res_single.status_code == 200
     staff = res_single.json()
-    assert staff["staff_code"] == "BME-001"
-    assert "Trần Văn Hùng" in staff["full_name"]
+    assert staff["staff_code"] == "BME-Q7-01"
+    assert "Nguyễn Quốc Việt" in staff["full_name"]
     assert "recent_tasks" in staff
+
+    # 3. Test GET /api/directory/leaders
+    res_leaders = client.get("/api/directory/leaders")
+    assert res_leaders.status_code == 200
+    assert len(res_leaders.json()) >= 5
+
+    # 4. Test GET /api/directory/suppliers
+    res_suppliers = client.get("/api/directory/suppliers")
+    assert res_suppliers.status_code == 200
+    assert len(res_suppliers.json()) >= 10
