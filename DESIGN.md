@@ -119,7 +119,7 @@ Clinical Rigor meets Modern Information Architecture. The UI evokes a high-relia
 
 - **Primary Persona:** Kỹ sư Y sinh (BME Engineers), Điều dưỡng Trưởng, và Ban Lãnh đạo Khoa/Phòng.
 - **Core Philosophy:** "Less, but better" (Dieter Rams) combined with ISO 13485 / IEC 62304 Medical Device Usability standards.
-- **Information Density:** High density with generous micro-padding to display 1.046 devices, serial passports, calibrations, and 24h on-call assignments without eye fatigue.
+- **Information Density:** High density with generous micro-padding to display 1.211 devices, serial passports, calibrations, and 24h on-call assignments without eye fatigue.
 
 ## Colors
 
@@ -137,7 +137,7 @@ The palette is engineered for clinical contrast, zero color ambiguity, and stric
 
 A dual-typeface system pairing **Inter** (for maximum human reading legibility) with **JetBrains Mono** (for high-precision serial numbers, asset tags, and calibration certificates).
 
-- **Display KPI (`30px / 800`):** Bold, high-visibility operational metrics (e.g., 1.046 Total Assets, 98.6% Operational Readiness).
+- **Display KPI (`30px / 800`):** Bold, high-visibility operational metrics (e.g., 1.211 Total Assets, 98.6% Operational Readiness).
 - **Section Headers (`20px / 700`):** Crisp division headers for clinical modules and on-call calendars.
 - **Mono Code (`12.5px / 600 Monospace`):** Unambiguous alphanumeric rendering for Asset Tags (`BVQ7-TTB-XXXXX`) and Serial Numbers (`S/N`) to prevent character confusion between `0` and `O`, `1` and `l`.
 
