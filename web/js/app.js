@@ -1040,31 +1040,93 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (err) {
                 console.error('Activity feed failed', err);
             }
+        },        activateTab(targetId, updateHash = true) {
+            if (!targetId) return;
+            if (!targetId.startsWith('#')) targetId = '#' + targetId;
+
+            const targetPane = document.querySelector(targetId);
+            if (!targetPane) return;
+
+            const navButtons = document.querySelectorAll('.sidebar-nav .nav-link, .nav-pills .nav-link');
+            const matchingBtn = document.querySelector(`.sidebar-nav .nav-link[data-bs-target="${targetId}"]`);
+            const pageHeading = document.getElementById('page-heading');
+
+            // Update nav button active states
+            document.querySelectorAll('.sidebar-nav .nav-link').forEach(b => b.classList.remove('active'));
+            if (matchingBtn) matchingBtn.classList.add('active');
+
+            // Update tab panes
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+            targetPane.classList.add('show', 'active');
+
+            // Update page heading
+            if (matchingBtn && pageHeading) {
+                const text = matchingBtn.querySelector('span')?.textContent || 'Quản lý TTBYT';
+                const iconClass = matchingBtn.querySelector('i')?.className || 'bi bi-grid-fill';
+                pageHeading.innerHTML = `<i class="${iconClass} text-primary me-2"></i>${text}`;
+            }
+
+            // Save state & update URL hash
+            localStorage.setItem('active_htm_tab', targetId);
+            if (updateHash && window.location.hash !== targetId) {
+                try {
+                    history.replaceState(null, null, targetId);
+                } catch (e) {
+                    window.location.hash = targetId;
+                }
+            }
+
+            // Trigger specific tab data loaders
+            if (targetId === '#tab-suppliers') {
+                this.switchSupplierSubTab(this.currentSupplierSubTab || 'contracts');
+            } else if (targetId === '#tab-staff') {
+                this.loadStaff();
+                this.loadOncallData();
+            } else if (targetId === '#tab-ai-hub') {
+                this.loadAPIKeysStatus();
+            } else if (targetId === '#tab-semantica-graph') {
+                this.loadSemanticaStats();
+            } else if (targetId === '#tab-devices') {
+                this.loadDevices();
+            } else if (targetId === '#tab-inspections') {
+                this.loadInspections();
+            } else if (targetId === '#tab-transfers') {
+                this.loadTransfers();
+            } else if (targetId === '#tab-speedmaint') {
+                this.loadWorkOrders();
+            }
         },
 
         setupNavigation() {
             const navButtons = document.querySelectorAll('.sidebar-nav .nav-link');
-            const pageHeading = document.getElementById('page-heading');
 
             navButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    navButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
                     const targetId = btn.getAttribute('data-bs-target');
                     if (targetId) {
-                        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
-                        document.querySelector(targetId)?.classList.add('show', 'active');
-                    }
-
-                    const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
-                    const iconClass = btn.querySelector('i')?.className || 'bi bi-grid-fill';
-                    if (pageHeading) {
-                        pageHeading.innerHTML = `<i class="${iconClass} text-primary me-2"></i>${text}`;
+                        this.activateTab(targetId, true);
                     }
                 });
             });
+
+            // Handle browser back/forward or hash changes
+            window.addEventListener('hashchange', () => {
+                if (window.location.hash) {
+                    this.activateTab(window.location.hash, false);
+                }
+            });
+
+            // Restore active tab on load
+            const currentHash = window.location.hash;
+            const savedTab = localStorage.getItem('active_htm_tab');
+            const initialTab = (currentHash && document.querySelector(currentHash)) 
+                ? currentHash 
+                : (savedTab && document.querySelector(savedTab)) 
+                    ? savedTab 
+                    : '#tab-dashboard';
+
+            this.activateTab(initialTab, false);
 
             // Search filter
             const searchInput = document.getElementById('search-input');
@@ -1093,7 +1155,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-                        // Quick Filter Chips for 4 Clinical Departments
+            // Quick Filter Chips for 4 Clinical Departments
             const chips = document.querySelectorAll('.chip-filter');
             chips.forEach(chip => {
                 chip.addEventListener('click', () => {
