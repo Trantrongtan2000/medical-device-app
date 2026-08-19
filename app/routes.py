@@ -776,3 +776,18 @@ async def list_standard_sops():
         {"code": "QT.08", "name": "Điều chuyển trang thiết bị y tế giữa các đơn vị sử dụng", "type": "Quy trình", "ref": "/sops#qt-08"},
         {"code": "QT.09", "name": "Giao nhận bình khí y tế di động", "type": "Quy trình", "ref": "/sops#qt-09"}
     ]
+
+
+# ==================== SEMANTICA AGI KNOWLEDGE GRAPH & PROVENANCE ====================
+
+from .semantica_engine import semantica_engine
+
+@router.get("/api/semantica/stats")
+async def get_semantica_stats():
+    """Lấy số liệu thống kê Context Graph của Semantica Engine"""
+    return semantica_engine.get_graph_stats()
+
+@router.get("/api/semantica/explain/{device_id}")
+async def explain_device_with_semantica(device_id: int):
+    """Giải trình chuỗi nguyên nhân và nguồn gốc (Causal Provenance & Zero-Hallucination Reasoning)"""
+    return semantica_engine.explain_device(device_id)

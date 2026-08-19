@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 07:38:39`  
+> **Thời gian xuất:** `19/08/2026 07:39:59`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7) & Công cụ Quản lý Tài sản  
 
 ---
@@ -29360,6 +29360,287 @@ b. Xác nhận hoàn thành kiểm định .....................................
 …êm mới Nhà cung cấp → Click → Nhập Mã và tê…
 
 > Throttle: call #1/8 in this window. 2 call(s) before soft cap. Prefer ctx_search(queries: [...]) array form for multi-query workloads — it counts as a single call.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:38:39+07:00
+Completed At: 2026-08-19T07:38:39+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 1590
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\session.md
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:38:45+07:00
+Completed At: 2026-08-19T07:38:46+07:00
+
+				The command exited with code 0.
+				Output:
+				[feat/device-management-v2 6e55963] feat: activate context-mode MCP and index core medical device master documents and SOP handbook
+ 2 files changed, 600 insertions(+), 2 deletions(-)
+On branch feat/device-management-v2
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# ⚡ ĐÃ KÍCH HOẠT & ÁP DỤNG THÀNH CÔNG `context-mode` (v1.0.169)
+
+Hệ thống quản lý ngữ cảnh thông minh và cơ sở tri thức tìm kiếm **[`context-mode`](https://github.com/mksglu/context-mode)** (sử dụng thuật toán xếp hạng BM25 trên SQLite FTS5) đã được kiểm tra sức khỏe (`ctx_doctor`), kích hoạt và nạp chỉ mục toàn bộ tài liệu dự án:
+
+---
+
+### 🏥 1. Kết Quả Chẩn Đoán Hệ Thống (`ctx_doctor`):
+* ✅ **Runtimes:** JavaScript, TypeScript, Python, Shell.
+* ✅ **Engine Hiệu Năng Cao:** Bun Runtime & Native SQLite FTS5 Module.
+* ✅ **Trạng Thái Lưu Trữ:** Session & Content Cache tại `C:\Users\tantt\AppData\Roaming\opencode\context-mode\`.
+* ✅ **Session Hook:** Tự động bắt ngữ cảnh và giải phóng token thông minh.
+
+---
+
+### 📚 2. Các Tài Liệu Trọng Yếu Đã Được Lập Chỉ Mục (`ctx_index`):
+
+1. **Hồ Sơ Quản Trị Dữ Liệu Master (`MASTER_DATA_MANAGEMENT.md`):**
+   * *Nguồn:* `BVQ7: Master Data Management`
+   * *Nội dung:* 1.052 thiết bị y tế, 21 khoa phòng lâm sàng, 10 nhóm thiết bị, 4 mức rủi ro NĐ 98.
+2. **Sổ Tay Quy Trình Vận Hành & Biểu Mẫu TTBYT (`TLHD_QLTTBYT_V1.2.md`):**
+   * *Nguồn:* `BVQ7: Sổ Tay Quy Trình TTBYT SOPs`
+   * *Nội dung:* Quy trình kiểm tra vận hành, kiểm định `CS.TTBYT.04`, hệ thống RO lọc máu `QT.01/QT.02`, khí y tế `QT.03`, bàn giao nghiệm thu `QT.04`, bảo trì bảo dưỡng `QT.06`.
+3. **Hiến Pháp & Tiêu Chuẩn Kỹ Thuật (`constitution.md`):**
+   * *Nguồn:* `BVQ7: Constitution & Spec Standards`
+   * *Nội dung:* Kiến trúc kỹ thuật FastAPI, SQLite WAL mode, quy chuẩn giao diện lâm sàng, chuẩn mã kép `BVQ7-TTB-XXXXX` & `BM/BVQ7/XXXXX`.
+
+---
+
+### 🔍 3. Hướng Dẫn Truy Xuất Nhanh Qua `context-mode`:
+* Khi cần tra cứu tức thời mọi quy định, thông số máy, hợp đồng hoặc quy trình y tế, hệ thống sẽ sử dụng công cụ `ctx_search(queries: [...])` để trích xuất chính xác theo ngữ cảnh mà không làm đầy bộ nhớ đệm (context window).
+* 🌿 **Git Commit:** Đã commit vào nhánh [`feat/device-management-v2`](file:///C:/Users/tantt/Downloads/medical-device-app).
+* 📄 **Bản ghi phiên:** [`C:\Users\tantt\Downloads\session.md`](file:///C:/Users/tantt/Downloads/session.md).
+
+
+### 👤 Lượt 53: Yêu cầu từ Người Dùng (USER)
+```text
+áp dụng https://github.com/semantica-agi/semantica
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `search_web`: *search_web*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:18+07:00
+Completed At: 2026-08-19T07:39:22+07:00
+The search for "semantica-agi semantica github semantic knowledge graph reasoning memory" returned the following summary:
+**Semantica** (often associated with the GitHub organization **semantica-agi**) is an open-source, graph-native infrastructure project designed to add accountability, context management, and deterministic reasoning to AI agent systems[1][2].
+
+It is frequently described as an "Open Source Palantir for AI Agents," focusing on turning black-box AI outputs into traceable, auditable, and structured decisions[3][4].
+
+### Key Concepts & Features
+
+*   **Graph-Native Memory & Context:** Unlike standard vector-based RAG (Retrieval-Augmented Generation) which relies on similarity searches, Semantica builds a **Context Graph**[3]. This allows agents to understand semantic relationships across disparate data sources, transforming fragmented information into a unified, queryable knowledge layer[5][6].
+*   **Deterministic Reasoning:** One of its core value propositions is that the reasoning, graph construction, and provenance layers are fully deterministic and do not require an LLM[7][4]. It supports logic-based deduction and constraint checking to ensure decisions are consistent[8].
+*   **Accountability & Provenance:** Semantica records AI decisions as first-class objects[7][6]. Every decision includes a full causal chain, confidence scores, and provenance (built on W3C PROV-O standards), making it easier to comply with regulations like the EU AI Act[9][7][6].
+*   **Integration:** It is designed to be framework-agnostic, complementing existing stacks (LLMs, vector stores, and agent frameworks like LangGraph, CrewAI, etc.) rather than replacing them[7][2].
+
+### Technical Stack Highlights
+*   **License:** MIT[10][5].
+*   **Storage:** Supports both RDF stores (e.g., Oxigraph, Jena) and Labeled Property Graphs (LPGs) like Neo4j[4][11].
+*   **Interfaces:** Exposes capabilities via Python SDK, REST API, CLI, and Model Context Protocol (MCP) servers[7][12].
+
+### Why it exists
+Many enterprise AI systems suffer from a "semantic gap" where raw, unstructured data cannot be easily leveraged for reliable agent reasoning[5]. Semantica aims to solve this by providing the "missing fabric" between raw data and AI engineering, ensuring that agents can "remember" relationships and "explain" their reasoning paths in an audit-ready format[5][6].
+
+For more information, you can visit the project repository on GitHub: **[semantica-agi/semantica](https://github.com/semantica-agi/semantica)**[1][13].
+
+Sources:
+[1] [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxEPeUNAKw1ge30NaBF50qiIi7HiRnCWSjD0IeEWcPu9MTELAs5f5lx7tA0pQ_qc-YiSFBuceSoYbW43g-BLB2vpyeh01yZQvpuf5sJF_Aec3qpXh5bZEIeWqQAgJ1Tas=)
+[2] [getsemantica.ai](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGH-yVqz0F81jBMHw1CxkcW5BP7NVqD-qRUP7RcraiH8o8ELVeC7eLh7pHWqwWvvVBAaEgo-rRpjr3XKSx6HmcLim2_AKuSONouyaLpaDc=)
+[3] [facebook.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExOkyc6e36kyLX13ldAQ4CdtoXs1MbRr6MiQPMDCY_fFUXXmw886eKghYuozVdWvVxj5H3-QIOh5-me7lXvObwA979SySapA_zrzMAsKTdfRmCUzwCaIyuPFzjDfNV76a5ojnsdvByOwG8YyYEywywVhNL1QXP0W8ASWRZ3ZFEfgModyCHw-Rsx4hLcQqffdQEIxOtrwWUAWp8tZDaaksO7OxcQMxHB79piZVKXux7A-eIn6EoiC_udu0zoj_zE6OP0RYbk3QICR2nfldwGLjsqd7fIv0DtBqyLl1YRt7lhG4YxA6WU0Gvngt_B8LHV8wDa0WxwIfNlAWu497OtzudHSUS8dU0DZvOFtfldYv6hZ2WeviP_hfICT2HxfqZDus_0BU=)
+[4] [explainx.ai](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFG7KjUqQvx1XTUkVhmKrLW44oqgtsxkB6RHHEGJHjY7aTkOsLKzv2U3kuhkOLWMuiCkSaF8pVhMx8SV_Y58CzCmtNhtQd3aW28_L6m63JaiZV67ve4YK2BK6NF_XSb9OjoPkv00ewHM93nE7wbgXR43xdEi3sUFRxEuOPMs1PNOHK0FsQfibujqw==)
+[5] [pypi.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEyaaHeCAVrEV9Wq95aODeHsfVmjo4NHyYIz4rsmG1HR5kqA92KSeG5tWOmRi2uWm_YebPJNUJTTkMpDtCBsay1Pgs3IVxRUvfMk84CtuMJDx1QyMsx5n2qGSNLJ8sdCw==)
+[6] [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqDuQkLgoc6LmSLBNTZlxsilP3wP8C00j6VzwdtGkBsj0jbZn1oAG7HAWwf19awpaGsXKXWZs47b_PnR9BIsZfUOGg6HPAbZueOq1zADLZnmr0e91Y-g==)
+[7] [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxEPeUNAKw1ge30NaBF50qiIi7HiRnCWSjD0IeEWcPu9MTELAs5f5lx7tA0pQ_qc-YiSFBuceSoYbW43g-BLB2vpyeh01yZQvpuf5sJF_Aec3qpXh5bZEIeWqQAgJ1Tas=)
+[8] [deepwiki.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFB6K6seTPzQoP4nU6Ko3Ukjc1WxCV3VHHgxam-37m7-74ozx4JoptKmBGVqc31fizvKM7cwwhvuhPw0jS6qO6zs-iTJ6naXCbkbxioZnmQBeuXurPvHpEvLkPWNpyVZZ7BbF4sgfp5nVWTudGOPt0ghZeoTwzn4JRxPzpUlDusWGyWkZWB5c5HpS5ENNo1TKi5E2N72YP_)
+[9] [youtube.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGhRQUyI5vAXl5UC6JV8_yXL0vTQW_da_5NSTZhKxuZLIlz5s2oKBOYUXa2sV3UK4aUJlVhiEGosdtA2ixy7xj5MOQAbQ7wL-6rBxMkFCAopobr-Yq-OTvl4TuJCENNWLCk)
+[10] [trendshift.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFvg5J_zd-uteqM-ZUl5kgq5ZUABLMTjkpwsVcpFiSfMc4-G9ds3CbYFVZR813_nmbjM2eLbkdcYgRXzO2fPvVnz26FVmb3d0ynJIU2jG3yW9fqCBNAGzxesqsRL7Ir)
+[11] [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGUt2w8YUelyprtiw4skRtayyNt_UnKM11uT0RRN3y2JB80L8N4bVWnhUIbnpTg9VEiwr1ABJz7TZfaF1lM05EY-pL8bEWOHBDVYBpkX0budvIYhnhweUrpXT6MsowN)
+[12] [wavect.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNFu7wh2B3StDzvJug7E8prnpdCvp5qjav9ePidIk8zldiuH0FS0Xgn_wQPeY4qNh49AvJJdTbeSPIjtafVUlRqgFzjNbOCqUgYS3U-hoQrM7EBebal8WiRgFk_I3TvJQsQ0T4fFOc70DGQLPxe_wsmiskig==)
+[13] [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqDuQkLgoc6LmSLBNTZlxsilP3wP8C00j6VzwdtGkBsj0jbZn1oAG7HAWwf19awpaGsXKXWZs47b_PnR9BIsZfUOGg6HPAbZueOq1zADLZnmr0e91Y-g==)
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:34+07:00
+Completed At: 2026-08-19T07:39:34+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/app/semantica_engine.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:37+07:00
+Completed At: 2026-08-19T07:39:37+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 778
+Total Bytes: 32716
+Showing lines 745 to 778
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+745:     """Xóa API key khỏi danh sách xoay key"""
+746:     if req.service == "gemini":
+747:         gemini_key_pool.remove_key(req.key)
+748:     elif req.service == "mistral":
+749:         mistral_key_pool.remove_key(req.key)
+750:     return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}
+751: 
+752: 
+753: # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
+754: 
+755: SOP_HTML_PATH = Path(r"C:\Users\tantt\Downloads\asset-management-tools\quy_trinh_ttbyt.html")
+756: 
+757: @router.get("/sops")
+758: async def view_sop_handbook():
+759:     """Hiển thị trực tiếp Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế (quy_trinh_ttbyt.html)"""
+760:     if SOP_HTML_PATH.exists():
+761:         return FileResponse(SOP_HTML_PATH, media_type="text/html; charset=utf-8")
+762:     raise HTTPException(status_code=404, detail="Không tìm thấy tệp sổ tay quy trình quy_trinh_ttbyt.html")
+763: 
+764: @router.get("/api/sops")
+765: async def list_standard_sops():
+766:     """Danh mục 9 Quy trình chuẩn (SOPs) & Chính sách quản lý TTBYT BV Quận 7"""
+767:     return [
+768:         {"code": "CS.TTBYT.04", "name": "Chính sách kiểm tra hiệu chuẩn & kiểm định thiết bị y tế", "type": "Chính sách", "ref": "/sops#cs-ttbyt-04"},
+769:         {"code": "QT.01", "name": "Kiểm soát chất lượng nước R.O tại đơn vị Thận nhân tạo", "type": "Quy trình", "ref": "/sops#qt-01"},
+770:         {"code": "QT.02", "name": "Vận hành hệ thống R.O tại đơn vị Thận nhân tạo", "type": "Quy trình", "ref": "/sops#qt-02"},
+771:         {"code": "QT.03", "name": "Vận hành và bảng kiểm an toàn hệ thống khí y tế (O2, CO2, Vac, Air)", "type": "Quy trình", "ref": "/sops#qt-03"},
+772:         {"code": "QT.04", "name": "Bàn giao, lắp đặt, nghiệm thu trang thiết bị y tế & Sổ lý lịch máy", "type": "Quy trình", "ref": "/sops#qt-04"},
+773:         {"code": "QT.05", "name": "Vận hành và bảo quản trang thiết bị y tế tại khoa phòng", "type": "Quy trình", "ref": "/sops#qt-05"},
+774:         {"code": "QT.06", "name": "Bảo trì, bảo dưỡng định kỳ (PM) và đào tạo hướng dẫn sử dụng", "type": "Quy trình", "ref": "/sops#qt-06"},
+775:         {"code": "QT.07", "name": "Thanh lý đồ dùng, trang thiết bị hư hỏng / hết hạn / không sử dụng", "type": "Quy trình", "ref": "/sops#qt-07"},
+776:         {"code": "QT.08", "name": "Điều chuyển trang thiết bị y tế giữa các đơn vị sử dụng", "type": "Quy trình", "ref": "/sops#qt-08"},
+777:         {"code": "QT.09", "name": "Giao nhận bình khí y tế di động", "type": "Quy trình", "ref": "/sops#qt-09"}
+778:     ]
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:44+07:00
+Completed At: 2026-08-19T07:39:44+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -775,4 +775,19 @@
+         {"code": "QT.07", "name": "Thanh lý đồ dùng, trang thiết bị hư hỏng / hết hạn / không sử dụng", "type": "Quy trình", "ref": "/sops#qt-07"},
+         {"code": "QT.08", "name": "Điều chuyển trang thiết bị y tế giữa các đơn vị sử dụng", "type": "Quy trình", "ref": "/sops#qt-08"},
+         {"code": "QT.09", "name": "Giao nhận bình khí y tế di động", "type": "Quy trình", "ref": "/sops#qt-09"}
+-    ]
++    ]
++
++
++# ==================== SEMANTICA AGI KNOWLEDGE GRAPH & PROVENANCE ====================
++
++from .semantica_engine import semantica_engine
++
++@router.get("/api/semantica/stats")
++async def get_semantica_stats():
++    """Lấy số liệu thống kê Context Graph của Semantica Engine"""
++    return semantica_engine.get_graph_stats()
++
++@router.get("/api/semantica/explain/{device_id}")
++async def explain_device_with_semantica(device_id: int):
++    """Giải trình chuỗi nguyên nhân và nguồn gốc (Causal Provenance & Zero-Hallucination Reasoning)"""
++    return semantica_engine.explain_device(device_id)
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `manage_task`: *manage_task*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:47+07:00
+Completed At: 2026-08-19T07:39:47+07:00
+Task "4881bc7a-1a98-495d-aa16-c25753523ea5/task-1548" cancelled.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:50+07:00
+Tool is running as a background task with task id: 4881bc7a-1a98-495d-aa16-c25753523ea5/task-1614
+Task Description: python -c "import uvicorn; from app.main import app; uvicorn.run(app, host='127.0.0.1', port=8000, log_level='info')"
+Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-1614.log
+YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
+ DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:39:56+07:00
+Completed At: 2026-08-19T07:39:56+07:00
+
+				The command exited with code 0.
+				Output:
+				Semantica Graph Stats: {
+  "engine": "Semantica Context Graph Engine (semantica-agi)",
+  "total_nodes": 1212,
+  "total_edges": 4540,
+  "node_distribution": {
+    "Regulation": 3,
+    "Facility": 21,
+    "Category": 10,
+    "Device": 1052,
+    "Contract": 12,
+    "Supplier": 7,
+    "Certificate": 107
+  },
+  "edge_distribution": {
+    "LOCATED_IN": 1052,
+    "CLASSIFIED_AS": 1052,
+    "SUPPLIED_BY": 12,
+    "PROCURED_UNDER": 1052,
+    "GOVERNED_BY": 1265,
+    "CERTIFIED_BY": 107
+  },
+  "provenance_standard": "W3C PROV-O Compliant"
+}
+
+Semantica Device Explanation:
+   1. [Thiết Bị]: Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay (Model: N/A, Serial: GEN-4163622025003671671)
+   2. [Khoa Quản Lý]: Đơn Vị Thận Nhân Tạo / Lọc Máu (Tầng 2 - Khu Lọc Máu)
+   3. [Gói Mua Sắm]: Hợp đồng 1605-2024/HĐT/TAQ7-AP | Nhà thầu: Công ty TNHH Fresenius Medical Care Việt Nam
+   4. [Cơ Sở Pháp Lý]: Nghị định 98/2021/NĐ-CP
+   5. [Giấy Chứng Nhận]: Số N/A (Tem: N/A)
+   6. [Kết Luận Kiểm Toán]: Thiết bị không thuộc diện bắt buộc có giấy chứng nhận kiểm định chu kỳ ngắn.
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
