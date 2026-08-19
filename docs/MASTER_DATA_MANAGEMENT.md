@@ -2,7 +2,7 @@
 **BỆNH VIỆN QUẬN 7 / PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7**
 
 > **Phiên bản:** 2.0.0 (Snipe-IT & SpeedMaint Cloud CMMS Edition)  
-> **Thời điểm cập nhật:** 19/08/2026 07:35:08  
+> **Thời điểm cập nhật:** 19/08/2026 07:37:11  
 > **Cơ sở pháp lý:** Nghị định 98/2021/NĐ-CP, Thông tư 05/2022/TT-BYT, Tiêu chuẩn ISO 13485, Sổ tay Quy trình TTBYT.
 
 ---
@@ -12,7 +12,7 @@
 | Thực Thể Master | Tổng Bản Ghi | Khóa Chính (PK) | Mã Nhận Diện Chuẩn Hóa | Ràng Buộc Tính Toàn Vẹn |
 | :--- | :---: | :--- | :--- | :--- |
 | **Thiết Bị Y Tế (`devices`)** | **1,052** | `id` (INTEGER) | `BVQ7-TTB-XXXXX` & `BM/BVQ7/XXXXX` | `serial_no UNIQUE NOT NULL`, `risk_level IN ('A','B','C','D')` |
-| **Khoa / Phòng Ban (`facilities`)** | **22** | `id` (INTEGER) | `code` (VARCHAR) | Quan hệ 1-N với `devices.facility_id` |
+| **Khoa / Phòng Ban (`facilities`)** | **21** | `id` (INTEGER) | `code` (VARCHAR) | Quan hệ 1-N với `devices.facility_id` |
 | **Nhóm Thiết Bị (`device_categories`)** | **10** | `id` (INTEGER) | `name` (TEXT) | Quan hệ 1-N với `devices.category_id` |
 | **Giấy Chứng Nhận KĐ (`calibration_certificates`)** | **107** | `id` (INTEGER) | `certificate_no` | Khóa ngoại `device_id`, Cảnh báo 3 cấp độ KĐ |
 | **Nhật Ký & Work Orders (`maintenance_logs`)** | **9** | `id` (INTEGER) | `#2607XX` (SpeedMaint Task) | Audit Trail `INSPECTION`, `HANDOVER`, `PREVENTIVE`, `REPAIR` |
@@ -50,10 +50,9 @@
 | 16 | **Khoa Nhi** | `KNHI` | 0 máy | 0.0% |
 | 17 | **Khoa Răng Hàm Mặt** | `RHM` | 0 máy | 0.0% |
 | 18 | **Khoa Sản Phụ Khoa** | `SPK` | 0 máy | 0.0% |
-| 19 | **Khu Tiếp Đón & Đánh Giá Ban Đầu** | `RECEPT` | 0 máy | 0.0% |
-| 20 | **Phòng Chăm Sóc Khách Hàng** | `CSKH` | 0 máy | 0.0% |
-| 21 | **Phòng Trang Thiết Bị Y Tế** | `TTBYT` | 0 máy | 0.0% |
-| 22 | **Trung Tâm Giảm Béo - Béo Phì** | `TTBP` | 0 máy | 0.0% |
+| 19 | **Phòng Chăm Sóc Khách Hàng** | `CSKH` | 0 máy | 0.0% |
+| 20 | **Phòng Trang Thiết Bị Y Tế** | `TTBYT` | 0 máy | 0.0% |
+| 21 | **Trung Tâm Giảm Béo - Béo Phì** | `TTBP` | 0 máy | 0.0% |
 
 ---
 

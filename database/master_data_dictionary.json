@@ -3,7 +3,7 @@
     "system": "Medical Device Management System (BV Quận 7)",
     "organization": "Phòng Khám Đa Khoa Tâm Anh Quận 7 / BV Quận 7",
     "version": "2.0.0 (Snipe-IT & SpeedMaint Edition)",
-    "generated_at": "2026-08-19T07:35:08.714390",
+    "generated_at": "2026-08-19T07:37:11.897562",
     "standards": [
       "Nghị định 98/2021/NĐ-CP",
       "Thông tư 05/2022/TT-BYT",
@@ -13,7 +13,7 @@
   },
   "summary": {
     "total_devices": 1052,
-    "total_facilities": 22,
+    "total_facilities": 21,
     "total_categories": 10,
     "total_certificates": 107,
     "total_maintenance_logs": 9
@@ -131,12 +131,6 @@
       "id": 12,
       "name": "Khoa Sản Phụ Khoa",
       "code": "SPK",
-      "device_count": 0
-    },
-    {
-      "id": 22,
-      "name": "Khu Tiếp Đón & Đánh Giá Ban Đầu",
-      "code": "RECEPT",
       "device_count": 0
     },
     {
