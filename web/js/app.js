@@ -1963,6 +1963,237 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         },
 
+        
+        // ==================== GEMINI AI & MISTRAL OCR HUB ENGINE ====================
+        currentOCRResult: null,
+
+        async submitAIChat() {
+            const input = document.getElementById('ai-chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            input.value = '';
+            this.appendChatMessage('user', message);
+
+            const btnSend = document.getElementById('btn-send-ai-chat');
+            if (btnSend) {
+                btnSend.disabled = true;
+                btnSend.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            }
+
+            try {
+                const res = await fetch('/api/ai/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                const data = await res.json();
+                if (data && data.reply) {
+                    this.appendChatMessage('bot', data.reply);
+                } else {
+                    this.appendChatMessage('bot', '❌ Không nhận được phản hồi từ Trợ lý AI.');
+                }
+            } catch (err) {
+                this.appendChatMessage('bot', '❌ Lỗi kết nối đến Gemini Agent Service: ' + err.message);
+            } finally {
+                if (btnSend) {
+                    btnSend.disabled = false;
+                    btnSend.innerHTML = '<i class="bi bi-send-fill me-1"></i> Gửi';
+                }
+            }
+        },
+
+        sendQuickPrompt(promptText) {
+            const input = document.getElementById('ai-chat-input');
+            if (input) {
+                input.value = promptText;
+                this.submitAIChat();
+            }
+        },
+
+        appendChatMessage(sender, text) {
+            const container = document.getElementById('ai-chat-messages');
+            if (!container) return;
+
+            const isUser = sender === 'user';
+            const initial = isUser ? '<i class="bi bi-person-fill"></i>' : '<i class="bi bi-robot"></i>';
+            const bgClass = isUser ? 'bg-primary text-white' : 'bg-white text-dark shadow-sm border';
+            const title = isUser ? 'Bạn' : 'Trợ Lý AI Y Sinh (Gemini):';
+
+            // Format markdown newlines and bold
+            let formatted = text
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/`([^`]+)`/g, '<code class="font-mono bg-light text-dark p-1 rounded">$1</code>');
+
+            const msgHtml = `
+                <div class="d-flex align-items-start gap-2 mb-3 ${isUser ? 'flex-row-reverse' : ''}">
+                    <div class="rounded-circle ${isUser ? 'bg-secondary' : 'bg-primary'} text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 34px; height: 34px;">
+                        ${initial}
+                    </div>
+                    <div class="${bgClass} p-3 rounded-3" style="max-width: 85%;">
+                        <strong class="${isUser ? 'text-white' : 'text-primary'} d-block mb-1 small">${title}</strong>
+                        <div class="small">${formatted}</div>
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', msgHtml);
+            container.scrollTop = container.scrollHeight;
+        },
+
+        clearAIChat() {
+            const container = document.getElementById('ai-chat-messages');
+            if (container) {
+                container.innerHTML = `
+                    <div class="d-flex align-items-start gap-2 mb-3">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 34px; height: 34px;">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <div class="bg-white p-3 rounded-3 shadow-sm border text-dark" style="max-width: 85%;">
+                            <strong class="text-primary d-block mb-1">Trợ Lý AI Kỹ Thuật Y Sinh (BME AI Assistant):</strong>
+                            Đã làm mới phiên hội thoại. Tôi sẵn sàng hỗ trợ các câu hỏi về trang thiết bị y tế và quy trình SOPs tại PKĐK Tâm Anh Quận 7!
+                        </div>
+                    </div>
+                `;
+            }
+        },
+
+        async runSampleOCR(sampleFilename) {
+            const spinner = document.getElementById('ocr-loading-spinner');
+            const resultsPanel = document.getElementById('ocr-results-panel');
+            spinner?.classList.remove('d-none');
+            resultsPanel?.classList.add('d-none');
+
+            try {
+                const res = await fetch('/api/ocr/process', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename: sampleFilename })
+                });
+                const data = await res.json();
+                this.currentOCRResult = data;
+                this.renderOCRResult(data);
+            } catch (err) {
+                alert('❌ Lỗi xử lý OCR: ' + err.message);
+            } finally {
+                spinner?.classList.add('d-none');
+                resultsPanel?.classList.remove('d-none');
+            }
+        },
+
+        async handleOCRFileUpload(files) {
+            if (!files || files.length === 0) return;
+            const file = files[0];
+
+            const spinner = document.getElementById('ocr-loading-spinner');
+            const resultsPanel = document.getElementById('ocr-results-panel');
+            spinner?.classList.remove('d-none');
+            resultsPanel?.classList.add('d-none');
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/ocr/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                this.currentOCRResult = data;
+                this.renderOCRResult(data);
+            } catch (err) {
+                alert('❌ Lỗi xử lý OCR: ' + err.message);
+            } finally {
+                spinner?.classList.add('d-none');
+                resultsPanel?.classList.remove('d-none');
+            }
+        },
+
+        renderOCRResult(data) {
+            const engineBadge = document.getElementById('ocr-result-engine');
+            const fieldsSummary = document.getElementById('ocr-fields-summary');
+            if (engineBadge) engineBadge.textContent = data.engine || 'Mistral OCR-4';
+
+            if (fieldsSummary && data.extracted_fields) {
+                const f = data.extracted_fields;
+                fieldsSummary.innerHTML = `
+                    <div class="row g-1">
+                        <div class="col-12"><strong>Tên thiết bị:</strong> <span class="text-primary">${f.device_name || 'N/A'}</span></div>
+                        <div class="col-6"><strong>Model:</strong> ${f.model || 'N/A'}</div>
+                        <div class="col-6"><strong>Serial:</strong> <span class="badge bg-dark">${f.serial_no || 'N/A'}</span></div>
+                        <div class="col-6"><strong>Hãng SX:</strong> ${f.manufacturer || 'N/A'}</div>
+                        <div class="col-6"><strong>Khoa phòng:</strong> ${f.facility || 'N/A'}</div>
+                        <div class="col-6"><strong>Ngày KĐ:</strong> ${f.calibration_date || 'N/A'}</div>
+                        <div class="col-6"><strong>Hạn KĐ:</strong> ${f.recalibration_date || 'N/A'}</div>
+                        <div class="col-6"><strong>Số GCN:</strong> ${f.certificate_no || 'N/A'}</div>
+                        <div class="col-6"><strong>Mức rủi ro:</strong> <span class="badge bg-warning text-dark">Loại ${f.risk_level || 'A'}</span></div>
+                    </div>
+                `;
+            }
+        },
+
+        showFullOCRMarkdownModal() {
+            if (!this.currentOCRResult) return;
+            const container = document.getElementById('ocr-full-markdown-content');
+            if (container) container.textContent = this.currentOCRResult.markdown || '';
+            const modal = new bootstrap.Modal(document.getElementById('ocrMarkdownModal'));
+            modal.show();
+        },
+
+        populateExtractedOCRToDevice() {
+            if (!this.currentOCRResult || !this.currentOCRResult.extracted_fields) {
+                alert('Chưa có thông tin bóc tách!');
+                return;
+            }
+            const f = this.currentOCRResult.extracted_fields;
+            alert(`✅ Đã nạp thành công dữ liệu trích xuất từ Mistral OCR:\n• Thiết bị: ${f.device_name}\n• Model: ${f.model}\n• S/N: ${f.serial_no}\n• Khoa phòng: ${f.facility}`);
+        },
+
+        openKeyConfigModal() {
+            const modal = new bootstrap.Modal(document.getElementById('keyConfigModal'));
+            modal.show();
+        },
+
+        async submitNewAPIKey() {
+            const service = document.getElementById('key-service-select').value;
+            const keys = document.getElementById('key-input-textarea').value.trim();
+            if (!keys) return;
+
+            try {
+                const res = await fetch('/api/keys/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service: service, keys: keys })
+                });
+                const data = await res.json();
+                alert('✅ ' + data.message);
+                bootstrap.Modal.getInstance(document.getElementById('keyConfigModal'))?.hide();
+                document.getElementById('key-input-textarea').value = '';
+                this.loadAPIKeysStatus();
+            } catch (err) {
+                alert('❌ Lỗi thêm key: ' + err.message);
+            }
+        },
+
+        async loadAPIKeysStatus() {
+            try {
+                const res = await fetch('/api/keys/config');
+                const data = await res.json();
+                const geminiBadge = document.getElementById('gemini-key-count-badge');
+                const mistralBadge = document.getElementById('mistral-key-count-badge');
+                if (geminiBadge && data.gemini) {
+                    geminiBadge.textContent = `${data.gemini.active_keys} Keys Hoạt Động (Pool ${data.gemini.total_keys})`;
+                }
+                if (mistralBadge && data.mistral) {
+                    mistralBadge.textContent = `${data.mistral.active_keys} Keys Hoạt Động (Pool ${data.mistral.total_keys})`;
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        },
+
         setupFormSubmissions() {
             this.setupCheckoutForm();
             this.setupStaffEventListeners();

@@ -766,6 +766,26 @@ class OCRProcessRequest(BaseModel):
     filename: Optional[str] = None
     file_path: Optional[str] = None
 
+
+from fastapi import UploadFile, File
+import shutil
+
+@router.post("/api/ocr/upload")
+async def upload_and_process_ocr(file: UploadFile = File(...)):
+    """Tải file PDF/Ảnh scan lên và bóc tách dữ liệu y tế bằng Mistral OCR"""
+    temp_dir = Path("scratch/uploads")
+    temp_dir.mkdir(parents=True, exist_ok=True)
+    temp_file = temp_dir / file.filename
+    
+    with open(temp_file, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    result = await mistral_ocr_service.process_document(
+        file_path=str(temp_file),
+        filename=file.filename
+    )
+    return result
+
 @router.post("/api/ocr/process")
 async def process_ocr(req: OCRProcessRequest):
     """Mistral OCR Engine (https://mistral.ai/news/ocr-4/) xử lý và bóc tách tài liệu y tế"""
@@ -790,8 +810,8 @@ class RemoveKeyRequest(BaseModel):
 async def get_keys_config():
     """Lấy danh sách các API Key đã đăng ký và trạng thái xoay key"""
     return {
-        "gemini": gemini_key_pool.get_status_summary(),
-        "mistral": mistral_key_pool.get_status_summary()
+        "gemini": gemini_key_pool.get_pool_stats(),
+        "mistral": mistral_key_pool.get_pool_stats()
     }
 
 @router.post("/api/keys/add")

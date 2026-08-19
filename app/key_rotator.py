@@ -168,6 +168,16 @@ class KeyPool:
             })
         return res
 
+    def get_pool_stats(self) -> Dict[str, Any]:
+        """Trả về thống kê tổng hợp số lượng key theo trạng thái"""
+        return {
+            "total_keys": len(self.keys),
+            "active_keys": len([k for k in self.keys if k["status"] == "ACTIVE"]),
+            "rate_limited_keys": len([k for k in self.keys if k["status"] == "RATE_LIMITED"]),
+            "invalid_keys": len([k for k in self.keys if k["status"] == "INVALID"]),
+            "keys_list": self.get_status_summary()
+        }
+
 
 # Singleton Key Pools
 gemini_key_pool = KeyPool("gemini", ["GEMINI_API_KEY", "GOOGLE_API_KEY"])
