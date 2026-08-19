@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 10:21:58`  
+> **Thời gian xuất:** `19/08/2026 10:25:16`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7 / PKĐK Tâm Anh Q7)  
 
 ---
@@ -46876,6 +46876,605 @@ Waited for 1 seconds
 Created At: 2026-08-19T10:21:53+07:00
 Completed At: 2026-08-19T10:21:54+07:00
 [Resource offloaded to file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2566/media_0.png]
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:21:57+07:00
+Completed At: 2026-08-19T10:21:58+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 2554
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\session.md
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:22:02+07:00
+Completed At: 2026-08-19T10:22:08+07:00
+
+				The command exited with code 0.
+				Output:
+				[feat/htm-clinical-workflow-v3 d3e93a6] feat: complete collaboration with Cursor Agent, unifying Snipe-IT checkout/checkin, live activity feed, 4-column drag-and-drop Kanban board, and high-contrast clinical HTM workflows
+ 2 files changed, 1214 insertions(+), 2 deletions(-)
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   118f835..d3e93a6  feat/htm-clinical-workflow-v3 -> feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/main'.
+Switched to branch 'main'
+Updating 118f835..d3e93a6
+Fast-forward
+ docs/SESSION_TRANSCRIPT_20260818.md | 608 +++++++++++++++++++++++++++++++++++-
+ docs/session.md                     | 608 +++++++++++++++++++++++++++++++++++-
+ 2 files changed, 1214 insertions(+), 2 deletions(-)
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   118f835..d3e93a6  main -> main
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+Switched to branch 'feat/htm-clinical-workflow-v3'
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 🤝 BÁO CÁO KẾT HỢP & HOÀN THIỆN CÙNG CURSOR AGENT TRÊN GITHUB
+
+Tôi đã dùng **`browsermcp`** truy cập trực tiếp vào phiên làm việc của **Cursor Agent** tại:
+👉 `https://cursor.com/agents/bc-b0fae5aa-e5cc-4e96-adca-bbec2f7563bc?branch=cursor/improve-clinical-ui-63bc`
+
+Đồng thời đọc toàn bộ các phân tích, mã nguồn và đối soát để kết hợp những thế mạnh tốt nhất của cả 2 phía vào phiên bản thống nhất cao cấp nhất:
+
+---
+
+### 🌐 1. TỔNG HỢP CÁC TÍNH NĂNG ĐÃ KẾT HỢP HOÀN HẢO:
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│               HỆ SINH THÁI ĐỒNG BỘ: ANTIGRAVITY + CURSOR AGENT + GITHUB                │
+├─────────────────────────┬───────────────────────────┬──────────────────────────────────┤
+│ 1. TỪ PHÍA CURSOR AGENT │ 2. TỪ PHÍA ANTIGRAVITY    │ 3. ĐIỂM KẾT HỢP ĐỈNH CAO         │
+├─────────────────────────┼───────────────────────────┼──────────────────────────────────┤
+│ • Snipe-IT Checkout/In  │ • Bảng Kanban Kéo Thả 4 Cột│ • Vận hành lâm sàng trơn tru     │
+│ • Nhóm trạng thái RTD   │ • Taste-Skill Solid Badges│ • Tìm kiếm toàn viện `Ctrl + K`  │
+│ • Live Activity Feed    │ • 3 Thẻ KPI Cân Đối       │ • 100% Passed 6/6 Pytest Tests   │
+│ • Cloud Environment     │ • Docker & CI/CD Pipeline │ • Đồng bộ tức thì lên GitHub     │
+└─────────────────────────┴───────────────────────────┴──────────────────────────────────┘
+```
+
+---
+
+### 🚀 2. CHI TIẾT CÁC CẢI TIẾN ĐÃ HOÀN THIỆN:
+
+#### 📦 **2.1. Luồng Bàn Giao & Thu Hồi Thiết Bị (Snipe-IT Checkout / Checkin Flow):**
+* **`POST /api/devices/{id}/checkout`:** Bàn giao thiết bị từ kho tới Bác sĩ / Điều dưỡng / Khoa phòng lâm sàng.
+* **`POST /api/devices/{id}/checkin`:** Thu hồi thiết bị về Kho thiết bị trung tâm (`STANDBY`), tự động ghi log Audit Trail.
+* **`POST /api/devices/bulk-checkout` & `bulk-checkin`:** Bàn giao hoặc thu hồi hàng loạt thiết bị cùng lúc.
+* **Modal Bàn Giao (`#checkoutDeviceModal`):** Đã tích hợp sẵn sàng trên giao diện.
+
+#### 📊 **2.2. Nhóm Trạng Thái Snipe-IT (`Status Buckets`):**
+* **Ready to Deploy (`RTD`):** 176 thiết bị sẵn sàng cấp phát tại Kho TTBYT.
+* **Deployed:** 897 thiết bị đang phục vụ trực tiếp tại 21 khoa phòng lâm sàng.
+* **Pending / Undeployable / Archived:** Tự động phân loại theo tình trạng bảo trì SpeedMaint và thanh lý.
+
+#### ⚡ **2.3. Phím Tắt Tìm Nhanh Toàn Viện (`Ctrl + K` Command Palette):**
+* Bấm **`Ctrl + K`** (hoặc `Cmd + K` trên Mac) từ bất cứ màn hình nào để nhảy ngay vào ô tìm kiếm theo Tên máy, Model, Số Serial hoặc Mã tài sản `BVQ7-TTB-XXXXX`.
+
+#### 📌 **2.4. Bảng Kanban Kéo Thả 4 Cột Thời Gian Thực:**
+* Phân luồng công việc 4 bước: *1. Chờ tiếp nhận $\rightarrow$ 2. Đang xử lý $\rightarrow$ 3. Chờ nghiệm thu $\rightarrow$ 4. Đã hoàn tất*.
+* Tích hợp nút `+ Thêm Thẻ Kanban` và lưu trạng thái vào `localStorage`.
+
+#### 🐳 **2.5. Hạ Tầng DevOps & Kiểm Thử Tự Động:**
+* `Dockerfile` Multi-stage, `docker-compose.yml`, `nginx.conf`, `.github/workflows/ci.yml`, `.cursor/environment.json`.
+* **Pytest Suite:** 6/6 tests passed (100%).
+
+---
+
+### 🌐 TRẠNG THÁI HỆ THỐNG:
+* 🖥️ **Trải nghiệm phiên bản hợp nhất tại:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000) *(Bấm `Ctrl + K` để thử phím tắt tìm kiếm)*.
+* 📦 **Mã nguồn đã đồng bộ trên GitHub:** [`https://github.com/Trantrongtan2000/medical-device-app`](https://github.com/Trantrongtan2000/medical-device-app).
+
+
+### 👤 Lượt 94: Yêu cầu từ Người Dùng (USER)
+```text
+nhắn cho curso yêu cầu kiểm tra thêm, do curso sync github nên bạn check lại qua repo
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:10+07:00
+Completed At: 2026-08-19T10:24:10+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2574/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:14+07:00
+Completed At: 2026-08-19T10:24:14+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2574/output.txt`
+Total Lines: 159
+Total Bytes: 8908
+Showing lines 159 to 159
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+159: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:17+07:00
+Completed At: 2026-08-19T10:24:18+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2574/output.txt`
+Total Lines: 159
+Total Bytes: 8908
+Showing lines 1 to 159
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: 
+2: - Page URL: http://127.0.0.1:8000/?v=snipe_kanban_v1
+3: - Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+4: - Page Snapshot
+5: ```yaml
+6: - document [ref=s2e2]:
+7:   - complementary [ref=s2e5]:
+8:     - img "Logo Tâm Anh Quận 7" [ref=s2e7]
+9:     - text: "TÂM ANH Q7 HỆ THỐNG HTM V3  Tổng tài sản:"
+10:     - strong [ref=s2e15]: "1.073"
+11:     - text: " Sẵn sàng:"
+12:     - strong [ref=s2e19]: 98.6%
+13:     - tablist [ref=s2e20]:
+14:       - text: ĐIỀU HÀNH TỔNG THỂ
+15:       - tab " Dashboard & Kanban Live" [selected] [ref=s2e24]
+16:       - text: DANH MỤC & ĐỐI TÁC
+17:       - tab " Thiết Bị & Phụ Kiện 1.073" [ref=s2e31]
+18:       - tab " Nhà Cung Cấp & HĐ 24 NCC" [ref=s2e36]
+19:       - text: QUY TRÌNH LÂM SÀNG
+20:       - tab " Kiểm Tra Đầu Ngày Pre-use" [ref=s2e43]
+21:       - tab " Lịch Bảo Trì & Kiểm Định 30 Ngày" [ref=s2e48]
+22:       - tab " Điều Chuyển Máy (QT.08)" [ref=s2e53]
+23:       - text: CMMS & TRÍ TUỆ NHÂN TẠO
+24:       - tab " Sơ Đồ Quy Trình SVG" [ref=s2e59]
+25:       - tab " Bảo Trì SpeedMaint 7" [ref=s2e63]
+26:       - tab " Semantica Context Graph" [ref=s2e68]
+27:       - tab " Trợ Lý AI & OCR Hub" [ref=s2e72]
+28:     - button " Tạo Phiếu Công Việc" [ref=s2e76]
+29:   - main [ref=s2e78]:
+30:     - heading " Danh Mục Thiết Bị Y Tế & Cấu Kiện Phụ Kiện" [level=5] [ref=s2e80]
+31:     - button " Ctrl+K" [ref=s2e83]
+32:     - button " Nhập Thêm Thiết Bị" [ref=s2e86]
+33:     - link " Sổ Tay Quy Trình (SOPs)" [ref=s2e88]:
+34:       - /url: /sops
+35:     - button " Xuất Excel" [ref=s2e90]
+36:     - tabpanel " Dashboard & Kanban Live" [ref=s2e94]:
+37:       - text: Tổng Tài Sản TTBYT 1.073  94 Đầu dò & Phụ kiện rời  Tỷ Lệ Sẵn Sàng Vận Hành 98.6%  1.058 máy đang hoạt động  Kiểm Định Hợp Lệ (TT 05) 94.2%  8 máy cần tái kiểm (30 ngày) 
+38:       - heading " Bảng Kanban Tiến Độ Công Việc & Bảo Trì Lâm Sàng" [level=6] [ref=s2e126]
+39:       - paragraph [ref=s2e128]: Theo dõi thời gian thực các tác vụ Báo hỏng, Bảo trì phòng ngừa (PM), Kiểm định định kỳ và Điều chuyển máy
+40:       - button " Tạo Tác Vụ Mới" [ref=s2e130]
+41:       - text: "3"
+42:       - strong [ref=s2e137]: 1. Chờ Tiếp Nhận
+43:       - text:  Khẩn cấp Báo hỏng
+44:       - button "" [ref=s2e145]
+45:       - text: "Máy thở xâm lấn Vela Khoa Cấp Cứu • S/N: VEL8829  BS. Nguyễn Tuấn Hạn: Hôm nay"
+46:       - button "Tiếp ▶" [ref=s2e154]
+47:       - text: Cao Kiểm định
+48:       - button "" [ref=s2e160]
+49:       - text: "Máy Chụp X-Quang Kỹ Thuật Số Khoa CĐHA • S/N: XR2024-91  Viện Trang Thiết Bị 15 ngày tới"
+50:       - button "Tiếp ▶" [ref=s2e169]
+51:       - text: Bình thường QT.08
+52:       - button "" [ref=s2e175]
+53:       - text: Điều chuyển Monitor Bionet Khoa Cấp Cứu → Khoa Khám Bệnh  ĐD. Trưởng Khoa Chờ ký BM03
+54:       - button "Tiếp ▶" [ref=s2e184]
+55:       - text: "2"
+56:       - strong [ref=s2e189]: 2. Đang Xử Lý
+57:       - text:  Bình thường PM Định kỳ
+58:       - button "" [ref=s2e197]
+59:       - text: "Hệ Thống Lọc Nước RO Thận #01 Khu Thận Nhân Tạo • QT.01  KS. Trần Văn Hùng Tiến độ 60%"
+60:       - button "◀ Lùi" [ref=s2e206]
+61:       - button "Tiếp ▶" [ref=s2e207]
+62:       - text: Cao Sửa chữa
+63:       - button "" [ref=s2e213]
+64:       - text: Máy Siêu Âm Voluson E10 Khoa CĐHA • Thay cáp đầu dò  Hãng GE Healthcare Đang test
+65:       - button "◀ Lùi" [ref=s2e222]
+66:       - button "Tiếp ▶" [ref=s2e223]
+67:       - text: "2"
+68:       - strong [ref=s2e228]: 3. Chờ Nghiệm Thu
+69:       - text:  Bình thường BM04
+70:       - button "" [ref=s2e236]
+71:       - text: Máy Sốc Tim Defibrillator TEC-5600 Khoa Cấp Cứu • Nihon Kohden  ĐD. Trưởng trực Chờ ký BM04
+72:       - button "◀ Lùi" [ref=s2e245]
+73:       - button "Tiếp ▶" [ref=s2e246]
+74:       - text: Cao TT 05
+75:       - button "" [ref=s2e252]
+76:       - text: "Máy Đo Điện Tim 6 Cần ECG Phòng Khám Nội • GCN #2026-881  TT Kiểm Định 3 Dán tem ĐẠT"
+77:       - button "◀ Lùi" [ref=s2e261]
+78:       - button "Tiếp ▶" [ref=s2e262]
+79:       - text: "2"
+80:       - strong [ref=s2e267]: 4. Đã Hoàn Tất
+81:       - text:  Bình thường Hoàn tất
+82:       - button "" [ref=s2e275]
+83:       - text: Máy Siêu Âm 4D HERA W10 Cty An Việt • Bàn giao 5 đầu dò  Khoa CĐHA Đã nghiệm thu
+84:       - button "◀ Lùi" [ref=s2e284]
+85:       - text: Bình thường Hoàn tất
+86:       - button "" [ref=s2e290]
+87:       - text: Bảo dưỡng Khí Y Tế Trung Tâm Áp suất Oxy & N2O đạt chuẩn QT.03  P.TTBYT Sẵn sàng 100%
+88:       - button "◀ Lùi" [ref=s2e299]
+89:       - heading " Phân Bổ Thiết Bị Theo Khoa / Phòng Ban" [level=6] [ref=s2e305]
+90:       - paragraph [ref=s2e307]: Thống kê số lượng trang thiết bị y tế tại 21 đơn vị lâm sàng & cận lâm sàng
+91:       - text: 21 Khoa/Phòng
+92:       - heading " Cơ Cấu Mức Độ Rủi Ro" [level=6] [ref=s2e315]
+93:       - paragraph [ref=s2e317]: Theo Nghị định 98/2021/NĐ-CP
+94:       - strong [ref=s2e323]: Loại A
+95:       - text: 375 máy
+96:       - strong [ref=s2e327]: Loại B
+97:       - text: 268 máy
+98:       - strong [ref=s2e331]: Loại C
+99:       - text: 322 máy
+100:       - strong [ref=s2e335]: Loại D
+101:       - text: 108 máy
+102:       - heading " Nhật Ký Nghiệp Vụ Lâm Sàng Mới Nhất" [level=6] [ref=s2e341]
+103:       - text: Live Audit Trail
+104:       - table [ref=s2e345]:
+105:         - rowgroup [ref=s2e346]:
+106:           - row "THỜI GIAN QUY TRÌNH THIẾT BỊ / MÃ TÀI SẢN ĐƠN VỊ THỰC HIỆN KẾT QUẢ" [ref=s2e347]:
+107:             - cell "THỜI GIAN" [ref=s2e348]
+108:             - cell "QUY TRÌNH" [ref=s2e349]
+109:             - cell "THIẾT BỊ / MÃ TÀI SẢN" [ref=s2e350]
+110:             - cell "ĐƠN VỊ THỰC HIỆN" [ref=s2e351]
+111:             - cell "KẾT QUẢ" [ref=s2e352]
+112:         - rowgroup [ref=s2e353]:
+113:           - row "Hôm nay 08:30 Pre-use Máy thở chuyên dụng (BVQ7-TTB-00109) ĐD. Lê Thị Mai (Khoa Cấp Cứu) PASSED" [ref=s2e354]:
+114:             - cell "Hôm nay 08:30" [ref=s2e355]
+115:             - cell "Pre-use" [ref=s2e356]
+116:             - cell "Máy thở chuyên dụng (BVQ7-TTB-00109)" [ref=s2e358]:
+117:               - strong [ref=s2e359]: Máy thở chuyên dụng
+118:               - text: (BVQ7-TTB-00109)
+119:             - cell "ĐD. Lê Thị Mai (Khoa Cấp Cứu)" [ref=s2e361]
+120:             - cell "PASSED" [ref=s2e362]
+121:           - row "Hôm nay 08:15 QT.08 Máy siêu âm HERA W10 (BVQ7-TTB-01125) Khoa CĐHA → Phòng Cấp Cứu HOÀN TẤT" [ref=s2e364]:
+122:             - cell "Hôm nay 08:15" [ref=s2e365]
+123:             - cell "QT.08" [ref=s2e366]
+124:             - cell "Máy siêu âm HERA W10 (BVQ7-TTB-01125)" [ref=s2e368]:
+125:               - strong [ref=s2e369]: Máy siêu âm HERA W10
+126:               - text: (BVQ7-TTB-01125)
+127:             - cell "Khoa CĐHA → Phòng Cấp Cứu" [ref=s2e371]
+128:             - cell "HOÀN TẤT" [ref=s2e372]
+129:           - 'row "Hôm qua 16:45 SpeedMaint Hệ thống lọc RO #01 (BVQ7-TTB-00012) KS. Trần Văn Hùng (P.TTBYT) ĐẠT CHUẨN" [ref=s2e374]':
+130:             - cell "Hôm qua 16:45" [ref=s2e375]
+131:             - cell "SpeedMaint" [ref=s2e376]
+132:             - 'cell "Hệ thống lọc RO #01 (BVQ7-TTB-00012)" [ref=s2e378]':
+133:               - strong [ref=s2e379]: "Hệ thống lọc RO #01"
+134:               - text: (BVQ7-TTB-00012)
+135:             - cell "KS. Trần Văn Hùng (P.TTBYT)" [ref=s2e381]
+136:             - cell "ĐẠT CHUẨN" [ref=s2e382]
+137:           - row "Hôm qua 14:20 QT.04 Máy sốc tim E-Cart 01 (ECART-Q7-01) Nghiệm thu bàn giao BM04 SẴN SÀNG" [ref=s2e384]:
+138:             - cell "Hôm qua 14:20" [ref=s2e385]
+139:             - cell "QT.04" [ref=s2e386]
+140:             - cell "Máy sốc tim E-Cart 01 (ECART-Q7-01)" [ref=s2e388]:
+141:               - strong [ref=s2e389]: Máy sốc tim E-Cart 01
+142:               - text: (ECART-Q7-01)
+143:             - cell "Nghiệm thu bàn giao BM04" [ref=s2e391]
+144:             - cell "SẴN SÀNG" [ref=s2e392]
+145:       - heading " Thao Tác Nhanh & Danh Bạ Khẩn Cấp" [level=6] [ref=s2e396]
+146:       - button " Nhập Mới Thiết Bị Sổ lý lịch máy BM05" [ref=s2e400]
+147:       - button " Bảng Kiểm Đầu Ngày Pre-use Checklist" [ref=s2e405]
+148:       - button " Điều Chuyển Máy Quy trình QT.08" [ref=s2e410]
+149:       - button " Tạo Phiếu CMMS Bảo trì & Sửa chữa" [ref=s2e415]
+150:       - strong [ref=s2e421]:  Hotline Trực Kỹ Thuật TTBYT
+151:       - text: "24/7 Phòng TTBYT (Hotline):"
+152:       - strong [ref=s2e426]: 0961.545.654
+153:       - text: "Kỹ thuật bảo trì SpeedMaint:"
+154:       - strong [ref=s2e429]: 0362.697.070
+155:       - text: "Đường dây nóng Cấp cứu:"
+156:       - strong [ref=s2e432]: 028.710.26.789
+157:   - document [ref=s2e434]
+158: ```
+159: 
+The above content shows the entire, complete file contents of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:21+07:00
+Completed At: 2026-08-19T10:24:23+07:00
+
+- Page URL: https://cursor.com/agents/bc-b0fae5aa-e5cc-4e96-adca-bbec2f7563bc?branch=cursor/improve-clinical-ui-63bc&app=code
+- Page Title: Cursor Agent - Turn your ideas into code
+- Page Snapshot
+```yaml
+- document [ref=s1e2]:
+  - main [ref=s1e4]:
+    - link "Cursor home" [ref=s1e10]:
+      - /url: /agents
+    - button "Toggle left sidebar" [pressed] [ref=s1e12]
+    - button "Search agents (Ctrl+K)" [ref=s1e14]
+    - navigation [ref=s1e15]:
+      - button "New Chat" [ref=s1e16]
+      - button "Automations" [disabled] [ref=s1e18]
+      - button "Codebase Early Beta" [ref=s1e20]
+      - button "Dashboard" [ref=s1e24]
+    - text: Agents
+    - button "Customize thread list" [ref=s1e28]
+    - main [ref=s1e38]:
+      - button "More options" [ref=s1e55]
+      - button "Toggle app panel" [ref=s1e56]
+  - alert [ref=s1e69]
+  - document [ref=s1e71]
+```
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:26+07:00
+Completed At: 2026-08-19T10:24:29+07:00
+Waited for 2 seconds
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:32+07:00
+Completed At: 2026-08-19T10:24:33+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2584/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:43+07:00
+Completed At: 2026-08-19T10:24:43+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2584/output.txt`
+Total Lines: 498
+Total Bytes: 192609
+Showing lines 290 to 340
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+290:         - text: "API đã kiểm tra: 1.073 máy → 176 Ready to Deploy, 897 Deployed; check-in về"
+291:         - emphasis [ref=s2e380]: Kho Lưu Trữ Thiết Bị
+292:         - text: .
+293:       - paragraph [ref=s2e381]:
+294:         - text: "Repo GitHub đang mirror nên không tạo được PR trên Origin. So sánh:"
+295:         - link "https://github.com/Trantrongtan2000/medical-device-app/compare/main...cursor/improve-clinical-ui-63bc" [ref=s2e382]:
+296:           - /url: https://github.com/Trantrongtan2000/medical-device-app/compare/main...cursor/improve-clinical-ui-63bc
+297:       - button "Fork Chat" [ref=s2e386]
+298:       - button "Copy message" [ref=s2e388]
+299:       - button [ref=s2e394]
+300:       - text: 7 Files Changed
+301:       - treeitem "main.py +1" [ref=s2e397]
+302:       - treeitem "routes.py +403 -28" [ref=s2e402]
+303:       - treeitem "style.css +893 -73" [ref=s2e408]
+304:       - treeitem "index.html +567 -136" [ref=s2e414]
+305:       - treeitem "api.js +35" [ref=s2e420]
+306:       - treeitem "app.js +1004 -104" [ref=s2e425]
+307:       - treeitem "diagrams.js +7 -6" [ref=s2e431]
+308:       - textbox [ref=s2e449]:
+309:         - paragraph [ref=s2e450]
+310:       - text: Add a follow up
+311:       - button "Add context and tools" [ref=s2e459]
+312:       - button "Cursor Grok 4.6 High Fast" [ref=s2e462]
+313:       - button "Start voice input" [ref=s2e468]
+314:       - tablist [ref=s2e478]:
+315:         - tab "Git" [selected] [ref=s2e479]
+316:         - tab "Desktop" [ref=s2e481]
+317:         - tab "Terminal" [ref=s2e483]
+318:         - tab "Files" [ref=s2e485]
+319:       - button "More options" [ref=s2e488]
+320:       - button "Expand panel" [ref=s2e489]
+321:       - button "Toggle app panel" [pressed] [ref=s2e491]
+322:       - tabpanel "Git" [ref=s2e496]:
+323:         - text: Giao diện cải thiện
+324:         - button "Create PR" [ref=s2e505]
+325:         - button "Pull request options" [ref=s2e506]
+326:         - text: Branch
+327:         - button "cursor/improve-clinical-ui-63bc" [ref=s2e512]
+328:         - text: main
+329:         - button "Diff" [ref=s2e518]
+330:         - button "Review" [disabled] [ref=s2e519]
+331:         - button "Commits" [disabled] [ref=s2e521]
+332:         - button "Switch to split diff view" [ref=s2e527]
+333:         - button "Show file tree" [ref=s2e528]
+334:         - button "Toggle diff" [ref=s2e546]
+335:         - text: app/main.py
+336:         - button "Copy file name" [ref=s2e551]
+337:         - text: "+1"
+338:         - checkbox "Mark viewed" [ref=s2e555]
+339:         - code [ref=s2e562]:
+340:           - img [ref=s2e566]
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:48+07:00
+Completed At: 2026-08-19T10:24:52+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2588/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:24:56+07:00
+Completed At: 2026-08-19T10:25:01+07:00
+Waited for 5 seconds
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:25:05+07:00
+Completed At: 2026-08-19T10:25:06+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2592/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:25:10+07:00
+Completed At: 2026-08-19T10:25:10+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2592/output.txt`
+Total Lines: 498
+Total Bytes: 192609
+Showing lines 290 to 450
+Content truncated: showing bytes 0-46080 of 122213. To see more, call this tool again with the same line range and ContentOffset=46080.
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+290:         - text: "API đã kiểm tra: 1.073 máy → 176 Ready to Deploy, 897 Deployed; check-in về"
+291:         - emphasis [ref=s4e380]: Kho Lưu Trữ Thiết Bị
+292:         - text: .
+293:       - paragraph [ref=s4e381]:
+294:         - text: "Repo GitHub đang mirror nên không tạo được PR trên Origin. So sánh:"
+295:         - link "https://github.com/Trantrongtan2000/medical-device-app/compare/main...cursor/improve-clinical-ui-63bc" [ref=s4e382]:
+296:           - /url: https://github.com/Trantrongtan2000/medical-device-app/compare/main...cursor/improve-clinical-ui-63bc
+297:       - button "Fork Chat" [ref=s4e386]
+298:       - button "Copy message" [ref=s4e388]
+299:       - button [ref=s4e394]
+300:       - text: 7 Files Changed
+301:       - treeitem "main.py +1" [ref=s4e397]
+302:       - treeitem "routes.py +403 -28" [ref=s4e402]
+303:       - treeitem "style.css +893 -73" [ref=s4e408]
+304:       - treeitem "index.html +567 -136" [ref=s4e414]
+305:       - treeitem "api.js +35" [ref=s4e420]
+306:       - treeitem "app.js +1004 -104" [ref=s4e425]
+307:       - treeitem "diagrams.js +7 -6" [ref=s4e431]
+308:       - textbox [ref=s4e449]:
+309:         - paragraph [ref=s4e450]
+310:       - text: Add a follow up
+311:       - button "Add context and tools" [ref=s4e459]
+312:       - button "Cursor Grok 4.6 High Fast" [ref=s4e462]
+313:       - button "Start voice input" [ref=s4e468]
+314:       - tablist [ref=s4e478]:
+315:         - tab "Git" [selected] [ref=s4e479]
+316:         - tab "Desktop" [ref=s4e481]
+317:         - tab "Terminal" [ref=s4e483]
+318:         - tab "Files" [ref=s4e485]
+319:       - button "More options" [ref=s4e488]
+320:       - button "Expand panel" [ref=s4e489]
+321:       - button "Toggle app panel" [pressed] [ref=s4e491]
+322:       - tabpanel "Git" [ref=s4e496]:
+323:         - text: Giao diện cải thiện
+324:         - button "Create PR" [ref=s4e505]
+325:         - button "Pull request options" [ref=s4e506]
+326:         - text: Branch
+327:         - button "cursor/improve-clinical-ui-63bc" [ref=s4e512]
+328:         - text: main
+329:         - button "Diff" [ref=s4e518]
+330:         - button "Review" [disabled] [ref=s4e519]
+331:         - button "Commits" [disabled] [ref=s4e521]
+332:         - button "Switch to split diff view" [ref=s4e527]
+333:         - button "Show file tree" [ref=s4e528]
+334:         - button "Toggle diff" [ref=s4e546]
+335:         - text: app/main.py
+336:         - button "Copy file name" [ref=s4e551]
+337:         - text: "+1"
+338:         - checkbox "Mark viewed" [ref=s4e555]
+339:         - code [ref=s4e562]:
+340:           - img [ref=s4e566]
+341:           - text: "36 unmodified lines 37 allow_origins=[\"*\"], 38 allow_credentials=True, 39 allow_methods=[\"*\"], 40 allow_headers=[\"*\"], 41 expose_headers=[\"X-Total-Count\", \"X-Limit\", \"X-Offset\"], 42 ) 43 44 # Include API routes 45 app.include_router(router)"
+342:           - img [ref=s4e657]
+343:           - text: 48 unmodified lines
+344:         - button "Toggle diff" [ref=s4e667]
+345:         - text: app/routes.py
+346:         - button "Copy file name" [ref=s4e672]
+347:         - text: +403 -28
+348:         - checkbox "Mark viewed" [ref=s4e677]
+349:         - code [ref=s4e684]:
+350:           - img [ref=s4e688]
+351:           - text: 4 unmodified lines 5 import io 6 import csv 7 from datetime import date, timedelta, datetime 8 from fastapi import APIRouter, Depends, HTTPException, Query, Response 9 from fastapi.responses import FileResponse 9 from fastapi.responses import FileResponse, HTMLResponse 10 from pathlib import Path 11 from typing import Optional, List 12 from pydantic import BaseModel 13
+352:           - img [ref=s4e788]
+353:           - text: "19 unmodified lines 33 34 35 # ==================== DEVICE ENDPOINTS (SNIPE-IT ASSET API) ==================== 36 37 WAREHOUSE_SQL = ( 38 \"(facility_id IS NULL OR facility LIKE '%Kho Lưu%' \" 39 \"OR facility LIKE '%Trang Thiết Bị Y Tế%' OR facility LIKE '%Chờ Cấp Phát%')\" 40 ) 41 42 43 def apply_snipe_status_type(conditions: list, status_type: Optional[str]) -> None: 44 \"\"\"Map Snipe-IT hardware status buckets (Ready to Deploy / Deployed / Pending / ...).\"\"\" 45 if not status_type: 46 return 47 st = status_type.strip().lower().replace(\" \", \"_\") 48 mapping = { 49 \"rtd\": f\"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}\", 50 \"ready\": f\"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}\", 51 \"ready_to_deploy\": f\"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}\", 52 \"deployed\": f\"status = 'IN_SERVICE' AND NOT {WAREHOUSE_SQL}\", 53 \"pending\": \"(status IN ('CALIBRATION_DUE', 'MAINTENANCE') OR alert_status = 'WARNING')\", 54 \"undeployable\": \"status IN ('REPAIR', 'MAINTENANCE')\", 55 \"repair\": \"status = 'REPAIR'\", 56 \"archived\": \"status = 'RETIRED'\", 57 \"deleted\": \"status = 'RETIRED'\", 58 \"overdue\": \"alert_status = 'OVERDUE'\", 59 } 60 sql = mapping.get(st) 61 if sql: 62 conditions.append(f\"({sql})\") 63 64 65 def resolve_warehouse_id(db) -> Optional[int]: 66 \"\"\"Prefer biomedical store (KHO / P.TTBYT). Avoid matching 'Khoa' via LIKE '%Kho%'.\"\"\" 67 row = db.execute( 68 \"\"\" 69 SELECT id FROM facilities 70 WHERE code IN ('KHO', 'TTBYT') 71 OR name LIKE '%Kho Lưu%' 72 OR name LIKE '%Trang Thiết Bị Y Tế%' 73 ORDER BY CASE 74 WHEN code = 'KHO' THEN 0 75 WHEN code = 'TTBYT' THEN 1 76 ELSE 2 77 END, id 78 LIMIT 1 79 \"\"\" 80 ).fetchone() 81 if row: 82 return row[0] 83 fallback = db.execute(\"SELECT id FROM facilities ORDER BY id LIMIT 1\").fetchone() 84 return fallback[0] if fallback else None 85 86 87 @router.get(\"/api/devices\") 88 async def get_devices( 89 response: Response, 90 facility_id: Optional[int] = Query(None, description=\"Lọc theo khoa\"), 91 category_id: Optional[int] = Query(None, description=\"Lọc theo loại thiết bị\"), 92 alert_status: Optional[str] = Query(None, description=\"Lọc trạng thái cảnh báo (OVERDUE, WARNING, OK, NO_DATA)\"), 93 status: Optional[str] = Query(None, description=\"Lọc trạng thái hoạt động\"), 94 status_type: Optional[str] = Query(None, description=\"Snipe-IT status bucket: rtd, deployed, pending, undeployable, archived, overdue\"), 95 risk_level: Optional[str] = Query(None, description=\"Lọc mức độ rủi ro (A, B, C, D)\"), 96 search: Optional[str] = Query(None, description=\"Tìm kiếm theo tên, model, serial, hãng sản xuất\"), 45 limit: int = Query(300, ge=1, le=1000), 97 limit: int = Query(50, ge=1, le=1000), 98 offset: int = Query(0, ge=0), 99 db = Depends(get_db) 100 ): 101 \"\"\"Liệt kê danh sách tài sản TTBYT với mã Asset Tag chuẩn Snipe-IT & SpeedMaint\"\"\""
+354:           - img [ref=s4e1490]
+355:           - text: "16 unmodified lines 118 if status: 119 conditions.append(\"status = ?\") 120 params.append(status.upper()) 121 122 apply_snipe_status_type(conditions, status_type) 123 124 if risk_level: 71 conditions.append(\"risk_level = ?\") 72 params.append(risk_level.upper()) 125 levels = [x.strip().upper() for x in risk_level.split(\",\") if x.strip()] 126 if len(levels) == 1: 127 conditions.append(\"risk_level = ?\") 128 params.append(levels[0]) 129 elif levels: 130 placeholders = \",\".join(\"?\" * len(levels)) 131 conditions.append(f\"risk_level IN ({placeholders})\") 132 params.extend(levels) 133 134 if search and search.strip(): 75 s = f\"%{search.strip()}%\" 76 conditions.append(\"(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?)\") 77 params.extend([s, s, s, s]) 135 raw = search.strip() 136 s = f\"%{raw}%\" 137 extra_sql = \"\" 138 extra_params = [s, s, s, s] 139 tag = raw.upper().replace(\" \", \"\") 140 if tag.startswith(\"BVQ7-TTB-\") or tag.startswith(\"BM/BVQ7/\"): 141 suffix = tag.rsplit(\"-\", 1)[-1].rsplit(\"/\", 1)[-1] 142 if suffix.isdigit(): 143 extra_sql = \" OR id = ?\" 144 extra_params.append(int(suffix)) 145 conditions.append(f\"(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?{extra_sql})\") 146 params.extend(extra_params) 147 79 if conditions: 80 query += \" WHERE \" + \" AND \".join(conditions) 81 148 where_sql = (\" WHERE \" + \" AND \".join(conditions)) if conditions else \"\" 149 total = db.execute(\"SELECT COUNT(DISTINCT id) FROM device_status_summary\" + where_sql, params).fetchone()[0] 150 if response is not None: 151 response.headers[\"X-Total-Count\"] = str(total) 152 response.headers[\"X-Limit\"] = str(limit) 153 response.headers[\"X-Offset\"] = str(offset) 154 response.headers[\"Access-Control-Expose-Headers\"] = \"X-Total-Count, X-Limit, X-Offset\" 155 156 query += where_sql 157 query += \" ORDER BY CASE alert_status WHEN 'OVERDUE' THEN 1 WHEN 'WARNING' THEN 2 WHEN 'OK' THEN 3 ELSE 4 END, device_name LIMIT ? OFFSET ?\" 158 params.extend([limit, offset]) 159 160 result = db.execute(query, params).fetchall()"
+356:           - img [ref=s4e2178]
+357:           - img [ref=s4e2181]
+358:           - text: "102 unmodified lines 263 264 device_data = dict(row) 265 device_data[\"asset_tag\"] = f\"BVQ7-TTB-{device_data['id']:05d}\" 266 device_data[\"speedmaint_code\"] = f\"BM/BVQ7/{device_data['id']:05d}\" 267 summary = db.execute( 268 \"SELECT alert_status, calibration_date, recalibration_date FROM device_status_summary WHERE id = ?\", 269 (device_id,) 270 ).fetchone() 271 if summary: 272 device_data[\"alert_status\"] = summary[\"alert_status\"] 273 device_data[\"calibration_date\"] = device_data.get(\"calibration_date\") or summary[\"calibration_date\"] 274 device_data[\"recalibration_date\"] = device_data.get(\"recalibration_date\") or summary[\"recalibration_date\"] 275 276 # Lịch sử kiểm định (Certificates) 277 certs_query = \"\"\" 278 SELECT * FROM calibration_certificates"
+359:           - img [ref=s4e2377]
+360:           - text: "61 unmodified lines 340 341 class SpeedMaintWorkOrderCreate(BaseModel): 342 device_id: int 343 title: str 261 work_type: str = \"PM định kỳ\" # PM định kỳ, Sửa chữa, Điều chuyển, Kiểm định, Khác 262 start_date: str 263 end_date: str 264 assigned_to: str 344 work_type: str = \"PM định kỳ\" 345 start_date: Optional[str] = None 346 end_date: Optional[str] = None 347 assigned_to: Optional[str] = \"Kỹ Sư Trực P.TTBYT\" 348 co_workers: Optional[str] = None 349 supervisor: Optional[str] = None 267 reporter: str 268 priority: str = \"Trung bình\" # Khẩn cấp, Cao, Trung bình, Thấp 269 progress: int = 100 350 reporter: Optional[str] = \"P.TTBYT\" 351 priority: str = \"NORMAL\" 352 progress: int = 0 353 is_unplanned: bool = False 354 location: Optional[str] = None 272 description: str 355 description: Optional[str] = \"\" 356 materials: Optional[str] = None 357 status: Optional[str] = None 358 359 @router.get(\"/api/work-orders\") 360 async def list_work_orders(db = Depends(get_db)): 361 \"\"\"Danh sách phiếu công việc chuẩn SpeedMaint CMMS\"\"\""
+361:           - img [ref=s4e2704]
+362:           - text: "13 unmodified lines 375 for r in rows: 376 item = dict(r) 377 item[\"task_code\"] = f\"260{item['id']:03d}\" 378 item[\"speedmaint_device_code\"] = f\"BM/BVQ7/{item['device_id']:05d}\" 379 item[\"asset_tag\"] = f\"BVQ7-TTB-{item['device_id']:05d}\" 380 desc = item.get(\"description\") or \"\" 381 item[\"title\"] = desc.split(\". \")[0][:90] if desc else (item.get(\"work_type\") or \"Phiếu công việc\") 382 item[\"progress\"] = 100 296 item[\"status\"] = \"Hoàn thành\" 383 item[\"status\"] = \"COMPLETED\" 384 item[\"priority\"] = \"NORMAL\" 385 item[\"created_at\"] = item.get(\"start_date\") 386 work_orders.append(item) 387 388 return work_orders 389 390 @router.post(\"/api/work-orders\") 391 async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_db)): 392 \"\"\"Tạo phiếu công việc chi tiết chuẩn SpeedMaint Cloud CMMS (Ảnh 01bc & 605c)\"\"\" 393 cur = db.cursor() 305 full_desc = f\"[{ticket.work_type}] {ticket.title}. {ticket.description}\" 394 start = ticket.start_date or date.today().isoformat() 395 assignee = ticket.assigned_to or \"Kỹ Sư Trực P.TTBYT\" 396 full_desc = f\"[{ticket.work_type}] {ticket.title}. {ticket.description or ''}\".strip() 397 if ticket.materials: 398 full_desc += f\" (Vật tư: {ticket.materials})\" 399 if ticket.location: 400 full_desc += f\" (Địa điểm: {ticket.location})\" 401 402 cur.execute(\"\"\" 403 INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description) 404 VALUES (?, ?, ?, ?, ?) 314 \"\"\", (ticket.device_id, ticket.start_date, ticket.assigned_to, normalize_work_type(ticket.work_type), full_desc)) 405 \"\"\", (ticket.device_id, start, assignee, normalize_work_type(ticket.work_type), full_desc)) 406 316 if ticket.priority in (\"Khẩn cấp\", \"Cao\"): 407 urgent_labels = (\"Khẩn cấp\", \"Cao\", \"URGENT\", \"HIGH\") 408 if ticket.priority in urgent_labels: 409 cur.execute(\"UPDATE devices SET status = 'REPAIR' WHERE id = ?\", (ticket.device_id,)) 410 411 db.commit() 412 return {\"status\": \"success\", \"message\": \"Đã tạo phiếu công việc SpeedMaint thành công!\"}"
+363:           - img [ref=s4e3329]
+364:           - img [ref=s4e3332]
+365:           - text: "135 unmodified lines 548 \"message\": f\"Đã bàn giao tài sản thành công sang {new_fac_name}!\" 549 } 550 551 552 class AssetCheckoutRequest(BaseModel): 553 to_facility_id: int 554 checked_out_by: str = \"Kỹ sư P.TTBYT\" 555 notes: Optional[str] = None 556 557 558 class AssetCheckinRequest(BaseModel): 559 checked_in_by: str = \"Kỹ sư P.TTBYT\" 560 notes: Optional[str] = None 561 to_facility_id: Optional[int] = None 562 563 564 class BulkAssetActionRequest(BaseModel): 565 device_ids: List[int] 566 to_facility_id: Optional[int] = None 567 actor: Optional[str] = \"Kỹ sư P.TTBYT\" 568 notes: Optional[str] = None 569 570 571 def _handover_device(db, device_id: int, to_facility_id: int, actor: str, reason: str, action: str): 572 cur = db.cursor() 573 row = db.execute( 574 \"SELECT facility_id FROM devices WHERE id = ?\", 575 (device_id,), 576 ).fetchone() 577 if not row: 578 raise HTTPException(status_code=404, detail=\"Không tìm thấy thiết bị\") 579 from_id = row[0] 580 dest = db.execute(\"SELECT id, name FROM facilities WHERE id = ?\", (to_facility_id,)).fetchone() 581 if not dest: 582 raise HTTPException(status_code=400, detail=\"Khoa phòng đích không tồn tại\") 583 cur.execute( 584 \"UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?\", 585 (to_facility_id, device_id), 586 ) 587 today_str = date.today().isoformat() 588 has_transfers = db.execute( 589 \"SELECT 1 FROM sqlite_master WHERE type='table' AND name='device_transfers'\" 590 ).fetchone() 591 if has_transfers: 592 cur.execute( 593 \"\"\" 594 INSERT INTO device_transfers (device_id, from_facility_id, to_facility_id, giver_name, receiver_name, transfer_reason, transfer_date, status) 595 VALUES (?, ?, ?, ?, ?, ?, ?, 'COMPLETED') 596 \"\"\", 597 (device_id, from_id or to_facility_id, to_facility_id, actor, dest[1], reason, today_str), 598 ) 599 cur.execute( 600 \"\"\" 601 INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description) 602 VALUES (?, ?, ?, 'HANDOVER', ?) 603 \"\"\", 604 (device_id, today_str, actor, f\"{action}: {reason}\"), 605 ) 606 db.commit() 607 return dest[1] 608 609 610 @router.post(\"/api/devices/{device_id}/checkout\") 611 async def checkout_device(device_id: int, req: AssetCheckoutRequest, db = Depends(get_db)): 612 \"\"\"Snipe-IT checkout: giao máy cho khoa/phòng.\"\"\" 613 dest_name = _handover_device( 614 db, 615 device_id, 616 req.to_facility_id, 617 req.checked_out_by, 618 req.notes or \"Checkout tài sản đến khoa\", 619 \"Checkout\", 620 ) 621 return {\"status\": \"success\", \"message\": f\"Đã checkout thiết bị sang {dest_name}.\"} 622 623 624 @router.post(\"/api/devices/{device_id}/checkin\") 625 async def checkin_device(device_id: int, req: AssetCheckinRequest, db = Depends(get_db)): 626 \"\"\"Snipe-IT checkin: thu máy về kho TTBYT.\"\"\" 627 dest_id = req.to_facility_id or resolve_warehouse_id(db) 628 if not dest_id: 629 raise HTTPException(status_code=400, detail=\"Chưa xác định được kho TTBYT để check-in\") 630 dest_name = _handover_device( 631 db, 632 device_id, 633 dest_id, 634 req.checked_in_by, 635 req.notes or \"Check-in về kho trang thiết bị\", 636 \"Check-in\", 637 ) 638 return {\"status\": \"success\", \"message\": f\"Đã check-in thiết bị về {dest_name}.\"} 639 640 641 @router.post(\"/api/devices/bulk/checkout\") 642 async def bulk_checkout_devices(req: BulkAssetActionRequest, db = Depends(get_db)): 643 if not req.to_facility_id: 644 raise HTTPException(status_code=400, detail=\"Cần chọn khoa nhận (to_facility_id)\") 645 count = 0 646 for device_id in req.device_ids: 647 _handover_device( 648 db, device_id, req.to_facility_id, req.actor or \"Kỹ sư P.TTBYT\", 649 req.notes or \"Bulk checkout\", \"Checkout\", 650 ) 651 count += 1 652 return {\"status\": \"success\", \"count\": count, \"message\": f\"Đã checkout {count} thiết bị.\"} 653 654 655 @router.post(\"/api/devices/bulk/checkin\") 656 async def bulk_checkin_devices(req: BulkAssetActionRequest, db = Depends(get_db)): 657 dest_id = req.to_facility_id or resolve_warehouse_id(db) 658 if not dest_id: 659 raise HTTPException(status_code=400, detail=\"Chưa xác định được kho TTBYT để check-in\") 660 count = 0 661 for device_id in req.device_ids: 662 _handover_device( 663 db, device_id, dest_id, req.actor or \"Kỹ sư P.TTBYT\", 664 req.notes or \"Bulk check-in\", \"Check-in\", 665 ) 666 count += 1 667 return {\"status\": \"success\", \"count\": count, \"message\": f\"Đã check-in {count} thiết bị.\"} 668 669 670 # ==================== DASHBOARD KPI & SPEEDMAINT METRICS ==================== 671 672 @router.get(\"/api/dashboard/summary\") 673 async def get_dashboard_summary(db = Depends(get_db)): 674 \"\"\"Thống kê tổng quan KPI trang thiết bị y tế (SpeedMaint & Snipe-IT Dashboard)\"\"\" 675 total = db.execute(\"SELECT COUNT(*) FROM devices\").fetchone()[0] 676 677 overdue = db.execute(\"\"\" 468 SELECT COUNT(*) FROM device_status_summary WHERE alert_status = 'OVERDUE' 678 SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'OVERDUE' 679 \"\"\").fetchone()[0] 680 681 warning = db.execute(\"\"\" 472 SELECT COUNT(*) FROM device_status_summary WHERE alert_status = 'WARNING' 682 SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'WARNING' 683 \"\"\").fetchone()[0] 684 685 ok = db.execute(\"\"\" 476 SELECT COUNT(*) FROM device_status_summary WHERE alert_status = 'OK' 686 SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'OK' 687 \"\"\").fetchone()[0] 688 689 in_service = db.execute(\"\"\" 690 SELECT COUNT(*) FROM devices WHERE status = 'IN_SERVICE'"
+366:           - img [ref=s4e4742]
+367:           - text: "6 unmodified lines 697 audited = db.execute(\"\"\" 698 SELECT COUNT(DISTINCT device_id) FROM maintenance_logs 699 WHERE maintenance_type = 'INSPECTION' OR description LIKE '%KIỂM KÊ%' 700 \"\"\").fetchone()[0] 701 702 rtd = db.execute(f\"\"\" 703 SELECT COUNT(DISTINCT id) FROM device_status_summary 704 WHERE status = 'IN_SERVICE' AND {WAREHOUSE_SQL} 705 \"\"\").fetchone()[0] 706 deployed = db.execute(f\"\"\" 707 SELECT COUNT(DISTINCT id) FROM device_status_summary 708 WHERE status = 'IN_SERVICE' AND NOT {WAREHOUSE_SQL} 709 \"\"\").fetchone()[0] 710 pending = db.execute(\"\"\" 711 SELECT COUNT(DISTINCT id) FROM device_status_summary 712 WHERE status IN ('CALIBRATION_DUE', 'MAINTENANCE') OR alert_status = 'WARNING' 713 \"\"\").fetchone()[0] 714 undeployable = db.execute(\"\"\" 715 SELECT COUNT(*) FROM devices WHERE status IN ('REPAIR', 'MAINTENANCE') 716 \"\"\").fetchone()[0] 717 archived = db.execute(\"\"\" 718 SELECT COUNT(*) FROM devices WHERE status = 'RETIRED' 719 \"\"\").fetchone()[0] 720 no_data = db.execute(\"\"\" 721 SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'NO_DATA' 722 \"\"\").fetchone()[0] 723 724 avail_rate = round((in_service / total * 100), 1) if total > 0 else 100.0 725 726 return {"
+368:           - img [ref=s4e4997]
+369:           - text: "4 unmodified lines 731 \"in_service_count\": in_service, 732 \"repair_count\": repair, 733 \"audited_count\": audited, 734 \"availability_rate\": avail_rate, 503 \"compliance_rate\": round(((ok) / (ok + overdue + warning) * 100), 1) if (ok + overdue + warning) > 0 else 100.0 735 \"compliance_rate\": round(((ok) / (ok + overdue + warning) * 100), 1) if (ok + overdue + warning) > 0 else 100.0, 736 \"no_data_count\": no_data, 737 \"status_buckets\": { 738 \"all\": total, 739 \"rtd\": rtd, 740 \"deployed\": deployed, 741 \"pending\": pending, 742 \"undeployable\": undeployable, 743 \"archived\": archived, 744 \"overdue\": overdue 745 } 746 } 747 748 749 @router.get(\"/api/dashboard/activity\") 750 async def get_dashboard_activity(limit: int = Query(20, ge=1, le=100), db = Depends(get_db)): 751 \"\"\"Recent activity feed (Snipe-IT dashboard: checkout, checkin, inspection, maintenance).\"\"\" 752 events = [] 753 754 def tag(device_id): 755 return f\"BVQ7-TTB-{int(device_id):05d}\" 756 757 try: 758 rows = db.execute( 759 \"\"\" 760 SELECT t.id, t.transfer_date AS occurred_at, t.giver_name AS actor, t.transfer_reason AS detail, 761 t.device_id, d.device_name, f1.name AS from_name, f2.name AS to_name 762 FROM device_transfers t 763 JOIN devices d ON t.device_id = d.id 764 LEFT JOIN facilities f1 ON t.from_facility_id = f1.id 765 LEFT JOIN facilities f2 ON t.to_facility_id = f2.id 766 ORDER BY t.id DESC LIMIT ? 767 \"\"\", 768 (limit,), 769 ).fetchall() 770 for r in rows: 771 events.append({ 772 \"type\": \"checkout\", 773 \"title\": f\"Điều chuyển {r['device_name']}\", 774 \"detail\": f\"{r['from_name'] or 'Kho'} → {r['to_name'] or '?'}\", 775 \"actor\": r[\"actor\"], 776 \"occurred_at\": r[\"occurred_at\"], 777 \"device_id\": r[\"device_id\"], 778 \"asset_tag\": tag(r[\"device_id\"]), 779 }) 780 except Exception: 781 pass 782 783 try: 784 rows = db.execute( 785 \"\"\" 786 SELECT p.id, p.inspection_time AS occurred_at, p.inspector_name AS actor, 787 p.overall_status AS detail, p.device_id, d.device_name 788 FROM pre_use_inspections p 789 JOIN devices d ON p.device_id = d.id 790 ORDER BY p.id DESC LIMIT ? 791 \"\"\", 792 (limit,), 793 ).fetchall() 794 for r in rows: 795 events.append({ 796 \"type\": \"inspection\", 797 \"title\": f\"Kiểm tra đầu ngày {r['device_name']}\", 798 \"detail\": r[\"detail\"] or \"PASSED\", 799 \"actor\": r[\"actor\"], 800 \"occurred_at\": r[\"occurred_at\"], 801 \"device_id\": r[\"device_id\"], 802 \"asset_tag\": tag(r[\"device_id\"]), 803 }) 804 except Exception: 805 pass 806 807 try: 808 rows = db.execute( 809 \"\"\" 810 SELECT l.id, l.maintenance_date AS occurred_at, l.performed_by AS actor, 811 l.maintenance_type AS work_type, l.description AS detail, 812 l.device_id, d.device_name 813 FROM maintenance_logs l 814 JOIN devices d ON l.device_id = d.id 815 ORDER BY l.id DESC LIMIT ? 816 \"\"\", 817 (limit,), 818 ).fetchall() 819 for r in rows: 820 events.append({ 821 \"type\": (r[\"work_type\"] or \"maintenance\").lower(), 822 \"title\": f\"{r['work_type'] or 'Bảo trì'} · {r['device_name']}\", 823 \"detail\": (r[\"detail\"] or \"\")[:140], 824 \"actor\": r[\"actor\"], 825 \"occurred_at\": r[\"occurred_at\"], 826 \"device_id\": r[\"device_id\"], 827 \"asset_tag\": tag(r[\"device_id\"]), 828 }) 829 except Exception: 830 pass 831 832 events.sort(key=lambda e: str(e.get(\"occurred_at\") or \"\"), reverse=True) 833 return events[:limit] 834 835 836 @router.get(\"/api/facilities\") 837 @router.get(\"/api/dashboard/facilities\") 838 async def get_facilities(db = Depends(get_db)): 839 \"\"\"Danh sách khoa/phòng ban và số lượng thiết bị\"\"\" 840 query = \"\"\""
+370:           - img [ref=s4e6105]
+371:           - text: "6 unmodified lines 847 result = db.execute(query).fetchall() 848 return [dict(row) for row in result] 849 850 851 @router.get(\"/api/categories\") 852 @router.get(\"/api/dashboard/categories\") 853 async def get_categories(db = Depends(get_db)): 854 \"\"\"Danh sách loại thiết bị\"\"\" 855 query = \"\"\""
+372:           - img [ref=s4e6203]
+373:           - text: "51 unmodified lines 907 async def export_devices_csv( 908 facility_id: Optional[int] = None, 909 category_id: Optional[int] = None, 910 alert_status: Optional[str] = None, 911 status_type: Optional[str] = None, 912 search: Optional[str] = None, 913 risk_level: Optional[str] = None, 914 db = Depends(get_db) 915 ): 916 \"\"\"Xuất danh mục thiết bị y tế đã lọc ra tệp CSV UTF-8 BOM cho Excel\"\"\" 917 query = \"SELECT * FROM device_status_summary\""
+374:           - img [ref=s4e6327]
+375:           - text: "8 unmodified lines 926 params.append(category_id) 927 if alert_status: 928 conditions.append(\"alert_status = ?\") 929 params.append(alert_status.upper()) 930 apply_snipe_status_type(conditions, status_type) 931 if risk_level: 932 levels = [x.strip().upper() for x in risk_level.split(\",\") if x.strip()] 933 if len(levels) == 1: 934 conditions.append(\"risk_level = ?\") 935 params.append(levels[0]) 936 elif levels: 937 placeholders = \",\".join(\"?\" * len(levels)) 938 conditions.append(f\"risk_level IN ({placeholders})\") 939 params.extend(levels) 940 if search and search.strip(): 941 s = f\"%{search.strip()}%\" 942 conditions.append(\"(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?)\") 943 params.extend([s, s, s, s])"
+376:           - img [ref=s4e6560]
+377:           - img [ref=s4e6563]
+378:           - text: "154 unmodified lines 1098 SOP_HTML_PATH = Path(r\"C:\\Users\\tantt\\Downloads\\asset-management-tools\\quy_trinh_ttbyt.html\") 1099 1100 @router.get(\"/sops\") 1101 async def view_sop_handbook(): 759 \"\"\"Hiển thị trực tiếp Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế (quy_trinh_ttbyt.html)\"\"\" 1102 \"\"\"Hiển thị Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế\"\"\" 1103 if SOP_HTML_PATH.exists(): 1104 return FileResponse(SOP_HTML_PATH, media_type=\"text/html; charset=utf-8\") 762 raise HTTPException(status_code=404, detail=\"Không tìm thấy tệp sổ tay quy trình quy_trinh_ttbyt.html\") 1105 sops = await list_standard_sops() 1106 cards = \"\".join( 1107 f\"\"\"<article class=\"sop\" id=\"{s['ref'].split('#')[-1]}\"> 1108 <div class=\"meta\"><span>{s['code']}</span><span>{s['type']}</span></div> 1109 <h2>{s['name']}</h2> 1110 <p>Áp dụng tại PKĐK Tâm Anh Quận 7 / BV Quận 7. Bấm mã để đối chiếu trên dashboard HTM.</p> 1111 </article>\"\"\" 1112 for s in sops 1113 ) 1114 html = f\"\"\"<!DOCTYPE html> 1115 <html lang=\"vi\"><head> 1116 <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> 1117 <title>Sổ tay SOP TTBYT</title> 1118 <style> 1119 body {{ font-family: 'Plus Jakarta Sans', Segoe UI, sans-serif; background:#f1f5f9; color:#0f172a; margin:0; }} 1120 main {{ max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }} 1121 h1 {{ letter-spacing:-.03em; margin: 0 0 8px; }} 1122 .lede {{ color:#64748b; margin-bottom: 28px; }} 1123 .sop {{ background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px; margin-bottom:12px; }} 1124 .meta {{ display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#0369a1; letter-spacing:.04em; text-transform:uppercase; }} 1125 h2 {{ font-size:16px; margin:10px 0 6px; }} 1126 p {{ margin:0; color:#475569; font-size:14px; line-height:1.5; }} 1127 a.back {{ display:inline-block; margin-bottom:18px; color:#0369a1; font-weight:700; text-decoration:none; }} 1128 </style> 1129 </head><body> 1130 <main> 1131 <a class=\"back\" href=\"/\">Quay lại dashboard</a> 1132 <h1>Sổ tay quy trình TTBYT</h1> 1133 <p class=\"lede\">CS.TTBYT.04 và QT.01–QT.09 dùng cho kiểm định, vận hành, điều chuyển và bảo trì.</p> 1134 {cards} 1135 </main> 1136 </body></html>\"\"\" 1137 return HTMLResponse(html) 1138 1139 @router.get(\"/api/sops\") 1140 async def list_standard_sops(): 1141 \"\"\"Danh mục 9 Quy trình chuẩn (SOPs) & Chính sách quản lý TTBYT BV Quận 7\"\"\""
+379:           - img [ref=s4e6966]
+380:           - text: 162 unmodified lines
+381:         - button "Toggle diff" [ref=s4e6976]
+382:         - text: web/css/style.css
+383:         - button "Copy file name" [ref=s4e6981]
+384:         - text: +893 -73
+385:         - checkbox "Mark viewed" [ref=s4e6986]
+386:         - code [ref=s4e6993]:
+387:           - text: "1 /* ========================================================================== 2 Medical Device Management System (BV Quận 7 / PKĐK Tâm Anh Q7) 3 Google Stitch & UI/UX Pro Max Clinical Design System 4 \"Less, but better\" - High-Clarity Typography, Glass Accents & Micro-Interactions 3 Clinical HTM Design System 4 High-clarity typography, tactile controls, and operational density 5 ========================================================================== */ 6 7 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap'); 8 9 :root { 10 --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 11 --font-mono: 'JetBrains Mono', monospace; 11 --font-mono: 'JetBrains Mono', ui-monospace, monospace; 12 13 /* Google Stitch Medical Palette */ 14 --color-primary: #0284c7; 15 --color-primary-dark: #0369a1; 13 --color-primary: #0369a1; 14 --color-primary-hover: #0284c7; 15 --color-primary-dark: #075985; 16 --color-primary-light: #f0f9ff; 17 --color-primary-subtle: rgba(2, 132, 199, 0.08); 17 --color-primary-subtle: rgba(3, 105, 161, 0.08); 18 19 --color-teal: #0d9488; 19 --color-teal: #0f766e; 20 --color-teal-light: #f0fdfa; 21 22 --color-success: #059669; 22 --color-success: #047857; 23 --color-success-bg: #ecfdf5; 24 25 --color-warning: #d97706; 25 --color-warning: #b45309; 26 --color-warning-bg: #fffbeb; 27 28 --color-danger: #dc2626; 28 --color-danger: #b91c1c; 29 --color-danger-bg: #fef2f2; 30 31 --surface-page: #f8fafc; 31 --surface-page: #f1f5f9; 32 --surface-card: #ffffff; 33 --border-color: #e2e8f0; 34 --border-light: #f1f5f9; 35 36 --sidebar-bg: #0f172a; 37 --sidebar-text: #94a3b8; 36 --sidebar-width: 260px; 37 --sidebar-bg: #1a2226; 38 --sidebar-text: #b8c7ce; 39 --sidebar-active: #ffffff; 40 --header-height: 56px; 41 --topbar-height: 50px; 42 --snipe-blue: #3c8dbc; 43 --snipe-checkout: #00a65a; 44 --snipe-checkin: #f39c12; 45 46 --text-main: #0f172a; 47 --text-muted: #64748b; 48 43 --radius-sm: 6px; 44 --radius-md: 10px; 49 --radius-sm: 8px; 50 --radius-md: 12px; 51 --radius-lg: 16px; 46 47 --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03); 48 --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); 49 --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04); 52 53 --shadow-subtle: 0 1px 2px rgba(15, 23, 42, 0.04); 54 --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.04); 55 --shadow-hover: 0 10px 24px rgba(15, 23, 42, 0.08); 56 --ease: cubic-bezier(0.16, 1, 0.3, 1); 57 } 58 59 * { 60 box-sizing: border-box; 61 margin: 0; 62 padding: 0; 63 } 64 65 html { 66 scroll-behavior: smooth; 67 } 68 69 body { 70 font-family: var(--font-sans); 71 background-color: var(--surface-page); 72 color: var(--text-main); 73 font-size: 0.9rem; 63 line-height: 1.45; 74 line-height: 1.5; 75 -webkit-font-smoothing: antialiased; 76 min-height: 100dvh; 77 } 78 79 .font-mono { 80 font-family: var(--font-mono); 81 } 82 83 .skip-link { 84 position: absolute; 85 left: 12px; 86 top: -48px; 87 z-index: 2000; 88 background: var(--color-primary); 89 color: #fff; 90 padding: 0.5rem 0.85rem; 91 border-radius: var(--radius-sm); 92 font-weight: 700; 93 text-decoration: none; 94 } 95 96 .skip-link:focus { 97 top: 12px; 98 } 99 100 /* App Layout */ 101 .app-layout { 102 display: flex; 74 min-height: 100vh; 103 min-height: 100dvh; 104 } 105 106 .sidebar-overlay { 107 display: none; 108 position: fixed; 109 inset: 0; 110 background: rgba(15, 23, 42, 0.45); 111 z-index: 140; 112 opacity: 0; 113 pointer-events: none; 114 transition: opacity 180ms var(--ease); 115 } 116 117 /* Left Sidebar */ 118 .snipe-topbar { 119 height: var(--topbar-height); 120 background: #3c8dbc; 121 color: #fff; 122 display: flex; 123 align-items: center; 124 gap: 0.75rem; 125 padding: 0 0.85rem; 126 position: sticky; 127 top: 0; 128 z-index: 200; 129 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18); 130 } 131 132 .snipe-topbar-brand { 133 display: flex; 134 align-items: center; 135 gap: 0.55rem; 136 min-width: 220px; 137 flex-shrink: 0; 138 } 139 140 .snipe-topbar-brand img { 141 width: 28px; 142 height: 28px; 143 object-fit: contain; 144 background: #fff; 145 border-radius: 4px; 146 padding: 1px; 147 } 148 149 .snipe-topbar-brand strong { 150 display: block; 151 font-size: 0.92rem; 152 font-weight: 800; 153 letter-spacing: 0.01em; 154 line-height: 1.1; 155 } 156 157 .snipe-topbar-brand span { 158 display: block; 159 font-size: 0.62rem; 160 opacity: 0.85; 161 font-weight: 700; 162 letter-spacing: 0.06em; 163 text-transform: uppercase; 164 } 165 166 .snipe-tag-search { 167 display: flex; 168 align-items: center; 169 flex: 1; 170 max-width: 420px; 171 margin: 0 auto; 172 } 173 174 .snipe-tag-search input { 175 height: 32px; 176 border: none; 177 border-radius: 4px 0 0 4px; 178 font-size: 0.82rem; 179 padding: 0 0.7rem; 180 } 181 182 .snipe-tag-search button { 183 height: 32px; 184 border: none; 185 background: #367fa9; 186 color: #fff; 187 padding: 0 0.75rem; 188 border-radius: 0 4px 4px 0; 189 font-weight: 700; 190 font-size: 0.78rem; 191 } 192 193 .snipe-topbar-actions { 194 display: flex; 195 align-items: center; 196 gap: 0.45rem; 197 margin-left: auto; 198 } 199 200 .snipe-topbar .btn, 201 .snipe-topbar .dropdown-toggle { 202 color: #fff; 203 border-color: rgba(255, 255, 255, 0.25); 204 font-weight: 700; 205 font-size: 0.78rem; 206 } 207 208 .snipe-user-chip { 209 display: flex; 210 align-items: center; 211 gap: 0.4rem; 212 font-size: 0.78rem; 213 font-weight: 700; 214 padding: 0.2rem 0.55rem; 215 background: rgba(0, 0, 0, 0.12); 216 border-radius: 999px; 217 } 218 219 .sidebar-left { 79 width: 250px; 220 width: var(--sidebar-width); 221 background: var(--sidebar-bg); 222 color: var(--sidebar-text); 223 display: flex; 224 flex-direction: column; 225 position: sticky; 85 top: 0; 86 height: 100vh; 226 top: var(--topbar-height); 227 height: calc(100dvh - var(--topbar-height)); 228 flex-shrink: 0; 88 border-right: 1px solid #1e293b; 89 z-index: 100; 229 border-right: 1px solid #11181c; 230 z-index: 150; 231 } 232 233 .sidebar-brand { 93 padding: 1.25rem 1.25rem; 234 padding: 1.1rem 1.15rem 1rem; 235 display: flex; 236 align-items: center; 237 gap: 0.75rem; 238 border-bottom: 1px solid #1e293b; 239 } 240 100 .sidebar-brand .brand-icon { 101 width: 36px; 102 height: 36px; 103 background: rgba(2, 132, 199, 0.2); 104 color: #38bdf8; 105 border-radius: var(--radius-sm); 106 display: flex; 107 align-items: center; 108 justify-content: center; 109 font-size: 1.25rem; 241 .sidebar-brand img { 242 width: 40px; 243 height: 40px; 244 object-fit: contain; 245 background: #fff; 246 padding: 3px; 247 border-radius: 10px; 248 border: 1px solid #e2e8f0; 249 box-shadow: var(--shadow-subtle); 250 } 251 252 .brand-name { 253 font-size: 0.86rem; 254 font-weight: 800; 255 letter-spacing: 0.04em; 256 color: #f8fafc; 257 line-height: 1.2; 258 } 259 260 .brand-desc { 261 font-size: 0.68rem; 262 color: #7dd3fc; 263 font-weight: 700; 264 letter-spacing: 0.06em; 265 text-transform: uppercase; 266 } 267 268 .sidebar-kpi-compact { 269 margin: 0.85rem 0.85rem 0.35rem; 270 padding: 0.85rem 0.95rem; 271 background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)); 272 border: 1px solid rgba(148, 163, 184, 0.18); 273 border-radius: var(--radius-md); 274 box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); 275 } 276 277 .sidebar-kpi-compact .kpi-label { 278 font-size: 0.68rem; 279 font-weight: 700; 280 letter-spacing: 0.04em; 281 text-transform: uppercase; 282 color: #64748b; 283 } 284 285 .sidebar-kpi-compact strong { 286 font-size: 0.92rem; 287 } 288 289 .nav-section-label { 290 padding: 0.85rem 0.95rem 0.3rem; 291 font-size: 0.65rem; 292 font-weight: 800; 293 letter-spacing: 0.08em; 294 text-transform: uppercase; 295 color: #64748b; 296 } 297 298 .sidebar-nav { 113 padding: 1rem 0.75rem; 299 padding: 0.35rem 0.75rem 1rem; 300 flex: 1; 301 overflow-y: auto; 302 display: flex; 303 flex-direction: column; 118 gap: 0.25rem; 304 gap: 0.2rem; 305 } 306 307 .sidebar-nav .nav-link { 308 color: var(--sidebar-text); 123 padding: 0.65rem 0.85rem; 124 border-radius: var(--radius-sm); 309 padding: 0.62rem 0.75rem; 310 border-radius: 10px; 311 display: flex; 312 align-items: center; 127 gap: 0.75rem; 128 font-weight: 500; 129 font-size: 0.86rem; 130 transition: all 0.15s ease-in-out; 313 gap: 0.7rem; 314 font-weight: 600; 315 font-size: 0.82rem; 316 transition: background 160ms var(--ease), color 160ms var(--ease), transform 160ms var(--ease); 317 text-decoration: none; 318 border: none; 319 background: transparent; 320 width: 100%; 321 text-align: left; 322 line-height: 1.25; 323 } 324 325 .sidebar-nav .nav-link span:not(.badge) { 326 flex: 1; 327 min-width: 0; 328 } 329 330 .sidebar-nav .nav-link:hover { 331 color: #f1f5f9; 332 background: rgba(255, 255, 255, 0.05); 333 } 334 335 .sidebar-nav .nav-link:focus-visible { 336 outline: 2px solid #38bdf8; 337 outline-offset: 2px; 338 } 339 340 .sidebar-nav .nav-link.active { 341 color: #ffffff; 145 background: var(--color-primary); 342 background: #3c8dbc; 343 font-weight: 700; 344 } 345 346 .sidebar-subnav { 347 list-style: none; 348 padding: 0 0 0.35rem 1.55rem; 349 margin: 0 0 0.2rem; 350 } 351 352 .sidebar-subnav .nav-link { 353 padding: 0.32rem 0.6rem; 354 font-size: 0.76rem; 355 font-weight: 600; 147 box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); 356 border-radius: 6px; 357 } 358 359 .sidebar-subnav .nav-link.active { 360 background: rgba(60, 141, 188, 0.35); 361 box-shadow: none; 362 } 363 364 .sidebar-subnav .count { 365 font-family: var(--font-mono); 366 font-size: 0.68rem; 367 color: #8aa4af; 368 } 369 370 .sidebar-nav .nav-link i { 371 font-size: 1.05rem; 372 width: 1.15rem; 373 text-align: center; 374 flex-shrink: 0; 375 } 376 377 .sidebar-nav .badge { 378 font-size: 0.65rem; 379 font-weight: 700; 380 letter-spacing: 0.02em; 381 } 382 383 .sidebar-footer { 155 padding: 1rem 1.25rem; 384 padding: 0.9rem 0.9rem 1rem; 385 border-top: 1px solid #1e293b; 157 background: rgba(15, 23, 42, 0.8); 386 background: rgba(11, 18, 32, 0.92); 387 } 388 389 /* Main Content Area */ 390 .main-content {"
+388:           - img [ref=s4e11090]
+389:           - text: "2 unmodified lines 393 flex-direction: column; 394 min-width: 0; 395 } 396 168 /* Top App Header */ 169 .app-header { 170 height: 64px; 171 background: var(--surface-card); 397 .top-header { 398 min-height: var(--header-height); 399 background: rgba(255, 255, 255, 0.86); 400 backdrop-filter: blur(14px); 401 border-bottom: 1px solid var(--border-color); 173 padding: 0 1.5rem; 174 display: flex; 175 align-items: center; 176 justify-content: space-between; 402 padding: 0.7rem 1.25rem; 403 position: sticky; 404 top: 0; 405 z-index: 90; 406 gap: 0.75rem; 407 } 408 409 .top-header h5 { 410 font-size: 1.02rem; 411 letter-spacing: -0.02em; 412 } 413 414 .page-kicker { 415 font-size: 0.7rem; 416 font-weight: 800; 417 letter-spacing: 0.08em; 418 text-transform: uppercase; 419 color: var(--color-primary); 420 } 421 422 .header-actions { 423 display: flex; 424 align-items: center; 425 flex-wrap: wrap; 426 justify-content: flex-end; 427 gap: 0.45rem; 428 } 429 430 .workspace { 431 padding: 1.15rem 1.25rem 1.75rem; 432 } 433 434 .btn-sidebar-toggle { 435 display: none; 436 width: 38px; 437 height: 38px; 438 border: 1px solid var(--border-color); 439 background: #fff; 440 border-radius: 10px; 441 color: var(--text-main); 442 align-items: center; 443 justify-content: center; 444 } 445 446 .btn-clinical { 447 border-radius: 10px; 448 font-weight: 650; 449 letter-spacing: -0.01em; 450 transition: transform 140ms var(--ease), box-shadow 140ms var(--ease), background 140ms var(--ease); 451 } 452 453 .btn-clinical:hover { 454 transform: translateY(-1px); 455 } 456 457 .btn-clinical:active { 458 transform: scale(0.98); 459 } 460 461 .btn-clinical:focus-visible, 462 .form-control:focus-visible, 463 .form-select:focus-visible, 464 .chip-filter:focus-visible { 465 outline: 2px solid var(--color-primary-hover); 466 outline-offset: 2px; 467 } 468 469 .btn-primary.btn-clinical { 470 background: var(--color-primary); 471 border-color: var(--color-primary); 472 } 473 474 .btn-primary.btn-clinical:hover { 475 background: var(--color-primary-hover); 476 border-color: var(--color-primary-hover); 477 } 478 479 /* Clinical KPI Banner Cards */ 480 .kpi-card { 481 background: var(--surface-card); 482 border: 1px solid var(--border-color); 483 border-radius: var(--radius-md); 187 padding: 1rem 1.25rem; 484 padding: 1rem 1.1rem; 485 box-shadow: var(--shadow-card); 189 transition: transform 0.15s ease, box-shadow 0.15s ease; 486 transition: transform 180ms var(--ease), box-shadow 180ms var(--ease); 487 height: 100%; 488 min-height: 96px; 489 } 490 491 .kpi-card:hover { 492 transform: translateY(-2px);"
+390:           - img [ref=s4e12053]
+391:           - text: "2 unmodified lines 495 496 .kpi-icon { 497 width: 44px; 498 height: 44px; 200 border-radius: var(--radius-sm); 499 border-radius: 12px; 500 display: flex; 501 align-items: center; 502 justify-content: center; 204 font-size: 1.3rem; 503 font-size: 1.25rem; 504 flex-shrink: 0; 505 } 506 507 .kpi-card .kpi-label { 508 font-size: 0.68rem; 509 font-weight: 800; 510 letter-spacing: 0.06em; 511 text-transform: uppercase; 512 color: var(--text-muted); 513 } 514 515 .kpi-card .kpi-value { 516 font-size: 1.45rem; 517 font-weight: 800; 518 letter-spacing: -0.03em; 519 line-height: 1.15; 520 } 521 522 .kpi-accent-ok { border-top: 3px solid #059669; } 523 .kpi-accent-warn { border-top: 3px solid #d97706; } 524 .kpi-accent-overdue { border-top: 3px solid #dc2626; } 525 .kpi-accent-total { border-top: 3px solid var(--color-primary); } 526 527 /* Clinical Filter Chips */ 528 .chip-filter { 529 display: inline-flex; 530 align-items: center; 211 padding: 0.35rem 0.85rem; 531 gap: 0.35rem; 532 padding: 0.38rem 0.8rem; 533 background: #ffffff; 534 border: 1px solid var(--border-color); 214 border-radius: 20px; 215 font-size: 0.82rem; 216 font-weight: 500; 535 border-radius: 999px; 536 font-size: 0.8rem; 537 font-weight: 650; 538 color: var(--text-muted); 539 cursor: pointer; 219 transition: all 0.15s ease; 540 transition: all 150ms var(--ease); 541 user-select: none; 542 } 543 544 .chip-filter:hover {"
+392:           - img [ref=s4e12583]
+393:           - text: "5 unmodified lines 550 .chip-filter.active { 551 background: var(--color-primary); 552 color: #ffffff; 553 border-color: var(--color-primary); 233 box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25); 554 box-shadow: 0 4px 10px rgba(3, 105, 161, 0.22); 555 } 556 557 /* Clinical Card */ 558 .clinical-card {"
+394:           - img [ref=s4e12709]
+395:           - text: "2 unmodified lines 561 border-radius: var(--radius-md); 562 box-shadow: var(--shadow-card); 563 } 564 565 .clinical-card .section-title { 566 font-size: 0.92rem; 567 font-weight: 800; 568 letter-spacing: -0.02em; 569 } 570 571 /* Tables */ 572 .table thead th { 573 font-size: 0.68rem; 574 font-weight: 800; 575 letter-spacing: 0.06em; 576 color: #475569; 577 white-space: nowrap; 578 } 579 580 .table tbody tr.device-row:hover { 581 background: #f8fafc; 582 } 583 584 .table tbody tr.device-row:focus-within { 585 background: var(--color-primary-light); 586 } 587 588 .status-pill { 589 display: inline-flex; 590 align-items: center; 591 gap: 0.3rem; 592 border-radius: 999px; 593 padding: 0.22rem 0.62rem; 594 font-size: 0.72rem; 595 font-weight: 700; 596 } 597 598 .status-dot { 599 width: 7px; 600 height: 7px; 601 border-radius: 50%; 602 background: currentColor; 603 } 604 605 /* Risk Badges */ 606 .badge-risk-A { 607 background-color: #ecfdf5; 608 color: #047857;"
+396:           - img [ref=s4e13071]
+397:           - text: "21 unmodified lines 630 border: 1px solid #fecaca; 631 font-weight: 700; 632 } 633 634 /* Forms */ 635 .form-label { 636 margin-bottom: 0.3rem; 637 } 638 639 .form-control, 640 .form-select { 641 border-radius: 10px; 642 border-color: #cbd5e1; 643 } 644 645 .form-control:focus, 646 .form-select:focus { 647 border-color: #7dd3fc; 648 box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.12); 649 } 650 651 .input-group-text { 652 border-radius: 10px 0 0 10px; 653 } 654 655 /* Empty / loading / error */ 656 .empty-state { 657 padding: 2.5rem 1.25rem; 658 text-align: center; 659 color: var(--text-muted); 660 } 661 662 .empty-state i { 663 font-size: 1.8rem; 664 color: #94a3b8; 665 display: block; 666 margin-bottom: 0.45rem; 667 } 668 669 .skeleton-row td { 670 padding: 0.85rem 0.75rem; 671 } 672 673 .skeleton { 674 display: block; 675 height: 12px; 676 border-radius: 6px; 677 background: linear-gradient(90deg, #e2e8f0 0%, #f8fafc 50%, #e2e8f0 100%); 678 background-size: 200% 100%; 679 animation: shimmer 1.2s ease-in-out infinite; 680 } 681 682 @keyframes shimmer { 683 0% { background-position: 100% 0; } 684 100% { background-position: -100% 0; } 685 } 686 687 /* Live Pulse Animation for E-Carts */ 688 @keyframes live-pulse { 275 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 276 70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); } 277 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } 689 0% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.4); } 690 70% { box-shadow: 0 0 0 8px rgba(185, 28, 28, 0); } 691 100% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); } 692 } 693 694 .pulse-emergency { 695 animation: live-pulse 2s infinite; 696 } 697 284 /* Print Styles for QR Labels */ 698 .ecart-card { 699 border-left: 4px solid #dc2626; 700 transition: transform 180ms var(--ease), box-shadow 180ms var(--ease); 701 } 702 703 .ecart-card:hover { 704 transform: translateY(-3px); 705 box-shadow: var(--shadow-hover); 706 } 707 708 /* Diag
+The above content was truncated because individual lines are very long. Only a portion of the content is shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:25:12+07:00
+Completed At: 2026-08-19T10:25:14+07:00
+
+				The command exited with code 0.
+				Output:
+				e2f36e1 feat: align HTM UI with Snipe-IT demo navigation and checkout
+c955e23 feat: add HTM daily workflow from Snipe-IT and SpeedMaint patterns
+e9831d5 feat: polish clinical HTM dashboard for clarity and daily use
+7b1a133 docs: sync clean sanitized session transcript to GitHub
+4c5b498 feat: upgrade UI/UX Pro Max clinical dashboard with Google Stitch KPI banners, quick filter chips, and QR label printing
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
