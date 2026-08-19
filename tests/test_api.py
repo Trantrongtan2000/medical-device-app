@@ -150,12 +150,12 @@ def test_bme_staff_endpoints():
 
 
 def test_oncall_schedule_endpoints():
-    # 1. Test GET /api/oncall/schedule
-    res = client.get("/api/oncall/schedule")
+    # 1. Test GET /api/oncall/schedule (Default current month)
+    res = client.get("/api/oncall/schedule?month=8&year=2026")
     assert res.status_code == 200
     sched = res.json()
     assert isinstance(sched, list)
-    assert len(sched) == 7
+    assert len(sched) == 31  # Tháng 8 có 31 ngày
     assert any(s["primary_engineer"] == "Trần Đăng Hiếu" for s in sched)
 
     # 2. Test GET /api/oncall/today

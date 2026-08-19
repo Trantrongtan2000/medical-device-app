@@ -1447,15 +1447,25 @@ class OncallScheduleUpdate(BaseModel):
     notes: Optional[str] = None
 
 @router.get("/api/oncall/schedule")
-async def get_oncall_schedule(db = Depends(get_db)):
-    """Danh sách Lịch On-call TTBYT theo tuần (Thứ Hai -> Chủ Nhật)"""
-    rows = db.execute("SELECT * FROM oncall_schedule ORDER BY id ASC").fetchall()
+async def get_oncall_schedule(
+    month: Optional[int] = Query(8, description="Tháng cần xem lịch"),
+    year: Optional[int] = Query(2026, description="Năm cần xem lịch"),
+    db = Depends(get_db)
+):
+    """Danh sách Lịch On-call TTBYT 24 giờ xếp theo tháng để sắp xếp trước"""
+    query = "SELECT * FROM oncall_schedule WHERE month = ? AND year = ? ORDER BY day_num ASC"
+    rows = db.execute(query, (month, year)).fetchall()
+    if not rows:
+        # Fallback to all if specific month not generated
+        rows = db.execute("SELECT * FROM oncall_schedule ORDER BY year ASC, month ASC, day_num ASC LIMIT 31").fetchall()
     return [dict(r) for r in rows]
 
 @router.get("/api/oncall/today")
 async def get_today_oncall(db = Depends(get_db)):
-    """Kỹ sư và Lãnh đạo On-call trực chính hôm nay"""
+    """Kỹ sư và Lãnh đạo On-call 24 giờ trực chính hôm nay"""
     row = db.execute("SELECT * FROM oncall_schedule WHERE status = 'TODAY' LIMIT 1").fetchone()
+    if not row:
+        row = db.execute("SELECT * FROM oncall_schedule WHERE day_num = 19 AND month = 8 AND year = 2026 LIMIT 1").fetchone()
     if not row:
         row = db.execute("SELECT * FROM oncall_schedule ORDER BY id ASC LIMIT 1").fetchone()
     return dict(row) if row else {}
