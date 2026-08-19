@@ -91,6 +91,42 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.loadDevices();
                 });
             }
+
+            // Quick Filter Chips
+            const chips = document.querySelectorAll('.chip-filter');
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+
+                    const filterType = chip.getAttribute('data-chip');
+                    if (filterType === 'all') {
+                        this.currentFilters.search = '';
+                        this.currentFilters.risk_level = '';
+                    } else if (filterType === 'cdha') {
+                        this.currentFilters.search = 'Siêu âm';
+                        this.currentFilters.risk_level = '';
+                    } else if (filterType === 'emergency') {
+                        this.currentFilters.search = 'Cấp cứu';
+                        this.currentFilters.risk_level = '';
+                    } else if (filterType === 'ro') {
+                        this.currentFilters.search = 'RO';
+                        this.currentFilters.risk_level = '';
+                    } else if (filterType === 'highrisk') {
+                        this.currentFilters.search = '';
+                        this.currentFilters.risk_level = 'C';
+                    }
+                    const sInput = document.getElementById('search-input');
+                    if (sInput) sInput.value = this.currentFilters.search;
+                    const rSelect = document.getElementById('filter-risk');
+                    if (rSelect) rSelect.value = this.currentFilters.risk_level;
+                    this.loadDevices();
+                });
+            });
+        },
+
+        printDevicePassport() {
+            window.print();
         },
 
         async loadInitialData() {
