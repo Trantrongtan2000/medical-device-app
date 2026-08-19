@@ -1,10 +1,5 @@
 {
   "name": "Medical Device Management (BVQ7)",
   "install": "pip install --user -r requirements.txt",
-  "terminals": [
-    {
-      "name": "FastAPI Server",
-      "command": "python3 start_server.py"
-    }
-  ]
+  "start": "python3 start_server.py"
 }
