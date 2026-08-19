@@ -9,21 +9,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Minimalist Clinical Design System -->
+    <!-- UI/UX Pro Max Clinical Design System -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <div class="app-layout">
 
-        <!-- ==================== MINIMALIST LEFT SIDEBAR ==================== -->
+        <!-- ==================== LEFT SIDEBAR (UI/UX PRO MAX) ==================== -->
         <aside class="sidebar-left">
             <!-- Brand -->
             <div class="sidebar-brand d-flex align-items-center gap-2">
-                <img src="img/logo_pkta_q7.jpg" alt="Logo Tâm Anh Quận 7" class="rounded border shadow-sm" style="width: 40px; height: 40px; object-fit: contain; background: #fff; padding: 2px;">
+                <img src="img/logo_pkta_q7.jpg" alt="Logo Tâm Anh Quận 7" class="rounded border shadow-sm" style="width: 38px; height: 38px; object-fit: contain; background: #fff; padding: 2px;">
                 <div class="brand-info">
                     <div class="brand-name" style="font-size: 0.92rem; font-weight: 800; letter-spacing: -0.01em; color: #f8fafc;">TÂM ANH Q7</div>
-                    <div class="brand-desc" style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">PHÒNG TTBYT</div>
+                    <div class="brand-desc" style="font-size: 0.72rem; color: #38bdf8; font-weight: 700;">HỆ THỐNG HTM V3</div>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
             <div class="sidebar-kpi-compact">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <span class="text-muted small fw-semibold">Tổng tài sản:</span>
-                    <strong class="text-white font-mono" id="side-kpi-total">1.049</strong>
+                    <strong class="text-white font-mono" id="side-kpi-total">1.072</strong>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="text-muted small fw-semibold">Sẵn sàng:</span>
@@ -39,39 +39,58 @@
                 </div>
             </div>
 
-            <!-- Clean 5 Core Navigation Items -->
+            <!-- 8 Full Feature Navigation Items -->
             <ul class="nav flex-column sidebar-nav" id="sidebarMenu" role="tablist">
                 <li class="nav-item">
                     <button class="nav-link active" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
                         <i class="bi bi-grid-fill"></i>
-                        <span>Thiết Bị</span>
-                        <span class="badge bg-primary rounded-pill ms-auto font-mono" id="nav-badge-total">1.049</span>
+                        <span>Thiết Bị & Phụ Kiện</span>
+                        <span class="badge bg-primary rounded-pill ms-auto font-mono" id="nav-badge-total">1.072</span>
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="btn-tab-audits" data-bs-toggle="pill" data-bs-target="#tab-audits" type="button">
-                        <i class="bi bi-clipboard-check-fill"></i>
-                        <span>Kiểm Kê</span>
-                        <span class="badge bg-success rounded-pill ms-auto font-mono" id="nav-badge-audits">0</span>
+                    <button class="nav-link" id="btn-tab-inspections" data-bs-toggle="pill" data-bs-target="#tab-inspections" type="button">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Kiểm Tra Đầu Ngày</span>
+                        <span class="badge bg-success rounded-pill ms-auto font-mono">Pre-use</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-transfers" data-bs-toggle="pill" data-bs-target="#tab-transfers" type="button">
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Điều Chuyển Máy (QT.08)</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-ecarts" data-bs-toggle="pill" data-bs-target="#tab-ecarts" type="button">
+                        <i class="bi bi-truck-front-fill text-danger"></i>
+                        <span>Xe Cấp Cứu E-Cart</span>
+                        <span class="badge bg-danger rounded-pill ms-auto font-mono">8 Xe</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-diagrams" data-bs-toggle="pill" data-bs-target="#tab-diagrams" type="button">
+                        <i class="bi bi-diagram-3-fill text-info"></i>
+                        <span>Sơ Đồ Quy Trình SVG</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-workorders" data-bs-toggle="pill" data-bs-target="#tab-workorders" type="button">
                         <i class="bi bi-tools"></i>
-                        <span>Bảo Trì & Báo Hỏng</span>
+                        <span>Bảo Trì SpeedMaint</span>
                         <span class="badge bg-secondary rounded-pill ms-auto font-mono" id="nav-badge-wo">6</span>
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="btn-tab-qr" data-bs-toggle="pill" data-bs-target="#tab-qr" type="button">
-                        <i class="bi bi-qr-code"></i>
-                        <span>In Nhãn QR</span>
+                    <button class="nav-link" id="btn-tab-semantica" data-bs-toggle="pill" data-bs-target="#tab-semantica" type="button">
+                        <i class="bi bi-share-fill text-warning"></i>
+                        <span>Semantica Context Graph</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-ai-hub" data-bs-toggle="pill" data-bs-target="#tab-ai-hub" type="button">
                         <i class="bi bi-stars text-info"></i>
-                        <span>Trợ Lý AI & OCR</span>
+                        <span>Trợ Lý AI & OCR Hub</span>
                     </button>
                 </li>
             </ul>
@@ -84,13 +103,13 @@
             </div>
         </aside>
 
-        <!-- ==================== MAIN MINIMALIST WORKSPACE ==================== -->
+        <!-- ==================== MAIN WORKSPACE ==================== -->
         <main class="main-content">
 
-            <!-- Clean Top Bar -->
+            <!-- Top Header -->
             <header class="top-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0 fw-bold text-dark" id="page-heading">
-                    <i class="bi bi-grid-fill text-primary me-2"></i>Danh Mục Thiết Bị Y Tế
+                    <i class="bi bi-grid-fill text-primary me-2"></i>Danh Mục Thiết Bị Y Tế & Cấu Kiện Phụ Kiện
                 </h5>
                 <div class="d-flex align-items-center gap-2">
                     <button class="btn btn-sm btn-primary btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
@@ -102,641 +121,373 @@
                     <button id="btn-export-csv" class="btn btn-sm btn-outline-secondary btn-clinical" title="Xuất file Excel CSV">
                         <i class="bi bi-download me-1"></i> Xuất Excel
                     </button>
-                    <button class="btn btn-sm btn-outline-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#transferModal">
-                        <i class="bi bi-arrow-left-right me-1"></i> Bàn Giao
-                    </button>
-                    <button class="btn btn-sm btn-success btn-clinical" data-bs-toggle="modal" data-bs-target="#quickAuditModal">
-                        <i class="bi bi-check2-circle me-1"></i> Kiểm Kê Nhanh
-                    </button>
                 </div>
             </header>
 
             <div class="p-3">
                 <div class="tab-content" id="mainTabContent">
 
-                    <!-- TAB 1: STREAMLINED DEVICE LIST (GIAO DIỆN TINH GỌN, ÍT THÔNG TIN) -->
+                    <!-- TAB 1: MASTER ASSET CATALOG & ACCESSORIES -->
                     <div class="tab-pane fade show active" id="tab-devices" role="tabpanel">
-
-                        <!-- Simple Filter Bar -->
-                        <div class="filter-panel-simple mb-3">
+                        <!-- Filter Bar -->
+                        <div class="clinical-card p-3 mb-3">
                             <div class="row g-2 align-items-center">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                                        <input type="text" id="search-input" class="form-control border-start-0" placeholder="Tìm tên thiết bị, mã tag, model, serial...">
+                                        <input type="text" id="search-input" class="form-control border-start-0 ps-0" placeholder="Tìm theo Tên, Model, Serial, Mã tài sản...">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <select id="filter-facility" class="form-select form-select-sm">
-                                        <option value="">-- Tất cả Khoa / Vị trí --</option>
+                                        <option value="">-- Tất cả 21 Khoa/Phòng --</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <select id="filter-alert-status" class="form-select form-select-sm">
-                                        <option value="">-- Trạng thái kiểm định --</option>
-                                        <option value="OVERDUE">🔴 Quá hạn KĐ</option>
-                                        <option value="WARNING">🟡 Cảnh báo 30 ngày</option>
-                                        <option value="OK">🟢 Đạt chuẩn KĐ</option>
+                                    <select id="filter-risk" class="form-select form-select-sm">
+                                        <option value="">-- Mức Độ Rủi Ro (A, B, C, D) --</option>
+                                        <option value="A">Loại A (Rủi ro rất thấp)</option>
+                                        <option value="B">Loại B (Rủi ro thấp)</option>
+                                        <option value="C">Loại C (Rủi ro trung bình cao)</option>
+                                        <option value="D">Loại D (Rủi ro đặc biệt cao)</option>
                                     </select>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <span class="text-muted small">Hiển thị: <strong id="filter-count" class="text-dark font-mono">0</strong> máy</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Clean 6-Column Data Table -->
-                        <div class="data-panel">
-                            <div class="table-responsive">
-                                <table class="table table-clean align-middle mb-0" id="devices-table">
-                                    <thead>
+                        <!-- Device Table -->
+                        <div class="clinical-card p-0 overflow-hidden">
+                            <div class="table-responsive" style="max-height: calc(100vh - 240px);">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light sticky-top border-bottom">
                                         <tr>
-                                            <th style="width: 35px;"><input type="checkbox" id="check-all-devices"></th>
-                                            <th style="width: 140px;">MÃ TÀI SẢN</th>
-                                            <th>TÊN THIẾT BỊ</th>
-                                            <th>KHOA PHÒNG</th>
-                                            <th style="width: 130px;">HẠN KIỂM ĐỊNH</th>
-                                            <th style="width: 120px;">TRẠNG THÁI</th>
-                                            <th style="width: 110px;" class="text-end">CHI TIẾT</th>
+                                            <th class="ps-3" style="width: 140px;">MÃ ĐỊNH DANH</th>
+                                            <th>TÊN THIẾT BỊ / MODEL</th>
+                                            <th>SỐ SERIAL (S/N)</th>
+                                            <th>KHOA / VỊ TRÍ PHÒNG</th>
+                                            <th style="width: 90px;" class="text-center">PHÂN LOẠI</th>
+                                            <th style="width: 120px;" class="text-center">TRẠNG THÁI</th>
+                                            <th class="pe-3 text-end" style="width: 130px;">THAO TÁC</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="devices-body">
-                                        <!-- Populated dynamically with clean rows -->
+                                    <tbody id="device-table-body">
+                                        <tr><td colspan="7" class="text-center py-4 text-muted">Đang tải danh mục thiết bị y tế...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 2: AUDIT CENTER (KIỂM KÊ GỌN GÀNG) -->
-                    <div class="tab-pane fade" id="tab-audits" role="tabpanel">
-                        <div class="data-panel">
-                            <div class="data-panel-header d-flex justify-content-between align-items-center">
-                                <span class="fw-bold"><i class="bi bi-clipboard-check text-success me-2"></i>Lịch Sử Kiểm Kê Thực Tế</span>
-                                <button class="btn btn-sm btn-success btn-clinical" data-bs-toggle="modal" data-bs-target="#quickAuditModal">
-                                    <i class="bi bi-plus-circle me-1"></i> Thêm Bản Ghi Kiểm Kê
-                                </button>
+                    <!-- TAB 2: PRE-USE SAFETY CHECKLIST -->
+                    <div class="tab-pane fade" id="tab-inspections" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="clinical-card p-3">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-clipboard-check text-success me-2"></i>Ghi Nhận Bảng Kiểm Đầu Ngày</h6>
+                                    <form id="preUseChecklistForm">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold text-muted">CHỌN THIẾT BỊ (*)</label>
+                                            <select id="ins-device-id" class="form-select form-select-sm" required></select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold text-muted">NGƯỜI KIỂM TRA (*)</label>
+                                            <input type="text" id="ins-inspector" class="form-control form-control-sm" placeholder="VD: ĐD. Nguyễn Thị Mai" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">KHOA / PHÒNG BAN (*)</label>
+                                            <input type="text" id="ins-department" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu" required>
+                                        </div>
+                                        <div class="border rounded p-2 mb-3 bg-light">
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="ins-power" checked>
+                                                <label class="form-check-label small fw-semibold" for="ins-power">1. Nguồn điện lưới & UPS ổn định</label>
+                                            </div>
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="ins-physical" checked>
+                                                <label class="form-check-label small fw-semibold" for="ins-physical">2. Cơ khí, vỏ máy, dây cáp nguyên vẹn</label>
+                                            </div>
+                                            <div class="form-check form-switch mb-2">
+                                                <input class="form-check-input" type="checkbox" id="ins-gas" checked>
+                                                <label class="form-check-label small fw-semibold" for="ins-gas">3. Áp suất khí y tế chuẩn 4-5 bar</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="ins-selftest" checked>
+                                                <label class="form-check-label small fw-semibold" for="ins-selftest">4. Chương trình Self-test báo PASS</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">GHI CHÚ THÊM</label>
+                                            <textarea id="ins-notes" class="form-control form-control-sm" rows="2" placeholder="Ghi chú thêm nếu có bất thường..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-success w-100 btn-clinical fw-bold">
+                                            <i class="bi bi-check-circle-fill me-1"></i> Lưu Bảng Kiểm An Toàn
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-clean align-middle mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>NGÀY KIỂM KÊ</th>
-                                            <th>MÃ TÀI SẢN</th>
-                                            <th>TÊN THIẾT BỊ</th>
-                                            <th>KHOA / VỊ TRÍ</th>
-                                            <th>NGƯỜI KIỂM KÊ</th>
-                                            <th>KẾT QUẢ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="audits-table-body">
-                                        <!-- Populated via JS -->
-                                    </tbody>
-                                </table>
+                            <div class="col-md-8">
+                                <div class="clinical-card p-3">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-clock-history text-primary me-2"></i>Nhật Ký Bảng Kiểm Tra Gần Đây</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0" style="font-size: 0.82rem;">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>THỜI GIAN</th>
+                                                    <th>THIẾT BỊ / MÃ TÀI SẢN</th>
+                                                    <th>NGƯỜI KIỂM / KHOA</th>
+                                                    <th class="text-center">KẾT QUẢ</th>
+                                                    <th>GHI CHÚ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="inspections-table-body">
+                                                <tr><td colspan="5" class="text-center py-4 text-muted">Đang tải lịch sử kiểm tra...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 3: WORK ORDERS (BẢO TRÌ & SỬA CHỮA) -->
+                    <!-- TAB 3: DEVICE TRANSFERS (QT.08) -->
+                    <div class="tab-pane fade" id="tab-transfers" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="clinical-card p-3">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-arrow-left-right text-primary me-2"></i>Lập Biên Bản Điều Chuyển (BM08)</h6>
+                                    <form id="deviceTransferForm">
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold text-muted">CHỌN THIẾT BỊ (*)</label>
+                                            <select id="tr-device-id" class="form-select form-select-sm" required></select>
+                                        </div>
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-6">
+                                                <label class="form-label small fw-bold text-muted">KHOA GIAO (*)</label>
+                                                <select id="tr-from-facility" class="form-select form-select-sm" required></select>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label small fw-bold text-muted">KHOA NHẬN (*)</label>
+                                                <select id="tr-to-facility" class="form-select form-select-sm" required></select>
+                                            </div>
+                                        </div>
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-6">
+                                                <label class="form-label small fw-bold text-muted">NGƯỜI GIAO (*)</label>
+                                                <input type="text" id="tr-giver" class="form-control form-control-sm" required>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label small fw-bold text-muted">NGƯỜI NHẬN (*)</label>
+                                                <input type="text" id="tr-receiver" class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold text-muted">NGÀY ĐIỀU CHUYỂN (*)</label>
+                                            <input type="date" id="tr-date" class="form-control form-control-sm" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">LÝ DO ĐIỀU CHUYỂN</label>
+                                            <textarea id="tr-reason" class="form-control form-control-sm" rows="2" placeholder="VD: Phục vụ tăng cường ca mổ..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100 btn-clinical fw-bold">
+                                            <i class="bi bi-check2-circle me-1"></i> Xác Nhận Điều Chuyển Thiết Bị
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="clinical-card p-3">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-journal-text text-primary me-2"></i>Lịch Sử Biên Bản Điều Chuyển (QT.08)</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0" style="font-size: 0.82rem;">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>NGÀY</th>
+                                                    <th>THIẾT BỊ</th>
+                                                    <th>TỪ KHOA → ĐẾN KHOA</th>
+                                                    <th>NGƯỜI GIAO / NHẬN</th>
+                                                    <th>LÝ DO</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="transfers-table-body">
+                                                <tr><td colspan="5" class="text-center py-4 text-muted">Đang tải danh sách điều chuyển...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: EMERGENCY E-CARTS MAP -->
+                    <div class="tab-pane fade" id="tab-ecarts" role="tabpanel">
+                        <div class="clinical-card p-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1"><i class="bi bi-truck-front-fill text-danger me-2"></i>Mạng Lưới 8 Xe Cấp Cứu Di Động (E-Cart ACLS)</h6>
+                                    <p class="text-muted small mb-0">Bố trí trực 24/7 phủ kín các tầng: Máy sốc tim, máy hút, bình oxy, bộ đặt nội khí quản</p>
+                                </div>
+                                <span class="badge bg-danger px-3 py-2 fs-6">SẴN SÀNG CẤP CỨU 24/7</span>
+                            </div>
+                        </div>
+                        <div class="row g-3" id="ecarts-grid">
+                            <!-- Populated dynamically via app.js -->
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: EDITORIAL PROCESS DIAGRAMS (DIAGRAM-DESIGN) -->
+                    <div class="tab-pane fade" id="tab-diagrams" role="tabpanel">
+                        <div id="diagram-container"></div>
+                    </div>
+
+                    <!-- TAB 6: SPEEDMAINT WORK ORDERS -->
                     <div class="tab-pane fade" id="tab-workorders" role="tabpanel">
-                        <div class="data-panel">
-                            <div class="data-panel-header d-flex justify-content-between align-items-center">
-                                <span class="fw-bold"><i class="bi bi-tools text-primary me-2"></i>Phiếu Công Việc Bảo Trì (SpeedMaint)</span>
+                        <div class="clinical-card p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-tools text-primary me-2"></i>Danh Sách Phiếu Bảo Trì & Sửa Chữa (SpeedMaint CMMS)</h6>
                                 <button class="btn btn-sm btn-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">
                                     <i class="bi bi-plus-lg me-1"></i> Tạo Phiếu Mới
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-clean align-middle mb-0">
-                                    <thead>
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light">
                                         <tr>
-                                            <th>MÃ WO</th>
-                                            <th>CÔNG VIỆC</th>
-                                            <th>THIẾT BỊ</th>
+                                            <th>MÃ PHIẾU</th>
+                                            <th>TIÊU ĐỀ CÔNG VIỆC</th>
+                                            <th>THIẾT BỊ LIÊN QUAN</th>
+                                            <th class="text-center">ƯU TIÊN</th>
+                                            <th class="text-center">TRẠNG THÁI</th>
                                             <th>NGƯỜI THỰC HIỆN</th>
-                                            <th>TIẾN ĐỘ</th>
+                                            <th class="text-end">THAO TÁC</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="workorders-body">
-                                        <!-- Populated via JS -->
+                                    <tbody id="workorders-table-body">
+                                        <tr><td colspan="7" class="text-center py-4 text-muted">Đang tải phiếu công việc...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 4: QR CODE STUDIO -->
-                    <div class="tab-pane fade" id="tab-qr" role="tabpanel">
-                        <div class="data-panel p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                                <h6 class="fw-bold mb-0"><i class="bi bi-qr-code text-primary me-2"></i>Nhãn In QR Code Dán Thân Máy</h6>
-                                <button class="btn btn-sm btn-primary btn-clinical" onclick="window.print()">
-                                    <i class="bi bi-printer me-1"></i> In Nhãn
-                                </button>
+                    <!-- TAB 7: SEMANTICA CONTEXT GRAPH -->
+                    <div class="tab-pane fade" id="tab-semantica" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="clinical-card p-3">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-share-fill text-warning me-2"></i>Thống Kê Đồ Thị Tri Thức</h6>
+                                    <div id="semantica-stats-box" class="p-3 bg-light rounded font-mono small">
+                                        Đang tải số liệu Semantica...
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row g-3" id="qr-labels-grid">
-                                <!-- Populated dynamically -->
+                            <div class="col-md-8">
+                                <div class="clinical-card p-3">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-search text-primary me-2"></i>Truy Vết Nguồn Gốc Xác Định (W3C PROV-O)</h6>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <input type="number" id="semantica-search-id" class="form-control" placeholder="Nhập Device ID (VD: 1102 cho Voluson P8)...">
+                                        <button class="btn btn-primary" onclick="app.explainDeviceProvenance()">Truy Vết Nguồn Gốc</button>
+                                    </div>
+                                    <div id="semantica-provenance-result" class="p-3 border rounded bg-light" style="max-height: 400px; overflow-y: auto;">
+                                        <span class="text-muted small">Nhập ID thiết bị để xem chuỗi giải trình nguyên nhân - kết quả không ảo tưởng.</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 5: AI & OCR HUB (TRỢ LÝ THÔNG MINH & XOAY KEY) -->
+                    <!-- TAB 8: AI ASSISTANT & OCR HUB -->
                     <div class="tab-pane fade" id="tab-ai-hub" role="tabpanel">
-                        <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-white border rounded-3">
-                            <div class="small text-muted">
-                                <i class="bi bi-shield-check text-success me-1"></i><strong>Cơ chế xoay key:</strong> Tự động luân chuyển & dự phòng khi đạt giới hạn Quota / Rate-limit.
-                            </div>
-                            <button class="btn btn-sm btn-outline-dark btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#keySettingsModal">
-                                <i class="bi bi-key-fill text-warning me-1"></i> Quản Lý & Nhập API Keys
-                            </button>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-md-7">
-                                <div class="data-panel d-flex flex-column" style="height: 520px;">
-                                    <div class="data-panel-header d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold"><i class="bi bi-robot text-primary me-2"></i>Trợ Lý Gemini AI (BME Assistant)</span>
-                                        <span class="badge bg-light text-dark border font-mono small" id="gemini-keys-count-badge">0 Keys</span>
-                                    </div>
-                                    <div class="p-3 flex-grow-1 overflow-auto" id="ai-chat-messages" style="background: #f8fafc;">
-                                        <div class="p-3 bg-white border rounded-3 small text-muted">
-                                            Xin chào! Tôi có thể hỗ trợ bạn tra cứu thông số kỹ thuật, quy định kiểm định theo Thông tư 05/2022/TT-BYT, hoặc lập kế hoạch bảo dưỡng PM.
-                                        </div>
-                                    </div>
-                                    <div class="p-2 bg-white border-top">
-                                        <form id="ai-chat-form" class="d-flex gap-2">
-                                            <input type="text" id="ai-chat-input" class="form-control form-control-sm" placeholder="Hỏi về thiết bị y tế, quy trình kiểm định..." required>
-                                            <button type="submit" class="btn btn-sm btn-primary btn-clinical px-3 fw-bold">Gửi</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="data-panel p-3 h-100">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <h6 class="fw-bold text-dark mb-0"><i class="bi bi-file-earmark-medical text-warning me-1"></i>Mistral OCR Engine</h6>
-                                        <span class="badge bg-light text-dark border font-mono small" id="mistral-keys-count-badge">0 Keys</span>
-                                    </div>
-                                    <p class="text-muted small mb-3">Tự động bóc tách chứng chỉ kiểm định PDF sang dữ liệu số.</p>
-                                    <button id="btn-run-sample-ocr" class="btn btn-sm btn-warning btn-clinical w-100 fw-bold mb-3">
-                                        <i class="bi bi-play-fill me-1"></i> Thử Nghiệm OCR Chứng Chỉ
-                                    </button>
-                                    <pre id="ocr-json-preview" class="bg-light p-2 rounded border font-mono small text-success overflow-auto" style="height: 300px;">// Kết quả JSON bóc tách...</pre>
-                                </div>
-                            </div>
+                        <div class="clinical-card p-4 text-center">
+                            <i class="bi bi-stars text-info display-4 mb-3"></i>
+                            <h5 class="fw-bold text-dark mb-2">Trung Tâm Trợ Lý AI Kỹ Thuật Y Sinh & OCR</h5>
+                            <p class="text-muted small mb-4">Hệ thống xoay vòng khóa API Multi-Key Pool (Gemini 2.5 Flash & Mistral OCR) xử lý tài liệu PDF scan tốc độ cao</p>
+                            <a href="/sops" target="_blank" class="btn btn-primary btn-clinical px-4 py-2">
+                                <i class="bi bi-journal-medical me-2"></i> Mở Trợ Lý & Sổ Tay SOPs Trực Tuyến
+                            </a>
                         </div>
                     </div>
 
                 </div>
             </div>
-
         </main>
     </div>
 
-    <!-- ==================== KEY MANAGEMENT MODAL (NHẬP & XOAY KEY) ==================== -->
-    <div class="modal fade" id="keySettingsModal" tabindex="-1" aria-hidden="true">
+    <!-- MODAL: DEVICE ACCESSORIES DRAWER -->
+    <div class="modal fade" id="accessoriesModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header bg-dark text-white py-2">
-                    <h6 class="modal-title fw-bold"><i class="bi bi-key-fill text-warning me-2"></i>Cấu Hình & Xoay API Keys (Multi-Key Rotation Pool)</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-light">
+                    <h6 class="modal-title fw-bold text-dark" id="accessoriesModalTitle">
+                        <i class="bi bi-diagram-2 text-primary me-2"></i>Cây Cấu Kiện & Phụ Kiện Kèm Theo
+                    </h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-4">
-                    <ul class="nav nav-tabs mb-3" id="keyConfigTabs">
-                        <li class="nav-item">
-                            <button class="nav-link active fw-bold small" data-bs-toggle="tab" data-bs-target="#tab-key-gemini">
-                                <i class="bi bi-robot text-primary me-1"></i> Google Gemini Keys
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link fw-bold small" data-bs-toggle="tab" data-bs-target="#tab-key-mistral">
-                                <i class="bi bi-file-earmark-medical text-warning me-1"></i> Mistral OCR Keys
-                            </button>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <!-- Gemini Keys Pool -->
-                        <div class="tab-pane fade show active" id="tab-key-gemini">
-                            <div class="p-3 bg-light rounded-3 border mb-3">
-                                <label class="form-label fw-bold small text-muted">NHẬP THÊM GEMINI API KEYS (1 KEY/DÒNG HOẶC DẤU PHẨY)</label>
-                                <textarea id="input-gemini-keys" class="form-control form-control-sm font-mono" rows="2" placeholder="AIzaSyA...&#10;AIzaSyB..."></textarea>
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    <small class="text-muted">Hỗ trợ nhập nhiều key dự phòng để tự động xoay key khi bị giới hạn hạn mức (Rate-Limit).</small>
-                                    <button class="btn btn-sm btn-primary btn-clinical fw-bold" onclick="app.addKeys('gemini')">
-                                        <i class="bi bi-plus-lg me-1"></i> Thêm Gemini Keys
-                                    </button>
-                                </div>
-                            </div>
-                            <h6 class="fw-bold small text-muted mb-2">DANH SÁCH GEMINI KEYS ĐANG XOAY VÒNG:</h6>
-                            <div class="list-group border rounded-3" id="gemini-keys-list">
-                                <!-- Populated dynamically -->
-                            </div>
-                        </div>
-
-                        <!-- Mistral Keys Pool -->
-                        <div class="tab-pane fade" id="tab-key-mistral">
-                            <div class="p-3 bg-light rounded-3 border mb-3">
-                                <label class="form-label fw-bold small text-muted">NHẬP THÊM MISTRAL API KEYS (1 KEY/DÒNG HOẶC DẤU PHẨY)</label>
-                                <textarea id="input-mistral-keys" class="form-control form-control-sm font-mono" rows="2" placeholder="mistral_key_1...&#10;mistral_key_2..."></textarea>
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    <small class="text-muted">Dùng cho công cụ Mistral OCR-4 bóc tách giấy tờ kiểm định.</small>
-                                    <button class="btn btn-sm btn-warning btn-clinical fw-bold" onclick="app.addKeys('mistral')">
-                                        <i class="bi bi-plus-lg me-1"></i> Thêm Mistral Keys
-                                    </button>
-                                </div>
-                            </div>
-                            <h6 class="fw-bold small text-muted mb-2">DANH SÁCH MISTRAL KEYS ĐANG XOAY VÒNG:</h6>
-                            <div class="list-group border rounded-3" id="mistral-keys-list">
-                                <!-- Populated dynamically -->
-                            </div>
-                        </div>
+                <div class="modal-body p-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>LOẠI PHỤ KIỆN</th>
+                                    <th>TÊN CẤU KIỆN / MODEL</th>
+                                    <th>SỐ SERIAL (S/N)</th>
+                                    <th>TRẠNG THÁI</th>
+                                    <th>GHI CHÚ / PHÒNG</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accessories-table-body">
+                                <tr><td colspan="5" class="text-center py-3 text-muted">Đang tải cấu kiện...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="modal-footer bg-light py-2">
-                    <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
-                </div>
             </div>
         </div>
     </div>
 
-
-    <!-- ==================== DETAILED MODALS (CHỈ HIỂN THỊ KHI NGƯỜI DÙNG CẦN) ==================== -->
-
-    <!-- Device Dossier Modal (Lý lịch máy chi tiết đầy đủ 3 tab) -->
-    <div class="modal fade" id="device-detail-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header modal-header-clinical">
-                    <h6 class="modal-title fw-bold" id="device-modal-title">Hồ Sơ Lý Lịch Thiết Bị</h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4" id="device-modal-body">
-                    <!-- Populated dynamically -->
-                </div>
-                <div class="modal-footer bg-light py-2 d-flex justify-content-between">
-                    <button type="button" class="btn btn-sm btn-outline-primary btn-clinical fw-bold" id="btn-open-edit-device">
-                        <i class="bi bi-pencil-square me-1"></i> Chỉnh Sửa Hồ Sơ Thiết Bị
-                    </button>
-                    <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SpeedMaint Work Order Modal -->
+    <!-- MODAL: SPEEDMAINT WORK ORDER -->
     <div class="modal fade" id="speedmaintWorkOrderModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header text-white" style="background: #4338ca; padding: 0.75rem 1.25rem;">
-                    <h6 class="modal-title fw-bold mb-0">Tạo Phiếu Công Việc (SpeedMaint Work Order)</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-light">
+                    <h6 class="modal-title fw-bold text-dark">
+                        <i class="bi bi-tools text-primary me-2"></i>Tạo Phiếu Công Việc (SpeedMaint CMMS)
+                    </h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-4">
-                    <form id="speedmaint-wo-form">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">THIẾT BỊ (*)</label>
-                            <select id="wo-device-select" class="form-select form-select-sm" required>
-                                <option value="">-- Chọn thiết bị --</option>
-                            </select>
+                <div class="modal-body p-3">
+                    <form id="createWorkOrderForm">
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold text-muted">CHỌN THIẾT BỊ (*)</label>
+                            <select id="wo-device-id" class="form-select form-select-sm" required></select>
                         </div>
-                        <div class="row g-2 mb-3">
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold text-muted">TIÊU ĐỀ CÔNG VIỆC (*)</label>
+                            <input type="text" id="wo-title" class="form-control form-control-sm" placeholder="VD: Bảo trì định kỳ màng lọc..." required>
+                        </div>
+                        <div class="row g-2 mb-2">
                             <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">LOẠI CÔNG VIỆC</label>
-                                <select id="wo-type" class="form-select form-select-sm">
-                                    <option value="PM định kỳ">PM định kỳ</option>
-                                    <option value="Sửa chữa">Sửa chữa</option>
-                                    <option value="Điều chuyển">Điều chuyển</option>
-                                    <option value="Kiểm định">Kiểm định</option>
+                                <label class="form-label small fw-bold text-muted">MỨC ĐỘ ƯU TIÊN</label>
+                                <select id="wo-priority" class="form-select form-select-sm">
+                                    <option value="NORMAL">Bình thường</option>
+                                    <option value="HIGH">Ưu tiên cao</option>
+                                    <option value="URGENT">Khẩn cấp</option>
                                 </select>
                             </div>
                             <div class="col-6">
                                 <label class="form-label small fw-bold text-muted">NGƯỜI THỰC HIỆN</label>
-                                <input type="text" id="wo-assigned-to" class="form-control form-control-sm" value="KS. Trương Hoài Thương" required>
+                                <input type="text" id="wo-assignee" class="form-control form-control-sm" value="Kỹ Sư Trực P.TTBYT">
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">TIÊU ĐỀ CÔNG VIỆC</label>
-                            <input type="text" id="wo-title" class="form-control form-control-sm" placeholder="Ví dụ: Bảo dưỡng định kỳ..." required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-muted">MÔ TẢ CHI TIẾT</label>
-                            <textarea id="wo-desc" class="form-control form-control-sm" rows="2" placeholder="Nội dung công việc..."></textarea>
+                            <textarea id="wo-desc" class="form-control form-control-sm" rows="3" placeholder="Nội dung công việc..."></textarea>
                         </div>
-                        <input type="hidden" id="wo-start-date" value="2026-08-18">
-                        <input type="hidden" id="wo-end-date" value="2026-08-18">
-                        <input type="hidden" id="wo-priority" value="Trung bình">
-                        <button type="submit" class="btn btn-primary btn-clinical w-100 fw-bold" style="background:#4338ca; border-color:#3730a3;">
-                            Lưu Phiếu Công Việc
+                        <button type="submit" class="btn btn-primary w-100 btn-clinical fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i> Phát Hành Phiếu Công Việc
                         </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== MODAL: NHẬP THIẾT BỊ MỚI (TLHD Mục 2a & Mục 3) ==================== -->
-    <div class="modal fade" id="createDeviceModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header bg-primary text-white py-2">
-                    <h6 class="modal-title fw-bold mb-0"><i class="bi bi-plus-circle-fill me-2"></i>Nhập Mới Trang Thiết Bị Y Tế (Chuẩn TLHD & NĐ 98)</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="create-device-form">
-                        <!-- Nhóm 1: Định danh thiết bị -->
-                        <h6 class="fw-bold small text-primary text-uppercase border-bottom pb-1 mb-3">1. Thông tin định danh & Phân loại</h6>
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted">TÊN THIẾT BỊ (*)</label>
-                                <input type="text" id="new-dev-name" class="form-control form-control-sm" placeholder="Ví dụ: Monitor theo dõi 5 thông số..." required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-muted">MODEL / KÝ HIỆU (*)</label>
-                                <input type="text" id="new-dev-model" class="form-control form-control-sm" placeholder="BSM-2301K" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-muted">SỐ SERIAL (S/N) (*)</label>
-                                <input type="text" id="new-dev-serial" class="form-control form-control-sm font-mono" placeholder="NK-892301" required>
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">KHOA TIẾP NHẬN (*)</label>
-                                <select id="new-dev-facility" class="form-select form-select-sm" required></select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">LOẠI THIẾT BỊ</label>
-                                <select id="new-dev-category" class="form-select form-select-sm"></select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">MỨC RỦI RO (NĐ 98)</label>
-                                <select id="new-dev-risk" class="form-select form-select-sm">
-                                    <option value="A">Mức A (Rủi ro rất thấp)</option>
-                                    <option value="B" selected>Mức B (Rủi ro trung bình thấp)</option>
-                                    <option value="C">Mức C (Rủi ro trung bình cao)</option>
-                                    <option value="D">Mức D (Rủi ro đặc biệt cao)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Nhóm 2: Xuất xứ & Cung ứng -->
-                        <h6 class="fw-bold small text-primary text-uppercase border-bottom pb-1 mb-3">2. Nguồn gốc & Hãng sản xuất</h6>
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">HÃNG SẢN XUẤT</label>
-                                <input type="text" id="new-dev-mfg" class="form-control form-control-sm" placeholder="Nihon Kohden, Drager...">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">XUẤT XỨ (NƯỚC SX)</label>
-                                <input type="text" id="new-dev-country" class="form-control form-control-sm" placeholder="Nhật Bản, Đức, Mỹ...">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">NĂM SẢN XUẤT</label>
-                                <input type="number" id="new-dev-year" class="form-control form-control-sm" value="2025" min="1990" max="2030">
-                            </div>
-                        </div>
-
-                        <!-- Nhóm 3: Kiểm định ban đầu -->
-                        <h6 class="fw-bold small text-primary text-uppercase border-bottom pb-1 mb-3">3. Hồ sơ kiểm định ban đầu (nếu có)</h6>
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">SỐ GIẤY CHỨNG NHẬN (GCN)</label>
-                                <input type="text" id="new-dev-cert-no" class="form-control form-control-sm font-mono" placeholder="KĐ-2026/BVQ7-...">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">NGÀY KIỂM ĐỊNH</label>
-                                <input type="date" id="new-dev-cal-date" class="form-control form-control-sm">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">HẠN KIỂM ĐỊNH KẾ TIẾP</label>
-                                <input type="date" id="new-dev-recal-date" class="form-control form-control-sm">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">GHI CHÚ / HỒ SƠ BÀN GIAO</label>
-                            <input type="text" id="new-dev-notes" class="form-control form-control-sm" placeholder="Nhập kho theo biên bản bàn giao số...">
-                        </div>
-
-                        <div class="d-flex justify-content-end gap-2 mt-4 pt-2 border-top">
-                            <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4">
-                                <i class="bi bi-save me-1"></i> Lưu & Cấp Mã Tài Sản (Asset Tag)
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quick Audit Modal -->
-    <div class="modal fade" id="quickAuditModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header bg-success text-light py-2">
-                    <h6 class="modal-title fw-bold"><i class="bi bi-clipboard-check me-2"></i>Xác Nhận Kiểm Kê Thực Tế</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="audit-form">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">THIẾT BỊ</label>
-                            <select id="audit-device-select" class="form-select form-select-sm" required></select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">NGƯỜI KIỂM KÊ</label>
-                            <input type="text" id="audit-person" class="form-control form-control-sm" value="KS. Nguyễn Văn C - Ban Kiểm Kê" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">TÌNH TRẠNG</label>
-                            <select id="audit-condition" class="form-select form-select-sm">
-                                <option value="Tốt / Đang hoạt động">🟢 Tốt / Hoạt động bình thường</option>
-                                <option value="Cần bảo dưỡng nhẹ">🟡 Cần bảo dưỡng</option>
-                                <option value="Hỏng / Tạm ngưng">🔴 Hỏng / Tạm ngưng</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-success btn-clinical w-100 fw-bold py-2">
-                            Lưu Kết Quả Kiểm Kê
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Transfer Modal -->
-    <div class="modal fade" id="transferModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header bg-primary text-light py-2">
-                    <h6 class="modal-title fw-bold"><i class="bi bi-arrow-left-right me-2"></i>Bàn Giao / Check-out Thiết Bị</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="transfer-form">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">THIẾT BỊ CẦN BÀN GIAO</label>
-                            <select id="transfer-device-select" class="form-select form-select-sm" required></select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">KHOA TIẾP NHẬN</label>
-                            <select id="transfer-target-facility" class="form-select form-select-sm" required></select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">NGƯỜI THỰC HIỆN</label>
-                            <input type="text" id="transfer-person" class="form-control form-control-sm" value="KS. Trần Văn B - Phòng VTYT" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-muted">LÝ DO BÀN GIAO</label>
-                            <input type="text" id="transfer-reason" class="form-control form-control-sm" value="Điều chuyển phục vụ công tác khám chữa bệnh" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-clinical w-100 fw-bold py-2">
-                            Xác Nhận Bàn Giao
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== MODAL: CHỈNH SỬA HỒ SƠ THIẾT BỊ (EDIT DEVICE) ==================== -->
-    <div class="modal fade" id="editDeviceModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header bg-primary text-white py-2">
-                    <h6 class="modal-title fw-bold mb-0"><i class="bi bi-pencil-square me-2"></i>Chỉnh Sửa Thông Tin Thiết Bị Y Tế</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="edit-device-form">
-                        <input type="hidden" id="edit-dev-id">
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted">TÊN THIẾT BỊ (*)</label>
-                                <input type="text" id="edit-dev-name" class="form-control form-control-sm" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-muted">MODEL (*)</label>
-                                <input type="text" id="edit-dev-model" class="form-control form-control-sm" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-muted">SỐ SERIAL (S/N) (*)</label>
-                                <input type="text" id="edit-dev-serial" class="form-control form-control-sm font-mono" required>
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">KHOA / PHÒNG BAN</label>
-                                <select id="edit-dev-facility" class="form-select form-select-sm" required></select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">LOẠI THIẾT BỊ</label>
-                                <select id="edit-dev-category" class="form-select form-select-sm"></select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">MỨC RỦI RO (NĐ 98)</label>
-                                <select id="edit-dev-risk" class="form-select form-select-sm">
-                                    <option value="A">Mức A (Rất thấp)</option>
-                                    <option value="B">Mức B (Trung bình thấp)</option>
-                                    <option value="C">Mức C (Trung bình cao)</option>
-                                    <option value="D">Mức D (Đặc biệt cao)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">HÃNG SẢN XUẤT</label>
-                                <input type="text" id="edit-dev-mfg" class="form-control form-control-sm">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">XUẤT XỨ</label>
-                                <input type="text" id="edit-dev-country" class="form-control form-control-sm">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-muted">TRẠNG THÁI VẬN HÀNH</label>
-                                <select id="edit-dev-status" class="form-select form-select-sm">
-                                    <option value="IN_SERVICE">🟢 Đang sử dụng (IN_SERVICE)</option>
-                                    <option value="MAINTENANCE">🟡 Đang bảo dưỡng (MAINTENANCE)</option>
-                                    <option value="REPAIR">🔴 Đang sửa chữa (REPAIR)</option>
-                                    <option value="RETIRED">⚪ Đã thanh lý (RETIRED)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted">NGÀY KIỂM ĐỊNH GẦN NHẤT</label>
-                                <input type="date" id="edit-dev-cal-date" class="form-control form-control-sm">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted">HẠN KIỂM ĐỊNH KẾ TIẾP</label>
-                                <input type="date" id="edit-dev-recal-date" class="form-control form-control-sm">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">GHI CHÚ / HỒ SƠ</label>
-                            <textarea id="edit-dev-notes" class="form-control form-control-sm" rows="2"></textarea>
-                        </div>
-
-                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
-                            <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4">
-                                <i class="bi bi-check2-circle me-1"></i> Lưu Cập Nhật Hồ Sơ
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== MODAL: CHỈNH SỬA PHIẾU CÔNG VIỆC SPEEDMAINT (EDIT WORK ORDER) ==================== -->
-    <div class="modal fade" id="editWorkOrderModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal-content-clinical">
-                <div class="modal-header text-white" style="background: #4338ca; padding: 0.75rem 1.25rem;">
-                    <h6 class="modal-title fw-bold mb-0"><i class="bi bi-tools me-2"></i>Chỉnh Sửa Phiếu Công Việc / Báo Cáo Sửa Chữa</h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="edit-wo-form">
-                        <input type="hidden" id="edit-wo-id">
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted">LOẠI CÔNG VIỆC</label>
-                                <select id="edit-wo-type" class="form-select form-select-sm">
-                                    <option value="PM định kỳ">PM định kỳ</option>
-                                    <option value="Sửa chữa">Sửa chữa</option>
-                                    <option value="Điều chuyển">Điều chuyển</option>
-                                    <option value="Kiểm định">Kiểm định</option>
-                                    <option value="Kiểm tra an toàn">Kiểm tra an toàn</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-muted">NGƯỜI THỰC HIỆN (*)</label>
-                                <input type="text" id="edit-wo-assignee" class="form-control form-control-sm" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">MÔ TẢ CHI TIẾT & BIỆN PHÁP XỬ LÝ</label>
-                            <textarea id="edit-wo-desc" class="form-control form-control-sm" rows="3" required></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">VẬT TƯ / PHỤ TÙNG THAY THẾ</label>
-                            <input type="text" id="edit-wo-materials" class="form-control form-control-sm" placeholder="VD: Cảm biến O2, Dây nguồn y tế...">
-                        </div>
-
-                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
-                            <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold px-4" style="background:#4338ca; border-color:#3730a3;">
-                                <i class="bi bi-save me-1"></i> Lưu Thay Đổi Phiếu
-                            </button>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -745,6 +496,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/diagrams.js"></script>
     <script src="js/api.js"></script>
     <script src="js/app.js"></script>
 </body>
