@@ -34,6 +34,56 @@ PDF_ROOT_DIRS = [
 
 # ==================== DEVICE ENDPOINTS (SNIPE-IT ASSET API) ====================
 
+WAREHOUSE_SQL = (
+    "(facility_id IS NULL OR facility LIKE '%Kho Lưu%' "
+    "OR facility LIKE '%Trang Thiết Bị Y Tế%' OR facility LIKE '%Chờ Cấp Phát%')"
+)
+
+
+def apply_snipe_status_type(conditions: list, status_type: Optional[str]) -> None:
+    """Map Snipe-IT hardware status buckets (Ready to Deploy / Deployed / Pending / ...)."""
+    if not status_type:
+        return
+    st = status_type.strip().lower().replace(" ", "_")
+    mapping = {
+        "rtd": f"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}",
+        "ready": f"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}",
+        "ready_to_deploy": f"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}",
+        "deployed": f"status = 'IN_SERVICE' AND NOT {WAREHOUSE_SQL}",
+        "pending": "(status IN ('CALIBRATION_DUE', 'MAINTENANCE') OR alert_status = 'WARNING')",
+        "undeployable": "status IN ('REPAIR', 'MAINTENANCE')",
+        "repair": "status = 'REPAIR'",
+        "archived": "status = 'RETIRED'",
+        "deleted": "status = 'RETIRED'",
+        "overdue": "alert_status = 'OVERDUE'",
+    }
+    sql = mapping.get(st)
+    if sql:
+        conditions.append(f"({sql})")
+
+
+def resolve_warehouse_id(db) -> Optional[int]:
+    """Prefer biomedical store (KHO / P.TTBYT). Avoid matching 'Khoa' via LIKE '%Kho%'."""
+    row = db.execute(
+        """
+        SELECT id FROM facilities
+        WHERE code IN ('KHO', 'TTBYT')
+           OR name LIKE '%Kho Lưu%'
+           OR name LIKE '%Trang Thiết Bị Y Tế%'
+        ORDER BY CASE
+            WHEN code = 'KHO' THEN 0
+            WHEN code = 'TTBYT' THEN 1
+            ELSE 2
+        END, id
+        LIMIT 1
+        """
+    ).fetchone()
+    if row:
+        return row[0]
+    fallback = db.execute("SELECT id FROM facilities ORDER BY id LIMIT 1").fetchone()
+    return fallback[0] if fallback else None
+
+
 @router.get("/api/devices")
 async def get_devices(
     response: Response,
@@ -41,6 +91,7 @@ async def get_devices(
     category_id: Optional[int] = Query(None, description="Lọc theo loại thiết bị"),
     alert_status: Optional[str] = Query(None, description="Lọc trạng thái cảnh báo (OVERDUE, WARNING, OK, NO_DATA)"),
     status: Optional[str] = Query(None, description="Lọc trạng thái hoạt động"),
+    status_type: Optional[str] = Query(None, description="Snipe-IT status bucket: rtd, deployed, pending, undeployable, archived, overdue"),
     risk_level: Optional[str] = Query(None, description="Lọc mức độ rủi ro (A, B, C, D)"),
     search: Optional[str] = Query(None, description="Tìm kiếm theo tên, model, serial, hãng sản xuất"),
     limit: int = Query(50, ge=1, le=1000),
@@ -67,6 +118,8 @@ async def get_devices(
     if status:
         conditions.append("status = ?")
         params.append(status.upper())
+
+    apply_snipe_status_type(conditions, status_type)
 
     if risk_level:
         levels = [x.strip().upper() for x in risk_level.split(",") if x.strip()]
@@ -496,6 +549,124 @@ async def transfer_device(req: DeviceTransferRequest, db = Depends(get_db)):
     }
 
 
+class AssetCheckoutRequest(BaseModel):
+    to_facility_id: int
+    checked_out_by: str = "Kỹ sư P.TTBYT"
+    notes: Optional[str] = None
+
+
+class AssetCheckinRequest(BaseModel):
+    checked_in_by: str = "Kỹ sư P.TTBYT"
+    notes: Optional[str] = None
+    to_facility_id: Optional[int] = None
+
+
+class BulkAssetActionRequest(BaseModel):
+    device_ids: List[int]
+    to_facility_id: Optional[int] = None
+    actor: Optional[str] = "Kỹ sư P.TTBYT"
+    notes: Optional[str] = None
+
+
+def _handover_device(db, device_id: int, to_facility_id: int, actor: str, reason: str, action: str):
+    cur = db.cursor()
+    row = db.execute(
+        "SELECT facility_id FROM devices WHERE id = ?",
+        (device_id,),
+    ).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+    from_id = row[0]
+    dest = db.execute("SELECT id, name FROM facilities WHERE id = ?", (to_facility_id,)).fetchone()
+    if not dest:
+        raise HTTPException(status_code=400, detail="Khoa phòng đích không tồn tại")
+    cur.execute(
+        "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?",
+        (to_facility_id, device_id),
+    )
+    today_str = date.today().isoformat()
+    has_transfers = db.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='device_transfers'"
+    ).fetchone()
+    if has_transfers:
+        cur.execute(
+            """
+            INSERT INTO device_transfers (device_id, from_facility_id, to_facility_id, giver_name, receiver_name, transfer_reason, transfer_date, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'COMPLETED')
+            """,
+            (device_id, from_id or to_facility_id, to_facility_id, actor, dest[1], reason, today_str),
+        )
+    cur.execute(
+        """
+        INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
+        VALUES (?, ?, ?, 'HANDOVER', ?)
+        """,
+        (device_id, today_str, actor, f"{action}: {reason}"),
+    )
+    db.commit()
+    return dest[1]
+
+
+@router.post("/api/devices/{device_id}/checkout")
+async def checkout_device(device_id: int, req: AssetCheckoutRequest, db = Depends(get_db)):
+    """Snipe-IT checkout: giao máy cho khoa/phòng."""
+    dest_name = _handover_device(
+        db,
+        device_id,
+        req.to_facility_id,
+        req.checked_out_by,
+        req.notes or "Checkout tài sản đến khoa",
+        "Checkout",
+    )
+    return {"status": "success", "message": f"Đã checkout thiết bị sang {dest_name}."}
+
+
+@router.post("/api/devices/{device_id}/checkin")
+async def checkin_device(device_id: int, req: AssetCheckinRequest, db = Depends(get_db)):
+    """Snipe-IT checkin: thu máy về kho TTBYT."""
+    dest_id = req.to_facility_id or resolve_warehouse_id(db)
+    if not dest_id:
+        raise HTTPException(status_code=400, detail="Chưa xác định được kho TTBYT để check-in")
+    dest_name = _handover_device(
+        db,
+        device_id,
+        dest_id,
+        req.checked_in_by,
+        req.notes or "Check-in về kho trang thiết bị",
+        "Check-in",
+    )
+    return {"status": "success", "message": f"Đã check-in thiết bị về {dest_name}."}
+
+
+@router.post("/api/devices/bulk/checkout")
+async def bulk_checkout_devices(req: BulkAssetActionRequest, db = Depends(get_db)):
+    if not req.to_facility_id:
+        raise HTTPException(status_code=400, detail="Cần chọn khoa nhận (to_facility_id)")
+    count = 0
+    for device_id in req.device_ids:
+        _handover_device(
+            db, device_id, req.to_facility_id, req.actor or "Kỹ sư P.TTBYT",
+            req.notes or "Bulk checkout", "Checkout",
+        )
+        count += 1
+    return {"status": "success", "count": count, "message": f"Đã checkout {count} thiết bị."}
+
+
+@router.post("/api/devices/bulk/checkin")
+async def bulk_checkin_devices(req: BulkAssetActionRequest, db = Depends(get_db)):
+    dest_id = req.to_facility_id or resolve_warehouse_id(db)
+    if not dest_id:
+        raise HTTPException(status_code=400, detail="Chưa xác định được kho TTBYT để check-in")
+    count = 0
+    for device_id in req.device_ids:
+        _handover_device(
+            db, device_id, dest_id, req.actor or "Kỹ sư P.TTBYT",
+            req.notes or "Bulk check-in", "Check-in",
+        )
+        count += 1
+    return {"status": "success", "count": count, "message": f"Đã check-in {count} thiết bị."}
+
+
 # ==================== DASHBOARD KPI & SPEEDMAINT METRICS ====================
 
 @router.get("/api/dashboard/summary")
@@ -504,15 +675,15 @@ async def get_dashboard_summary(db = Depends(get_db)):
     total = db.execute("SELECT COUNT(*) FROM devices").fetchone()[0]
     
     overdue = db.execute("""
-        SELECT COUNT(*) FROM device_status_summary WHERE alert_status = 'OVERDUE'
+        SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'OVERDUE'
     """).fetchone()[0]
     
     warning = db.execute("""
-        SELECT COUNT(*) FROM device_status_summary WHERE alert_status = 'WARNING'
+        SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'WARNING'
     """).fetchone()[0]
     
     ok = db.execute("""
-        SELECT COUNT(*) FROM device_status_summary WHERE alert_status = 'OK'
+        SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'OK'
     """).fetchone()[0]
     
     in_service = db.execute("""
@@ -527,6 +698,28 @@ async def get_dashboard_summary(db = Depends(get_db)):
         SELECT COUNT(DISTINCT device_id) FROM maintenance_logs 
         WHERE maintenance_type = 'INSPECTION' OR description LIKE '%KIỂM KÊ%'
     """).fetchone()[0]
+
+    rtd = db.execute(f"""
+        SELECT COUNT(DISTINCT id) FROM device_status_summary
+        WHERE status = 'IN_SERVICE' AND {WAREHOUSE_SQL}
+    """).fetchone()[0]
+    deployed = db.execute(f"""
+        SELECT COUNT(DISTINCT id) FROM device_status_summary
+        WHERE status = 'IN_SERVICE' AND NOT {WAREHOUSE_SQL}
+    """).fetchone()[0]
+    pending = db.execute("""
+        SELECT COUNT(DISTINCT id) FROM device_status_summary
+        WHERE status IN ('CALIBRATION_DUE', 'MAINTENANCE') OR alert_status = 'WARNING'
+    """).fetchone()[0]
+    undeployable = db.execute("""
+        SELECT COUNT(*) FROM devices WHERE status IN ('REPAIR', 'MAINTENANCE')
+    """).fetchone()[0]
+    archived = db.execute("""
+        SELECT COUNT(*) FROM devices WHERE status = 'RETIRED'
+    """).fetchone()[0]
+    no_data = db.execute("""
+        SELECT COUNT(DISTINCT id) FROM device_status_summary WHERE alert_status = 'NO_DATA'
+    """).fetchone()[0]
     
     avail_rate = round((in_service / total * 100), 1) if total > 0 else 100.0
     
@@ -539,8 +732,105 @@ async def get_dashboard_summary(db = Depends(get_db)):
         "repair_count": repair,
         "audited_count": audited,
         "availability_rate": avail_rate,
-        "compliance_rate": round(((ok) / (ok + overdue + warning) * 100), 1) if (ok + overdue + warning) > 0 else 100.0
+        "compliance_rate": round(((ok) / (ok + overdue + warning) * 100), 1) if (ok + overdue + warning) > 0 else 100.0,
+        "no_data_count": no_data,
+        "status_buckets": {
+            "all": total,
+            "rtd": rtd,
+            "deployed": deployed,
+            "pending": pending,
+            "undeployable": undeployable,
+            "archived": archived,
+            "overdue": overdue
+        }
     }
+
+
+@router.get("/api/dashboard/activity")
+async def get_dashboard_activity(limit: int = Query(20, ge=1, le=100), db = Depends(get_db)):
+    """Recent activity feed (Snipe-IT dashboard: checkout, checkin, inspection, maintenance)."""
+    events = []
+
+    def tag(device_id):
+        return f"BVQ7-TTB-{int(device_id):05d}"
+
+    try:
+        rows = db.execute(
+            """
+            SELECT t.id, t.transfer_date AS occurred_at, t.giver_name AS actor, t.transfer_reason AS detail,
+                   t.device_id, d.device_name, f1.name AS from_name, f2.name AS to_name
+            FROM device_transfers t
+            JOIN devices d ON t.device_id = d.id
+            LEFT JOIN facilities f1 ON t.from_facility_id = f1.id
+            LEFT JOIN facilities f2 ON t.to_facility_id = f2.id
+            ORDER BY t.id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        for r in rows:
+            events.append({
+                "type": "checkout",
+                "title": f"Điều chuyển {r['device_name']}",
+                "detail": f"{r['from_name'] or 'Kho'} → {r['to_name'] or '?'}",
+                "actor": r["actor"],
+                "occurred_at": r["occurred_at"],
+                "device_id": r["device_id"],
+                "asset_tag": tag(r["device_id"]),
+            })
+    except Exception:
+        pass
+
+    try:
+        rows = db.execute(
+            """
+            SELECT p.id, p.inspection_time AS occurred_at, p.inspector_name AS actor,
+                   p.overall_status AS detail, p.device_id, d.device_name
+            FROM pre_use_inspections p
+            JOIN devices d ON p.device_id = d.id
+            ORDER BY p.id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        for r in rows:
+            events.append({
+                "type": "inspection",
+                "title": f"Kiểm tra đầu ngày {r['device_name']}",
+                "detail": r["detail"] or "PASSED",
+                "actor": r["actor"],
+                "occurred_at": r["occurred_at"],
+                "device_id": r["device_id"],
+                "asset_tag": tag(r["device_id"]),
+            })
+    except Exception:
+        pass
+
+    try:
+        rows = db.execute(
+            """
+            SELECT l.id, l.maintenance_date AS occurred_at, l.performed_by AS actor,
+                   l.maintenance_type AS work_type, l.description AS detail,
+                   l.device_id, d.device_name
+            FROM maintenance_logs l
+            JOIN devices d ON l.device_id = d.id
+            ORDER BY l.id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        for r in rows:
+            events.append({
+                "type": (r["work_type"] or "maintenance").lower(),
+                "title": f"{r['work_type'] or 'Bảo trì'} · {r['device_name']}",
+                "detail": (r["detail"] or "")[:140],
+                "actor": r["actor"],
+                "occurred_at": r["occurred_at"],
+                "device_id": r["device_id"],
+                "asset_tag": tag(r["device_id"]),
+            })
+    except Exception:
+        pass
+
+    events.sort(key=lambda e: str(e.get("occurred_at") or ""), reverse=True)
+    return events[:limit]
 
 
 @router.get("/api/facilities")
@@ -618,6 +908,7 @@ async def export_devices_csv(
     facility_id: Optional[int] = None,
     category_id: Optional[int] = None,
     alert_status: Optional[str] = None,
+    status_type: Optional[str] = None,
     search: Optional[str] = None,
     risk_level: Optional[str] = None,
     db = Depends(get_db)
@@ -636,6 +927,7 @@ async def export_devices_csv(
     if alert_status:
         conditions.append("alert_status = ?")
         params.append(alert_status.upper())
+    apply_snipe_status_type(conditions, status_type)
     if risk_level:
         levels = [x.strip().upper() for x in risk_level.split(",") if x.strip()]
         if len(levels) == 1:

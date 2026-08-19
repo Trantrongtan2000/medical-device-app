@@ -12,6 +12,39 @@
 </head>
 <body>
     <a class="skip-link" href="#main-workspace">Bỏ qua điều hướng</a>
+
+    <header class="snipe-topbar" role="banner">
+        <div class="snipe-topbar-brand">
+            <button type="button" class="btn btn-sm btn-sidebar-toggle d-lg-none text-white border-0" id="btn-sidebar-toggle-top" aria-label="Mở menu">
+                <i class="bi bi-list fs-5"></i>
+            </button>
+            <img src="img/logo_pkta_q7.jpg" alt="Logo PKĐK Tâm Anh Quận 7">
+            <div>
+                <strong>Tâm Anh Q7 HTM</strong>
+                <span>Asset Management</span>
+            </div>
+        </div>
+        <form id="tag-lookup-form" class="snipe-tag-search" role="search">
+            <input type="search" id="tag-lookup-input" class="form-control" placeholder="Lookup by asset tag — BVQ7-TTB-00001" autocomplete="off">
+            <button type="submit">Go</button>
+        </form>
+        <div class="snipe-topbar-actions">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-plus-lg me-1"></i> Create
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#createDeviceModal"><i class="bi bi-hdd-network me-2"></i>Asset (nhập thiết bị)</button></li>
+                    <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal"><i class="bi bi-tools me-2"></i>Work order</button></li>
+                    <li><button class="dropdown-item" type="button" id="nav-create-checkout"><i class="bi bi-box-arrow-right me-2"></i>Checkout / điều chuyển</button></li>
+                </ul>
+            </div>
+            <div class="snipe-user-chip" title="Demo không yêu cầu đăng nhập">
+                <i class="bi bi-person-circle"></i> Admin · P.TTBYT
+            </div>
+        </div>
+    </header>
+
     <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
     <div class="app-layout">
@@ -42,14 +75,32 @@
             </div>
 
             <ul class="nav flex-column sidebar-nav" id="sidebarMenu" role="tablist">
-                <li class="nav-section-label">Vận hành lâm sàng</li>
+                <li class="nav-section-label">Tổng quan</li>
                 <li class="nav-item">
-                    <button class="nav-link active" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Thiết bị &amp; phụ kiện</span>
+                    <button class="nav-link active" id="btn-tab-dashboard" data-bs-toggle="pill" data-bs-target="#tab-dashboard" type="button">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
+                        <i class="bi bi-hdd-network-fill"></i>
+                        <span>Assets</span>
                         <span class="badge bg-primary rounded-pill font-mono" id="nav-badge-total">--</span>
                     </button>
                 </li>
+                <li>
+                    <ul class="sidebar-subnav" id="asset-status-nav">
+                        <li><button type="button" class="nav-link" data-status-type=""><span>List All</span> <span class="count ms-auto" id="bucket-all">--</span></button></li>
+                        <li><button type="button" class="nav-link" data-status-type="rtd"><span>Ready to Deploy</span> <span class="count ms-auto" id="bucket-rtd">--</span></button></li>
+                        <li><button type="button" class="nav-link" data-status-type="deployed"><span>Deployed</span> <span class="count ms-auto" id="bucket-deployed">--</span></button></li>
+                        <li><button type="button" class="nav-link" data-status-type="pending"><span>Pending</span> <span class="count ms-auto" id="bucket-pending">--</span></button></li>
+                        <li><button type="button" class="nav-link" data-status-type="undeployable"><span>Undeployable</span> <span class="count ms-auto" id="bucket-undeployable">--</span></button></li>
+                        <li><button type="button" class="nav-link" data-status-type="archived"><span>Archived</span> <span class="count ms-auto" id="bucket-archived">--</span></button></li>
+                        <li><button type="button" class="nav-link" data-status-type="overdue"><span>Quá hạn KĐ</span> <span class="count ms-auto" id="bucket-overdue">--</span></button></li>
+                    </ul>
+                </li>
+                <li class="nav-section-label">Vận hành lâm sàng</li>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-inspections" data-bs-toggle="pill" data-bs-target="#tab-inspections" type="button">
                         <i class="bi bi-shield-check"></i>
@@ -122,9 +173,9 @@
                         <i class="bi bi-list fs-5"></i>
                     </button>
                     <div class="min-w-0">
-                        <div class="page-kicker" id="page-kicker">Danh mục tài sản</div>
+                        <div class="page-kicker" id="page-kicker">Tổng quan</div>
                         <h5 class="mb-0 fw-bold text-dark text-truncate" id="page-heading">
-                            <i class="bi bi-grid-fill text-primary me-2"></i>Thiết bị y tế &amp; cấu kiện phụ kiện
+                            <i class="bi bi-speedometer2 text-primary me-2"></i>Dashboard
                         </h5>
                     </div>
                 </div>
@@ -148,8 +199,87 @@
             <div class="workspace">
                 <div class="tab-content" id="mainTabContent">
 
-                    <!-- TAB 1: MASTER ASSET CATALOG & ACCESSORIES -->
-                    <div class="tab-pane fade show active" id="tab-devices" role="tabpanel">
+                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel">
+                        <div class="row g-3 mb-3">
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <button type="button" class="kpi-card kpi-accent-total d-flex align-items-center gap-3 w-100 text-start" data-open-assets="">
+                                    <div class="kpi-icon bg-primary-subtle text-primary"><i class="bi bi-hdd-network"></i></div>
+                                    <div>
+                                        <div class="kpi-label">Assets</div>
+                                        <div class="kpi-value font-mono text-dark" id="dash-total">--</div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <button type="button" class="kpi-card kpi-accent-ok d-flex align-items-center gap-3 w-100 text-start" data-open-assets="deployed">
+                                    <div class="kpi-icon bg-success-subtle text-success"><i class="bi bi-box-arrow-in-right"></i></div>
+                                    <div>
+                                        <div class="kpi-label">Deployed</div>
+                                        <div class="kpi-value font-mono text-success" id="dash-deployed">--</div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <button type="button" class="kpi-card kpi-accent-warn d-flex align-items-center gap-3 w-100 text-start" data-open-assets="pending">
+                                    <div class="kpi-icon bg-warning-subtle text-warning"><i class="bi bi-hourglass-split"></i></div>
+                                    <div>
+                                        <div class="kpi-label">Pending</div>
+                                        <div class="kpi-value font-mono text-dark" id="dash-pending">--</div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <button type="button" class="kpi-card kpi-accent-overdue d-flex align-items-center gap-3 w-100 text-start" data-open-assets="overdue">
+                                    <div class="kpi-icon bg-danger-subtle text-danger"><i class="bi bi-exclamation-octagon"></i></div>
+                                    <div>
+                                        <div class="kpi-label">Quá hạn KĐ</div>
+                                        <div class="kpi-value font-mono text-danger" id="dash-overdue">--</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-lg-7">
+                                <div class="clinical-card p-3 h-100">
+                                    <h6 class="section-title text-dark mb-1"><i class="bi bi-activity text-primary me-2"></i>Recent Activity</h6>
+                                    <p class="text-muted small mb-2">Checkout, check-in, kiểm tra đầu ngày và bảo trì — giống feed trên demo Snipe-IT.</p>
+                                    <div id="activity-feed">
+                                        <div class="text-muted small py-3">Đang tải hoạt động gần đây...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="clinical-card p-3 mb-3">
+                                    <h6 class="section-title text-dark mb-2">Assets by Status</h6>
+                                    <div class="status-meter mb-2" id="status-meter" aria-hidden="true"></div>
+                                    <div id="status-legend" class="small"></div>
+                                </div>
+                                <div class="clinical-card p-3">
+                                    <h6 class="section-title text-dark mb-2">Locations</h6>
+                                    <div class="table-responsive" style="max-height: 260px;">
+                                        <table class="table table-sm table-hover mb-0">
+                                            <thead class="table-light"><tr><th>Khoa / phòng</th><th class="text-end">Assets</th></tr></thead>
+                                            <tbody id="dash-locations-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="clinical-card p-3">
+                                    <h6 class="section-title text-dark mb-2">Categories</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover mb-0">
+                                            <thead class="table-light"><tr><th>Nhóm thiết bị</th><th>Mức an toàn</th><th class="text-end">Assets</th></tr></thead>
+                                            <tbody id="dash-categories-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: MASTER ASSET CATALOG -->
+                    <div class="tab-pane fade" id="tab-devices" role="tabpanel">
                         
                         <div class="row g-3 mb-3">
                             <div class="col-lg-3 col-md-6 col-6">
@@ -261,24 +391,56 @@
                         </div>
 
                         <div class="clinical-card p-0 overflow-hidden">
+                            <div class="snipe-toolbar">
+                                <div class="d-flex flex-wrap gap-1">
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDeviceModal"><i class="bi bi-plus-lg me-1"></i>Create New</button>
+                                    <button type="button" class="btn btn-sm btn-checkout" id="btn-bulk-checkout"><i class="bi bi-box-arrow-right me-1"></i>Checkout</button>
+                                    <button type="button" class="btn btn-sm btn-checkin" id="btn-bulk-checkin"><i class="bi bi-box-arrow-in-left me-1"></i>Checkin</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-export-csv-table"><i class="bi bi-download me-1"></i>Export</button>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Columns">
+                                        <i class="bi bi-layout-three-columns"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end p-2" id="column-picker" style="min-width: 180px;">
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="image" checked> Image</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="asset_tag" checked> Asset Tag</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="name" checked> Name</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="serial" checked> Serial</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="model" checked> Model</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="category" checked> Category</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="status" checked> Status</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="assigned" checked> Checked out to</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="due" checked> Next audit</label>
+                                        <label class="dropdown-item-text small"><input type="checkbox" data-col="risk"> Risk</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bulk-bar" id="bulk-bar">
+                                <strong id="bulk-count">0</strong> selected
+                                <button type="button" class="btn btn-sm btn-checkout" id="btn-bulk-checkout-2">Checkout</button>
+                                <button type="button" class="btn btn-sm btn-checkin" id="btn-bulk-checkin-2">Checkin</button>
+                            </div>
                             <div class="table-responsive" style="max-height: calc(100dvh - 360px);">
-                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
-                                    <thead class="table-light sticky-top border-bottom">
+                                <table class="table table-hover align-middle mb-0 snipe-table">
+                                    <thead class="sticky-top border-bottom">
                                         <tr>
-                                            <th class="ps-3" style="width: 128px;">Mã tài sản</th>
-                                            <th>Tên thiết bị / model</th>
-                                            <th>Serial</th>
-                                            <th>Khoa / vị trí</th>
-                                            <th class="text-center">Rủi ro</th>
-                                            <th>Hạn kiểm định</th>
-                                            <th class="text-center">Cảnh báo</th>
-                                            <th class="pe-3 text-end" style="width: 110px;">Thao tác</th>
+                                            <th class="ps-3" style="width:36px;"><input type="checkbox" id="select-all-assets" aria-label="Chọn tất cả"></th>
+                                            <th data-col="image" style="width:40px;"></th>
+                                            <th data-col="asset_tag">Asset Tag</th>
+                                            <th data-col="name">Name</th>
+                                            <th data-col="serial">Serial</th>
+                                            <th data-col="model">Model</th>
+                                            <th data-col="category">Category</th>
+                                            <th data-col="status">Status</th>
+                                            <th data-col="assigned">Checked out to</th>
+                                            <th data-col="due">Next audit</th>
+                                            <th data-col="risk" class="col-hidden">Risk</th>
+                                            <th class="pe-3 text-end">Checkin/Checkout</th>
                                         </tr>
                                     </thead>
                                     <tbody id="device-table-body">
-                                        <tr class="skeleton-row"><td colspan="8"><span class="skeleton" style="width: 70%;"></span></td></tr>
-                                        <tr class="skeleton-row"><td colspan="8"><span class="skeleton" style="width: 55%;"></span></td></tr>
-                                        <tr class="skeleton-row"><td colspan="8"><span class="skeleton" style="width: 62%;"></span></td></tr>
+                                        <tr class="skeleton-row"><td colspan="12"><span class="skeleton" style="width: 70%;"></span></td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -790,8 +952,14 @@
                 <!-- Footer Actions -->
                 <div class="modal-footer bg-light px-4 py-3 border-top d-flex justify-content-between flex-wrap gap-2">
                     <div class="d-flex flex-wrap gap-2">
+                        <button type="button" class="btn btn-checkout btn-clinical" id="modal-btn-checkout">
+                            <i class="bi bi-box-arrow-right me-1"></i> Checkout
+                        </button>
+                        <button type="button" class="btn btn-checkin btn-clinical" id="modal-btn-checkin">
+                            <i class="bi bi-box-arrow-in-left me-1"></i> Checkin
+                        </button>
                         <button type="button" class="btn btn-outline-primary btn-clinical" id="modal-btn-transfer">
-                            <i class="bi bi-arrow-left-right me-1"></i> Lập phiếu điều chuyển
+                            <i class="bi bi-arrow-left-right me-1"></i> QT.08
                         </button>
                         <button type="button" class="btn btn-outline-secondary btn-clinical" id="modal-btn-wo">
                             <i class="bi bi-tools me-1"></i> Tạo phiếu bảo trì
@@ -963,6 +1131,41 @@
                         <button type="submit" class="btn btn-primary btn-clinical fw-bold" id="cd-submit">
                             <i class="bi bi-check2-circle me-1"></i> Lưu hồ sơ thiết bị
                         </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-success text-white">
+                    <h6 class="modal-title fw-bold"><i class="bi bi-box-arrow-right me-2"></i>Checkout Asset</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="checkoutForm">
+                    <div class="modal-body">
+                        <p class="small text-muted mb-2" id="checkout-asset-label">Chọn khoa nhận để giao máy (Snipe-IT checkout → location).</p>
+                        <input type="hidden" id="checkout-device-ids">
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold" for="checkout-facility">Checkout to location (*)</label>
+                            <select id="checkout-facility" class="form-select form-select-sm" required></select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold" for="checkout-actor">Checked out by</label>
+                            <input type="text" id="checkout-actor" class="form-control form-control-sm" value="Kỹ sư P.TTBYT">
+                        </div>
+                        <div>
+                            <label class="form-label small fw-bold" for="checkout-notes">Notes</label>
+                            <textarea id="checkout-notes" class="form-control form-control-sm" rows="2" placeholder="Lý do giao máy / điều chuyển"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-checkout">Checkout</button>
                     </div>
                 </form>
             </div>

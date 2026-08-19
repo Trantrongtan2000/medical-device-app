@@ -36,6 +36,7 @@ const apiClient = {
         if (filters.category_id) params.append('category_id', filters.category_id);
         if (filters.alert_status) params.append('alert_status', filters.alert_status);
         if (filters.status) params.append('status', filters.status);
+        if (filters.status_type) params.append('status_type', filters.status_type);
         if (filters.risk_level) params.append('risk_level', filters.risk_level);
         if (filters.search) params.append('search', filters.search);
         if (filters.limit) params.append('limit', filters.limit);
@@ -92,6 +93,38 @@ const apiClient = {
             method: 'POST',
             body: JSON.stringify(data)
         });
+    },
+
+    async checkoutDevice(deviceId, data) {
+        return this.request(`/api/devices/${deviceId}/checkout`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
+    async checkinDevice(deviceId, data = {}) {
+        return this.request(`/api/devices/${deviceId}/checkin`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
+    async bulkCheckout(data) {
+        return this.request('/api/devices/bulk/checkout', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
+    async bulkCheckin(data) {
+        return this.request('/api/devices/bulk/checkin', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+
+    async getActivity(limit = 20) {
+        return this.request(`/api/dashboard/activity?limit=${limit}`);
     },
 
     // Dashboard KPI
@@ -172,6 +205,7 @@ const apiClient = {
         if (filters.alert_status) params.append('alert_status', filters.alert_status);
         if (filters.risk_level) params.append('risk_level', filters.risk_level);
         if (filters.search) params.append('search', filters.search);
+        if (filters.status_type) params.append('status_type', filters.status_type);
         return `/api/export/csv?${params.toString()}`;
     },
 
