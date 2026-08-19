@@ -288,11 +288,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     provBox.innerHTML = `
                         <div class="mb-2"><strong class="text-primary">${prov.device_name}</strong> (Model: ${prov.model})</div>
                         <ul class="list-unstyled mb-0">
-                            ${prov.causal_provenance_chain.map(p => `
-                                <li class="p-2 mb-1 bg-white border rounded">
-                                    <span class="badge bg-primary me-2">${p.step}</span>
-                                    <strong>${p.relation}</strong>: ${p.target}
-                                    <div class="text-muted" style="font-size: 0.74rem;">${p.evidence}</div>
+                            ${prov.causal_provenance_chain.map((p, idx) => `
+                                <li class="p-2 mb-2 bg-white border rounded shadow-sm">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge bg-primary font-mono">BƯỚC ${idx + 1}</span>
+                                        <span class="fw-bold text-dark">${typeof p === 'string' ? p : (p.step + ': ' + p.relation)}</span>
+                                    </div>
                                 </li>
                             `).join('')}
                         </ul>
@@ -506,11 +507,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="font-mono small text-muted mb-3">Asset Tag: ${data.asset_tag} | Serial: ${data.serial_no}</div>
                     <h6 class="fw-bold small text-dark mb-2">Chuỗi Giải Trình W3C PROV-O (Không Ảo Tưởng):</h6>
                     <ul class="list-unstyled mb-0" style="font-size: 0.82rem;">
-                        ${data.causal_provenance_chain.map(p => `
-                            <li class="p-2 mb-1 bg-white border rounded">
-                                <span class="badge bg-primary me-2">${p.step}</span>
-                                <strong>${p.relation}</strong>: ${p.target}
-                                <div class="text-muted" style="font-size: 0.74rem;">${p.evidence}</div>
+                        ${data.causal_provenance_chain.map((p, idx) => `
+                            <li class="p-2 mb-2 bg-white border rounded shadow-sm">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-primary font-mono">BƯỚC ${idx + 1}</span>
+                                    <span class="fw-bold text-dark">${typeof p === 'string' ? p : (p.step + ': ' + p.relation)}</span>
+                                </div>
                             </li>
                         `).join('')}
                     </ul>
