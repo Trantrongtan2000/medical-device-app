@@ -32,22 +32,43 @@ PDF_ROOT_DIRS = [
 ]
 
 
+WAREHOUSE_SQL = (
+    "(facility_id IS NULL OR facility LIKE '%Kho Lưu%' "
+    "OR facility LIKE '%Trang Thiết Bị Y Tế%' OR facility LIKE '%Chờ Cấp Phát%' "
+    "OR facility LIKE '%Chưa%')"
+)
+
+
 def apply_snipe_status_type(conditions, status_type: Optional[str]):
     if not status_type:
         return
-    st = status_type.strip().lower()
+    st = status_type.strip().lower().replace(" ", "_")
     if st in ("rtd", "ready", "ready_to_deploy"):
-        conditions.append("status IN ('IN_SERVICE', 'STANDBY') AND (facility IS NULL OR facility = '' OR facility LIKE '%Kho%' OR facility LIKE '%Chưa%')")
+        conditions.append(f"status = 'IN_SERVICE' AND {WAREHOUSE_SQL}")
     elif st in ("deployed", "assigned"):
-        conditions.append("status = 'IN_SERVICE' AND (facility IS NOT NULL AND facility != '' AND facility NOT LIKE '%Kho%' AND facility NOT LIKE '%Chưa%')")
+        conditions.append(f"status = 'IN_SERVICE' AND NOT {WAREHOUSE_SQL}")
     elif st in ("pending", "in_service"):
         conditions.append("status = 'IN_SERVICE'")
     elif st in ("undeployable", "repair", "broken"):
-        conditions.append("status IN ('MAINTENANCE', 'REPAIRING')")
+        conditions.append("status IN ('MAINTENANCE', 'REPAIR')")
     elif st in ("archived", "disposed"):
-        conditions.append("status = 'DISPOSED'")
+        conditions.append("status = 'RETIRED'")
     elif st in ("overdue", "due", "calibration_overdue"):
         conditions.append("alert_status IN ('OVERDUE', 'WARNING')")
+
+
+def resolve_warehouse_id(db) -> Optional[int]:
+    row = db.execute(
+        """
+        SELECT id FROM facilities
+        WHERE code IN ('KHO', 'TTBYT')
+           OR name LIKE '%Kho Lưu%'
+           OR name LIKE '%Trang Thiết Bị Y Tế%'
+        ORDER BY CASE WHEN code = 'KHO' THEN 0 WHEN code = 'TTBYT' THEN 1 ELSE 2 END, id
+        LIMIT 1
+        """
+    ).fetchone()
+    return row[0] if row else None
 
 class DeviceCheckoutRequest(BaseModel):
     target_type: str = "facility"  # "facility" or "user"
@@ -986,8 +1007,8 @@ async def checkout_single_device(device_id: int, req: DeviceCheckoutRequest, db 
     actor = (req.assigned_to_name or "").strip() or "Bàn giao lâm sàng"
 
     db.execute(
-        "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE', updated_at = ? WHERE id = ?",
-        (dest_facility_id, datetime.now(), device_id),
+        "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?",
+        (dest_facility_id, device_id),
     )
 
     fac_row = db.execute("SELECT name FROM facilities WHERE id = ?", (dest_facility_id,)).fetchone() if dest_facility_id else None
@@ -996,9 +1017,9 @@ async def checkout_single_device(device_id: int, req: DeviceCheckoutRequest, db 
     db.execute(
         """
         INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
-        VALUES (?, 'CHECKOUT', ?, ?, ?)
+        VALUES (?, 'HANDOVER', ?, ?, ?)
         """,
-        (device_id, checkout_date, actor, f"Bàn giao tới: {fac_name}. Ghi chú: {req.note or 'Sử dụng tại khoa'}")
+        (device_id, checkout_date, actor, f"Checkout / bàn giao tới: {fac_name}. Ghi chú: {req.note or 'Sử dụng tại khoa'}")
     )
     db.commit()
 
@@ -1013,23 +1034,29 @@ async def checkin_single_device(device_id: int, req: DeviceCheckinRequest, db = 
         raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
 
     checkin_date = req.checkin_date or date.today().isoformat()
-    dest_fac = req.target_facility_id
+    dest_fac = req.target_facility_id or resolve_warehouse_id(db)
 
     db.execute(
-        "UPDATE devices SET facility_id = ?, status = 'STANDBY', updated_at = ? WHERE id = ?",
-        (dest_fac, datetime.now(), device_id),
+        "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?",
+        (dest_fac, device_id),
     )
+
+    dest_name = "Kho dự phòng"
+    if dest_fac:
+        fac_row = db.execute("SELECT name FROM facilities WHERE id = ?", (dest_fac,)).fetchone()
+        if fac_row:
+            dest_name = fac_row["name"]
 
     db.execute(
         """
         INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
-        VALUES (?, 'CHECKIN', ?, 'Phòng TTBYT', ?)
+        VALUES (?, 'HANDOVER', ?, 'Phòng TTBYT', ?)
         """,
-        (device_id, checkin_date, f"Thu hồi về kho / Hoàn trả. Ghi chú: {req.note or 'Nhập kho dự phòng'}")
+        (device_id, checkin_date, f"Check-in / thu hồi về {dest_name}. Ghi chú: {req.note or 'Nhập kho dự phòng'}")
     )
     db.commit()
 
-    return {"status": "success", "message": f"Đã thu hồi {dev['device_name']} về kho dự phòng thành công"}
+    return {"status": "success", "message": f"Đã thu hồi {dev['device_name']} về {dest_name}"}
 
 
 @router.post("/api/devices/bulk-checkout")
@@ -1044,15 +1071,15 @@ async def bulk_checkout_devices(req: BulkCheckoutRequest, db = Depends(get_db)):
 
     for did in req.device_ids:
         db.execute(
-            "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE', updated_at = ? WHERE id = ?",
-            (req.facility_id, datetime.now(), did),
+            "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?",
+            (req.facility_id, did),
         )
         db.execute(
             """
             INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
-            VALUES (?, 'CHECKOUT', ?, ?, ?)
+            VALUES (?, 'HANDOVER', ?, ?, ?)
             """,
-            (did, checkout_date, actor, f"Bàn giao hàng loạt. Ghi chú: {req.note or 'Phân bổ theo kế hoạch'}")
+            (did, checkout_date, actor, f"Bulk checkout. Ghi chú: {req.note or 'Phân bổ theo kế hoạch'}")
         )
         count += 1
 
@@ -1066,20 +1093,21 @@ async def bulk_checkin_devices(req: BulkCheckinRequest, db = Depends(get_db)):
     if not req.device_ids:
         raise HTTPException(status_code=400, detail="Danh sách thiết bị trống")
 
+    dest_fac = req.target_facility_id or resolve_warehouse_id(db)
     count = 0
     checkin_date = req.checkin_date or date.today().isoformat()
 
     for did in req.device_ids:
         db.execute(
-            "UPDATE devices SET facility_id = ?, status = 'STANDBY', updated_at = ? WHERE id = ?",
-            (req.target_facility_id, datetime.now(), did),
+            "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE' WHERE id = ?",
+            (dest_fac, did),
         )
         db.execute(
             """
             INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
-            VALUES (?, 'CHECKIN', ?, 'Phòng TTBYT', ?)
+            VALUES (?, 'HANDOVER', ?, 'Phòng TTBYT', ?)
             """,
-            (did, checkin_date, f"Thu hồi hàng loạt về kho. Ghi chú: {req.note or 'Nhập kho'}")
+            (did, checkin_date, f"Bulk check-in. Ghi chú: {req.note or 'Nhập kho'}")
         )
         count += 1
 

@@ -388,6 +388,7 @@ body {
 
 /* ==================== TASTE-SKILL SIDEBAR GROUP HEADERS ==================== */
 .sidebar-section-header {
+    list-style: none;
     font-size: 0.68rem;
     font-weight: 800;
     text-transform: uppercase;

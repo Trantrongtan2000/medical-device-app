@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             await this.loadECarts();
             await this.loadWorkOrders();
             await this.loadSemanticaStats();
+            await this.loadActivityFeed();
 
             // Render default diagram
             if (window.DiagramEngine) {
@@ -155,6 +156,12 @@ document.addEventListener('DOMContentLoaded', function () {
             this.setupKanbanForm();
         },
 
+        escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[ch]));
+        },
+
         saveKanbanState() {
             localStorage.setItem('tamanh_kanban_tasks', JSON.stringify(this.kanbanTasks));
         },
@@ -175,8 +182,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const counts = { todo: 0, inprog: 0, review: 0, done: 0 };
 
             this.kanbanTasks.forEach(task => {
-                const targetCol = cols[task.col] || cols.todo;
-                counts[task.col = task.col || 'todo']++;
+                const colKey = task.col || 'todo';
+                task.col = colKey;
+                const targetCol = cols[colKey] || cols.todo;
+                counts[colKey] = (counts[colKey] || 0) + 1;
 
                 let borderClass = 'border-primary';
                 let pBadgeClass = 'bg-primary text-white';
@@ -197,19 +206,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 cardEl.innerHTML = `
                     <div class="d-flex justify-content-between align-items-start mb-1">
-                        <span class="badge ${pBadgeClass} font-mono" style="font-size: 0.7rem;">${task.priority}</span>
+                        <span class="badge ${pBadgeClass} font-mono" style="font-size: 0.7rem;">${this.escapeHtml(task.priority)}</span>
                         <div class="d-flex align-items-center gap-1">
-                            <span class="text-muted font-mono" style="font-size: 0.7rem;">${task.type}</span>
+                            <span class="text-muted font-mono" style="font-size: 0.7rem;">${this.escapeHtml(task.type)}</span>
                             <button class="btn btn-sm btn-link p-0 text-muted kanban-card-actions" onclick="event.stopPropagation(); app.deleteKanbanTask('${task.id}')" title="Xóa thẻ">
                                 <i class="bi bi-x"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="kanban-card-title ${isDone ? 'text-decoration-line-through text-muted' : ''}">${task.title}</div>
-                    <div class="kanban-card-meta mb-1">${task.meta}</div>
+                    <div class="kanban-card-title ${isDone ? 'text-decoration-line-through text-muted' : ''}">${this.escapeHtml(task.title)}</div>
+                    <div class="kanban-card-meta mb-1">${this.escapeHtml(task.meta)}</div>
                     <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
-                        <span class="text-muted"><i class="bi bi-person me-1"></i>${task.assignee || 'P.TTBYT'}</span>
-                        <span class="${task.priority === 'Khẩn cấp' ? 'text-danger fw-bold' : (isDone ? 'text-success fw-bold' : 'text-primary')}">${task.deadline || ''}</span>
+                        <span class="text-muted"><i class="bi bi-person me-1"></i>${this.escapeHtml(task.assignee || 'P.TTBYT')}</span>
+                        <span class="${task.priority === 'Khẩn cấp' ? 'text-danger fw-bold' : (isDone ? 'text-success fw-bold' : 'text-primary')}">${this.escapeHtml(task.deadline || '')}</span>
                     </div>
                     <!-- Quick Move Controls -->
                     <div class="d-flex justify-content-end gap-1 mt-2 pt-1 border-top kanban-card-actions">
@@ -409,8 +418,14 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // ==================== SNIPE-IT CHECKOUT & CHECKIN METHODS ====================
         openCheckoutModal(deviceId) {
-            const dev = this.devices.find(d => d.id === deviceId);
-            if (!dev) return;
+            const dev = this.devices.find(d => d.id === deviceId) || this.currentSelectedDevice;
+            if (!dev || Number(dev.id) !== Number(deviceId)) {
+                fetch(`/api/devices/${deviceId}`).then(r => r.json()).then(full => {
+                    this.currentSelectedDevice = full;
+                    this.openCheckoutModal(deviceId);
+                }).catch(() => alert('Không tải được hồ sơ thiết bị để checkout.'));
+                return;
+            }
 
             document.getElementById('checkout-dev-id').value = dev.id;
             document.getElementById('checkout-dev-name').textContent = dev.device_name;
@@ -443,6 +458,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 alert('✅ ' + result.message);
                 this.loadDevices();
+                this.loadActivityFeed();
             } catch (err) {
                 alert('❌ Lỗi thu hồi: ' + err.message);
             }
@@ -474,6 +490,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('✅ ' + result.message);
                     bootstrap.Modal.getInstance(document.getElementById('checkoutDeviceModal'))?.hide();
                     this.loadDevices();
+                    this.loadActivityFeed();
                 } catch (err) {
                     alert('❌ Lỗi bàn giao: ' + err.message);
                 }
@@ -493,6 +510,39 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             });
+        },
+
+        async loadActivityFeed() {
+            const tbody = document.getElementById('overview-activity-tbody');
+            if (!tbody) return;
+            try {
+                const res = await fetch('/api/dashboard/activity?limit=12');
+                if (!res.ok) return;
+                const events = await res.json();
+                if (!Array.isArray(events) || !events.length) return;
+                const badge = (type) => {
+                    const t = String(type || '').toLowerCase();
+                    if (t.includes('inspect')) return 'bg-primary';
+                    if (t.includes('checkin')) return 'bg-warning text-dark';
+                    if (t.includes('checkout') || t.includes('handover')) return 'bg-success';
+                    if (t.includes('repair')) return 'bg-danger';
+                    return 'bg-secondary';
+                };
+                tbody.innerHTML = events.map(ev => `
+                    <tr>
+                        <td class="font-mono text-muted small">${this.escapeHtml(ev.occurred_at || '')}</td>
+                        <td><span class="badge ${badge(ev.type)} font-mono">${this.escapeHtml(ev.type || 'HTM')}</span></td>
+                        <td>
+                            <strong>${this.escapeHtml(ev.title || '')}</strong>
+                            <div class="text-muted font-mono" style="font-size:0.72rem;">${this.escapeHtml(ev.asset_tag || '')}</div>
+                        </td>
+                        <td>${this.escapeHtml(ev.actor || 'P.TTBYT')}</td>
+                        <td class="text-center"><span class="badge bg-light text-dark border">${this.escapeHtml((ev.detail || '').slice(0, 48) || 'OK')}</span></td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error('Activity feed failed', err);
+            }
         },
 
         setupNavigation() {
@@ -682,6 +732,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             </td>
                             <td class="pe-3 text-end" onclick="event.stopPropagation()">
                                 <div class="d-flex justify-content-end gap-1">
+                                    <button class="btn btn-sm btn-success btn-clinical" onclick="app.openCheckoutModal(${d.id})" title="Checkout / bàn giao">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.checkinDevice(${d.id})" title="Checkin về kho">
+                                        <i class="bi bi-box-arrow-in-left"></i>
+                                    </button>
                                     <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
                                         <i class="bi bi-eye"></i> Chi tiết
                                     </button>
@@ -712,6 +768,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!devRes.ok) throw new Error("Không thể tải thông tin thiết bị");
 
                 const dev = await devRes.json();
+                this.currentSelectedDevice = dev;
                 const accessories = accRes.ok ? await accRes.json() : [];
                 const prov = provRes.ok ? await provRes.json() : null;
 
@@ -836,6 +893,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // Setup footer action buttons
+                const btnCheckout = document.getElementById('modal-btn-checkout');
+                if (btnCheckout) {
+                    btnCheckout.onclick = () => {
+                        bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+                        this.openCheckoutModal(deviceId);
+                    };
+                }
+                const btnCheckin = document.getElementById('modal-btn-checkin');
+                if (btnCheckin) {
+                    btnCheckin.onclick = () => {
+                        bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+                        this.checkinDevice(deviceId);
+                    };
+                }
+
                 const btnTr = document.getElementById('modal-btn-transfer');
                 if (btnTr) {
                     btnTr.onclick = () => {

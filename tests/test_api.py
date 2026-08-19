@@ -47,3 +47,73 @@ def test_speedmaint_work_orders():
 def test_semantica_provenance():
     response = client.get("/api/semantica/provenance/1125")
     assert response.status_code in [200, 404]
+
+
+def test_dashboard_and_kanban_markup():
+    html = client.get("/").text
+    assert "kanban-col-todo" in html
+    assert "kanban-col-inprog" in html
+    assert "kanban-col-review" in html
+    assert "kanban-col-done" in html
+    assert "createKanbanTaskModal" in html
+    assert 'data-bs-target="#createKanbanTaskModal"' in html
+    assert "Ctrl+K" in html
+    assert 'id="search-input"' in html
+    assert "checkoutDeviceModal" in html
+    assert "overview-activity-tbody" in html
+
+
+def test_dashboard_activity_feed():
+    response = client.get("/api/dashboard/activity?limit=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+
+
+def test_status_type_warehouse_not_matching_khoa():
+    """LIKE '%Kho%' must not treat 'Khoa Cấp Cứu' as warehouse / Ready to Deploy."""
+    rtd = client.get("/api/devices?limit=50&status_type=rtd").json()
+    names = " ".join((d.get("facility") or "") for d in rtd)
+    assert "Khoa Cấp Cứu" not in names
+    deployed = client.get("/api/devices?limit=20&status_type=deployed").json()
+    assert len(deployed) > 0
+
+
+def test_checkout_checkin_roundtrip():
+    listing = client.get("/api/devices?limit=1").json()
+    assert listing
+    device_id = listing[0]["id"]
+    orig_facility = listing[0].get("facility_id")
+
+    facilities = client.get("/api/dashboard/facilities").json()
+    assert facilities
+    dest = next((f for f in facilities if f["id"] != orig_facility), facilities[0])
+
+    checkout = client.post(
+        f"/api/devices/{device_id}/checkout",
+        json={
+            "facility_id": dest["id"],
+            "assigned_to_name": "Pytest Agent",
+            "note": "pytest checkout",
+        },
+    )
+    assert checkout.status_code == 200, checkout.text
+    assert checkout.json().get("status") == "success"
+
+    checkin = client.post(
+        f"/api/devices/{device_id}/checkin",
+        json={"note": "pytest checkin"},
+    )
+    assert checkin.status_code == 200, checkin.text
+    assert checkin.json().get("status") == "success"
+
+    if orig_facility:
+        restore = client.post(
+            f"/api/devices/{device_id}/checkout",
+            json={
+                "facility_id": orig_facility,
+                "assigned_to_name": "Pytest Agent",
+                "note": "restore original location",
+            },
+        )
+        assert restore.status_code == 200, restore.text
