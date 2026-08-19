@@ -265,6 +265,60 @@ class SemanticaMedicalGraph:
             "provenance_standard": "W3C PROV-O Compliant"
         }
 
+
+    def get_node(self, node_id: str) -> Optional[Dict[str, Any]]:
+        """Lấy thông tin chi tiết của 1 Node trong đồ thị tri thức"""
+        node = self.nodes.get(node_id)
+        if not node:
+            return None
+        return {
+            "id": node.id,
+            "type": node.type,
+            "label": node.label,
+            "properties": node.properties
+        }
+
+    def get_neighbors(self, node_id: str, depth: int = 1) -> Dict[str, Any]:
+        """Lấy danh sách các Node láng giềng k-hop quanh Node mục tiêu"""
+        if node_id not in self.nodes:
+            return {"error": f"Node {node_id} not found"}
+        
+        visited_nodes = {node_id}
+        result_nodes = [self.nodes[node_id]]
+        result_edges = []
+
+        current_frontier = {node_id}
+        for _ in range(depth):
+            next_frontier = set()
+            for curr in current_frontier:
+                for e in self.edges:
+                    if e.source == curr:
+                        result_edges.append(e)
+                        if e.target not in visited_nodes and e.target in self.nodes:
+                            visited_nodes.add(e.target)
+                            result_nodes.append(self.nodes[e.target])
+                            next_frontier.add(e.target)
+                    elif e.target == curr:
+                        result_edges.append(e)
+                        if e.source not in visited_nodes and e.source in self.nodes:
+                            visited_nodes.add(e.source)
+                            result_nodes.append(self.nodes[e.source])
+                            next_frontier.add(e.source)
+            current_frontier = next_frontier
+
+        return {
+            "center_node": node_id,
+            "depth": depth,
+            "total_nodes": len(result_nodes),
+            "total_edges": len(result_edges),
+            "nodes": [{"id": n.id, "type": n.type, "label": n.label, "properties": n.properties} for n in result_nodes],
+            "edges": [{"source": e.source, "target": e.target, "relation": e.relation, "properties": e.properties} for e in result_edges]
+        }
+
+    def get_subgraph(self, node_id: str) -> Dict[str, Any]:
+        """Trích xuất mạng đồ thị con (Ego-network) phục vụ trực quan hóa Cytoscape/Force-graph"""
+        return self.get_neighbors(node_id, depth=1)
+
     def explain_device(self, device_id: int) -> Dict[str, Any]:
         """
         Deterministic Reasoning: Giải trình chuỗi nguyên nhân và nguồn gốc (Causal Provenance)
@@ -366,3 +420,4 @@ class SemanticaMedicalGraph:
 
 # Global Singleton Semantica Engine Instance
 semantica_engine = SemanticaMedicalGraph()
+semantica_graph = semantica_engine

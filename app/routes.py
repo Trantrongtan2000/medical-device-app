@@ -1645,3 +1645,45 @@ async def alias_maintenance_logs(db = Depends(get_db)):
 @router.get("/api/semantica/graph")
 async def alias_semantica_graph():
     return await get_semantica_stats()
+
+
+
+# ==================== SEMANTICA CONTEXT GRAPH RESTFUL API ====================
+
+@router.get("/api/context-graph/stats")
+@router.get("/api/semantica/stats")
+async def get_context_graph_stats():
+    """Thống kê toàn bộ mạng lưới tri thức ngữ nghĩa Semantica Context Graph"""
+    from .semantica_engine import semantica_graph
+    return semantica_graph.get_graph_stats()
+
+@router.get("/api/context-graph/node/{node_id}")
+async def get_context_graph_node(node_id: str):
+    """Lấy thông tin chi tiết một Node bất kỳ trên đồ thị tri thức"""
+    from .semantica_engine import semantica_graph
+    node = semantica_graph.get_node(node_id)
+    if not node:
+        raise HTTPException(status_code=404, detail=f"Node '{node_id}' not found in Semantica Context Graph")
+    return node
+
+@router.get("/api/context-graph/neighbors/{node_id}")
+async def get_context_graph_neighbors(node_id: str, depth: int = Query(1, ge=1, le=3)):
+    """Lấy mạng lưới láng giềng k-hop quanh một Node mục tiêu"""
+    from .semantica_engine import semantica_graph
+    return semantica_graph.get_neighbors(node_id, depth=depth)
+
+@router.get("/api/context-graph/subgraph/{node_id}")
+async def get_context_graph_subgraph(node_id: str):
+    """Trích xuất đồ thị con (Ego-network) phục vụ trực quan hóa mạng lưới liên kết"""
+    from .semantica_engine import semantica_graph
+    return semantica_graph.get_subgraph(node_id)
+
+@router.get("/api/context-graph/reasoning/{device_id}")
+@router.get("/api/semantica/explain/{device_id}")
+async def get_device_causal_reasoning(device_id: int):
+    """Truy xuất chuỗi giải trình nguồn gốc xác định W3C PROV-O Causal Provenance cho một thiết bị"""
+    from .semantica_engine import semantica_graph
+    explanation = semantica_graph.explain_device(device_id)
+    if "error" in explanation:
+        raise HTTPException(status_code=404, detail=explanation["error"])
+    return explanation
