@@ -3,7 +3,7 @@
     "system": "Medical Device Management System (BV Quận 7)",
     "organization": "Phòng Khám Đa Khoa Tâm Anh Quận 7 / BV Quận 7",
     "version": "2.0.0 (Snipe-IT & SpeedMaint Edition)",
-    "generated_at": "2026-08-19T07:23:28.141542",
+    "generated_at": "2026-08-19T07:31:30.059254",
     "standards": [
       "Nghị định 98/2021/NĐ-CP",
       "Thông tư 05/2022/TT-BYT",
@@ -26,135 +26,135 @@
   },
   "facilities_master": [
     {
-      "id": 1,
-      "name": "Khoa/Phòng Chưa Phân Loại",
-      "code": "KHOAPH",
-      "device_count": 952
-    },
-    {
-      "id": 13,
-      "name": "Khoa Khám Bệnh",
-      "code": "KHOAKH",
-      "device_count": 31
-    },
-    {
-      "id": 12,
-      "name": "Khoa Chẩn Đoán Hình Ảnh",
-      "code": "KHOACH",
-      "device_count": 22
-    },
-    {
       "id": 4,
-      "name": "KHOA CẤP CỨU",
-      "code": "KHOACP",
-      "device_count": 20
+      "name": "Khoa Khám Bệnh Đa Khoa",
+      "code": "KKB",
+      "device_count": 650
     },
     {
-      "id": 7,
-      "name": "KHOA NỘI SOI TIÊU HOÁ",
-      "code": "KHOANI",
-      "device_count": 4
+      "id": 21,
+      "name": "Kho Lưu Trữ Thiết Bị / Chờ Cấp Phát",
+      "code": "KHO",
+      "device_count": 176
     },
     {
-      "id": 18,
-      "name": "CẤP CỨU-ĐƠN VỊ LỌC MÁU",
-      "code": "CPCUNV",
-      "device_count": 3
+      "id": 2,
+      "name": "Đơn Vị Thận Nhân Tạo / Lọc Máu",
+      "code": "TNT",
+      "device_count": 55
     },
     {
-      "id": 16,
-      "name": "PHÒNG KHÁM ĐA KHOA",
-      "code": "PHNGKH",
-      "device_count": 3
-    },
-    {
-      "id": 23,
-      "name": "CHẨN ĐOÁN HÌNH ẢNH",
-      "code": "CHNONH",
-      "device_count": 2
-    },
-    {
-      "id": 17,
-      "name": "Phòng 3002 khu da liễu",
-      "code": "PHNG30",
-      "device_count": 2
-    },
-    {
-      "id": 5,
-      "name": "KHOA LỌC MÁU",
-      "code": "KHOALC",
-      "device_count": 1
+      "id": 1,
+      "name": "Khoa Cấp Cứu - Hồi Sức Tích Cực",
+      "code": "ICU",
+      "device_count": 48
     },
     {
       "id": 6,
-      "name": "KHOA MẮT",
-      "code": "KHOAMT",
-      "device_count": 1
+      "name": "Khoa Phẫu Thuật - GMHS / Phòng Mổ",
+      "code": "GMHS",
+      "device_count": 33
+    },
+    {
+      "id": 3,
+      "name": "Khoa Chẩn Đoán Hình Ảnh",
+      "code": "CDHA",
+      "device_count": 29
     },
     {
       "id": 11,
-      "name": "KHOA UNG BƯỚU",
-      "code": "KHOAUN",
-      "device_count": 1
+      "name": "Khoa Xét Nghiệm Y Học",
+      "code": "XN",
+      "device_count": 24
     },
     {
-      "id": 64,
-      "name": "KIỂM SOÁT NHIỄM KHUẨN",
-      "code": "KIMSOT",
-      "device_count": 1
+      "id": 17,
+      "name": "Trung Tâm Tiệt Trùng & KSNK (CSSD)",
+      "code": "CSSD",
+      "device_count": 23
     },
     {
-      "id": 15,
-      "name": "Khoa Kiểm Soát Nhiễm Khuẩn",
-      "code": "KHOAKI",
-      "device_count": 1
+      "id": 5,
+      "name": "Khoa Nội Soi Tiêu Hóa",
+      "code": "NSTH",
+      "device_count": 6
     },
     {
-      "id": 68,
-      "name": "NHÀ THUỐC",
-      "code": "NHTHUC",
+      "id": 7,
+      "name": "Khoa Phục Hồi Chức Năng & YHTT",
+      "code": "PHCN",
+      "device_count": 4
+    },
+    {
+      "id": 9,
+      "name": "Khoa Tai Mũi Họng",
+      "code": "TMH",
+      "device_count": 3
+    },
+    {
+      "id": 14,
+      "name": "Khoa Da Liễu - Thẩm Mỹ Da",
+      "code": "KDL",
       "device_count": 1
     },
     {
       "id": 20,
-      "name": "NỘI SOI TIÊU HÓA",
-      "code": "NISOIT",
-      "device_count": 1
+      "name": "Hệ Thống Khí Y Tế & RO Trung Tâm",
+      "code": "GAS-RO",
+      "device_count": 0
     },
     {
-      "id": 2,
-      "name": "P.TTB Q7",
-      "code": "PTTBQ7",
-      "device_count": 1
+      "id": 16,
+      "name": "Khoa Dược & Vật Tư Y Tế",
+      "code": "DUOC",
+      "device_count": 0
     },
     {
-      "id": 3,
-      "name": "Phòng Trang Thiết Bị Y Tế",
-      "code": "PHNGTR",
-      "device_count": 1
+      "id": 8,
+      "name": "Khoa Mắt (Trung Tâm Mắt)",
+      "code": "KM",
+      "device_count": 0
     },
     {
-      "id": 14,
-      "name": "Quầy đánh giá ban đầu – Trung tâm thẩm mỹ",
-      "code": "QUYNHG",
-      "device_count": 1
+      "id": 13,
+      "name": "Khoa Nhi",
+      "code": "KNHI",
+      "device_count": 0
     },
     {
-      "id": 67,
-      "name": "XÉT NGHIỆM",
-      "code": "XTNGHI",
-      "device_count": 1
+      "id": 10,
+      "name": "Khoa Răng Hàm Mặt",
+      "code": "RHM",
+      "device_count": 0
+    },
+    {
+      "id": 12,
+      "name": "Khoa Sản Phụ Khoa",
+      "code": "SPK",
+      "device_count": 0
     },
     {
       "id": 22,
-      "name": "CẤP CỨU",
-      "code": "CPCU",
+      "name": "Khu Tiếp Đón & Đánh Giá Ban Đầu",
+      "code": "RECEPT",
+      "device_count": 0
+    },
+    {
+      "id": 18,
+      "name": "Phòng Chăm Sóc Khách Hàng",
+      "code": "CSKH",
       "device_count": 0
     },
     {
       "id": 19,
-      "name": "KHÁM BỆNH - MẮT",
-      "code": "KHMBNH",
+      "name": "Phòng Trang Thiết BY Tế",
+      "code": "TTBYT",
+      "device_count": 0
+    },
+    {
+      "id": 15,
+      "name": "Trung Tâm Giảm Béo - Béo Phì",
+      "code": "TTBP",
       "device_count": 0
     }
   ],

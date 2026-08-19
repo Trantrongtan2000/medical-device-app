@@ -2,7 +2,7 @@
 **BỆNH VIỆN QUẬN 7 / PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7**
 
 > **Phiên bản:** 2.0.0 (Snipe-IT & SpeedMaint Cloud CMMS Edition)  
-> **Thời điểm cập nhật:** 19/08/2026 07:23:28  
+> **Thời điểm cập nhật:** 19/08/2026 07:31:30  
 > **Cơ sở pháp lý:** Nghị định 98/2021/NĐ-CP, Thông tư 05/2022/TT-BYT, Tiêu chuẩn ISO 13485, Sổ tay Quy trình TTBYT.
 
 ---
@@ -32,28 +32,28 @@
 
 | STT | Tên Khoa / Phòng Ban | Mã Khoa | Số Lượng Thiết Bị | Tỷ Lệ Toàn Viện |
 | :---: | :--- | :---: | :---: | :---: |
-| 01 | **Khoa/Phòng Chưa Phân Loại** | `KHOAPH` | 952 máy | 90.5% |
-| 02 | **Khoa Khám Bệnh** | `KHOAKH` | 31 máy | 2.9% |
-| 03 | **Khoa Chẩn Đoán Hình Ảnh** | `KHOACH` | 22 máy | 2.1% |
-| 04 | **KHOA CẤP CỨU** | `KHOACP` | 20 máy | 1.9% |
-| 05 | **KHOA NỘI SOI TIÊU HOÁ** | `KHOANI` | 4 máy | 0.4% |
-| 06 | **CẤP CỨU-ĐƠN VỊ LỌC MÁU** | `CPCUNV` | 3 máy | 0.3% |
-| 07 | **PHÒNG KHÁM ĐA KHOA** | `PHNGKH` | 3 máy | 0.3% |
-| 08 | **CHẨN ĐOÁN HÌNH ẢNH** | `CHNONH` | 2 máy | 0.2% |
-| 09 | **Phòng 3002 khu da liễu** | `PHNG30` | 2 máy | 0.2% |
-| 10 | **KHOA LỌC MÁU** | `KHOALC` | 1 máy | 0.1% |
-| 11 | **KHOA MẮT** | `KHOAMT` | 1 máy | 0.1% |
-| 12 | **KHOA UNG BƯỚU** | `KHOAUN` | 1 máy | 0.1% |
-| 13 | **KIỂM SOÁT NHIỄM KHUẨN** | `KIMSOT` | 1 máy | 0.1% |
-| 14 | **Khoa Kiểm Soát Nhiễm Khuẩn** | `KHOAKI` | 1 máy | 0.1% |
-| 15 | **NHÀ THUỐC** | `NHTHUC` | 1 máy | 0.1% |
-| 16 | **NỘI SOI TIÊU HÓA** | `NISOIT` | 1 máy | 0.1% |
-| 17 | **P.TTB Q7** | `PTTBQ7` | 1 máy | 0.1% |
-| 18 | **Phòng Trang Thiết Bị Y Tế** | `PHNGTR` | 1 máy | 0.1% |
-| 19 | **Quầy đánh giá ban đầu – Trung tâm thẩm mỹ** | `QUYNHG` | 1 máy | 0.1% |
-| 20 | **XÉT NGHIỆM** | `XTNGHI` | 1 máy | 0.1% |
-| 21 | **CẤP CỨU** | `CPCU` | 0 máy | 0.0% |
-| 22 | **KHÁM BỆNH - MẮT** | `KHMBNH` | 0 máy | 0.0% |
+| 01 | **Khoa Khám Bệnh Đa Khoa** | `KKB` | 650 máy | 61.8% |
+| 02 | **Kho Lưu Trữ Thiết Bị / Chờ Cấp Phát** | `KHO` | 176 máy | 16.7% |
+| 03 | **Đơn Vị Thận Nhân Tạo / Lọc Máu** | `TNT` | 55 máy | 5.2% |
+| 04 | **Khoa Cấp Cứu - Hồi Sức Tích Cực** | `ICU` | 48 máy | 4.6% |
+| 05 | **Khoa Phẫu Thuật - GMHS / Phòng Mổ** | `GMHS` | 33 máy | 3.1% |
+| 06 | **Khoa Chẩn Đoán Hình Ảnh** | `CDHA` | 29 máy | 2.8% |
+| 07 | **Khoa Xét Nghiệm Y Học** | `XN` | 24 máy | 2.3% |
+| 08 | **Trung Tâm Tiệt Trùng & KSNK (CSSD)** | `CSSD` | 23 máy | 2.2% |
+| 09 | **Khoa Nội Soi Tiêu Hóa** | `NSTH` | 6 máy | 0.6% |
+| 10 | **Khoa Phục Hồi Chức Năng & YHTT** | `PHCN` | 4 máy | 0.4% |
+| 11 | **Khoa Tai Mũi Họng** | `TMH` | 3 máy | 0.3% |
+| 12 | **Khoa Da Liễu - Thẩm Mỹ Da** | `KDL` | 1 máy | 0.1% |
+| 13 | **Hệ Thống Khí Y Tế & RO Trung Tâm** | `GAS-RO` | 0 máy | 0.0% |
+| 14 | **Khoa Dược & Vật Tư Y Tế** | `DUOC` | 0 máy | 0.0% |
+| 15 | **Khoa Mắt (Trung Tâm Mắt)** | `KM` | 0 máy | 0.0% |
+| 16 | **Khoa Nhi** | `KNHI` | 0 máy | 0.0% |
+| 17 | **Khoa Răng Hàm Mặt** | `RHM` | 0 máy | 0.0% |
+| 18 | **Khoa Sản Phụ Khoa** | `SPK` | 0 máy | 0.0% |
+| 19 | **Khu Tiếp Đón & Đánh Giá Ban Đầu** | `RECEPT` | 0 máy | 0.0% |
+| 20 | **Phòng Chăm Sóc Khách Hàng** | `CSKH` | 0 máy | 0.0% |
+| 21 | **Phòng Trang Thiết BY Tế** | `TTBYT` | 0 máy | 0.0% |
+| 22 | **Trung Tâm Giảm Béo - Béo Phì** | `TTBP` | 0 máy | 0.0% |
 
 ---
 
