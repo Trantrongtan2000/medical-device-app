@@ -188,7 +188,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (woDeviceSelect) woDeviceSelect.innerHTML = devOptions;
 
                 tbody.innerHTML = this.devices.map(d => {
-                    const riskBadge = d.risk_level ? `<span class="badge badge-risk-${d.risk_level}">${d.risk_level}</span>` : '<span class="text-muted">-</span>';
+                    const riskMap = {
+                        'A': { bg: '#059669', text: '#ffffff' },
+                        'B': { bg: '#0284c7', text: '#ffffff' },
+                        'C': { bg: '#d97706', text: '#ffffff' },
+                        'D': { bg: '#dc2626', text: '#ffffff' }
+                    };
+                    const rStyle = riskMap[d.risk_level] || { bg: '#64748b', text: '#ffffff' };
+                    const riskBadge = d.risk_level ? `<span class="badge badge-risk-${d.risk_level}" style="background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.15);">${d.risk_level}</span>` : '<span class="text-muted">-</span>';
 
                     return `
                         <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
@@ -247,10 +254,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('modal-dev-sm').textContent = dev.speedmaint_code;
                 document.getElementById('modal-dev-sn').textContent = dev.serial_no || 'Chưa có S/N';
                 
+                const riskMap = {
+                    'A': { bg: '#059669', text: '#ffffff' },
+                    'B': { bg: '#0284c7', text: '#ffffff' },
+                    'C': { bg: '#d97706', text: '#ffffff' },
+                    'D': { bg: '#dc2626', text: '#ffffff' }
+                };
+                const rStyle = riskMap[dev.risk_level] || { bg: '#64748b', text: '#ffffff' };
                 const riskBadge = document.getElementById('modal-dev-risk');
                 if (riskBadge) {
                     riskBadge.className = `badge badge-risk-${dev.risk_level || 'A'}`;
+                    riskBadge.style.cssText = `background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px;`;
                     riskBadge.textContent = `Loại ${dev.risk_level || 'A'}`;
+                }
+                const riskTagBody = document.getElementById('modal-dev-risk-tag');
+                if (riskTagBody) {
+                    riskTagBody.style.cssText = `background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px;`;
+                    riskTagBody.textContent = `Mức ${dev.risk_level || 'A'}`;
                 }
 
                 const statusBadge = document.getElementById('modal-dev-status');
