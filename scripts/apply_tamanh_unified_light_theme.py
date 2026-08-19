@@ -1,4 +1,18 @@
-/* ==========================================================================
+import re
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+app_dir = Path(r"C:\Users\tantt\Downloads\medical-device-app")
+css_path = app_dir / "web" / "css" / "style.css"
+html_path = app_dir / "web" / "index.html"
+design_md_path = app_dir / "DESIGN.md"
+
+# ==================== 1. UPDATE CSS TO TÂM ANH UNIFIED CLINICAL LIGHT ====================
+print("[BƯỚC 1] 🎨 Cập nhật CSS Variables và Theme Sang Trắng Sáng Tâm Anh Hospital...")
+
+unified_light_css = """/* ==========================================================================
    TÂM ANH UNIFIED CLINICAL LIGHT DESIGN SYSTEM (app.tahospital.vn COMPLIANT)
    Bệnh Viện Đa Khoa Tâm Anh - Phòng Khám Đa Khoa TA Quận 7
    ========================================================================== */
@@ -519,3 +533,113 @@ html, body {
     color: #FFFFFF !important;
     border-color: var(--color-primary) !important;
 }
+"""
+
+with open(css_path, "w", encoding="utf-8") as f:
+    f.write(unified_light_css)
+print("✅ Đã ghi đè thành công toàn bộ `web/css/style.css` theo Chuẩn Sáng Tâm Anh Hospital!")
+
+# ==================== 2. UPDATE TOP HEADER IN INDEX.HTML ====================
+print("\n[BƯỚC 2] 🌟 Cập nhật Top Header & Sidebar Brand trong `web/index.html`...")
+with open(html_path, "r", encoding="utf-8") as f:
+    html = f.read()
+
+# Update Sidebar Brand
+old_brand = """            <div class="sidebar-brand d-flex align-items-center gap-2">
+                <img src="img/logo_pkta_q7.jpg" alt="Logo Tâm Anh Quận 7" class="rounded border shadow-sm" style="width: 38px; height: 38px; object-fit: contain; background: #fff; padding: 2px;">
+                <div class="brand-info">
+                    <div class="brand-name" style="font-size: 0.92rem; font-weight: 800; letter-spacing: -0.01em; color: #f8fafc;">TÂM ANH Q7</div>
+                    <div class="brand-desc" style="font-size: 0.72rem; color: #38bdf8; font-weight: 700;">HỆ THỐNG HTM V3</div>
+                </div>
+            </div>"""
+
+new_brand = """            <div class="sidebar-brand d-flex align-items-center gap-2">
+                <img src="img/logo_pkta_q7.jpg" alt="Logo Tâm Anh Quận 7" class="rounded-3 shadow-sm border" style="width: 38px; height: 38px; object-fit: contain; background: #fff; padding: 2px;">
+                <div class="brand-info">
+                    <div class="brand-name font-sans">TÂM ANH HOSPITAL</div>
+                    <div class="brand-desc">Phòng TTBYT Quận 7 • HTM V3</div>
+                </div>
+            </div>"""
+
+html = html.replace(old_brand, new_brand)
+
+# Update Top Header to include the official Tâm Anh Facility Badge
+old_top_header = """            <!-- Top Header -->
+            <header class="top-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <button id="btn-toggle-sidebar" class="btn btn-sm btn-light border btn-toggle-sidebar shadow-sm" onclick="app.toggleSidebar()" title="Ẩn/Hiện Menu bên trái (Ctrl+B)">
+                        <i class="bi bi-layout-sidebar-inset text-primary fs-6"></i>
+                    </button>
+                    <h5 class="mb-0 fw-bold text-dark" id="page-heading">
+                        <i class="bi bi-speedometer2 text-primary me-2"></i>Dashboard & Kanban
+                    </h5>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm btn-outline-secondary btn-clinical d-none d-md-inline-flex align-items-center gap-1 font-mono" onclick="document.getElementById('search-input')?.focus();" title="Phím tắt tìm kiếm toàn viện">
+                        <i class="bi bi-search"></i>
+                        <span style="font-size: 0.75rem;">Ctrl+K</span>
+                    </button>
+                    <button class="btn btn-sm btn-primary btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
+                        <i class="bi bi-plus-circle-fill me-1"></i> Nhập Thêm Thiết Bị
+                    </button>
+                    <a href="/sops" target="_blank" class="btn btn-sm btn-outline-info text-dark btn-clinical fw-semibold" title="Mở Sổ tay Quy trình Chuẩn & Biểu mẫu TTBYT">
+                        <i class="bi bi-journal-medical text-primary me-1"></i> Sổ Tay Quy Trình (SOPs)
+                    </a>
+                    <button class="btn btn-sm btn-outline-success btn-clinical fw-semibold" onclick="app.exportToExcel()">
+                        <i class="bi bi-download me-1"></i> Xuất Excel
+                    </button>
+                </div>
+            </header>"""
+
+new_top_header = """            <!-- Top Header (Tâm Anh Unified Navigation) -->
+            <header class="top-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <button id="btn-toggle-sidebar" class="btn btn-sm btn-light border btn-toggle-sidebar shadow-sm" onclick="app.toggleSidebar()" title="Ẩn/Hiện Menu bên trái (Ctrl+B)">
+                        <i class="bi bi-layout-sidebar-inset text-primary fs-6"></i>
+                    </button>
+                    <h5 class="mb-0 fw-bold text-dark" id="page-heading">
+                        <i class="bi bi-speedometer2 text-primary me-2"></i>Dashboard & Kanban
+                    </h5>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Branch Badge matching app.tahospital.vn -->
+                    <div class="d-none d-lg-flex align-items-center gap-2 px-3 py-1 bg-light border rounded-pill text-dark small fw-semibold">
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+                        <span>Phòng khám Đa Khoa TA Quận 7</span>
+                    </div>
+
+                    <button class="btn btn-sm btn-outline-secondary btn-clinical d-none d-md-inline-flex align-items-center gap-1 font-mono" onclick="document.getElementById('search-input')?.focus();" title="Phím tắt tìm kiếm toàn viện">
+                        <i class="bi bi-search"></i>
+                        <span style="font-size: 0.75rem;">Ctrl+K</span>
+                    </button>
+                    <button class="btn btn-sm btn-primary btn-clinical fw-semibold shadow-sm" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
+                        <i class="bi bi-plus-circle-fill me-1"></i> Nhập Thêm Thiết Bị
+                    </button>
+                    <a href="/sops" target="_blank" class="btn btn-sm btn-outline-primary btn-clinical fw-semibold" title="Mở Sổ tay Quy trình Chuẩn & Biểu mẫu TTBYT">
+                        <i class="bi bi-journal-medical me-1"></i> Sổ Tay Quy Trình (SOPs)
+                    </a>
+                    <button class="btn btn-sm btn-outline-success btn-clinical fw-semibold" onclick="app.exportToExcel()">
+                        <i class="bi bi-download me-1"></i> Xuất Excel
+                    </button>
+                </div>
+            </header>"""
+
+html = html.replace(old_top_header, new_top_header)
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html)
+print("✅ Đã cập nhật Header & Brand đồng bộ 100% với `app.tahospital.vn`!")
+
+# ==================== 3. UPDATE DESIGN.MD TO TÂM ANH UNIFIED LIGHT ====================
+print("\n[BƯỚC 3] 📄 Cập nhật DESIGN.md theo Hệ màu Phương Án 1...")
+with open(design_md_path, "r", encoding="utf-8") as f:
+    design_md = f.read()
+
+design_md = design_md.replace("theme: dark-clinical-deep-navy", "theme: tamanh-unified-clinical-light")
+design_md = design_md.replace("mode: dark", "mode: light")
+design_md = design_md.replace("primary: \"#0284c7\"", "primary: \"#0B4FD8\"")
+design_md = design_md.replace("background: \"#090d16\"", "background: \"#F8FAFC\"")
+
+with open(design_md_path, "w", encoding="utf-8") as f:
+    f.write(design_md)
+print("✅ Đã cập nhật `DESIGN.md`!")

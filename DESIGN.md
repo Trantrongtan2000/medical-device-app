@@ -3,7 +3,7 @@ version: alpha
 name: Tam Anh Q7 HTM Design System
 description: Clinical-grade, high-density Design System for Medical Device Management & Clinical Engineering (HTM V3) at Tam Anh General Clinic District 7.
 colors:
-  primary: "#0284c7"
+  primary: "#0B4FD8"
   primary-dark: "#002d62"
   primary-light: "#e0f2fe"
   secondary: "#3b82f6"
