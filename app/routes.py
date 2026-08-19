@@ -988,13 +988,6 @@ async def create_device_transfer(req: DeviceTransferRequest, db = Depends(get_db
         "message": f"Đã thực hiện điều chuyển thiết bị thành công theo Quy trình QT.08"
     }
 
-@router.get("/api/ecarts")
-async def get_emergency_carts(db = Depends(get_db)):
-    """Lấy danh sách xe cấp cứu di động (E-Cart) và vị trí tại các tầng/khu vực"""
-    cur = db.cursor()
-    cur.execute("SELECT * FROM emergency_carts ORDER BY id ASC")
-    rows = [dict(r) for r in cur.fetchall()]
-    return rows
 
 
 @router.post("/api/devices/{device_id}/checkout")

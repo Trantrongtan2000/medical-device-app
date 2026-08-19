@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
         categories: [],
         inspections: [],
         transfers: [],
-        ecarts: [],
         workOrders: [],
         currentSelectedDeviceId: null,
         currentFilters: {
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
             await this.loadDevices();
             await this.loadInspections();
             await this.loadTransfers();
-            await this.loadECarts();
             await this.loadWorkOrders();
             this.loadStaff();
             this.loadOncallData();
@@ -1010,41 +1008,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 `).join('');
             } catch (err) {
                 console.error('Error loading transfers:', err);
-            }
-        },
-
-        async loadECarts() {
-            try {
-                const res = await fetch('/api/ecarts');
-                this.ecarts = await res.json();
-                const grid = document.getElementById('ecarts-grid');
-                if (!grid) return;
-
-                grid.innerHTML = this.ecarts.map(ec => `
-                    <div class="col-md-3">
-                        <div class="clinical-card p-3 h-100 border-start border-4 border-danger">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-danger font-mono">${ec.cart_code}</span>
-                                <span class="badge bg-success-subtle text-success">${ec.status}</span>
-                            </div>
-                            <h6 class="fw-bold text-dark mb-1">${ec.department_name}</h6>
-                            <div class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${ec.location_floor} ${ec.zone ? '- Khu ' + ec.zone : ''} ${ec.room_no ? '(Phòng ' + ec.room_no + ')' : ''}</div>
-                            <div class="p-2 bg-light rounded small mb-2">
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-muted">Máy Nhánh (Ext):</span>
-                                    <strong class="font-mono text-danger">${ec.phone_ext || 'Trực tiếp'}</strong>
-                                </div>
-                            </div>
-                            <div class="text-muted" style="font-size: 0.76rem;">
-                                • Máy sốc tim phá rung<br>
-                                • Máy hút dịch & Bình oxy<br>
-                                • Bộ đặt NKQ & Hộp thuốc ACLS
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) {
-                console.error('Error loading ECarts:', err);
             }
         },
 
