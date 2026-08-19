@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 col: 'review',
                 priority: 'Bình thường',
                 type: 'BM04',
-                title: 'Máy Sốc Tim E-Cart Số 01',
-                meta: 'Khu Cấp Cứu Tầng Trệt',
+                title: 'Máy Sốc Tim Defibrillator TEC-5600',
+                meta: 'Khoa Cấp Cứu • Nihon Kohden',
                 assignee: 'ĐD. Trưởng trực',
                 deadline: 'Chờ ký BM04'
             },
