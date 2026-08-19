@@ -72,6 +72,13 @@
                 </li>
                 <li class="nav-section-label">Bảo trì &amp; quy trình</li>
                 <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-worklist" data-bs-toggle="pill" data-bs-target="#tab-worklist" type="button">
+                        <i class="bi bi-calendar2-week"></i>
+                        <span>Hàng việc kiểm định</span>
+                        <span class="badge bg-warning text-dark rounded-pill font-mono" id="nav-badge-due">0</span>
+                    </button>
+                </li>
+                <li class="nav-item">
                     <button class="nav-link" id="btn-tab-workorders" data-bs-toggle="pill" data-bs-target="#tab-workorders" type="button">
                         <i class="bi bi-tools"></i>
                         <span>Bảo trì SpeedMaint</span>
@@ -122,6 +129,10 @@
                     </div>
                 </div>
                 <div class="header-actions">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-clinical" id="btn-command-palette" title="Tìm nhanh thiết bị (Ctrl + K)">
+                        <i class="bi bi-search me-1"></i> Tìm nhanh
+                        <kbd class="shortcut-kbd">Ctrl K</kbd>
+                    </button>
                     <button class="btn btn-sm btn-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
                         <i class="bi bi-plus-circle-fill me-1"></i> Nhập thiết bị
                     </button>
@@ -142,7 +153,7 @@
                         
                         <div class="row g-3 mb-3">
                             <div class="col-lg-3 col-md-6 col-6">
-                                <div class="kpi-card kpi-accent-total d-flex align-items-center gap-3">
+                                <button type="button" class="kpi-card kpi-accent-total d-flex align-items-center gap-3 w-100 text-start" data-kpi-alert="">
                                     <div class="kpi-icon bg-primary-subtle text-primary">
                                         <i class="bi bi-hospital"></i>
                                     </div>
@@ -150,10 +161,10 @@
                                         <div class="kpi-label">Tổng tài sản</div>
                                         <div class="kpi-value font-mono text-dark" id="kpi-total-devices">--</div>
                                     </div>
-                                </div>
+                                </button>
                             </div>
                             <div class="col-lg-3 col-md-6 col-6">
-                                <div class="kpi-card kpi-accent-ok d-flex align-items-center gap-3">
+                                <button type="button" class="kpi-card kpi-accent-ok d-flex align-items-center gap-3 w-100 text-start" data-kpi-alert="OK">
                                     <div class="kpi-icon bg-success-subtle text-success">
                                         <i class="bi bi-check-circle-fill"></i>
                                     </div>
@@ -162,10 +173,10 @@
                                         <div class="kpi-value font-mono text-success" id="kpi-ok-devices">--</div>
                                         <div class="text-muted small" id="kpi-avail-rate">Đang tải tỷ lệ vận hành</div>
                                     </div>
-                                </div>
+                                </button>
                             </div>
                             <div class="col-lg-3 col-md-6 col-6">
-                                <div class="kpi-card kpi-accent-warn d-flex align-items-center gap-3">
+                                <button type="button" class="kpi-card kpi-accent-warn d-flex align-items-center gap-3 w-100 text-start" data-kpi-alert="WARNING">
                                     <div class="kpi-icon bg-warning-subtle text-warning">
                                         <i class="bi bi-exclamation-triangle-fill"></i>
                                     </div>
@@ -174,10 +185,10 @@
                                         <div class="kpi-value font-mono text-dark" id="kpi-warning-devices">--</div>
                                         <div class="text-muted small" id="kpi-open-wo">CMMS: -- phiếu</div>
                                     </div>
-                                </div>
+                                </button>
                             </div>
                             <div class="col-lg-3 col-md-6 col-6">
-                                <div class="kpi-card kpi-accent-overdue d-flex align-items-center gap-3">
+                                <button type="button" class="kpi-card kpi-accent-overdue d-flex align-items-center gap-3 w-100 text-start" data-kpi-alert="OVERDUE">
                                     <div class="kpi-icon bg-danger-subtle text-danger pulse-emergency">
                                         <i class="bi bi-calendar-x-fill"></i>
                                     </div>
@@ -186,17 +197,17 @@
                                         <div class="kpi-value font-mono text-danger" id="kpi-overdue-devices">--</div>
                                         <div class="text-muted small" id="kpi-ecart-status">E-Cart: 8 xe trực</div>
                                     </div>
-                                </div>
+                                </button>
                             </div>
                         </div>
 
                         <div class="clinical-card p-3 mb-3">
-                            <div class="row g-2 align-items-center mb-3">
-                                <div class="col-lg-4">
+                            <div class="row g-2 align-items-end mb-3">
+                                <div class="col-lg-3 col-md-6">
                                     <label class="form-label small fw-bold text-muted" for="search-input">Tìm kiếm</label>
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                                        <input type="search" id="search-input" class="form-control border-start-0 ps-0" placeholder="Tên, model, serial, hãng sản xuất..." autocomplete="off">
+                                        <input type="search" id="search-input" class="form-control border-start-0 ps-0" placeholder="Tên, model, serial, mã BVQ7-TTB..." autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -205,51 +216,108 @@
                                         <option value="">Tất cả khoa/phòng</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-2 col-md-6">
+                                    <label class="form-label small fw-bold text-muted" for="filter-category">Nhóm thiết bị</label>
+                                    <select id="filter-category" class="form-select form-select-sm">
+                                        <option value="">Tất cả nhóm</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-6">
+                                    <label class="form-label small fw-bold text-muted" for="filter-alert">Hạn kiểm định</label>
+                                    <select id="filter-alert" class="form-select form-select-sm">
+                                        <option value="">Tất cả trạng thái KĐ</option>
+                                        <option value="OVERDUE">Quá hạn</option>
+                                        <option value="WARNING">Còn ≤ 30 ngày</option>
+                                        <option value="OK">Còn hạn</option>
+                                        <option value="NO_DATA">Chưa có dữ liệu</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-6">
                                     <label class="form-label small fw-bold text-muted" for="filter-risk">Mức rủi ro</label>
                                     <select id="filter-risk" class="form-select form-select-sm">
-                                        <option value="">Tất cả mức rủi ro A–D</option>
-                                        <option value="A">Loại A — rất thấp</option>
-                                        <option value="B">Loại B — thấp</option>
-                                        <option value="C">Loại C — trung bình cao</option>
-                                        <option value="D">Loại D — đặc biệt cao</option>
+                                        <option value="">Tất cả A–D</option>
+                                        <option value="A">Loại A</option>
+                                        <option value="B">Loại B</option>
+                                        <option value="C">Loại C</option>
+                                        <option value="D">Loại D</option>
                                         <option value="C,D">Loại C và D</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-2 col-md-12">
-                                    <label class="form-label small fw-bold text-muted d-none d-lg-block">&nbsp;</label>
-                                    <div class="text-muted small pt-1">Hiển thị <strong id="filter-count" class="text-dark font-mono">0</strong> máy</div>
-                                </div>
                             </div>
 
-                            <div class="d-flex flex-wrap gap-2 align-items-center pt-2 border-top">
-                                <span class="text-muted small fw-bold me-1"><i class="bi bi-funnel-fill text-primary me-1"></i>Lọc nhanh</span>
-                                <button type="button" class="chip-filter active" data-chip="all" id="chip-all">Tất cả</button>
-                                <button type="button" class="chip-filter" data-chip="cdha"><i class="bi bi-soundwave"></i> Siêu âm &amp; CĐHA</button>
-                                <button type="button" class="chip-filter" data-chip="emergency"><i class="bi bi-heart-pulse"></i> Cấp cứu &amp; hồi sức</button>
-                                <button type="button" class="chip-filter" data-chip="ro"><i class="bi bi-droplet-half"></i> Thận nhân tạo RO</button>
-                                <button type="button" class="chip-filter" data-chip="highrisk"><i class="bi bi-exclamation-octagon"></i> Rủi ro C &amp; D</button>
+                            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between pt-2 border-top">
+                                <div class="d-flex flex-wrap gap-2 align-items-center">
+                                    <span class="text-muted small fw-bold me-1"><i class="bi bi-funnel-fill text-primary me-1"></i>Lọc nhanh</span>
+                                    <button type="button" class="chip-filter active" data-chip="all" id="chip-all">Tất cả</button>
+                                    <button type="button" class="chip-filter" data-chip="overdue"><i class="bi bi-exclamation-diamond"></i> Quá hạn KĐ</button>
+                                    <button type="button" class="chip-filter" data-chip="warning"><i class="bi bi-clock-history"></i> Sắp đến hạn</button>
+                                    <button type="button" class="chip-filter" data-chip="cdha"><i class="bi bi-soundwave"></i> Siêu âm &amp; CĐHA</button>
+                                    <button type="button" class="chip-filter" data-chip="emergency"><i class="bi bi-heart-pulse"></i> Cấp cứu</button>
+                                    <button type="button" class="chip-filter" data-chip="ro"><i class="bi bi-droplet-half"></i> RO</button>
+                                    <button type="button" class="chip-filter" data-chip="highrisk"><i class="bi bi-exclamation-octagon"></i> Rủi ro C &amp; D</button>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-link text-muted" id="btn-reset-filters">Xóa lọc</button>
                             </div>
                         </div>
 
                         <div class="clinical-card p-0 overflow-hidden">
-                            <div class="table-responsive" style="max-height: calc(100dvh - 320px);">
+                            <div class="table-responsive" style="max-height: calc(100dvh - 360px);">
                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
                                     <thead class="table-light sticky-top border-bottom">
                                         <tr>
-                                            <th class="ps-3" style="width: 140px;">Mã định danh</th>
+                                            <th class="ps-3" style="width: 128px;">Mã tài sản</th>
                                             <th>Tên thiết bị / model</th>
-                                            <th>Số serial</th>
+                                            <th>Serial</th>
                                             <th>Khoa / vị trí</th>
-                                            <th style="width: 90px;" class="text-center">Phân loại</th>
-                                            <th style="width: 130px;" class="text-center">Trạng thái</th>
-                                            <th class="pe-3 text-end" style="width: 120px;">Thao tác</th>
+                                            <th class="text-center">Rủi ro</th>
+                                            <th>Hạn kiểm định</th>
+                                            <th class="text-center">Cảnh báo</th>
+                                            <th class="pe-3 text-end" style="width: 110px;">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody id="device-table-body">
-                                        <tr class="skeleton-row"><td colspan="7"><span class="skeleton" style="width: 70%;"></span></td></tr>
-                                        <tr class="skeleton-row"><td colspan="7"><span class="skeleton" style="width: 55%;"></span></td></tr>
-                                        <tr class="skeleton-row"><td colspan="7"><span class="skeleton" style="width: 62%;"></span></td></tr>
+                                        <tr class="skeleton-row"><td colspan="8"><span class="skeleton" style="width: 70%;"></span></td></tr>
+                                        <tr class="skeleton-row"><td colspan="8"><span class="skeleton" style="width: 55%;"></span></td></tr>
+                                        <tr class="skeleton-row"><td colspan="8"><span class="skeleton" style="width: 62%;"></span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-pager d-flex flex-wrap align-items-center justify-content-between gap-2 px-3 py-2 border-top">
+                                <div class="text-muted small">Hiển thị <strong id="pager-range" class="text-dark">0</strong> / <strong id="filter-count" class="text-dark font-mono">0</strong> máy</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <select id="page-size" class="form-select form-select-sm" style="width: auto;">
+                                        <option value="50" selected>50 / trang</option>
+                                        <option value="100">100 / trang</option>
+                                        <option value="200">200 / trang</option>
+                                    </select>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-clinical" id="btn-page-prev">Trước</button>
+                                    <span class="small font-mono" id="pager-page">1</span>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-clinical" id="btn-page-next">Sau</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab-worklist" role="tabpanel">
+                        <div class="clinical-card p-3 mb-3">
+                            <h6 class="section-title text-dark mb-1"><i class="bi bi-calendar2-week text-warning me-2"></i>Hàng việc kiểm định / hiệu chuẩn</h6>
+                            <p class="text-muted small mb-0">Danh sách việc ưu tiên kiểu SpeedMaint: quá hạn trước, sắp đến hạn trong 30 ngày sau. Bấm một dòng để mở hồ sơ máy.</p>
+                        </div>
+                        <div class="clinical-card p-0 overflow-hidden">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="ps-3">Thiết bị</th>
+                                            <th>Khoa</th>
+                                            <th>Hạn KĐ</th>
+                                            <th class="text-center">Mức ưu tiên</th>
+                                            <th>Số GCN</th>
+                                            <th class="pe-3 text-end">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="worklist-table-body">
+                                        <tr><td colspan="6" class="text-center py-4 text-muted">Đang tải hàng việc...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -264,7 +332,8 @@
                                     <h6 class="section-title text-dark mb-3"><i class="bi bi-clipboard-check text-success me-2"></i>Ghi nhận bảng kiểm đầu ngày</h6>
                                     <form id="preUseChecklistForm">
                                         <div class="mb-2">
-                                            <label class="form-label small fw-bold text-muted">CHỌN THIẾT BỊ (*)</label>
+                                            <label class="form-label small fw-bold text-muted" for="ins-device-search">Chọn thiết bị (*)</label>
+                                            <input type="search" id="ins-device-search" class="form-control form-control-sm mb-1" placeholder="Gõ tên, serial hoặc mã tài sản...">
                                             <select id="ins-device-id" class="form-select form-select-sm" required></select>
                                         </div>
                                         <div class="mb-2">
@@ -335,7 +404,8 @@
                                     <h6 class="section-title text-dark mb-3"><i class="bi bi-arrow-left-right text-primary me-2"></i>Lập biên bản điều chuyển (BM08)</h6>
                                     <form id="deviceTransferForm">
                                         <div class="mb-2">
-                                            <label class="form-label small fw-bold text-muted">CHỌN THIẾT BỊ (*)</label>
+                                            <label class="form-label small fw-bold text-muted" for="tr-device-search">Chọn thiết bị (*)</label>
+                                            <input type="search" id="tr-device-search" class="form-control form-control-sm mb-1" placeholder="Gõ tên, serial hoặc mã tài sản...">
                                             <select id="tr-device-id" class="form-select form-select-sm" required></select>
                                         </div>
                                         <div class="row g-2 mb-2">
@@ -726,6 +796,9 @@
                         <button type="button" class="btn btn-outline-secondary btn-clinical" id="modal-btn-wo">
                             <i class="bi bi-tools me-1"></i> Tạo phiếu bảo trì
                         </button>
+                        <button type="button" class="btn btn-outline-danger btn-clinical" id="modal-btn-pdf" hidden>
+                            <i class="bi bi-file-earmark-pdf me-1"></i> Xem PDF gốc
+                        </button>
                         <button type="button" class="btn btn-primary btn-clinical fw-bold" id="modal-btn-print-qr">
                             <i class="bi bi-printer me-1"></i> In tem nhãn QR
                         </button>
@@ -781,7 +854,8 @@
                 <div class="modal-body p-3">
                     <form id="createWorkOrderForm">
                         <div class="mb-2">
-                            <label class="form-label small fw-bold text-muted">CHỌN THIẾT BỊ (*)</label>
+                            <label class="form-label small fw-bold text-muted" for="wo-device-search">Chọn thiết bị (*)</label>
+                            <input type="search" id="wo-device-search" class="form-control form-control-sm mb-1" placeholder="Gõ tên, serial hoặc mã tài sản...">
                             <select id="wo-device-id" class="form-select form-select-sm" required></select>
                         </div>
                         <div class="mb-2">
@@ -892,6 +966,20 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <div id="command-palette" class="command-palette" hidden>
+        <div class="command-palette-panel" role="dialog" aria-modal="true" aria-labelledby="command-palette-title">
+            <div class="d-flex align-items-center gap-2 px-3 pt-3">
+                <i class="bi bi-search text-muted"></i>
+                <input type="search" id="command-palette-input" class="form-control border-0 shadow-none" placeholder="Tìm máy theo tên, serial, mã BVQ7-TTB..." autocomplete="off">
+                <kbd class="shortcut-kbd">Esc</kbd>
+            </div>
+            <div class="px-3 pb-2">
+                <div class="text-muted small" id="command-palette-title">Nhập để mở hồ sơ máy, giống thanh tìm của Snipe-IT.</div>
+            </div>
+            <div id="command-palette-results" class="command-palette-results"></div>
         </div>
     </div>
 

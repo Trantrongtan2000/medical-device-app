@@ -6,7 +6,7 @@ import io
 import csv
 from datetime import date, timedelta, datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from pathlib import Path
 from typing import Optional, List
 from pydantic import BaseModel
@@ -36,13 +36,14 @@ PDF_ROOT_DIRS = [
 
 @router.get("/api/devices")
 async def get_devices(
+    response: Response,
     facility_id: Optional[int] = Query(None, description="Lọc theo khoa"),
     category_id: Optional[int] = Query(None, description="Lọc theo loại thiết bị"),
     alert_status: Optional[str] = Query(None, description="Lọc trạng thái cảnh báo (OVERDUE, WARNING, OK, NO_DATA)"),
     status: Optional[str] = Query(None, description="Lọc trạng thái hoạt động"),
     risk_level: Optional[str] = Query(None, description="Lọc mức độ rủi ro (A, B, C, D)"),
     search: Optional[str] = Query(None, description="Tìm kiếm theo tên, model, serial, hãng sản xuất"),
-    limit: int = Query(300, ge=1, le=1000),
+    limit: int = Query(50, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     db = Depends(get_db)
 ):
@@ -84,16 +85,22 @@ async def get_devices(
         extra_params = [s, s, s, s]
         tag = raw.upper().replace(" ", "")
         if tag.startswith("BVQ7-TTB-") or tag.startswith("BM/BVQ7/"):
-            digits = "".join(ch for ch in tag if ch.isdigit())
-            if digits:
+            suffix = tag.rsplit("-", 1)[-1].rsplit("/", 1)[-1]
+            if suffix.isdigit():
                 extra_sql = " OR id = ?"
-                extra_params.append(int(digits))
+                extra_params.append(int(suffix))
         conditions.append(f"(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?{extra_sql})")
         params.extend(extra_params)
     
-    if conditions:
-        query += " WHERE " + " AND ".join(conditions)
-    
+    where_sql = (" WHERE " + " AND ".join(conditions)) if conditions else ""
+    total = db.execute("SELECT COUNT(DISTINCT id) FROM device_status_summary" + where_sql, params).fetchone()[0]
+    if response is not None:
+        response.headers["X-Total-Count"] = str(total)
+        response.headers["X-Limit"] = str(limit)
+        response.headers["X-Offset"] = str(offset)
+        response.headers["Access-Control-Expose-Headers"] = "X-Total-Count, X-Limit, X-Offset"
+
+    query += where_sql
     query += " ORDER BY CASE alert_status WHEN 'OVERDUE' THEN 1 WHEN 'WARNING' THEN 2 WHEN 'OK' THEN 3 ELSE 4 END, device_name LIMIT ? OFFSET ?"
     params.extend([limit, offset])
     
@@ -204,6 +211,14 @@ async def get_device(device_id: int, db = Depends(get_db)):
     device_data = dict(row)
     device_data["asset_tag"] = f"BVQ7-TTB-{device_data['id']:05d}"
     device_data["speedmaint_code"] = f"BM/BVQ7/{device_data['id']:05d}"
+    summary = db.execute(
+        "SELECT alert_status, calibration_date, recalibration_date FROM device_status_summary WHERE id = ?",
+        (device_id,)
+    ).fetchone()
+    if summary:
+        device_data["alert_status"] = summary["alert_status"]
+        device_data["calibration_date"] = device_data.get("calibration_date") or summary["calibration_date"]
+        device_data["recalibration_date"] = device_data.get("recalibration_date") or summary["recalibration_date"]
     
     # Lịch sử kiểm định (Certificates)
     certs_query = """
@@ -273,19 +288,20 @@ async def update_device(device_id: int, dev: DeviceUpdate, db = Depends(get_db))
 class SpeedMaintWorkOrderCreate(BaseModel):
     device_id: int
     title: str
-    work_type: str = "PM định kỳ"  # PM định kỳ, Sửa chữa, Điều chuyển, Kiểm định, Khác
-    start_date: str
-    end_date: str
-    assigned_to: str
+    work_type: str = "PM định kỳ"
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    assigned_to: Optional[str] = "Kỹ Sư Trực P.TTBYT"
     co_workers: Optional[str] = None
     supervisor: Optional[str] = None
-    reporter: str
-    priority: str = "Trung bình"  # Khẩn cấp, Cao, Trung bình, Thấp
-    progress: int = 100
+    reporter: Optional[str] = "P.TTBYT"
+    priority: str = "NORMAL"
+    progress: int = 0
     is_unplanned: bool = False
     location: Optional[str] = None
-    description: str
+    description: Optional[str] = ""
     materials: Optional[str] = None
+    status: Optional[str] = None
 
 @router.get("/api/work-orders")
 async def list_work_orders(db = Depends(get_db)):
@@ -307,8 +323,13 @@ async def list_work_orders(db = Depends(get_db)):
         item = dict(r)
         item["task_code"] = f"260{item['id']:03d}"
         item["speedmaint_device_code"] = f"BM/BVQ7/{item['device_id']:05d}"
+        item["asset_tag"] = f"BVQ7-TTB-{item['device_id']:05d}"
+        desc = item.get("description") or ""
+        item["title"] = desc.split(". ")[0][:90] if desc else (item.get("work_type") or "Phiếu công việc")
         item["progress"] = 100
-        item["status"] = "Hoàn thành"
+        item["status"] = "COMPLETED"
+        item["priority"] = "NORMAL"
+        item["created_at"] = item.get("start_date")
         work_orders.append(item)
         
     return work_orders
@@ -317,7 +338,9 @@ async def list_work_orders(db = Depends(get_db)):
 async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_db)):
     """Tạo phiếu công việc chi tiết chuẩn SpeedMaint Cloud CMMS (Ảnh 01bc & 605c)"""
     cur = db.cursor()
-    full_desc = f"[{ticket.work_type}] {ticket.title}. {ticket.description}"
+    start = ticket.start_date or date.today().isoformat()
+    assignee = ticket.assigned_to or "Kỹ Sư Trực P.TTBYT"
+    full_desc = f"[{ticket.work_type}] {ticket.title}. {ticket.description or ''}".strip()
     if ticket.materials:
         full_desc += f" (Vật tư: {ticket.materials})"
     if ticket.location:
@@ -326,9 +349,10 @@ async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_
     cur.execute("""
         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
         VALUES (?, ?, ?, ?, ?)
-    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, normalize_work_type(ticket.work_type), full_desc))
+    """, (ticket.device_id, start, assignee, normalize_work_type(ticket.work_type), full_desc))
     
-    if ticket.priority in ("Khẩn cấp", "Cao"):
+    urgent_labels = ("Khẩn cấp", "Cao", "URGENT", "HIGH")
+    if ticket.priority in urgent_labels:
         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
         
     db.commit()
@@ -783,10 +807,42 @@ SOP_HTML_PATH = Path(r"C:\Users\tantt\Downloads\asset-management-tools\quy_trinh
 
 @router.get("/sops")
 async def view_sop_handbook():
-    """Hiển thị trực tiếp Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế (quy_trinh_ttbyt.html)"""
+    """Hiển thị Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế"""
     if SOP_HTML_PATH.exists():
         return FileResponse(SOP_HTML_PATH, media_type="text/html; charset=utf-8")
-    raise HTTPException(status_code=404, detail="Không tìm thấy tệp sổ tay quy trình quy_trinh_ttbyt.html")
+    sops = await list_standard_sops()
+    cards = "".join(
+        f"""<article class="sop" id="{s['ref'].split('#')[-1]}">
+            <div class="meta"><span>{s['code']}</span><span>{s['type']}</span></div>
+            <h2>{s['name']}</h2>
+            <p>Áp dụng tại PKĐK Tâm Anh Quận 7 / BV Quận 7. Bấm mã để đối chiếu trên dashboard HTM.</p>
+        </article>"""
+        for s in sops
+    )
+    html = f"""<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sổ tay SOP TTBYT</title>
+<style>
+  body {{ font-family: 'Plus Jakarta Sans', Segoe UI, sans-serif; background:#f1f5f9; color:#0f172a; margin:0; }}
+  main {{ max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }}
+  h1 {{ letter-spacing:-.03em; margin: 0 0 8px; }}
+  .lede {{ color:#64748b; margin-bottom: 28px; }}
+  .sop {{ background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px; margin-bottom:12px; }}
+  .meta {{ display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#0369a1; letter-spacing:.04em; text-transform:uppercase; }}
+  h2 {{ font-size:16px; margin:10px 0 6px; }}
+  p {{ margin:0; color:#475569; font-size:14px; line-height:1.5; }}
+  a.back {{ display:inline-block; margin-bottom:18px; color:#0369a1; font-weight:700; text-decoration:none; }}
+</style>
+</head><body>
+<main>
+  <a class="back" href="/">Quay lại dashboard</a>
+  <h1>Sổ tay quy trình TTBYT</h1>
+  <p class="lede">CS.TTBYT.04 và QT.01–QT.09 dùng cho kiểm định, vận hành, điều chuyển và bảo trì.</p>
+  {cards}
+</main>
+</body></html>"""
+    return HTMLResponse(html)
 
 @router.get("/api/sops")
 async def list_standard_sops():

@@ -19,10 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
         currentFilters: {
             search: '',
             facility_id: '',
+            category_id: '',
             risk_level: '',
-            limit: 300,
-            offset: 0
+            alert_status: '',
+            limit: 50,
+            offset: 0,
+            total: 0
         },
+        paletteTimer: null,
+        paletteIndex: 0,
+        paletteItems: [],
 
         formatNumber(value) {
             const n = Number(value || 0);
@@ -73,10 +79,36 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => el.remove(), 4200);
         },
 
-        skeletonRows(cols = 7) {
+        skeletonRows(cols = 8) {
             return Array.from({ length: 4 }).map(() =>
                 `<tr class="skeleton-row"><td colspan="${cols}"><span class="skeleton" style="width:${55 + Math.round(Math.random() * 30)}%;"></span></td></tr>`
             ).join('');
+        },
+
+        formatDate(dateStr) {
+            if (window.apiClient && apiClient.formatDate) return apiClient.formatDate(dateStr);
+            return dateStr || '-';
+        },
+
+        alertLabel(status) {
+            const map = {
+                OVERDUE: 'Quá hạn',
+                WARNING: '≤ 30 ngày',
+                OK: 'Còn hạn',
+                NO_DATA: 'Chưa có KĐ'
+            };
+            return map[status] || status || 'Chưa có KĐ';
+        },
+
+        dueClass(status) {
+            if (status === 'OVERDUE') return 'due-overdue';
+            if (status === 'WARNING') return 'due-warning';
+            if (status === 'OK') return 'due-ok';
+            return 'due-none';
+        },
+
+        deviceOptionHtml(d) {
+            return `<option value="${d.id}">[${d.asset_tag}] ${d.device_name} (SN: ${d.serial_no || 'N/A'})</option>`;
         },
 
         emptyRow(cols, icon, message) {
@@ -102,9 +134,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.loadTransfers(),
                 this.loadECarts(),
                 this.loadWorkOrders(),
+                this.loadWorklist(),
                 this.loadSemanticaStats(),
-                this.loadSopList()
+                this.loadSopList(),
+                this.refreshDeviceSelects('')
             ]);
+
+            const savedTab = localStorage.getItem('htm-active-tab');
+            if (savedTab) {
+                document.querySelector(`.sidebar-nav .nav-link[data-bs-target="${savedTab}"]`)?.click();
+            }
 
             if (window.DiagramEngine) {
                 DiagramEngine.render('diagram-container', 'qt04');
@@ -120,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '#tab-inspections': 'An toàn vận hành',
                 '#tab-transfers': 'Quy trình QT.08',
                 '#tab-ecarts': 'Cấp cứu 24/7',
+                '#tab-worklist': 'Hàng việc kiểm định',
                 '#tab-workorders': 'SpeedMaint CMMS',
                 '#tab-diagrams': 'Sơ đồ quy trình',
                 '#tab-semantica': 'Đồ thị tri thức',
@@ -137,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelectorAll('#mainTabContent > .tab-pane').forEach(p => p.classList.remove('show', 'active'));
                         document.querySelector(targetId)?.classList.add('show', 'active');
                         if (pageKicker) pageKicker.textContent = kickers[targetId] || 'Hệ thống HTM';
+                        localStorage.setItem('htm-active-tab', targetId);
                     }
 
                     const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
@@ -154,33 +195,69 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             document.getElementById('sidebar-overlay')?.addEventListener('click', () => this.setSidebarOpen(false));
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') this.setSidebarOpen(false);
+                if (e.key === 'Escape') {
+                    this.setSidebarOpen(false);
+                    this.setPaletteOpen(false);
+                }
+                const tag = (e.target && e.target.tagName) || '';
+                const typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    this.setPaletteOpen(true);
+                }
+                if (!typing && e.key === '/') {
+                    e.preventDefault();
+                    document.getElementById('search-input')?.focus();
+                }
             });
 
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
                 searchInput.addEventListener('input', (e) => {
                     this.currentFilters.search = e.target.value;
+                    this.currentFilters.offset = 0;
                     clearTimeout(this.searchTimer);
                     this.searchTimer = setTimeout(() => this.loadDevices(), 320);
                 });
             }
 
-            const facFilter = document.getElementById('filter-facility');
-            if (facFilter) {
-                facFilter.addEventListener('change', (e) => {
-                    this.currentFilters.facility_id = e.target.value;
+            const bindFilter = (id, key) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('change', (e) => {
+                    this.currentFilters[key] = e.target.value;
+                    this.currentFilters.offset = 0;
                     this.loadDevices();
                 });
-            }
+            };
+            bindFilter('filter-facility', 'facility_id');
+            bindFilter('filter-category', 'category_id');
+            bindFilter('filter-risk', 'risk_level');
+            bindFilter('filter-alert', 'alert_status');
 
-            const riskFilter = document.getElementById('filter-risk');
-            if (riskFilter) {
-                riskFilter.addEventListener('change', (e) => {
-                    this.currentFilters.risk_level = e.target.value;
+            document.getElementById('page-size')?.addEventListener('change', (e) => {
+                this.currentFilters.limit = parseInt(e.target.value, 10) || 50;
+                this.currentFilters.offset = 0;
+                this.loadDevices();
+            });
+            document.getElementById('btn-page-prev')?.addEventListener('click', () => {
+                this.currentFilters.offset = Math.max(0, this.currentFilters.offset - this.currentFilters.limit);
+                this.loadDevices();
+            });
+            document.getElementById('btn-page-next')?.addEventListener('click', () => {
+                const next = this.currentFilters.offset + this.currentFilters.limit;
+                if (next < this.currentFilters.total) {
+                    this.currentFilters.offset = next;
                     this.loadDevices();
+                }
+            });
+
+            document.querySelectorAll('[data-kpi-alert]').forEach(card => {
+                card.addEventListener('click', () => {
+                    this.applyAlertFilter(card.getAttribute('data-kpi-alert') || '');
+                    document.getElementById('btn-tab-devices')?.click();
                 });
-            }
+            });
 
             const chips = document.querySelectorAll('.chip-filter[data-chip]');
             chips.forEach(chip => {
@@ -189,27 +266,58 @@ document.addEventListener('DOMContentLoaded', function () {
                     chip.classList.add('active');
 
                     const filterType = chip.getAttribute('data-chip');
-                    if (filterType === 'all') {
-                        this.currentFilters.search = '';
-                        this.currentFilters.risk_level = '';
-                    } else if (filterType === 'cdha') {
+                    this.currentFilters.search = '';
+                    this.currentFilters.risk_level = '';
+                    this.currentFilters.alert_status = '';
+                    this.currentFilters.category_id = '';
+                    this.currentFilters.offset = 0;
+                    if (filterType === 'cdha') {
                         this.currentFilters.search = 'Siêu âm';
-                        this.currentFilters.risk_level = '';
                     } else if (filterType === 'emergency') {
                         this.currentFilters.search = 'Cấp cứu';
-                        this.currentFilters.risk_level = '';
                     } else if (filterType === 'ro') {
                         this.currentFilters.search = 'RO';
-                        this.currentFilters.risk_level = '';
                     } else if (filterType === 'highrisk') {
-                        this.currentFilters.search = '';
                         this.currentFilters.risk_level = 'C,D';
+                    } else if (filterType === 'overdue') {
+                        this.currentFilters.alert_status = 'OVERDUE';
+                    } else if (filterType === 'warning') {
+                        this.currentFilters.alert_status = 'WARNING';
                     }
-                    const sInput = document.getElementById('search-input');
-                    if (sInput) sInput.value = this.currentFilters.search;
-                    const rSelect = document.getElementById('filter-risk');
-                    if (rSelect) rSelect.value = this.currentFilters.risk_level;
+                    this.syncFilterControls();
                     this.loadDevices();
+                });
+            });
+
+            document.getElementById('btn-reset-filters')?.addEventListener('click', () => this.resetFilters());
+            document.getElementById('btn-command-palette')?.addEventListener('click', () => this.setPaletteOpen(true));
+            document.getElementById('command-palette')?.addEventListener('click', (e) => {
+                if (e.target.id === 'command-palette') this.setPaletteOpen(false);
+            });
+            document.getElementById('command-palette-input')?.addEventListener('input', (e) => {
+                clearTimeout(this.paletteTimer);
+                this.paletteTimer = setTimeout(() => this.searchPalette(e.target.value), 220);
+            });
+            document.getElementById('command-palette-input')?.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    this.movePalette(1);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    this.movePalette(-1);
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const item = this.paletteItems[this.paletteIndex];
+                    if (item) this.openPaletteDevice(item.id);
+                }
+            });
+
+            ['ins', 'tr', 'wo'].forEach(prefix => {
+                const search = document.getElementById(`${prefix}-device-search`);
+                if (!search) return;
+                search.addEventListener('input', () => {
+                    clearTimeout(this.pickerTimer);
+                    this.pickerTimer = setTimeout(() => this.refreshDeviceSelects(search.value, `${prefix}-device-id`), 280);
                 });
             });
 
@@ -222,6 +330,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             document.getElementById('modal-btn-print-qr')?.addEventListener('click', () => this.printDevicePassport());
+            document.getElementById('modal-btn-pdf')?.addEventListener('click', () => {
+                const pdf = this.currentSelectedDevice?.source_pdf || this.currentSelectedDevice?.pdf_path;
+                if (!pdf) {
+                    this.toast('Thiết bị này chưa gắn tệp PDF gốc.', 'info');
+                    return;
+                }
+                window.open(apiClient.getPdfUrl(pdf), '_blank');
+            });
         },
 
         async printDevicePassport() {
@@ -244,6 +360,126 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.warn('QR render failed', err);
             }
             window.print();
+        },
+
+        syncFilterControls() {
+            const map = {
+                'search-input': this.currentFilters.search,
+                'filter-facility': this.currentFilters.facility_id,
+                'filter-category': this.currentFilters.category_id,
+                'filter-risk': this.currentFilters.risk_level,
+                'filter-alert': this.currentFilters.alert_status
+            };
+            Object.entries(map).forEach(([id, value]) => {
+                const el = document.getElementById(id);
+                if (el) el.value = value || '';
+            });
+            document.querySelectorAll('[data-kpi-alert]').forEach(card => {
+                card.classList.toggle('is-active', (card.getAttribute('data-kpi-alert') || '') === (this.currentFilters.alert_status || ''));
+            });
+        },
+
+        applyAlertFilter(alertStatus) {
+            this.resetFilters(false);
+            this.currentFilters.alert_status = alertStatus;
+            this.currentFilters.offset = 0;
+            document.querySelectorAll('.chip-filter[data-chip]').forEach(c => {
+                c.classList.toggle('active', (alertStatus === 'OVERDUE' && c.dataset.chip === 'overdue')
+                    || (alertStatus === 'WARNING' && c.dataset.chip === 'warning')
+                    || (!alertStatus && c.dataset.chip === 'all'));
+            });
+            this.syncFilterControls();
+            this.loadDevices();
+        },
+
+        resetFilters(reload = true) {
+            this.currentFilters.search = '';
+            this.currentFilters.facility_id = '';
+            this.currentFilters.category_id = '';
+            this.currentFilters.risk_level = '';
+            this.currentFilters.alert_status = '';
+            this.currentFilters.offset = 0;
+            document.querySelectorAll('.chip-filter[data-chip]').forEach(c => c.classList.toggle('active', c.dataset.chip === 'all'));
+            this.syncFilterControls();
+            if (reload) this.loadDevices();
+        },
+
+        setPaletteOpen(open) {
+            const pal = document.getElementById('command-palette');
+            if (!pal) return;
+            pal.hidden = !open;
+            if (open) {
+                const input = document.getElementById('command-palette-input');
+                if (input) {
+                    input.value = '';
+                    setTimeout(() => input.focus(), 30);
+                }
+                this.searchPalette('');
+            }
+        },
+
+        async searchPalette(query) {
+            const box = document.getElementById('command-palette-results');
+            if (!box) return;
+            box.innerHTML = '<div class="text-muted small px-3 py-2">Đang tìm...</div>';
+            try {
+                const url = `/api/devices?limit=8&search=${encodeURIComponent(query || '')}`;
+                const res = await fetch(url);
+                const items = await res.json();
+                this.paletteItems = items;
+                this.paletteIndex = 0;
+                if (!items.length) {
+                    box.innerHTML = '<div class="text-muted small px-3 py-3">Không thấy thiết bị phù hợp.</div>';
+                    return;
+                }
+                this.renderPalette();
+            } catch (err) {
+                box.innerHTML = '<div class="text-danger small px-3 py-2">Không tìm được danh mục.</div>';
+            }
+        },
+
+        renderPalette() {
+            const box = document.getElementById('command-palette-results');
+            if (!box) return;
+            box.innerHTML = this.paletteItems.map((d, idx) => `
+                <button type="button" class="command-item ${idx === this.paletteIndex ? 'is-active' : ''}" data-id="${d.id}">
+                    <div>
+                        <div class="fw-bold text-dark">${d.device_name}</div>
+                        <div class="text-muted small font-mono">${d.asset_tag} · ${d.serial_no || '—'} · ${d.facility || 'Chưa phân khoa'}</div>
+                    </div>
+                    <span class="badge ${this.statusClass(d.alert_status)} ms-auto">${this.alertLabel(d.alert_status)}</span>
+                </button>
+            `).join('');
+            box.querySelectorAll('.command-item').forEach(btn => {
+                btn.addEventListener('click', () => this.openPaletteDevice(parseInt(btn.dataset.id, 10)));
+            });
+        },
+
+        movePalette(delta) {
+            if (!this.paletteItems.length) return;
+            this.paletteIndex = (this.paletteIndex + delta + this.paletteItems.length) % this.paletteItems.length;
+            this.renderPalette();
+        },
+
+        openPaletteDevice(id) {
+            this.setPaletteOpen(false);
+            this.showDeviceDetails(id);
+        },
+
+        async refreshDeviceSelects(query = '', targetId = null) {
+            try {
+                const url = `/api/devices?limit=80&search=${encodeURIComponent(query || '')}`;
+                const res = await fetch(url);
+                const items = await res.json();
+                const html = items.map(d => this.deviceOptionHtml(d)).join('');
+                const ids = targetId ? [targetId] : ['ins-device-id', 'tr-device-id', 'wo-device-id'];
+                ids.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = html || '<option value="">Không tìm thấy thiết bị</option>';
+                });
+            } catch (err) {
+                console.error('Device select refresh failed', err);
+            }
         },
 
         async loadInitialData() {
@@ -273,6 +509,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (cdCat) {
                     cdCat.innerHTML = '<option value="">Chưa phân nhóm</option>' +
                         this.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+                }
+                const filterCat = document.getElementById('filter-category');
+                if (filterCat) {
+                    filterCat.innerHTML = '<option value="">Tất cả nhóm</option>' +
+                        this.categories.map(c => `<option value="${c.id}">${c.name}${c.device_count != null ? ' (' + c.device_count + ')' : ''}</option>`).join('');
                 }
                 if (trFromFac) {
                     trFromFac.innerHTML = this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
@@ -304,6 +545,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 setText('kpi-avail-rate', `Sẵn sàng vận hành ${stats.availability_rate ?? 0}%`);
                 const chipAll = document.getElementById('chip-all');
                 if (chipAll) chipAll.textContent = `Tất cả (${total})`;
+                const dueBadge = document.getElementById('nav-badge-due');
+                if (dueBadge) dueBadge.textContent = this.formatNumber((stats.overdue_count || 0) + (stats.warning_count || 0));
             } catch (err) {
                 console.error('Error loading dashboard summary:', err);
             }
@@ -311,37 +554,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
         async loadDevices() {
             const tbody = document.getElementById('device-table-body');
-            if (tbody) tbody.innerHTML = this.skeletonRows(7);
+            if (tbody) tbody.innerHTML = this.skeletonRows(8);
             try {
                 let url = `/api/devices?limit=${this.currentFilters.limit}&offset=${this.currentFilters.offset}`;
                 if (this.currentFilters.search) url += `&search=${encodeURIComponent(this.currentFilters.search)}`;
                 if (this.currentFilters.facility_id) url += `&facility_id=${this.currentFilters.facility_id}`;
+                if (this.currentFilters.category_id) url += `&category_id=${this.currentFilters.category_id}`;
                 if (this.currentFilters.risk_level) url += `&risk_level=${encodeURIComponent(this.currentFilters.risk_level)}`;
+                if (this.currentFilters.alert_status) url += `&alert_status=${encodeURIComponent(this.currentFilters.alert_status)}`;
 
                 const res = await fetch(url);
                 if (!res.ok) throw new Error('Không tải được danh mục thiết bị');
                 this.devices = await res.json();
+                this.currentFilters.total = parseInt(res.headers.get('X-Total-Count') || this.devices.length, 10);
 
                 const filterCount = document.getElementById('filter-count');
-                if (filterCount) filterCount.textContent = this.formatNumber(this.devices.length);
+                if (filterCount) filterCount.textContent = this.formatNumber(this.currentFilters.total);
+                const from = this.currentFilters.total === 0 ? 0 : this.currentFilters.offset + 1;
+                const to = Math.min(this.currentFilters.offset + this.devices.length, this.currentFilters.total);
+                const range = document.getElementById('pager-range');
+                if (range) range.textContent = `${this.formatNumber(from)}–${this.formatNumber(to)}`;
+                const pageEl = document.getElementById('pager-page');
+                if (pageEl) pageEl.textContent = String(Math.floor(this.currentFilters.offset / this.currentFilters.limit) + 1);
+                const prev = document.getElementById('btn-page-prev');
+                const next = document.getElementById('btn-page-next');
+                if (prev) prev.disabled = this.currentFilters.offset <= 0;
+                if (next) next.disabled = this.currentFilters.offset + this.currentFilters.limit >= this.currentFilters.total;
 
                 if (!this.devices || this.devices.length === 0) {
-                    tbody.innerHTML = this.emptyRow(7, 'bi-inbox', 'Không tìm thấy thiết bị nào phù hợp bộ lọc.');
+                    tbody.innerHTML = this.emptyRow(8, 'bi-inbox', 'Không tìm thấy thiết bị nào phù hợp bộ lọc.');
                     return;
                 }
 
-                const insDeviceSelect = document.getElementById('ins-device-id');
-                const trDeviceSelect = document.getElementById('tr-device-id');
-                const woDeviceSelect = document.getElementById('wo-device-id');
-
-                const devOptions = this.devices.slice(0, 100).map(d => `<option value="${d.id}">[${d.asset_tag}] ${d.device_name} (SN: ${d.serial_no || 'N/A'})</option>`).join('');
-                if (insDeviceSelect) insDeviceSelect.innerHTML = devOptions;
-                if (trDeviceSelect) trDeviceSelect.innerHTML = devOptions;
-                if (woDeviceSelect) woDeviceSelect.innerHTML = devOptions;
-
                 tbody.innerHTML = this.devices.map(d => {
                     const riskBadge = d.risk_level ? `<span class="badge badge-risk-${d.risk_level}">${d.risk_level}</span>` : '<span class="text-muted">-</span>';
-                    const status = d.status || 'IN_SERVICE';
+                    const alert = d.alert_status || 'NO_DATA';
                     return `
                         <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row" tabindex="0">
                             <td class="ps-3 font-mono fw-semibold text-primary">
@@ -355,12 +602,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td class="font-mono">${d.serial_no || '<span class="text-muted">-</span>'}</td>
                             <td>${d.facility_name || d.facility || '<span class="text-muted">Chưa phân khoa</span>'}</td>
                             <td class="text-center">${riskBadge}</td>
-                            <td class="text-center">
-                                <span class="badge ${this.statusClass(status)} px-2 py-1">${this.statusLabel(status)}</span>
-                            </td>
+                            <td class="font-mono small ${this.dueClass(alert)}">${this.formatDate(d.recalibration_date)}</td>
+                            <td class="text-center"><span class="badge ${this.statusClass(alert)}">${this.alertLabel(alert)}</span></td>
                             <td class="pe-3 text-end" onclick="event.stopPropagation()">
-                                <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
-                                    <i class="bi bi-eye"></i> Chi tiết
+                                <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Hồ sơ máy">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary btn-clinical" onclick="app.quickWorkOrder(${d.id})" title="Tạo phiếu bảo trì">
+                                    <i class="bi bi-tools"></i>
                                 </button>
                             </td>
                         </tr>
@@ -368,8 +617,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }).join('');
             } catch (err) {
                 console.error('Error loading devices:', err);
-                if (tbody) tbody.innerHTML = this.emptyRow(7, 'bi-exclamation-triangle', 'Không tải được danh mục thiết bị. Kiểm tra máy chủ API.');
+                if (tbody) tbody.innerHTML = this.emptyRow(8, 'bi-exclamation-triangle', 'Không tải được danh mục thiết bị. Kiểm tra máy chủ API.');
             }
+        },
+
+        quickWorkOrder(deviceId) {
+            this.refreshDeviceSelects('', 'wo-device-id').then(() => {
+                const woSelect = document.getElementById('wo-device-id');
+                if (woSelect) woSelect.value = deviceId;
+                const woModal = new bootstrap.Modal(document.getElementById('speedmaintWorkOrderModal'));
+                woModal.show();
+            });
         },
 
         async showDeviceDetails(deviceId) {
@@ -417,6 +675,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('modal-dev-country').textContent = dev.country_of_manufacturer || 'Nhật Bản / Đức / Mỹ';
                 document.getElementById('modal-dev-year').textContent = dev.year_of_manufacture || '2024';
                 document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận.';
+                const pdfBtn = document.getElementById('modal-btn-pdf');
+                if (pdfBtn) pdfBtn.hidden = !(dev.source_pdf || dev.pdf_path);
 
                 // 3. Tab 2: Accessories Tree
                 document.getElementById('modal-acc-count').textContent = accessories.length;
@@ -494,8 +754,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Setup footer action buttons
                 const btnTr = document.getElementById('modal-btn-transfer');
                 if (btnTr) {
-                    btnTr.onclick = () => {
+                    btnTr.onclick = async () => {
                         bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+                        await this.refreshDeviceSelects('', 'tr-device-id');
                         const trSelect = document.getElementById('tr-device-id');
                         if (trSelect) trSelect.value = deviceId;
                         document.getElementById('btn-tab-transfers')?.click();
@@ -506,10 +767,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (btnWo) {
                     btnWo.onclick = () => {
                         bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
-                        const woSelect = document.getElementById('wo-device-id');
-                        if (woSelect) woSelect.value = deviceId;
-                        const woModal = new bootstrap.Modal(document.getElementById('speedmaintWorkOrderModal'));
-                        woModal.show();
+                        this.quickWorkOrder(deviceId);
                     };
                 }
 
@@ -647,19 +905,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 tbody.innerHTML = this.workOrders.map(wo => `
                     <tr>
-                        <td class="font-mono fw-bold text-primary">#WO-${wo.id}</td>
-                        <td class="fw-bold text-dark">${wo.title}</td>
-                        <td>${wo.device_name || 'Hệ thống'} <span class="text-muted small font-mono">(${wo.asset_tag || ''})</span></td>
+                        <td class="font-mono fw-bold text-primary">#${wo.task_code || wo.id}</td>
+                        <td class="fw-bold text-dark">${wo.title || wo.description || wo.work_type || 'Phiếu công việc'}</td>
+                        <td>${wo.device_name || 'Hệ thống'} <span class="text-muted small font-mono">(${wo.asset_tag || wo.speedmaint_device_code || ''})</span></td>
                         <td class="text-center"><span class="badge ${this.statusClass(wo.priority)}">${this.statusLabel(wo.priority)}</span></td>
                         <td class="text-center"><span class="badge ${this.statusClass(wo.status)}">${this.statusLabel(wo.status)}</span></td>
                         <td>${wo.assigned_to || 'P.TTBYT'}</td>
                         <td class="text-end">
-                            <span class="text-muted small font-mono">${wo.created_at ? wo.created_at.substring(0, 10) : ''}</span>
+                            <span class="text-muted small font-mono">${wo.created_at || wo.start_date || ''}</span>
                         </td>
                     </tr>
                 `).join('');
             } catch (err) {
                 console.error('Error loading work orders:', err);
+            }
+        },
+
+        async loadWorklist() {
+            const tbody = document.getElementById('worklist-table-body');
+            if (!tbody) return;
+            try {
+                const [overdueRes, warnRes] = await Promise.all([
+                    fetch('/api/devices?alert_status=OVERDUE&limit=80'),
+                    fetch('/api/devices?alert_status=WARNING&limit=80')
+                ]);
+                const overdue = overdueRes.ok ? await overdueRes.json() : [];
+                const warning = warnRes.ok ? await warnRes.json() : [];
+                const rows = [...overdue, ...warning];
+                const dueBadge = document.getElementById('nav-badge-due');
+                if (dueBadge) dueBadge.textContent = this.formatNumber(rows.length);
+                if (!rows.length) {
+                    tbody.innerHTML = this.emptyRow(6, 'bi-check2-circle', 'Không có máy quá hạn hoặc sắp đến hạn trong 30 ngày.');
+                    return;
+                }
+                tbody.innerHTML = rows.map(d => `
+                    <tr style="cursor:pointer" onclick="app.showDeviceDetails(${d.id})">
+                        <td class="ps-3">
+                            <div class="fw-bold text-dark">${d.device_name}</div>
+                            <div class="text-muted small font-mono">${d.asset_tag} · ${d.serial_no || '-'}</div>
+                        </td>
+                        <td>${d.facility || '-'}</td>
+                        <td class="font-mono small ${this.dueClass(d.alert_status)}">${this.formatDate(d.recalibration_date)}</td>
+                        <td class="text-center"><span class="badge ${this.statusClass(d.alert_status)}">${this.alertLabel(d.alert_status)}</span></td>
+                        <td class="font-mono small">${d.certificate_no || '-'}</td>
+                        <td class="pe-3 text-end" onclick="event.stopPropagation()">
+                            <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})">Mở hồ sơ</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error('Error loading worklist:', err);
+                tbody.innerHTML = this.emptyRow(6, 'bi-exclamation-triangle', 'Không tải được hàng việc kiểm định.');
             }
         },
 
