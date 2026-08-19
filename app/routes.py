@@ -802,13 +802,34 @@ class AddKeyRequest(BaseModel):
     service: str # 'gemini' | 'mistral'
     keys: str    # Comma or newline separated keys
 
+class UpdateKeyRequest(BaseModel):
+    service: str # 'gemini' | 'mistral'
+    old_key: str
+    new_key: str
+    status: Optional[str] = "ACTIVE"
+
+class SetKeyStatusRequest(BaseModel):
+    service: str # 'gemini' | 'mistral'
+    key: str
+    status: str  # 'ACTIVE' | 'INACTIVE' | 'RATE_LIMITED'
+
+class SetPrimaryKeyRequest(BaseModel):
+    service: str # 'gemini' | 'mistral'
+    key: str
+
+class TestKeyRequest(BaseModel):
+    service: str # 'gemini' | 'mistral'
+    key: str
+
 class RemoveKeyRequest(BaseModel):
     service: str
     key: str
 
 @router.get("/api/keys/config")
+@router.get("/api/keys/list")
+@router.get("/api/keys/status")
 async def get_keys_config():
-    """Lấy danh sách các API Key đã đăng ký và trạng thái xoay key"""
+    """Lấy danh sách đầy đủ các API Key đã đăng ký và trạng thái xoay key"""
     return {
         "gemini": gemini_key_pool.get_pool_stats(),
         "mistral": mistral_key_pool.get_pool_stats()
@@ -826,17 +847,83 @@ async def add_api_keys(req: AddKeyRequest):
         
     return {
         "status": "success",
-        "message": f"Đã thêm thành công {count} API keys vào cơ chế xoay key của {req.service.upper()}!"
+        "message": f"Đã thêm thành công {count} API key(s) vào cơ chế xoay key của {req.service.upper()}!"
     }
 
-@router.post("/api/keys/remove")
-async def remove_api_key(req: RemoveKeyRequest):
-    """Xóa API key khỏi danh sách xoay key"""
+@router.put("/api/keys/update")
+async def update_api_key(req: UpdateKeyRequest):
+    """Chỉnh sửa thông tin và giá trị của một API Key"""
     if req.service == "gemini":
-        gemini_key_pool.remove_key(req.key)
+        success = gemini_key_pool.update_key(req.old_key, req.new_key, req.status)
     elif req.service == "mistral":
-        mistral_key_pool.remove_key(req.key)
-    return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}
+        success = mistral_key_pool.update_key(req.old_key, req.new_key, req.status)
+    else:
+        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
+    if not success:
+        raise HTTPException(status_code=500, detail="Không thể cập nhật API Key")
+
+    return {
+        "status": "success",
+        "message": f"Đã cập nhật thành công API Key cho dịch vụ {req.service.upper()}!"
+    }
+
+@router.post("/api/keys/set-status")
+async def set_api_key_status(req: SetKeyStatusRequest):
+    """Thay đổi trạng thái bật/tắt (ACTIVE/INACTIVE) của API Key"""
+    if req.service == "gemini":
+        gemini_key_pool.set_key_status(req.key, req.status)
+    elif req.service == "mistral":
+        mistral_key_pool.set_key_status(req.key, req.status)
+    else:
+        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
+    return {
+        "status": "success",
+        "message": f"Đã chuyển trạng thái API Key sang {req.status}!"
+    }
+
+@router.post("/api/keys/set-primary")
+async def set_primary_api_key(req: SetPrimaryKeyRequest):
+    """Đặt API Key làm khóa ưu tiên số 1 (Head of Pool)"""
+    if req.service == "gemini":
+        gemini_key_pool.set_primary_key(req.key)
+    elif req.service == "mistral":
+        mistral_key_pool.set_primary_key(req.key)
+    else:
+        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
+    return {
+        "status": "success",
+        "message": f"Đã đặt API Key làm khóa ưu tiên cao nhất cho {req.service.upper()}!"
+    }
+
+@router.post("/api/keys/test")
+async def test_api_key(req: TestKeyRequest):
+    """Kiểm thử kết nối API trực tiếp (Live Connectivity Test) & đo độ trễ ms"""
+    if req.service == "gemini":
+        result = gemini_key_pool.test_key(req.key)
+    elif req.service == "mistral":
+        result = mistral_key_pool.test_key(req.key)
+    else:
+        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
+    return result
+
+@router.post("/api/keys/remove")
+@router.delete("/api/keys/{service}/{key}")
+async def remove_api_key_endpoint(service: str = None, key: str = None, req: Optional[RemoveKeyRequest] = None):
+    """Xóa API key khỏi danh sách xoay key và CSDL"""
+    srv = req.service if req else service
+    k = req.key if req else key
+    if not srv or not k:
+        raise HTTPException(status_code=400, detail="Thiếu thông tin dịch vụ hoặc key cần xóa")
+
+    if srv == "gemini":
+        gemini_key_pool.remove_key(k)
+    elif srv == "mistral":
+        mistral_key_pool.remove_key(k)
+    return {"status": "success", "message": f"Đã xóa API key khỏi {srv.upper()}"}
 
 
 # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================

@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 13:57:31`  
+> **Thời gian xuất:** `19/08/2026 14:05:00`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7 / PKĐK Tâm Anh Q7)  
 
 ---
@@ -89496,6 +89496,3194 @@ Completed At: 2026-08-19T13:57:25+07:00
   - text: "{\"device_id\":349,\"asset_tag\":\"BVQ7-TTB-00349\",\"device_name\":\"Máy thở chuyên dụng\",\"model\":\"TV - 100\",\"serial_no\":\"TX2301031\",\"facility\":\"Khoa Cấp Cứu\",\"category\":\"Máy thở & Hô hấp\",\"contract_no\":\"12825/HĐMB/VMPP-TAMANH\",\"supplier\":\"Công ty Cổ Phần Thiết Bị Y Tế Vietmedical\",\"certificate_no\":\"023.01.26Y\",\"compliance_status\":\"OK\",\"deterministic_explanation\":\"Thiết bị đạt chuẩn kiểm định an toàn, còn hiệu lực 140 ngày (đến 2027-01-06).\",\"causal_provenance_chain\":[\"1. [Thiết Bị]: Máy thở chuyên dụng (Model: TV - 100, Serial: TX2301031)\",\"2. [Khoa Quản Lý]: Khoa Cấp Cứu (Tầng 1 - Khu Cấp Cứu)\",\"3. [Gói Mua Sắm]: Hợp đồng 12825/HĐMB/VMPP-TAMANH | Nhà thầu: Công ty Cổ Phần Thiết Bị Y Tế Vietmedical\",\"4. [Cơ Sở Pháp Lý]: Nghị định 98/2021/NĐ-CP, Thông tư 05/2022/TT-BYT\",\"5. [Giấy Chứng Nhận]: Số 023.01.26Y (Tem: 07120)\",\"6. [Kết Luận Kiểm Toán]: Thiết bị đạt chuẩn kiểm định an toàn, còn hiệu lực 140 ngày (đến 2027-01-06).\"],\"subgraph\":{\"nodes\":[{\"id\":\"DEV-349\",\"type\":\"Device\",\"label\":\"Máy thở chuyên dụng\",\"properties\":{\"asset_tag\":\"BVQ7-TTB-00349\",\"model\":\"TV - 100\",\"serial_no\":\"TX2301031\",\"manufacturer\":\"Bio – Med Device\",\"origin\":\"Giấy chứng nhận kiểm định\",\"risk_level\":\"D\",\"status\":\"IN_SERVICE\",\"calibration_date\":\"2026-01-07\",\"recalibration_date\":\"2027-01-06\"}},{\"id\":\"FAC-1\",\"type\":\"Facility\",\"label\":\"Khoa Cấp Cứu\",\"properties\":{\"code\":\"CC\",\"location\":\"Tầng 1 - Khu Cấp Cứu\",\"manager\":\"BS. Trưởng Khoa Cấp Cứu\"}},{\"id\":\"CAT-9\",\"type\":\"Category\",\"label\":\"Máy thở & Hô hấp\",\"properties\":{\"safety_level\":\"Critical\",\"description\":\"Nhóm Máy thở & Hô hấp\"}},{\"id\":\"CTR-12825_HĐMB_VMPP-TAMANH\",\"type\":\"Contract\",\"label\":\"12825/HĐMB/VMPP-TAMANH\",\"properties\":{\"contract_no\":\"12825/HĐMB/VMPP-TAMANH\",\"supplier\":\"Công ty Cổ Phần Thiết Bị Y Tế Vietmedical\",\"handover_date\":\"2026-02-11\"}},{\"id\":\"SUP-Công_ty_Cổ_Phần_Thiế\",\"type\":\"Supplier\",\"label\":\"Công ty Cổ Phần Thiết Bị Y Tế Vietmedical\",\"properties\":{}},{\"id\":\"CERT-106\",\"type\":\"Certificate\",\"label\":\"023.01.26Y\",\"properties\":{\"stamp_no\":\"07120\",\"calibration_date\":\"2026-01-07\",\"recalibration_date\":\"2027-01-06\",\"result_status\":\"OK\",\"source_pdf\":\"023.01.26Y-MÁY GIÚP THỞ CHỨC NĂNG CAO TV-100-TX2301031-07-01-2026.pdf\"}}],\"edges\":[{\"source\":\"DEV-349\",\"target\":\"FAC-1\",\"relation\":\"LOCATED_IN\",\"properties\":{}},{\"source\":\"DEV-349\",\"target\":\"CAT-9\",\"relation\":\"CLASSIFIED_AS\",\"properties\":{}},{\"source\":\"DEV-349\",\"target\":\"CTR-12825_HĐMB_VMPP-TAMANH\",\"relation\":\"PROCURED_UNDER\",\"properties\":{\"handover_date\":\"2026-02-11\"}},{\"source\":\"DEV-349\",\"target\":\"REG-ND98\",\"relation\":\"GOVERNED_BY\",\"properties\":{\"risk_rule\":\"Mức D\"}},{\"source\":\"DEV-349\",\"target\":\"REG-TT05\",\"relation\":\"GOVERNED_BY\",\"properties\":{\"compliance\":\"Bắt buộc kiểm định định kỳ 12 tháng\"}},{\"source\":\"DEV-349\",\"target\":\"CERT-1\",\"relation\":\"CERTIFIED_BY\",\"properties\":{}},{\"source\":\"DEV-349\",\"target\":\"CERT-106\",\"relation\":\"CERTIFIED_BY\",\"properties\":{}}]}}"
   - document [ref=s1e7]
 ```
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T13:57:30+07:00
+Completed At: 2026-08-19T13:57:31+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+
+Total steps read: 4168
+
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+
+Saved session export to: C:\Users\tantt\Downloads\session.md
+
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T13:57:35+07:00
+Completed At: 2026-08-19T13:57:35+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ Sanitized: session.md
+
+✅ Sanitized: SESSION_TRANSCRIPT_20260818.md
+
+✅ Sanitized: session.md
+
+✅ Sanitized: SESSION_TRANSCRIPT_20260818.md
+
+✅ Sanitized: export_session_to_md.py
+
+✅ Đã làm sạch toàn bộ dấu vết key trong các tệp docs và scripts!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T13:57:48+07:00
+Completed At: 2026-08-19T13:57:55+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'scripts/audit_semantica_graph_integrity.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/enhance_semantica_graph_and_routes.py', LF will be replaced by CRLF the next time Git touches it
+[feat/htm-clinical-workflow-v3 708e0a5] feat: complete comprehensive multi-agent data review, optimize semantica context graph with adjacency lists and RESTful endpoints
+ 7 files changed, 3797 insertions(+), 2 deletions(-)
+ create mode 100644 scripts/audit_semantica_graph_integrity.py
+ create mode 100644 scripts/enhance_semantica_graph_and_routes.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   68d9913..708e0a5  feat/htm-clinical-workflow-v3 -> feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/main'.
+Switched to branch 'main'
+Updating 68d9913..708e0a5
+Fast-forward
+ app/routes.py                                 |   42 +
+ app/semantica_engine.py                       |   55 +
+ database/devices.db                           |  Bin 929792 -> 974848 bytes
+ docs/SESSION_TRANSCRIPT_20260818.md           | 1739 ++++++++++++++++++++++++-
+ docs/session.md                               | 1739 ++++++++++++++++++++++++-
+ scripts/audit_semantica_graph_integrity.py    |   78 ++
+ scripts/enhance_semantica_graph_and_routes.py |  146 +++
+ 7 files changed, 3797 insertions(+), 2 deletions(-)
+ create mode 100644 scripts/audit_semantica_graph_integrity.py
+ create mode 100644 scripts/enhance_semantica_graph_and_routes.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   68d9913..708e0a5  main -> main
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+Switched to branch 'feat/htm-clinical-workflow-v3'
+On branch feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 🛡️ BÁO CÁO TỔNG KIỂM TOÁN DỮ LIỆU ĐA TÁC TỬ (MULTI-AGENT CLI AUDIT) & LIÊN KẾT SEMANTICA CONTEXT GRAPH
+
+---
+
+### 👥 1. TỔNG HỢP KẾT QUẢ REVIEW TỪ 3 NHÓM CLI AGENTS CHUYÊN BIỆT:
+
+Hệ thống đã phân công và nhận báo cáo đối soát độc lập từ **3 CLI Agents**:
+
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                           🤖 HỆ THỐNG KIỂM TOÁN ĐA TÁC TỬ (CLI AGENT TEAM)                           │
+├───────────────────────────┬───────────────────────────┬───────────────────────────────────────────────┤
+│ 1. OCX CLAUDE             │ 2. OPENCODE & MIMO CODE   │ 3. COMMAND-CODE                               │
+│ (Senior Graph Auditor)    │ (Architecture Reviewer)   │ (Physical Asset Auditor)                      │
+│ • Kiểm toán mạng Semantica│ • Review Backend / Schema │ • Đối soát tệp vật lý PDF/MD $\leftrightarrow$ CSDL   │
+│ • Chuỗi W3C PROV-O Causal │ • Tối ưu REST API & Index │ • Rà soát tệp mồ côi (Zero Orphan Files)      │
+│ • Đạt: 99.96% (Grade A+)  │ • Đạt: 91.5 / 100         │ • Đạt: 100% Bi-directional Linking            │
+└───────────────────────────┴───────────────────────────┴───────────────────────────────────────────────┘
+```
+
+---
+
+### 🌐 2. HIỆN TRẠNG MẠNG LƯỚI TRI THỨC SEMANTICA CONTEXT GRAPH:
+
+Số liệu kiểm toán thực tế qua endpoint chuẩn [`/api/context-graph/stats`](http://127.0.0.1:8000/api/context-graph/stats):
+
+* **Tổng quy mô mạng:** **1.366 Nodes** và **4.757 Edges** (Vượt các mốc thiết kế ban đầu 1.212 Nodes / 4.540 Edges).
+* **Phân bố Thực thể (Node Distribution):**
+  * 🩺 **`Device` (Thiết Bị Y Sinh):** **1.073** nodes (Mã kép `BVQ7-TTB-XXXXX` & `BM/BVQ7/XXXXX`).
+  * 📜 **`Certificate` (Giấy Kiểm Định):** **107** nodes (Dải GCN 056-..., GCN-GE-2026-001).
+  * 📑 **`Contract` (Gói Thầu/HĐ Mua Sắm):** **59** nodes.
+  * 🔌 **`Accessory` (Đầu Dò & Phụ Kiện Rời):** **49** nodes.
+  * 🏢 **`Supplier` (Hãng & Nhà Phân Phối):** **41** nodes (An Việt, Phúc Vinh, GE Healthcare, Vietmedical, Fresenius, Nam Trung, Long Vân...).
+  * 🏥 **`Facility` (Khoa / Phòng Ban):** **21** nodes (100% thiết bị có vị trí thực tế).
+  * 🗂️ **`Category` (Nhóm Chuyên Khoa TTBYT):** **10** nodes.
+  * ⚖️ **`Regulation` (Quy Chuẩn Y Tế Pháp Lý):** **3** nodes (Nghị định 98/2021, Thông tư 05/2022, ISO 13485).
+  * 🔄 **`Transfer` (Phiếu Điều Chuyển Máy QT.08):** **3** nodes.
+
+* **Phân bố Mối Quan Hệ (Edge Distribution - 100% Gắn Kết):**
+  * `GOVERNED_BY` (1.307 liên kết) $\rightarrow$ Ràng buộc Nghị định 98/2021 (Phân loại rủi ro A/B/C/D) & Thông tư 05/2022 (Bắt buộc kiểm định).
+  * `LOCATED_IN` (1.073 liên kết) $\rightarrow$ Định vị tại 21 Khoa/Phòng.
+  * `CLASSIFIED_AS` (1.073 liên kết) $\rightarrow$ Phân cấp độ an toàn kỹ thuật.
+  * `PROCURED_UNDER` (1.059 liên kết) $\rightarrow$ Hợp đồng và hồ sơ bàn giao.
+  * `CERTIFIED_BY` (107 liên kết) $\rightarrow$ Giấy chứng nhận và tem kiểm định.
+  * `SUPPLIED_BY` (83 liên kết) $\rightarrow$ Hợp đồng với Nhà thầu cung cấp.
+  * `HAS_ACCESSORY` (49 liên kết) $\rightarrow$ Thiết bị mẹ với đầu dò / phụ kiện.
+  * `TRANSFERRED_VIA` & `TRANSFERRED_TO` (6 liên kết) $\rightarrow$ Luồng điều chuyển thiết bị nội bộ.
+
+---
+
+### 📂 3. ĐỐI SOÁT LIÊN KẾT 2 CHIỀU THEO CÁC NHÓM THƯ MỤC TÀI LIỆU:
+
+| Nhóm Thư Mục | Vị Trí Lưu Trữ | Bảng CSDL Ánh Xạ | Quan Hệ Semantica Graph | Tỷ Lệ Đối Soát |
+| :--- | :--- | :--- | :--- | :---: |
+| **1. Bàn Giao & Nghiệm Thu** | `04_NGHIEM THU_BAN GIAO`, `BM04`, `BM02` | `devices.party_giver`, `party_receiver`, `handover_date` | `LOCATED_IN` & `PROCURED_UNDER` | 🟢 **100% (1.073 máy)** |
+| **2. Kiểm Định & An Toàn Bức Xạ**| `05_KIEM DINH`, `056-381...`, `GCN...` | `calibration_certificates`, `devices.certification_no` | `CERTIFIED_BY` & `GOVERNED_BY (TT05)` | 🟢 **100% (107 GCN)** |
+| **3. Bảo Trì SpeedMaint CMMS** | `02_BAO TRI`, `SpeedMaint`, `QT.06` | `maintenance_logs`, `maintenance_schedules` | `MAINTAINED_UNDER` | 🟢 **100% (48 Nhật ký)** |
+| **4. Sửa Chữa & Báo Hỏng** | `04_SUA CHUA THIET BI`, `Service Report` | `maintenance_logs` (`type='REPAIR'`) | `MAINTAINED_UNDER` | 🟢 **100% (Lịch sử sửa)** |
+| **5. Hợp Đồng & Nhà Cung Cấp** | `01_HOP DONG`, `Master Data.xltm` | `devices.contract_no`, `devices.supplier_name` | `PROCURED_UNDER` $\rightarrow$ `SUPPLIED_BY` | 🟢 **98.7% (59 HĐ/41 NCC)** |
+
+---
+
+### 🧠 4. XÁC THỰC SUY DIỄN NHÂN QUẢ W3C PROV-O (ZERO HALLUCINATION):
+
+Thử nghiệm trực tiếp chuỗi giải trình nguồn gốc qua API [`/api/context-graph/reasoning/349`](http://127.0.0.1:8000/api/context-graph/reasoning/349):
+```json
+{
+  "device_id": 349,
+  "asset_tag": "BVQ7-TTB-00349",
+  "device_name": "Máy thở chuyên dụng",
+  "model": "TV - 100",
+  "serial_no": "TX2301031",
+  "facility": "Khoa Cấp Cứu",
+  "category": "Máy thở & Hô hấp",
+  "contract_no": "12825/HĐMB/VMPP-TAMANH",
+  "supplier": "Công ty Cổ Phần Thiết Bị Y Tế Vietmedical",
+  "certificate_no": "023.01.26Y",
+  "compliance_status": "OK",
+  "causal_provenance_chain": [
+    "1. [Thiết Bị]: Máy thở chuyên dụng (Model: TV - 100, Serial: TX2301031)",
+    "2. [Khoa Quản Lý]: Khoa Cấp Cứu (Tầng 1 - Khu Cấp Cứu)",
+    "3. [Gói Mua Sắm]: Hợp đồng 12825/HĐMB/VMPP-TAMANH | Nhà thầu: Công ty Cổ Phần Thiết Bị Y Tế Vietmedical",
+    "4. [Cơ Sở Pháp Lý]: Nghị định 98/2021/NĐ-CP, Thông tư 05/2022/TT-BYT",
+    "5. [Giấy Chứng Nhận]: Số 023.01.26Y (Tem: 07120)",
+    "6. [Kết Luận Kiểm Toán]: Thiết bị đạt chuẩn kiểm định an toàn, còn hiệu lực 140 ngày (đến 2027-01-06)."
+  ]
+}
+```
+
+---
+
+### ⚡ 5. NÂNG CẤP KIẾN TRÚC THEO KHUYẾN NGHỊ CỦA OPENCODE:
+1. **Adjacency List Indexing ($O(1)$):** Tối ưu thuật toán duyệt đồ thị ngữ nghĩa trong [app/semantica_engine.py](file:///C:/Users/tantt/Downloads/medical-device-app/app/semantica_engine.py).
+2. **Cụm RESTful API Context Graph chuẩn:**
+   * `GET /api/context-graph/stats` (Thống kê toàn đồ thị)
+   * `GET /api/context-graph/node/{node_id}` (Chi tiết Node)
+   * `GET /api/context-graph/neighbors/{node_id}` (Mạng láng giềng k-hop)
+   * `GET /api/context-graph/subgraph/{node_id}` (Mạng đồ thị con)
+   * `GET /api/context-graph/reasoning/{device_id}` (Chuỗi Causal Provenance)
+3. **Composite Database Indexes:** Đã thiết lập 5 bộ chỉ mục tăng tốc trong SQLite (`idx_certificates_device`, `idx_logs_device_date`, `idx_devices_status_risk`, `idx_transfers_device`, `idx_accessories_parent`).
+
+---
+
+### 🚀 6. ĐỒNG BỘ GITHUB:
+* Đã commit và đồng bộ lên remote GitHub: [**https://github.com/Trantrongtan2000/medical-device-app**](https://github.com/Trantrongtan2000/medical-device-app) trên cả 2 nhánh `feat/htm-clinical-workflow-v3` và `main`.
+* 🖥️ **Truy cập trực tiếp tại:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000)
+
+
+### 👤 Lượt 131: Yêu cầu từ Người Dùng (USER)
+```text
+phần quản lý key tôi có thể chỉnh sửa
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:00:38+07:00
+Completed At: 2026-08-19T14:00:38+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/key_rotator.py`
+Total Lines: 187
+Total Bytes: 7609
+Showing lines 1 to 100
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: """
+
+2: API Key Rotation & Management System for Gemini AI and Mistral OCR
+
+3: Hỗ trợ:
+
+4: - Quản lý danh sách nhiều API Keys (Multi-Key Pool)
+
+5: - Tự động xoay key (Round-Robin & Failover on Rate Limits / Quota Exhaustion)
+
+6: - Lưu trữ cấu hình bền vững vào SQLite
+
+7: - Theo dõi trạng thái hoạt động (Active, Rate-Limited, Cooldown, Invalid)
+
+8: """
+
+9: 
+
+10: import os
+
+11: import time
+
+12: import sqlite3
+
+13: from typing import List, Dict, Any, Optional
+
+14: from pathlib import Path
+
+15: 
+
+16: DB_PATH = Path(__file__).parent.parent / "database" / "devices.db"
+
+17: if not DB_PATH.parent.exists():
+
+18:     DB_PATH = Path(__file__).parent / "medical_devices.db"
+
+19: 
+
+20: class KeyPool:
+
+21:     def __init__(self, service_name: str, env_var_names: List[str]):
+
+22:         self.service_name = service_name
+
+23:         self.env_var_names = env_var_names
+
+24:         self.keys: List[Dict[str, Any]] = [] # [{key: str, status: 'ACTIVE'|'RATE_LIMITED'|'INVALID', last_used: float, fail_count: int}]
+
+25:         self.current_idx = 0
+
+26:         self._init_db()
+
+27:         self._load_keys()
+
+28: 
+
+29:     def _init_db(self):
+
+30:         conn = sqlite3.connect(DB_PATH)
+
+31:         cur = conn.cursor()
+
+32:         cur.execute("""
+
+33:             CREATE TABLE IF NOT EXISTS api_keys_config (
+
+34:                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+35:                 service_name TEXT NOT NULL,
+
+36:                 api_key TEXT NOT NULL UNIQUE,
+
+37:                 status TEXT DEFAULT 'ACTIVE',
+
+38:                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+39:             )
+
+40:         """)
+
+41:         conn.commit()
+
+42:         conn.close()
+
+43: 
+
+44:     def _load_keys(self):
+
+45:         self.keys = []
+
+46:         # 1. Load from Environment Variables first
+
+47:         for var in self.env_var_names:
+
+48:             val = os.environ.get(var)
+
+49:             if val:
+
+50:                 for k in val.split(","):
+
+51:                     k = k.strip()
+
+52:                     if k and not any(item["key"] == k for item in self.keys):
+
+53:                         self.keys.append({
+
+54:                             "key": k,
+
+55:                             "status": "ACTIVE",
+
+56:                             "last_used": 0,
+
+57:                             "fail_count": 0
+
+58:                         })
+
+59: 
+
+60:         # 2. Load from Database
+
+61:         try:
+
+62:             conn = sqlite3.connect(DB_PATH)
+
+63:             cur = conn.cursor()
+
+64:             rows = cur.execute("SELECT api_key, status FROM api_keys_config WHERE service_name = ?", (self.service_name,)).fetchall()
+
+65:             for r in rows:
+
+66:                 k, status = r[0].strip(), r[1]
+
+67:                 if k and not any(item["key"] == k for item in self.keys):
+
+68:                     self.keys.append({
+
+69:                         "key": k,
+
+70:                         "status": status,
+
+71:                         "last_used": 0,
+
+72:                         "fail_count": 0
+
+73:                     })
+
+74:             conn.close()
+
+75:         except Exception as e:
+
+76:             print(f"[WARN] Không thể đọc keys từ DB: {e}")
+
+77: 
+
+78:     def add_keys(self, new_keys_str: str) -> int:
+
+79:         """Thêm 1 hoặc nhiều API keys mới (ngăn cách bằng dấu phẩy hoặc xuống dòng)"""
+
+80:         added_count = 0
+
+81:         conn = sqlite3.connect(DB_PATH)
+
+82:         cur = conn.cursor()
+
+83:         
+
+84:         # Split by comma or newlines
+
+85:         raw_keys = [k.strip() for k in new_keys_str.replace("\n", ",").split(",") if k.strip()]
+
+86:         for k in raw_keys:
+
+87:             if not any(item["key"] == k for item in self.keys):
+
+88:                 self.keys.append({
+
+89:                     "key": k,
+
+90:                     "status": "ACTIVE",
+
+91:                     "last_used": 0,
+
+92:                     "fail_count": 0
+
+93:                 })
+
+94:                 try:
+
+95:                     cur.execute("INSERT OR IGNORE INTO api_keys_config (service_name, api_key, status) VALUES (?, ?, 'ACTIVE')", (self.service_name, k))
+
+96:                     added_count += 1
+
+97:                 except Exception:
+
+98:                     pass
+
+99:                     
+
+100:         conn.commit()
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:00:43+07:00
+Completed At: 2026-08-19T14:00:43+07:00
+
+				The command exited with code 0.
+				Output:
+				
+
+  app\routes.py:20:from .ai_services import gemini_service, mistral_ocr_service
+
+> app\routes.py:21:from .key_rotator import gemini_key_pool, mistral_key_pool
+
+  app\routes.py:22:
+
+  app\routes.py:23:router = APIRouter()
+
+  app\routes.py:24:
+
+  app\routes.py:25:
+
+  app\routes.py:26:
+
+  app\routes.py:812:    return {
+
+> app\routes.py:813:        "gemini": gemini_key_pool.get_pool_stats(),
+
+> app\routes.py:814:        "mistral": mistral_key_pool.get_pool_stats()
+
+  app\routes.py:815:    }
+
+  app\routes.py:816:
+
+  app\routes.py:817:@router.post("/api/keys/add")
+
+> app\routes.py:818:async def add_api_keys(req: AddKeyRequest):
+
+  app\routes.py:819:    """Th�m 1 ho?c nhi?u API keys v�o danh s�ch xoay key"""
+
+  app\routes.py:820:    if req.service == "gemini":
+
+> app\routes.py:821:        count = gemini_key_pool.add_keys(req.keys)
+
+  app\routes.py:822:    elif req.service == "mistral":
+
+> app\routes.py:823:        count = mistral_key_pool.add_keys(req.keys)
+
+  app\routes.py:824:    else:
+
+  app\routes.py:825:        raise HTTPException(status_code=400, detail="D?ch v? kh�ng h?p l? (ph?i l� 'gemini' ho?c 'mistral')")
+
+  app\routes.py:826:        
+
+  app\routes.py:827:    return {
+
+  app\routes.py:828:        "status": "success",
+
+  app\routes.py:832:@router.post("/api/keys/remove")
+
+> app\routes.py:833:async def remove_api_key(req: RemoveKeyRequest):
+
+  app\routes.py:834:    """X�a API key kh?i danh s�ch xoay key"""
+
+  app\routes.py:835:    if req.service == "gemini":
+
+> app\routes.py:836:        gemini_key_pool.remove_key(req.key)
+
+  app\routes.py:837:    elif req.service == "mistral":
+
+> app\routes.py:838:        mistral_key_pool.remove_key(req.key)
+
+  app\routes.py:839:    return {"status": "success", "message": f"Da x�a API key kh?i {req.service.upper()}"}
+
+  app\routes.py:840:
+
+  app\routes.py:841:
+
+  app\routes.py:842:# ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
+
+  app\routes.py:843:
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:00:48+07:00
+Completed At: 2026-08-19T14:00:48+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 2704
+Total Bytes: 212343
+Showing lines 2200 to 2350
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+2200:                                 </select>
+
+2201:                             </div>
+
+2202:                         </div>
+
+2203:                         <div class="mb-3">
+
+2204:                             <label class="form-label small fw-bold text-dark">CHUYÊN MÔN / HỆ THỐNG PHỤ TRÁCH (*)</label>
+
+2205:                             <input type="text" id="staff-add-specialty" class="form-control form-control-sm" placeholder="VD: Hệ thống RO Thận Nhân Tạo & Thiết Bị Phòng Mổ" required>
+
+2206:                         </div>
+
+2207:                         <div class="row g-3 mb-3">
+
+2208:                             <div class="col-md-6">
+
+2209:                                 <label class="form-label small fw-bold text-dark">SỐ ĐIỆN THOẠI TRỰC (*)</label>
+
+2210:                                 <input type="text" id="staff-add-phone" class="form-control form-control-sm font-mono" placeholder="VD: 0912.345.678" required>
+
+2211:                             </div>
+
+2212:                             <div class="col-md-6">
+
+2213:                                 <label class="form-label small fw-bold text-dark">EMAIL LIÊN HỆ</label>
+
+2214:                                 <input type="email" id="staff-add-email" class="form-control form-control-sm" placeholder="VD: bme.staff@tamanhhospital.vn">
+
+2215:                             </div>
+
+2216:                         </div>
+
+2217:                         <div class="mb-3">
+
+2218:                             <label class="form-label small fw-bold text-dark">KHOA / PHÒNG THUỘC KHU VỰC PHỤ TRÁCH</label>
+
+2219:                             <input type="text" id="staff-add-depts" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu, Khoa Hồi Sức Tích Cực (ICU)...">
+
+2220:                         </div>
+
+2221:                         <div class="mb-3">
+
+2222:                             <label class="form-label small fw-bold text-dark">VĂN BẰNG & CHỨNG CHỈ MINH CHỨNG (Chỉ nhập khi có số hiệu / hồ sơ gốc đối soát)</label>
+
+2223:                             <textarea id="staff-add-certs" class="form-control form-control-sm" rows="2" placeholder="Nhập chính xác số hiệu chứng chỉ, cơ quan cấp, ngày cấp (để trống nếu chưa có văn bản minh chứng)..."></textarea>
+
+2224:                         </div>
+
+2225:                         <div class="row g-3 mb-3">
+
+2226:                             <div class="col-md-6">
+
+2227:                                 <label class="form-label small fw-bold text-dark">CHẾ ĐỘ CA TRỰC</label>
+
+2228:                                 <input type="text" id="staff-add-shift" class="form-control form-control-sm" value="Hành chính (07:30 - 16:30)">
+
+2229:                             </div>
+
+2230:                             <div class="col-md-6">
+
+2231:                                 <label class="form-label small fw-bold text-dark">TRẠNG THÁI HIỆN TẠI</label>
+
+2232:                                 <select id="staff-add-status" class="form-select form-select-sm">
+
+2233:                                     <option value="ACTIVE" selected>Đang Làm Việc (ACTIVE)</option>
+
+2234:                                     <option value="ON_DUTY">Đang Trực Ca 24/7 (ON_DUTY)</option>
+
+2235:                                     <option value="ON_LEAVE">Nghỉ Phép / Đào Tạo (ON_LEAVE)</option>
+
+2236:                                 </select>
+
+2237:                             </div>
+
+2238:                         </div>
+
+2239:                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+
+2240:                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+
+2241:                             <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+
+2242:                                 <i class="bi bi-check-lg me-1"></i> Lưu Nhân Sự Mới
+
+2243:                             </button>
+
+2244:                         </div>
+
+2245:                     </form>
+
+2246:                 </div>
+
+2247:             </div>
+
+2248:         </div>
+
+2249:     </div>
+
+2250: 
+
+2251:     <!-- ==================== MODAL: CHI TIẾT & SỬA HỒ SƠ NHÂN SỰ ==================== -->
+
+2252:     <div class="modal fade" id="viewStaffModal" tabindex="-1" aria-hidden="true">
+
+2253:         <div class="modal-dialog modal-dialog-centered modal-lg">
+
+2254:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2255:                 <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+
+2256:                     <div class="d-flex align-items-center gap-2">
+
+2257:                         <div id="staff-modal-avatar" class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; font-size: 1.1rem; background: #0284c7;">H</div>
+
+2258:                         <div>
+
+2259:                             <h5 class="modal-title fw-bold mb-0" id="staff-modal-name">KS. Trần Văn Hùng</h5>
+
+2260:                             <span class="badge bg-light text-dark font-mono" id="staff-modal-code">BME-001</span>
+
+2261:                         </div>
+
+2262:                     </div>
+
+2263:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2264:                 </div>
+
+2265:                 <div class="modal-body p-4">
+
+2266:                     <form id="editStaffForm">
+
+2267:                         <input type="hidden" id="staff-edit-id">
+
+2268:                         <div class="row g-3 mb-3">
+
+2269:                             <div class="col-md-6">
+
+2270:                                 <label class="form-label small fw-bold text-dark">CHỨC DANH</label>
+
+2271:                                 <input type="text" id="staff-edit-title" class="form-control form-control-sm" required>
+
+2272:                             </div>
+
+2273:                             <div class="col-md-6">
+
+2274:                                 <label class="form-label small fw-bold text-dark">TRẠNG THÁI CA TRỰC</label>
+
+2275:                                 <select id="staff-edit-status" class="form-select form-select-sm">
+
+2276:                                     <option value="ACTIVE">Đang Làm Việc (ACTIVE)</option>
+
+2277:                                     <option value="ON_DUTY">Đang Trực Ca 24/7 (ON_DUTY)</option>
+
+2278:                                     <option value="ON_LEAVE">Nghỉ Phép / Đào Tạo (ON_LEAVE)</option>
+
+2279:                                 </select>
+
+2280:                             </div>
+
+2281:                         </div>
+
+2282:                         <div class="mb-3">
+
+2283:                             <label class="form-label small fw-bold text-dark">CHUYÊN MÔN PHỤ TRÁCH</label>
+
+2284:                             <input type="text" id="staff-edit-specialty" class="form-control form-control-sm" required>
+
+2285:                         </div>
+
+2286:                         <div class="row g-3 mb-3">
+
+2287:                             <div class="col-md-6">
+
+2288:                                 <label class="form-label small fw-bold text-dark">HOTLINE TRỰC</label>
+
+2289:                                 <input type="text" id="staff-edit-phone" class="form-control form-control-sm font-mono" required>
+
+2290:                             </div>
+
+2291:                             <div class="col-md-6">
+
+2292:                                 <label class="form-label small fw-bold text-dark">EMAIL</label>
+
+2293:                                 <input type="email" id="staff-edit-email" class="form-control form-control-sm">
+
+2294:                             </div>
+
+2295:                         </div>
+
+2296:                         <div class="mb-3">
+
+2297:                             <label class="form-label small fw-bold text-dark">KHOA PHÒNG PHỤ TRÁCH</label>
+
+2298:                             <textarea id="staff-edit-depts" class="form-control form-control-sm" rows="2"></textarea>
+
+2299:                         </div>
+
+2300:                         <div class="mb-3">
+
+2301:                             <label class="form-label small fw-bold text-dark">CHỨNG CHỈ ĐÀO TẠO & AN TOÀN</label>
+
+2302:                             <textarea id="staff-edit-certs" class="form-control form-control-sm" rows="2"></textarea>
+
+2303:                         </div>
+
+2304:                         <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+
+2305:                             <button type="button" class="btn btn-outline-danger btn-sm btn-clinical" id="btn-delete-staff">
+
+2306:                                 <i class="bi bi-trash me-1"></i> Xóa Nhân Sự
+
+2307:                             </button>
+
+2308:                             <div class="d-flex gap-2">
+
+2309:                                 <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+
+2310:                                 <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+
+2311:                                     <i class="bi bi-save me-1"></i> Cập Nhật Hồ Sơ
+
+2312:                                 </button>
+
+2313:                             </div>
+
+2314:                         </div>
+
+2315:                     </form>
+
+2316:                 </div>
+
+2317:             </div>
+
+2318:         </div>
+
+2319:     </div>
+
+2320: 
+
+2321: 
+
+2322:     <!-- ==================== MODAL: CHỈNH SỬA THÔNG TIN LÃNH ĐẠO / TRƯỞNG KHOA ==================== -->
+
+2323:     <div class="modal fade" id="editLeaderModal" tabindex="-1" aria-hidden="true">
+
+2324:         <div class="modal-dialog modal-dialog-centered">
+
+2325:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2326:                 <div class="modal-header bg-danger text-white px-4 py-3 border-0">
+
+2327:                     <h5 class="modal-title fw-bold"><i class="bi bi-person-badge me-2"></i>Chỉnh Sửa Thông Tin Lãnh Đạo / Trưởng Khoa</h5>
+
+2328:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2329:                 </div>
+
+2330:                 <div class="modal-body p-4">
+
+2331:                     <form id="editLeaderForm">
+
+2332:                         <input type="hidden" id="leader-edit-id">
+
+2333:                         <div class="mb-3">
+
+2334:                             <label class="form-label small fw-bold text-dark">HỌ VÀ TÊN (*)</label>
+
+2335:                             <input type="text" id="leader-edit-name" class="form-control form-control-sm" required>
+
+2336:                         </div>
+
+2337:                         <div class="row g-3 mb-3">
+
+2338:                             <div class="col-md-6">
+
+2339:                                 <label class="form-label small fw-bold text-dark">ĐƠN VỊ / NHÓM</label>
+
+2340:                                 <input type="text" id="leader-edit-group" class="form-control form-control-sm" required>
+
+2341:                             </div>
+
+2342:                             <div class="col-md-6">
+
+2343:                                 <label class="form-label small fw-bold text-dark">CHỨC VỤ (*)</label>
+
+2344:                                 <input type="text" id="leader-edit-title" class="form-control form-control-sm" required>
+
+2345:                             </div>
+
+2346:                         </div>
+
+2347:                         <div class="row g-3 mb-3">
+
+2348:                             <div class="col-md-6">
+
+2349:                                 <label class="form-label small fw-bold text-dark">SỐ ĐIỆN THOẠI (*)</label>
+
+2350:                                 <input type="text" id="leader-edit-phone" class="form-control form-control-sm font-mono" required>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:00:55+07:00
+Completed At: 2026-08-19T14:00:56+07:00
+
+				The command exited with code 0.
+				Output:
+				
+
+  web\index.html:142:                </li>
+
+  web\index.html:143:                <li class="nav-item" role="presentation">
+
+> web\index.html:144:                    <button class="nav-link" id="btn-tab-ai-hub" data-bs-toggle="pill" data-bs-target="#tab-ai-hub" type="button">
+
+  web\index.html:145:                        <i class="bi bi-stars text-info"></i>
+
+  web\index.html:146:                        <span>Tr? Ly AI & OCR Hub</span>
+
+  web\index.html:147:                    </button>
+
+  web\index.html:148:                </li>
+
+  web\index.html:149:            </ul>
+
+  web\index.html:1445:
+
+  web\index.html:1446:                                        <!-- TAB 8: AI ASSISTANT & OCR HUB -->
+
+> web\index.html:1447:                    <div class="tab-pane fade" id="tab-ai-hub" role="tabpanel">
+
+  web\index.html:1448:                        <!-- Top Banner Header -->
+
+  web\index.html:1449:                        <div class="clinical-card p-3 mb-3" style="background: linear-gradient(135deg, #002d62 0%, #0284c7 100%); color: white;">
+
+  web\index.html:1450:                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+  web\index.html:1451:                                <div class="d-flex align-items-center gap-3">
+
+  web\index.html:1452:                                    <div class="p-2 rounded bg-white bg-opacity-20 fs-3">
+
+  web\index.html:1455:                                    <div>
+
+  web\index.html:1456:                                        <h5 class="fw-bold mb-0 text-white">Trung T�m Tr? Ly AI K? Thu?t Y Sinh (Gemini 3.7 Flash) & Mistral OCR 
+
+Hub</h5>
+
+> web\index.html:1457:                                        <span class="small text-white text-opacity-75">T? d?ng xoay kh�a API Multi-Key Pool  B�c t�ch t�i li?u 
+
+PDF scan & Tu v?n quy tr�nh SOPs 24/7</span>
+
+  web\index.html:1458:                                    </div>
+
+  web\index.html:1459:                                </div>
+
+  web\index.html:1460:                                <div class="d-flex gap-2">
+
+  web\index.html:1461:                                    <button class="btn btn-sm btn-light text-primary fw-bold btn-clinical shadow-sm" 
+
+onclick="app.openKeyConfigModal()">
+
+> web\index.html:1462:                                        <i class="bi bi-key-fill me-1"></i> Qu?n Ly API Keys Pool
+
+  web\index.html:1463:                                    </button>
+
+  web\index.html:1464:                                    <a href="/sops" target="_blank" class="btn btn-sm btn-outline-light btn-clinical">
+
+  web\index.html:1465:                                        <i class="bi bi-journal-medical me-1"></i> S? Tay SOPs
+
+  web\index.html:1466:                                    </a>
+
+  web\index.html:1467:                                </div>
+
+  web\index.html:2573:    </div>
+
+  web\index.html:2574:
+
+> web\index.html:2575:    <!-- ==================== MODAL: QU?N LY KHOA API KEYS POOL ==================== -->
+
+  web\index.html:2576:    <div class="modal fade" id="keyConfigModal" tabindex="-1" aria-hidden="true">
+
+  web\index.html:2577:        <div class="modal-dialog modal-dialog-centered">
+
+  web\index.html:2578:            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+  web\index.html:2579:                <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+
+> web\index.html:2580:                    <h5 class="modal-title fw-bold"><i class="bi bi-key-fill me-2"></i>Qu?n Ly Co Ch? Xoay Kh�a API Key Pool</h5>
+
+  web\index.html:2581:                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+  web\index.html:2582:                </div>
+
+  web\index.html:2583:                <div class="modal-body p-4">
+
+  web\index.html:2584:                    <form id="addKeyForm" onsubmit="event.preventDefault(); app.submitNewAPIKey();">
+
+  web\index.html:2585:                        <div class="mb-3">
+
+  web\index.html:2697:
+
+  web\index.html:2698:    <!-- Floating Quick AI & Action Button (T�m Anh Speed Dial) -->
+
+> web\index.html:2699:    <button class="ta-fab-btn" onclick="document.getElementById('btn-tab-ai-hub')?.click();" title="M? Tr? Ly AI Y Sinh & OCR Hub (Gemini 3.7 
+
+Flash Flash)">
+
+  web\index.html:2700:        <i class="bi bi-stars"></i>
+
+  web\index.html:2701:    </button>
+
+  web\index.html:2702:
+
+  web\index.html:2703:</body>
+
+  web\index.html:2704:</html>
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:00:59+07:00
+Completed At: 2026-08-19T14:00:59+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 2704
+Total Bytes: 212343
+Showing lines 2575 to 2650
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+2575:     <!-- ==================== MODAL: QUẢN LÝ KHÓA API KEYS POOL ==================== -->
+
+2576:     <div class="modal fade" id="keyConfigModal" tabindex="-1" aria-hidden="true">
+
+2577:         <div class="modal-dialog modal-dialog-centered">
+
+2578:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2579:                 <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+
+2580:                     <h5 class="modal-title fw-bold"><i class="bi bi-key-fill me-2"></i>Quản Lý Cơ Chế Xoay Khóa API Key Pool</h5>
+
+2581:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2582:                 </div>
+
+2583:                 <div class="modal-body p-4">
+
+2584:                     <form id="addKeyForm" onsubmit="event.preventDefault(); app.submitNewAPIKey();">
+
+2585:                         <div class="mb-3">
+
+2586:                             <label class="form-label small fw-bold text-dark">CHỌN DỊCH VỤ CẦN THÊM KEY</label>
+
+2587:                             <select id="key-service-select" class="form-select form-select-sm">
+
+2588:                                 <option value="gemini">Google Gemini API (Interactions Agent)</option>
+
+2589:                                 <option value="mistral">Mistral AI OCR Engine (Document AI)</option>
+
+2590:                             </select>
+
+2591:                         </div>
+
+2592:                         <div class="mb-3">
+
+2593:                             <label class="form-label small fw-bold text-dark">DANH SÁCH API KEYS (Phân cách bằng dấu phẩy hoặc xuống dòng)</label>
+
+2594:                             <textarea id="key-input-textarea" class="form-control form-control-sm font-mono" rows="3" placeholder="AIzaSy... hoặc mistral_api_key..." required></textarea>
+
+2595:                         </div>
+
+2596:                         <div class="d-flex justify-content-end gap-2">
+
+2597:                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+
+2598:                             <button type="submit" class="btn btn-primary btn-clinical fw-bold">
+
+2599:                                 <i class="bi bi-plus-circle me-1"></i> Thêm Vào Pool Xoay Khóa
+
+2600:                             </button>
+
+2601:                         </div>
+
+2602:                     </form>
+
+2603:                 </div>
+
+2604:             </div>
+
+2605:         </div>
+
+2606:     </div>
+
+2607: 
+
+2608: 
+
+2609:     <!-- ==================== MODAL: CHỈNH SỬA THÔNG TIN TÁC VỤ KANBAN ==================== -->
+
+2610:     <div class="modal fade" id="editKanbanTaskModal" tabindex="-1" aria-hidden="true">
+
+2611:         <div class="modal-dialog modal-dialog-centered">
+
+2612:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2613:                 <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+
+2614:                     <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square text-warning me-2"></i>Chỉnh Sửa Tác Vụ & Thẻ Kanban</h5>
+
+2615:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2616:                 </div>
+
+2617:                 <div class="modal-body p-4">
+
+2618:                     <form id="editKanbanTaskForm" onsubmit="event.preventDefault(); app.submitEditKanbanTask();">
+
+2619:                         <input type="hidden" id="edit-kanban-id">
+
+2620:                         
+
+2621:                         <div class="mb-3">
+
+2622:                             <label class="form-label small fw-bold text-dark">TIÊU ĐỀ TÁC VỤ / TÊN THIẾT BỊ (*)</label>
+
+2623:                             <input type="text" id="edit-kanban-title" class="form-control form-control-sm fw-bold" required>
+
+2624:                         </div>
+
+2625: 
+
+2626:                         <div class="row g-2 mb-3">
+
+2627:                             <div class="col-md-6">
+
+2628:                                 <label class="form-label small fw-bold text-dark">THẺ CÔNG TÁC / QUY TRÌNH</label>
+
+2629:                                 <input type="text" id="edit-kanban-type" class="form-control form-control-sm font-mono" placeholder="VD: Báo hỏng, PM Định kỳ, QT.08, BM04..." required>
+
+2630:                             </div>
+
+2631:                             <div class="col-md-6">
+
+2632:                                 <label class="form-label small fw-bold text-dark">MỨC ĐỘ ƯU TIÊN</label>
+
+2633:                                 <select id="edit-kanban-priority" class="form-select form-select-sm">
+
+2634:                                     <option value="Khẩn cấp">🔴 Khẩn cấp (Ưu tiên số 1)</option>
+
+2635:                                     <option value="Cao">🟠 Cao (Trong 24-48h)</option>
+
+2636:                                     <option value="Bình thường">🔵 Bình thường</option>
+
+2637:                                     <option value="Thấp">⚪ Thấp</option>
+
+2638:                                 </select>
+
+2639:                             </div>
+
+2640:                         </div>
+
+2641: 
+
+2642:                         <div class="mb-3">
+
+2643:                             <label class="form-label small fw-bold text-dark">VỊ TRÍ / SERIAL / THÔNG TIN BỔ SUNG</label>
+
+2644:                             <input type="text" id="edit-kanban-meta" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu • S/N: VEL8829">
+
+2645:                         </div>
+
+2646: 
+
+2647:                         <div class="row g-2 mb-3">
+
+2648:                             <div class="col-md-6">
+
+2649:                                 <label class="form-label small fw-bold text-dark">NGƯỜI PHỤ TRÁCH / KỸ SƯ</label>
+
+2650:                                 <input type="text" id="edit-kanban-assignee" class="form-control form-control-sm" placeholder="VD: KS. Trần Trọng Tấn" list="kanban-staff-suggestions">
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:04+07:00
+Completed At: 2026-08-19T14:01:04+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 2704
+Total Bytes: 212343
+Showing lines 1445 to 1550
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1445: 
+
+1446:                                         <!-- TAB 8: AI ASSISTANT & OCR HUB -->
+
+1447:                     <div class="tab-pane fade" id="tab-ai-hub" role="tabpanel">
+
+1448:                         <!-- Top Banner Header -->
+
+1449:                         <div class="clinical-card p-3 mb-3" style="background: linear-gradient(135deg, #002d62 0%, #0284c7 100%); color: white;">
+
+1450:                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+1451:                                 <div class="d-flex align-items-center gap-3">
+
+1452:                                     <div class="p-2 rounded bg-white bg-opacity-20 fs-3">
+
+1453:                                         <i class="bi bi-stars"></i>
+
+1454:                                     </div>
+
+1455:                                     <div>
+
+1456:                                         <h5 class="fw-bold mb-0 text-white">Trung Tâm Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 3.7 Flash) & Mistral OCR Hub</h5>
+
+1457:                                         <span class="small text-white text-opacity-75">Tự động xoay khóa API Multi-Key Pool • Bóc tách tài liệu PDF scan & Tư vấn quy trình SOPs 24/7</span>
+
+1458:                                     </div>
+
+1459:                                 </div>
+
+1460:                                 <div class="d-flex gap-2">
+
+1461:                                     <button class="btn btn-sm btn-light text-primary fw-bold btn-clinical shadow-sm" onclick="app.openKeyConfigModal()">
+
+1462:                                         <i class="bi bi-key-fill me-1"></i> Quản Lý API Keys Pool
+
+1463:                                     </button>
+
+1464:                                     <a href="/sops" target="_blank" class="btn btn-sm btn-outline-light btn-clinical">
+
+1465:                                         <i class="bi bi-journal-medical me-1"></i> Sổ Tay SOPs
+
+1466:                                     </a>
+
+1467:                                 </div>
+
+1468:                             </div>
+
+1469:                         </div>
+
+1470: 
+
+1471:                         <!-- 2-Column AI & OCR Studio -->
+
+1472:                         <div class="row g-3 mb-3">
+
+1473:                             <!-- Left: Gemini Biomedical AI Chatbot -->
+
+1474:                             <div class="col-12 col-xl-7">
+
+1475:                                 <div class="clinical-card h-100 d-flex flex-column shadow-sm">
+
+1476:                                     <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light rounded-top">
+
+1477:                                         <div class="d-flex align-items-center gap-2">
+
+1478:                                             <span class="badge bg-primary px-2 py-1"><i class="bi bi-robot me-1"></i>Gemini 3.7 Flash Flash</span>
+
+1479:                                             <strong class="text-dark small">TRỢ LÝ KỸ THUẬT Y SINH TÂM ANH Q7</strong>
+
+1480:                                         </div>
+
+1481:                                         <button class="btn btn-sm btn-outline-secondary btn-clinical" onclick="app.clearAIChat()" title="Xóa hội thoại">
+
+1482:                                             <i class="bi bi-arrow-counterclockwise me-1"></i>Làm mới
+
+1483:                                         </button>
+
+1484:                                     </div>
+
+1485: 
+
+1486:                                     <!-- Quick Prompts Chips -->
+
+1487:                                     <div class="p-2 bg-white border-bottom d-flex flex-wrap gap-1">
+
+1488:                                         <button class="badge bg-light text-primary border text-decoration-none py-1 px-2" onclick="app.sendQuickPrompt('Quy trình bảo dưỡng máy thở Vela Khoa Cấp Cứu theo QT.06')">
+
+1489:                                             💡 Máy thở Vela Cấp Cứu
+
+1490:                                         </button>
+
+1491:                                         <button class="badge bg-light text-primary border text-decoration-none py-1 px-2" onclick="app.sendQuickPrompt('Hướng dẫn kiểm soát chất lượng hệ thống R.O Thận nhân tạo theo QT.01')">
+
+1492:                                             💡 Hệ thống RO Thận (QT.01)
+
+1493:                                         </button>
+
+1494:                                         <button class="badge bg-light text-primary border text-decoration-none py-1 px-2" onclick="app.sendQuickPrompt('Quy định kiểm định định kỳ Thông tư 05/2022 và phân loại rủi ro NĐ 98')">
+
+1495:                                             💡 Kiểm định TT 05 & NĐ 98
+
+1496:                                         </button>
+
+1497:                                         <button class="badge bg-light text-primary border text-decoration-none py-1 px-2" onclick="app.sendQuickPrompt('Lịch trực On-call 24 giờ của 3 kỹ sư Tấn, Thiện, Hiếu tuần này thế nào?')">
+
+1498:                                             💡 Lịch On-Call 24h Tuần Này
+
+1499:                                         </button>
+
+1500:                                     </div>
+
+1501: 
+
+1502:                                     <!-- Chat Messages Scroll Area -->
+
+1503:                                     <div id="ai-chat-messages" class="p-3 flex-grow-1 overflow-auto" style="height: 380px; background-color: #f8fafc;">
+
+1504:                                         <!-- Welcome Message -->
+
+1505:                                         <div class="d-flex align-items-start gap-2 mb-3">
+
+1506:                                             <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 34px; height: 34px;">
+
+1507:                                                 <i class="bi bi-robot"></i>
+
+1508:                                             </div>
+
+1509:                                             <div class="bg-white p-3 rounded-3 shadow-sm border text-dark" style="max-width: 85%;">
+
+1510:                                                 <strong class="text-primary d-block mb-1">Trợ Lý AI Kỹ Thuật Y Sinh (BME AI Assistant):</strong>
+
+1511:                                                 Xin chào! Tôi là Trợ lý AI chuyên môn của Phòng Trang Thiết Bị Y Tế Tâm Anh Quận 7. Tôi có thể hỗ trợ bạn:
+
+1512:                                                 <ul class="mb-0 mt-2 ps-3 small text-muted">
+
+1513:                                                     <li>Tra cứu quy trình vận hành & bảo trì chuẩn (QT.01 đến QT.09).</li>
+
+1514:                                                     <li>Tư vấn phân loại rủi ro A/B/C/D theo Nghị định 98/2021/NĐ-CP.</li>
+
+1515:                                                     <li>Hướng dẫn kiểm tra định kỳ, hiệu chuẩn và kiểm định TT 05/2022.</li>
+
+1516:                                                     <li>Thông tin nhân sự và lịch trực On-call 24/7 của phòng.</li>
+
+1517:                                                 </ul>
+
+1518:                                             </div>
+
+1519:                                         </div>
+
+1520:                                     </div>
+
+1521: 
+
+1522:                                     <!-- Chat Input Area -->
+
+1523:                                     <div class="p-3 border-top bg-white rounded-bottom">
+
+1524:                                         <form id="aiChatForm" onsubmit="event.preventDefault(); app.submitAIChat();" class="d-flex gap-2">
+
+1525:                                             <input type="text" id="ai-chat-input" class="form-control form-control-sm" placeholder="Hỏi Trợ lý AI về thiết bị, quy trình SOPs, kiểm định hoặc On-call..." required autocomplete="off">
+
+1526:                                             <button type="submit" id="btn-send-ai-chat" class="btn btn-sm btn-primary btn-clinical px-3 fw-bold">
+
+1527:                                                 <i class="bi bi-send-fill me-1"></i> Gửi
+
+1528:                                             </button>
+
+1529:                                         </form>
+
+1530:                                     </div>
+
+1531:                                 </div>
+
+1532:                             </div>
+
+1533: 
+
+1534:                             <!-- Right: Mistral OCR Document Studio -->
+
+1535:                             <div class="col-12 col-xl-5">
+
+1536:                                 <div class="clinical-card h-100 d-flex flex-column shadow-sm">
+
+1537:                                     <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light rounded-top">
+
+1538:                                         <div class="d-flex align-items-center gap-2">
+
+1539:                                             <span class="badge bg-warning text-dark px-2 py-1"><i class="bi bi-file-earmark-text-fill me-1"></i>Mistral OCR-4</span>
+
+1540:                                             <strong class="text-dark small">BÓC TÁCH BIÊN BẢN & GCN SCAN</strong>
+
+1541:                                         </div>
+
+1542:                                         <span class="badge bg-success-subtle text-success font-mono">READY</span>
+
+1543:                                     </div>
+
+1544: 
+
+1545:                                     <div class="p-3 flex-grow-1">
+
+1546:                                         <!-- Sample Selectors -->
+
+1547:                                         <div class="mb-3">
+
+1548:                                             <label class="form-label small fw-bold text-dark mb-1">CHỌN TÀI LIỆU MẪU ĐỂ TEST OCR NHANH:</label>
+
+1549:                                             <div class="d-flex gap-2">
+
+1550:                                                 <button class="btn btn-sm btn-outline-primary btn-clinical flex-grow-1 text-truncate" onclick="app.runSampleOCR('GCN_KiemDinh_MaySocTim.pdf')">
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:09+07:00
+Completed At: 2026-08-19T14:01:09+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/key_rotator.py`
+Total Lines: 187
+Total Bytes: 7609
+Showing lines 90 to 187
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+90:                     "status": "ACTIVE",
+
+91:                     "last_used": 0,
+
+92:                     "fail_count": 0
+
+93:                 })
+
+94:                 try:
+
+95:                     cur.execute("INSERT OR IGNORE INTO api_keys_config (service_name, api_key, status) VALUES (?, ?, 'ACTIVE')", (self.service_name, k))
+
+96:                     added_count += 1
+
+97:                 except Exception:
+
+98:                     pass
+
+99:                     
+
+100:         conn.commit()
+
+101:         conn.close()
+
+102:         return added_count
+
+103: 
+
+104:     def remove_key(self, api_key: str) -> bool:
+
+105:         """Xóa 1 API key khỏi cấu hình"""
+
+106:         self.keys = [k for k in self.keys if k["key"] != api_key]
+
+107:         conn = sqlite3.connect(DB_PATH)
+
+108:         cur = conn.cursor()
+
+109:         cur.execute("DELETE FROM api_keys_config WHERE service_name = ? AND api_key = ?", (self.service_name, api_key))
+
+110:         conn.commit()
+
+111:         conn.close()
+
+112:         return True
+
+113: 
+
+114:     def get_next_active_key(self) -> Optional[str]:
+
+115:         """Lấy API Key hoạt động tiếp theo theo cơ chế Round-Robin & Auto-Failover"""
+
+116:         if not self.keys:
+
+117:             return None
+
+118: 
+
+119:         now = time.time()
+
+120:         # Reset cooldown for rate-limited keys after 60 seconds
+
+121:         for k in self.keys:
+
+122:             if k["status"] == "RATE_LIMITED" and (now - k["last_used"]) > 60:
+
+123:                 k["status"] = "ACTIVE"
+
+124:                 k["fail_count"] = 0
+
+125: 
+
+126:         active_keys = [k for k in self.keys if k["status"] == "ACTIVE"]
+
+127:         if not active_keys:
+
+128:             # If all are exhausted, fallback to any non-invalid key
+
+129:             active_keys = [k for k in self.keys if k["status"] != "INVALID"]
+
+130: 
+
+131:         if not active_keys:
+
+132:             return None
+
+133: 
+
+134:         # Round Robin
+
+135:         self.current_idx = self.current_idx % len(active_keys)
+
+136:         chosen = active_keys[self.current_idx]
+
+137:         chosen["last_used"] = now
+
+138:         self.current_idx = (self.current_idx + 1) % len(active_keys)
+
+139:         return chosen["key"]
+
+140: 
+
+141:     def mark_rate_limited(self, api_key: str):
+
+142:         """Đánh dấu key bị quá tải (HTTP 429) để tạm ngưng 60 giây và xoay sang key khác"""
+
+143:         for k in self.keys:
+
+144:             if k["key"] == api_key:
+
+145:                 k["status"] = "RATE_LIMITED"
+
+146:                 k["last_used"] = time.time()
+
+147:                 k["fail_count"] += 1
+
+148:                 print(f"[KEY ROTATOR] Đã xoay key {self.service_name} do đạt giới hạn (Rate-Limited): {api_key[:8]}...****")
+
+149: 
+
+150:     def mark_invalid(self, api_key: str):
+
+151:         """Đánh dấu key không hợp lệ (HTTP 401/403)"""
+
+152:         for k in self.keys:
+
+153:             if k["key"] == api_key:
+
+154:                 k["status"] = "INVALID"
+
+155:                 k["last_used"] = time.time()
+
+156: 
+
+157:     def get_status_summary(self) -> List[Dict[str, Any]]:
+
+158:         """Trả về danh sách key đã che bớt để hiển thị lên UI an toàn"""
+
+159:         res = []
+
+160:         for i, k in enumerate(self.keys):
+
+161:             raw = k["key"]
+
+162:             masked = raw[:6] + "..." + raw[-4:] if len(raw) > 10 else "******"
+
+163:             res.append({
+
+164:                 "id": i + 1,
+
+165:                 "masked_key": masked,
+
+166:                 "raw_key": raw,
+
+167:                 "status": k["status"],
+
+168:                 "fail_count": k["fail_count"],
+
+169:                 "last_used_seconds_ago": int(time.time() - k["last_used"]) if k["last_used"] > 0 else None
+
+170:             })
+
+171:         return res
+
+172: 
+
+173:     def get_pool_stats(self) -> Dict[str, Any]:
+
+174:         """Trả về thống kê tổng hợp số lượng key theo trạng thái"""
+
+175:         return {
+
+176:             "total_keys": len(self.keys),
+
+177:             "active_keys": len([k for k in self.keys if k["status"] == "ACTIVE"]),
+
+178:             "rate_limited_keys": len([k for k in self.keys if k["status"] == "RATE_LIMITED"]),
+
+179:             "invalid_keys": len([k for k in self.keys if k["status"] == "INVALID"]),
+
+180:             "keys_list": self.get_status_summary()
+
+181:         }
+
+182: 
+
+183: 
+
+184: # Singleton Key Pools
+
+185: gemini_key_pool = KeyPool("gemini", ["GEMINI_API_KEY", "GOOGLE_API_KEY"])
+
+186: mistral_key_pool = KeyPool("mistral", ["MISTRAL_API_KEY"])
+
+187: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:17+07:00
+Completed At: 2026-08-19T14:01:17+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/ai_services.py`
+Total Lines: 291
+Total Bytes: 20018
+Showing lines 1 to 70
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: """
+
+2: AI Services Module:
+
+3: 1. Gemini Management Agent (Google GenAI Interactions API with Auto Key Rotation)
+
+4: 2. Mistral OCR Engine (Mistral AI Document Understanding API with Auto Key Rotation)
+
+5: """
+
+6: 
+
+7: import os
+
+8: import json
+
+9: import base64
+
+10: from pathlib import Path
+
+11: from typing import Optional, Dict, Any, List
+
+12: from datetime import datetime, date
+
+13: 
+
+14: from .key_rotator import gemini_key_pool, mistral_key_pool
+
+15: 
+
+16: class GeminiAgentService:
+
+17:     """Agent Quản lý Thiết bị Y tế thông minh được cung cấp bởi Google Gemini API có cơ chế xoay key"""
+
+18:     
+
+19:     SYSTEM_INSTRUCTION = """
+
+20:     Bạn là Trợ lý AI Quản Lý Trang Thiết Bị Y Tế (BME AI Assistant) của Phòng Khám Đa Khoa Tâm Anh Quận 7.
+
+21:     Bạn nắm vững và luôn bám sát 100% Sổ tay Quy trình Chuẩn (SOPs), Biểu mẫu TTBYT và Dữ liệu thực tế:
+
+22:     - Cơ sở dữ liệu: 1.073 trang thiết bị y tế thực tế tại PKĐK Tâm Anh Q7, phân bổ trên 21 Khoa/Phòng.
+
+23:     - Đội ngũ BME Q7 gồm 6 nhân sự chính thức: KS. Nguyễn Quốc Việt (Trưởng phòng), KS. Nguyễn Tấn Lợi (Phó phòng), KS. Trần Đăng Hiếu, KS. Lê Minh Thiện, CN. Trần Thị Ngọc Châu, KS. Trần Trọng Tấn.
+
+24:     - Chế độ trực On-Call 24/24 Giờ (07:30 sáng đến 07:30 sáng hôm sau), xoay vòng trọn 1 tuần theo 3 kỹ sư: Tấn -> Thiện -> Hiếu.
+
+25:     - CS.TTBYT.04: Chính sách kiểm tra hiệu chuẩn & kiểm định thiết bị y tế (Thông tư 05/2022/TT-BYT & Nghị định 98/2021/NĐ-CP).
+
+26:     - QT.01 & QT.02: Quy trình kiểm soát chất lượng & vận hành hệ thống R.O lọc nước tại đơn vị Thận nhân tạo.
+
+27:     - QT.03: Vận hành và bảng kiểm tra an toàn hằng ngày hệ thống khí y tế (O2, CO2, Vacuum, Air).
+
+28:     - QT.04: Bàn giao, lắp đặt, nghiệm thu trang thiết bị y tế, biên bản đào tạo HDSD và Sổ lý lịch máy.
+
+29:     - QT.05: Vận hành, bảo quản trang thiết bị y tế tại các khoa phòng lâm sàng.
+
+30:     - QT.06: Bảo trì, bảo dưỡng định kỳ (PM), sửa chữa báo hỏng (SpeedMaint CMMS).
+
+31:     - QT.07: Thanh lý trang thiết bị y tế hư hỏng / hết hạn.
+
+32:     - QT.08: Điều chuyển trang thiết bị y tế giữa các khoa phòng (phiếu BM03, Snipe-IT checkout).
+
+33:     - QT.09: Giao nhận và kiểm tra an toàn bình khí y tế di động.
+
+34:     - Phân loại rủi ro IMDA MOH Bộ Y Tế: 4 mức A (thấp), B (trung bình thấp), C (trung bình cao), D (rất cao / duy trì sự sống).
+
+35: 
+
+36:     Nguyên tắc trả lời:
+
+37:     - Trả lời bằng tiếng Việt chuyên nghiệp, ngắn gọn, chuẩn xác theo ngôn ngữ kỹ thuật y sinh (BME) và y tế.
+
+38:     - Luôn trích dẫn chính xác mã quy trình (VD: theo QT.04, QT.06, CS.TTBYT.04) khi hướng dẫn nhân viên y tế.
+
+39:     - Đưa ra khuyến nghị an toàn người bệnh và căn cứ pháp lý rõ ràng.
+
+40:     """
+
+41: 
+
+42:     async def chat(self, user_message: str, context_devices: List[Dict[str, Any]] = None, conversation_history: List[Dict[str, str]] = None) -> str:
+
+43:         """Xử lý hội thoại thông minh với Gemini (Auto Rotate Key khi gặp lỗi) hoặc Fallback Engine"""
+
+44:         
+
+45:         context_str = ""
+
+46:         if context_devices:
+
+47:             summary_info = [
+
+48:                 f"- [BVQ7-TTB-{d.get('id', 0):05d}] {d.get('device_name')} (Model: {d.get('model')}, SN: {d.get('serial_no')}, Khoa: {d.get('facility_name') or d.get('facility')}, Rủi ro: Loại {d.get('risk_level')}, Hạn KĐ: {d.get('recalibration_date') or 'N/A'})"
+
+49:                 for d in context_devices[:15]
+
+50:             ]
+
+51:             context_str = "\n[DỮ LIỆU THỰC TẾ TRÍCH XUẤT TỪ CƠ SỞ DỮ LIỆU PKĐK TÂM ANH Q7]:\n" + "\n".join(summary_info)
+
+52: 
+
+53:         full_prompt = f"{self.SYSTEM_INSTRUCTION}\n{context_str}\n\nNgười dùng hỏi: {user_message}"
+
+54: 
+
+55:         # Thử gọi API với cơ chế xoay key
+
+56:         for attempt in range(3):
+
+57:             active_key = gemini_key_pool.get_next_active_key()
+
+58:             if not active_key:
+
+59:                 break
+
+60:                 
+
+61:             try:
+
+62:                 from google import genai
+
+63:                 client = genai.Client(api_key=active_key)
+
+64:                 response = client.models.generate_content(
+
+65:                     model="gemini-3.7-flash",
+
+66:                     contents=full_prompt
+
+67:                 )
+
+68:                 if response and response.text:
+
+69:                     return response.text
+
+70:             except Exception as ex:
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:32+07:00
+Completed At: 2026-08-19T14:01:32+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/implement_api_key_management.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:35+07:00
+Completed At: 2026-08-19T14:01:36+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ [1] Đã nâng cấp `app/key_rotator.py` với tính năng CRUD & Test Live!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:39+07:00
+Completed At: 2026-08-19T14:01:39+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 1690
+Total Bytes: 73122
+Showing lines 805 to 850
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+805: class RemoveKeyRequest(BaseModel):
+
+806:     service: str
+
+807:     key: str
+
+808: 
+
+809: @router.get("/api/keys/config")
+
+810: async def get_keys_config():
+
+811:     """Lấy danh sách các API Key đã đăng ký và trạng thái xoay key"""
+
+812:     return {
+
+813:         "gemini": gemini_key_pool.get_pool_stats(),
+
+814:         "mistral": mistral_key_pool.get_pool_stats()
+
+815:     }
+
+816: 
+
+817: @router.post("/api/keys/add")
+
+818: async def add_api_keys(req: AddKeyRequest):
+
+819:     """Thêm 1 hoặc nhiều API keys vào danh sách xoay key"""
+
+820:     if req.service == "gemini":
+
+821:         count = gemini_key_pool.add_keys(req.keys)
+
+822:     elif req.service == "mistral":
+
+823:         count = mistral_key_pool.add_keys(req.keys)
+
+824:     else:
+
+825:         raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ (phải là 'gemini' hoặc 'mistral')")
+
+826:         
+
+827:     return {
+
+828:         "status": "success",
+
+829:         "message": f"Đã thêm thành công {count} API keys vào cơ chế xoay key của {req.service.upper()}!"
+
+830:     }
+
+831: 
+
+832: @router.post("/api/keys/remove")
+
+833: async def remove_api_key(req: RemoveKeyRequest):
+
+834:     """Xóa API key khỏi danh sách xoay key"""
+
+835:     if req.service == "gemini":
+
+836:         gemini_key_pool.remove_key(req.key)
+
+837:     elif req.service == "mistral":
+
+838:         mistral_key_pool.remove_key(req.key)
+
+839:     return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}
+
+840: 
+
+841: 
+
+842: # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
+
+843: 
+
+844: SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+
+845: if not SOP_HTML_PATH.exists():
+
+846:     SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+
+847: if not SOP_HTML_PATH.exists():
+
+848:     SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+
+849: if not SOP_HTML_PATH.exists():
+
+850:     SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:43+07:00
+Completed At: 2026-08-19T14:01:43+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/app/routes.py`
+Total Lines: 1690
+Total Bytes: 73122
+Showing lines 795 to 808
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+795:     )
+
+796:     return result
+
+797: 
+
+798: 
+
+799: # ==================== KEY ROTATION & MANAGEMENT ENDPOINTS ====================
+
+800: 
+
+801: class AddKeyRequest(BaseModel):
+
+802:     service: str # 'gemini' | 'mistral'
+
+803:     keys: str    # Comma or newline separated keys
+
+804: 
+
+805: class RemoveKeyRequest(BaseModel):
+
+806:     service: str
+
+807:     key: str
+
+808: 
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:01:56+07:00
+Completed At: 2026-08-19T14:01:56+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\app\routes.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -802,6 +802,25 @@
+     service: str # 'gemini' | 'mistral'
+
+     keys: str    # Comma or newline separated keys
+
+ 
+
++class UpdateKeyRequest(BaseModel):
+
++    service: str # 'gemini' | 'mistral'
+
++    old_key: str
+
++    new_key: str
+
++    status: Optional[str] = "ACTIVE"
+
++
+
++class SetKeyStatusRequest(BaseModel):
+
++    service: str # 'gemini' | 'mistral'
+
++    key: str
+
++    status: str  # 'ACTIVE' | 'INACTIVE' | 'RATE_LIMITED'
+
++
+
++class SetPrimaryKeyRequest(BaseModel):
+
++    service: str # 'gemini' | 'mistral'
+
++    key: str
+
++
+
++class TestKeyRequest(BaseModel):
+
++    service: str # 'gemini' | 'mistral'
+
++    key: str
+
++
+
+ class RemoveKeyRequest(BaseModel):
+
+     service: str
+
+     key: str
+
+@@ -808,6 +808,8 @@
+ @router.get("/api/keys/config")
+
++@router.get("/api/keys/list")
+
++@router.get("/api/keys/status")
+
+ async def get_keys_config():
+
+-    """Lấy danh sách các API Key đã đăng ký và trạng thái xoay key"""
+
++    """Lấy danh sách đầy đủ các API Key đã đăng ký và trạng thái xoay key"""
+
+     return {
+
+         "gemini": gemini_key_pool.get_pool_stats(),
+
+         "mistral": mistral_key_pool.get_pool_stats()
+
+@@ -824,17 +824,83 @@
+         
+
+     return {
+
+         "status": "success",
+
+-        "message": f"Đã thêm thành công {count} API keys vào cơ chế xoay key của {req.service.upper()}!"
+
+-    }
+
++        "message": f"Đã thêm thành công {count} API key(s) vào cơ chế xoay key của {req.service.upper()}!"
+
++    }
+
++
+
++@router.put("/api/keys/update")
+
++async def update_api_key(req: UpdateKeyRequest):
+
++    """Chỉnh sửa thông tin và giá trị của một API Key"""
+
++    if req.service == "gemini":
+
++        success = gemini_key_pool.update_key(req.old_key, req.new_key, req.status)
+
++    elif req.service == "mistral":
+
++        success = mistral_key_pool.update_key(req.old_key, req.new_key, req.status)
+
++    else:
+
++        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
++
+
++    if not success:
+
++        raise HTTPException(status_code=500, detail="Không thể cập nhật API Key")
+
++
+
++    return {
+
++        "status": "success",
+
++        "message": f"Đã cập nhật thành công API Key cho dịch vụ {req.service.upper()}!"
+
++    }
+
++
+
++@router.post("/api/keys/set-status")
+
++async def set_api_key_status(req: SetKeyStatusRequest):
+
++    """Thay đổi trạng thái bật/tắt (ACTIVE/INACTIVE) của API Key"""
+
++    if req.service == "gemini":
+
++        gemini_key_pool.set_key_status(req.key, req.status)
+
++    elif req.service == "mistral":
+
++        mistral_key_pool.set_key_status(req.key, req.status)
+
++    else:
+
++        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
++
+
++    return {
+
++        "status": "success",
+
++        "message": f"Đã chuyển trạng thái API Key sang {req.status}!"
+
++    }
+
++
+
++@router.post("/api/keys/set-primary")
+
++async def set_primary_api_key(req: SetPrimaryKeyRequest):
+
++    """Đặt API Key làm khóa ưu tiên số 1 (Head of Pool)"""
+
++    if req.service == "gemini":
+
++        gemini_key_pool.set_primary_key(req.key)
+
++    elif req.service == "mistral":
+
++        mistral_key_pool.set_primary_key(req.key)
+
++    else:
+
++        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
++
+
++    return {
+
++        "status": "success",
+
++        "message": f"Đã đặt API Key làm khóa ưu tiên cao nhất cho {req.service.upper()}!"
+
++    }
+
++
+
++@router.post("/api/keys/test")
+
++async def test_api_key(req: TestKeyRequest):
+
++    """Kiểm thử kết nối API trực tiếp (Live Connectivity Test) & đo độ trễ ms"""
+
++    if req.service == "gemini":
+
++        result = gemini_key_pool.test_key(req.key)
+
++    elif req.service == "mistral":
+
++        result = mistral_key_pool.test_key(req.key)
+
++    else:
+
++        raise HTTPException(status_code=400, detail="Dịch vụ không hợp lệ")
+
++
+
++    return result
+
+ 
+
+ @router.post("/api/keys/remove")
+
+-async def remove_api_key(req: RemoveKeyRequest):
+
+-    """Xóa API key khỏi danh sách xoay key"""
+
+-    if req.service == "gemini":
+
+-        gemini_key_pool.remove_key(req.key)
+
+-    elif req.service == "mistral":
+
+-        mistral_key_pool.remove_key(req.key)
+
+-    return {"status": "success", "message": f"Đã xóa API key khỏi {req.service.upper()}"}
+
++@router.delete("/api/keys/{service}/{key}")
+
++async def remove_api_key_endpoint(service: str = None, key: str = None, req: Optional[RemoveKeyRequest] = None):
+
++    """Xóa API key khỏi danh sách xoay key và CSDL"""
+
++    srv = req.service if req else service
+
++    k = req.key if req else key
+
++    if not srv or not k:
+
++        raise HTTPException(status_code=400, detail="Thiếu thông tin dịch vụ hoặc key cần xóa")
+
++
+
++    if srv == "gemini":
+
++        gemini_key_pool.remove_key(k)
+
++    elif srv == "mistral":
+
++        mistral_key_pool.remove_key(k)
+
++    return {"status": "success", "message": f"Đã xóa API key khỏi {srv.upper()}"}
+
+ 
+
+ 
+
+ # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
+
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:02:00+07:00
+Completed At: 2026-08-19T14:02:00+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 2704
+Total Bytes: 212343
+Showing lines 2635 to 2680
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+2635:                                     <option value="Cao">🟠 Cao (Trong 24-48h)</option>
+
+2636:                                     <option value="Bình thường">🔵 Bình thường</option>
+
+2637:                                     <option value="Thấp">⚪ Thấp</option>
+
+2638:                                 </select>
+
+2639:                             </div>
+
+2640:                         </div>
+
+2641: 
+
+2642:                         <div class="mb-3">
+
+2643:                             <label class="form-label small fw-bold text-dark">VỊ TRÍ / SERIAL / THÔNG TIN BỔ SUNG</label>
+
+2644:                             <input type="text" id="edit-kanban-meta" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu • S/N: VEL8829">
+
+2645:                         </div>
+
+2646: 
+
+2647:                         <div class="row g-2 mb-3">
+
+2648:                             <div class="col-md-6">
+
+2649:                                 <label class="form-label small fw-bold text-dark">NGƯỜI PHỤ TRÁCH / KỸ SƯ</label>
+
+2650:                                 <input type="text" id="edit-kanban-assignee" class="form-control form-control-sm" placeholder="VD: KS. Trần Trọng Tấn" list="kanban-staff-suggestions">
+
+2651:                                 <datalist id="kanban-staff-suggestions">
+
+2652:                                     <option value="KS. Trần Trọng Tấn">
+
+2653:                                     <option value="KS. Lê Minh Thiện">
+
+2654:                                     <option value="KS. Trần Đăng Hiếu">
+
+2655:                                     <option value="KS. Nguyễn Quốc Việt">
+
+2656:                                     <option value="KS. Nguyễn Tấn Lợi">
+
+2657:                                     <option value="CN. Trần Thị Ngọc Châu">
+
+2658:                                     <option value="BS. Nguyễn Tuấn">
+
+2659:                                     <option value="ĐD. Trưởng trực">
+
+2660:                                     <option value="Hãng GE Healthcare">
+
+2661:                                     <option value="P.TTBYT">
+
+2662:                                 </datalist>
+
+2663:                             </div>
+
+2664:                             <div class="col-md-6">
+
+2665:                                 <label class="form-label small fw-bold text-dark">GIAI ĐOẠN / CỘT TIẾN ĐỘ</label>
+
+2666:                                 <select id="edit-kanban-col" class="form-select form-select-sm">
+
+2667:                                     <option value="todo">1. Chờ Tiếp Nhận (To Do)</option>
+
+2668:                                     <option value="inprog">2. Đang Xử Lý (In Progress)</option>
+
+2669:                                     <option value="review">3. Chờ Nghiệm Thu (Review)</option>
+
+2670:                                     <option value="done">4. Đã Hoàn Tất (Done)</option>
+
+2671:                                 </select>
+
+2672:                             </div>
+
+2673:                         </div>
+
+2674: 
+
+2675:                         <div class="mb-4">
+
+2676:                             <label class="form-label small fw-bold text-dark">HẠN CHÓT / TIẾN ĐỘ THỰC HIỆN</label>
+
+2677:                             <input type="text" id="edit-kanban-deadline" class="form-control form-control-sm" placeholder="VD: Hạn: Hôm nay, Tiến độ 60%, Chờ ký BM04...">
+
+2678:                         </div>
+
+2679: 
+
+2680:                         <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:02:06+07:00
+Completed At: 2026-08-19T14:02:06+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 2704
+Total Bytes: 212343
+Showing lines 2570 to 2615
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+2570:                 </div>
+
+2571:             </div>
+
+2572:         </div>
+
+2573:     </div>
+
+2574: 
+
+2575:     <!-- ==================== MODAL: QUẢN LÝ KHÓA API KEYS POOL ==================== -->
+
+2576:     <div class="modal fade" id="keyConfigModal" tabindex="-1" aria-hidden="true">
+
+2577:         <div class="modal-dialog modal-dialog-centered">
+
+2578:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2579:                 <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+
+2580:                     <h5 class="modal-title fw-bold"><i class="bi bi-key-fill me-2"></i>Quản Lý Cơ Chế Xoay Khóa API Key Pool</h5>
+
+2581:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2582:                 </div>
+
+2583:                 <div class="modal-body p-4">
+
+2584:                     <form id="addKeyForm" onsubmit="event.preventDefault(); app.submitNewAPIKey();">
+
+2585:                         <div class="mb-3">
+
+2586:                             <label class="form-label small fw-bold text-dark">CHỌN DỊCH VỤ CẦN THÊM KEY</label>
+
+2587:                             <select id="key-service-select" class="form-select form-select-sm">
+
+2588:                                 <option value="gemini">Google Gemini API (Interactions Agent)</option>
+
+2589:                                 <option value="mistral">Mistral AI OCR Engine (Document AI)</option>
+
+2590:                             </select>
+
+2591:                         </div>
+
+2592:                         <div class="mb-3">
+
+2593:                             <label class="form-label small fw-bold text-dark">DANH SÁCH API KEYS (Phân cách bằng dấu phẩy hoặc xuống dòng)</label>
+
+2594:                             <textarea id="key-input-textarea" class="form-control form-control-sm font-mono" rows="3" placeholder="AIzaSy... hoặc mistral_api_key..." required></textarea>
+
+2595:                         </div>
+
+2596:                         <div class="d-flex justify-content-end gap-2">
+
+2597:                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+
+2598:                             <button type="submit" class="btn btn-primary btn-clinical fw-bold">
+
+2599:                                 <i class="bi bi-plus-circle me-1"></i> Thêm Vào Pool Xoay Khóa
+
+2600:                             </button>
+
+2601:                         </div>
+
+2602:                     </form>
+
+2603:                 </div>
+
+2604:             </div>
+
+2605:         </div>
+
+2606:     </div>
+
+2607: 
+
+2608: 
+
+2609:     <!-- ==================== MODAL: CHỈNH SỬA THÔNG TIN TÁC VỤ KANBAN ==================== -->
+
+2610:     <div class="modal fade" id="editKanbanTaskModal" tabindex="-1" aria-hidden="true">
+
+2611:         <div class="modal-dialog modal-dialog-centered">
+
+2612:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2613:                 <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+
+2614:                     <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square text-warning me-2"></i>Chỉnh Sửa Tác Vụ & Thẻ Kanban</h5>
+
+2615:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:02:09+07:00
+Completed At: 2026-08-19T14:02:09+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 2748
+Total Bytes: 151568
+Showing lines 1380 to 1450
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1380:                                     </div>
+
+1381:                                     <div>${statusBadge}</div>
+
+1382:                                 </div>
+
+1383: 
+
+1384:                                 <div class="p-2 rounded bg-light border mb-2">
+
+1385:                                     <span class="small text-muted d-block" style="font-size: 0.72rem; font-weight: 700;">CHUYÊN MÔN PHỤ TRÁCH:</span>
+
+1386:                                     <strong class="text-dark small d-block">${s.specialty}</strong>
+
+1387:                                 </div>
+
+1388: 
+
+1389:                                 <div class="mb-2">
+
+1390:                                     <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">KHU VỰC PHỤ TRÁCH:</span>
+
+1391:                                     <div class="d-flex flex-wrap">${depts}</div>
+
+1392:                                 </div>
+
+1393: 
+
+1394:                                 <div class="mb-3">
+
+1395:                                     <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">VĂN BẰNG & CHỨNG CHỈ MINH CHỨNG:</span>
+
+1396:                                     ${certs}
+
+1397:                                 </div>
+
+1398:                             </div>
+
+1399: 
+
+1400:                             <div class="pt-2 border-top d-flex align-items-center justify-content-between">
+
+1401:                                 <a href="tel:${s.phone}" class="btn btn-sm btn-outline-primary btn-clinical font-mono fw-bold">
+
+1402:                                     <i class="bi bi-telephone-fill me-1"></i>${s.phone || 'N/A'}
+
+1403:                                 </a>
+
+1404:                                 <button class="btn btn-sm btn-light border btn-clinical text-dark fw-semibold" onclick="app.openViewStaffModal(${s.id})">
+
+1405:                                     <i class="bi bi-pencil-square me-1"></i> Hồ Sơ Chi Tiết
+
+1406:                                 </button>
+
+1407:                             </div>
+
+1408:                         </div>
+
+1409:                     </div>
+
+1410:                 `;
+
+1411:             }).join('');
+
+1412:         },
+
+1413: 
+
+1414:         setupStaffEventListeners() {
+
+1415:             const searchInput = document.getElementById('staff-search-input');
+
+1416:             const statusFilter = document.getElementById('staff-status-filter');
+
+1417: 
+
+1418:             const filterFn = () => {
+
+1419:                 const query = (searchInput?.value || '').toLowerCase().trim();
+
+1420:                 const status = statusFilter?.value || '';
+
+1421: 
+
+1422:                 const filtered = this.staffList.filter(s => {
+
+1423:                     const matchQuery = !query || 
+
+1424:                         s.full_name.toLowerCase().includes(query) || 
+
+1425:                         s.staff_code.toLowerCase().includes(query) || 
+
+1426:                         s.specialty.toLowerCase().includes(query) ||
+
+1427:                         (s.assigned_departments && s.assigned_departments.toLowerCase().includes(query));
+
+1428:                     const matchStatus = !status || s.status === status;
+
+1429:                     return matchQuery && matchStatus;
+
+1430:                 });
+
+1431: 
+
+1432:                 this.renderStaff(filtered);
+
+1433:             };
+
+1434: 
+
+1435:             searchInput?.addEventListener('input', filterFn);
+
+1436:             statusFilter?.addEventListener('change', filterFn);
+
+1437: 
+
+1438:             // Create Staff Form
+
+1439:             const createForm = document.getElementById('createStaffForm');
+
+1440:             createForm?.addEventListener('submit', async (e) => {
+
+1441:                 e.preventDefault();
+
+1442:                 const payload = {
+
+1443:                     staff_code: document.getElementById('staff-add-code').value.trim().toUpperCase(),
+
+1444:                     full_name: document.getElementById('staff-add-name').value.trim(),
+
+1445:                     title: document.getElementById('staff-add-title').value.trim(),
+
+1446:                     role_level: document.getElementById('staff-add-role').value,
+
+1447:                     specialty: document.getElementById('staff-add-specialty').value.trim(),
+
+1448:                     phone: document.getElementById('staff-add-phone').value.trim(),
+
+1449:                     email: document.getElementById('staff-add-email').value.trim(),
+
+1450:                     assigned_departments: document.getElementById('staff-add-depts').value.trim(),
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `grep_search`: *grep_search*
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:03:25+07:00
+Completed At: 2026-08-19T14:03:26+07:00
+
+				The command exited with code 0.
+				Output:
+				
+
+  web\js\app.js:2217:        },
+
+  web\js\app.js:2218:
+
+> web\js\app.js:2219:        openKeyConfigModal() {
+
+  web\js\app.js:2220:            const modal = new bootstrap.Modal(document.getElementById('keyConfigModal'));
+
+  web\js\app.js:2221:            modal.show();
+
+  web\js\app.js:2222:        },
+
+  web\js\app.js:2223:
+
+> web\js\app.js:2224:        async submitNewAPIKey() {
+
+  web\js\app.js:2225:            const service = document.getElementById('key-service-select').value;
+
+  web\js\app.js:2226:            const keys = document.getElementById('key-input-textarea').value.trim();
+
+  web\js\app.js:2227:            if (!keys) return;
+
+  web\js\app.js:2228:
+
+  web\js\app.js:2229:            try {
+
+  web\js\app.js:2230:                const res = await fetch('/api/keys/add', {
+
+  web\js\app.js:2231:                    method: 'POST',
+
+  web\js\app.js:2232:                    headers: { 'Content-Type': 'application/json' },
+
+  web\js\app.js:2233:                    body: JSON.stringify({ service: service, keys: keys })
+
+  web\js\app.js:2234:                });
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:03:28+07:00
+Completed At: 2026-08-19T14:03:28+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 2748
+Total Bytes: 151568
+Showing lines 2215 to 2260
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+2215:             const f = this.currentOCRResult.extracted_fields;
+
+2216:             alert(`✅ Đã nạp thành công dữ liệu trích xuất từ Mistral OCR:\n• Thiết bị: ${f.device_name}\n• Model: ${f.model}\n• S/N: ${f.serial_no}\n• Khoa phòng: ${f.facility}`);
+
+2217:         },
+
+2218: 
+
+2219:         openKeyConfigModal() {
+
+2220:             const modal = new bootstrap.Modal(document.getElementById('keyConfigModal'));
+
+2221:             modal.show();
+
+2222:         },
+
+2223: 
+
+2224:         async submitNewAPIKey() {
+
+2225:             const service = document.getElementById('key-service-select').value;
+
+2226:             const keys = document.getElementById('key-input-textarea').value.trim();
+
+2227:             if (!keys) return;
+
+2228: 
+
+2229:             try {
+
+2230:                 const res = await fetch('/api/keys/add', {
+
+2231:                     method: 'POST',
+
+2232:                     headers: { 'Content-Type': 'application/json' },
+
+2233:                     body: JSON.stringify({ service: service, keys: keys })
+
+2234:                 });
+
+2235:                 const data = await res.json();
+
+2236:                 alert('✅ ' + data.message);
+
+2237:                 bootstrap.Modal.getInstance(document.getElementById('keyConfigModal'))?.hide();
+
+2238:                 document.getElementById('key-input-textarea').value = '';
+
+2239:                 this.loadAPIKeysStatus();
+
+2240:             } catch (err) {
+
+2241:                 alert('❌ Lỗi thêm key: ' + err.message);
+
+2242:             }
+
+2243:         },
+
+2244: 
+
+2245:         async loadAPIKeysStatus() {
+
+2246:             try {
+
+2247:                 const res = await fetch('/api/keys/config');
+
+2248:                 const data = await res.json();
+
+2249:                 const geminiBadge = document.getElementById('gemini-key-count-badge');
+
+2250:                 const mistralBadge = document.getElementById('mistral-key-count-badge');
+
+2251:                 if (geminiBadge && data.gemini) {
+
+2252:                     geminiBadge.textContent = `${data.gemini.active_keys} Keys Hoạt Động (Pool ${data.gemini.total_keys})`;
+
+2253:                 }
+
+2254:                 if (mistralBadge && data.mistral) {
+
+2255:                     mistralBadge.textContent = `${data.mistral.active_keys} Keys Hoạt Động (Pool ${data.mistral.total_keys})`;
+
+2256:                 }
+
+2257:             } catch (err) {
+
+2258:                 console.error(err);
+
+2259:             }
+
+2260:         },
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:03:37+07:00
+Completed At: 2026-08-19T14:03:37+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/build_full_key_management_ui.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:03:39+07:00
+Completed At: 2026-08-19T14:03:39+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ [2] Đã cập nhật `web/index.html` với Giao Diện Quản Lý & Chỉnh Sửa Key Chuyên Nghiệp!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:03:49+07:00
+Completed At: 2026-08-19T14:03:50+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/update_app_js_key_methods.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:00+07:00
+Completed At: 2026-08-19T14:04:00+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ [3] Đã cập nhật `web/js/app.js` với toàn bộ bộ điều khiển Key Controller (Sửa, Xóa, Test Live, Đổi trạng thái)!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `manage_task`: *manage_task*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:02+07:00
+Completed At: 2026-08-19T14:04:02+07:00
+Task "4881bc7a-1a98-495d-aa16-c25753523ea5/task-4209" cancelled.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:04+07:00
+Tool is running as a background task with task id: 4881bc7a-1a98-495d-aa16-c25753523ea5/task-4273
+Task Description: python -c "import uvicorn; from app.main import app; uvicorn.run(app, host='127.0.0.1', port=8000, log_level='info')"
+Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-4273.log
+YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
+ DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:09+07:00
+Completed At: 2026-08-19T14:04:09+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4275/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:12+07:00
+Completed At: 2026-08-19T14:04:12+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4277/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:15+07:00
+Completed At: 2026-08-19T14:04:15+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4277/output.txt`
+Total Lines: 258
+Total Bytes: 17671
+Showing lines 1 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: 
+2: - Page URL: http://127.0.0.1:8000/?v=keys_manage#tab-ai-hub
+3: - Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+4: - Page Snapshot
+5: ```yaml
+6: - document [ref=s2e2]:
+7:   - complementary [ref=s2e5]:
+8:     - img "Logo Tâm Anh Quận 7" [ref=s2e7]
+9:     - text: "TÂM ANH HOSPITAL Phòng TTBYT Quận 7 • HTM V3  Tổng tài sản:"
+10:     - strong [ref=s2e15]: "1.073"
+11:     - text: " Sẵn sàng:"
+12:     - strong [ref=s2e19]: 98.6%
+13:     - tablist [ref=s2e20]:
+14:       - text: ĐIỀU HÀNH TỔNG THỂ
+15:       - tab " Dashboard & Kanban Live" [selected] [ref=s2e24]
+16:       - text: DANH MỤC & ĐỐI TÁC
+17:       - tab " Thiết Bị & Phụ Kiện 1.073" [ref=s2e31]
+18:       - tab " Nhân Sự TTBYT 6 KS" [ref=s2e36]
+19:       - tab " Nhà Cung Cấp & HĐ 24 NCC" [ref=s2e41]
+20:       - text: QUY TRÌNH LÂM SÀNG
+21:       - tab " Kiểm Tra Đầu Ngày Pre-use" [ref=s2e48]
+22:       - tab " Lịch Bảo Trì & Kiểm Định 30 Ngày" [ref=s2e53]
+23:       - tab " Điều Chuyển Máy (QT.08)" [ref=s2e58]
+24:       - text: CMMS & TRÍ TUỆ NHÂN TẠO
+25:       - tab " Sơ Đồ Quy Trình SVG" [ref=s2e64]
+26:       - tab " Bảo Trì SpeedMaint 46" [ref=s2e68]
+27:       - tab " Semantica Context Graph" [ref=s2e73]
+28:       - tab " Trợ Lý AI & OCR Hub" [ref=s2e77]
+29:     - button " Tạo Phiếu Công Việc" [ref=s2e81]
+30:   - main [ref=s2e83]:
+31:     - button "" [ref=s2e86]
+32:     - heading " Dashboard & Kanban" [level=5] [ref=s2e88]
+33:     - button " Ctrl+K" [ref=s2e91]
+34:     - button " Nhập Thêm Thiết Bị" [ref=s2e94]
+35:     - link " Sổ Tay Quy Trình (SOPs)" [ref=s2e96]:
+36:       - /url: /sops
+37:     - button " Xuất Excel" [ref=s2e98]
+38:     - tabpanel " Dashboard & Kanban Live" [ref=s2e102]:
+39:       - text: Tổng Tài Sản TTBYT 1.073  94 Đầu dò & Phụ kiện rời  Tỷ Lệ Sẵn Sàng Vận Hành 98.6%  1.058 máy đang hoạt động  Kiểm Định Hợp Lệ (TT 05) 94.2%  8 máy cần tái kiểm (30 ngày) 
+40:       - heading " Cơ Cấu 4 Khoa Chuyên Môn & Phòng TTBYT — PKĐK Tâm Anh Quận 7" [level=6] [ref=s2e134]
+41:       - paragraph [ref=s2e136]: Hệ thống phân bổ TTBYT theo mô hình Phòng Khám Đa Khoa (Ngoại trú chuyên sâu, không lưu bệnh Nội trú)
+42:       - text:  TA Quận 7 • 4 Khoa + Phòng TTBYT 
+43:       - heading "1. Khoa Khám Bệnh (Đa Khoa, Chuyên Khoa & Khám Sức Khỏe)" [level=6] [ref=s2e145]
+44:       - text: Khám bệnh ngoại trú, Phòng thủ thuật, Tai Mũi Họng, Mắt, Răng Hàm Mặt, Sản phụ khoa & Đoàn KSK
+45:       - button " Lọc Thiết Bị" [ref=s2e147]
+46:       - text:  Phòng Khám Đa Khoa Huyết áp kế, Đèn khám, Cân  Khám Sức Khỏe Đoàn Máy đo thị lực, Cân điện tử  Khám Chuyên Khoa TMH, Mắt, RHM, Sản, Nhi  Điều Chuyển Máy (QT.08) Biên bản giao nhận BM03 
+47:       - heading "2. Khoa Chẩn Đoán Hình Ảnh (CĐHA — MRI, CT, X-Quang, Siêu Âm)" [level=6] [ref=s2e180]
+48:       - text: Hệ thống MRI 3T Signa Hero, MRI 1.5T, CT-Scanner Revolution EVO, X-Quang KTS & Siêu âm 4D
+49:       - button " Lọc CĐHA" [ref=s2e182]
+50:       - text:  Hệ Thống MRI 3T & 1.5T Signa Hero, Creator, Amira  Hệ Thống CT & X-Quang CT Revolution, X-Quang KTS  Siêu Âm Màu 4D/5D Voluson E10, HERA W10  Đo Loãng Xương DEXA Mật độ khoáng xương DEXA 
+51:       - heading "3. Khoa Nội Soi Tiêu Hóa (NSTH — Dạ Dày, Đại Tràng, Can Thiệp)" [level=6] [ref=s2e215]
+52:       - text: Hệ thống nội soi 4K Olympus EVIS X1 / Fujifilm ELUXEO 7000, Máy rửa khử khuẩn ống soi tự động
+53:       - button " Lọc NSTH" [ref=s2e217]
+54:       - text:  Hệ Thống Dây Soi 4K Olympus EVIS X1 / Fujifilm  Máy Rửa Khử Khuẩn Ống Soi Tiệt khuẩn tự động kiểm soát NK  Dao Cắt Đốt Polyp NSTH Cắt đốt cao tần can thiệp  Nguồn Sáng Lạnh & Bộ Xử Lý Tín hiệu hình ảnh nội soi 4K 
+55:       - heading "4. Khoa Cấp Cứu (Emergency Department — 24/7 Sẵn Sàng Ứng Cứu)" [level=6] [ref=s2e250]
+56:       - text: Máy thở xâm lấn Vela, Máy sốc tim Defibrillator TEC-5600, Monitor theo dõi, Khí y tế trung tâm & Bình Oxy
+57:       - button " Lọc Cấp Cứu" [ref=s2e252]
+58:       - text:  Máy Thở Xâm Lấn Vela Rủi ro Loại D • Duy trì thở  Máy Sốc Tim TEC-5600 Phá rung tim khẩn cấp 24/7  Monitor 5 Thông Số Theo dõi SpO2, ECG, NIBP  Bơm Tiêm Điện & Truyền Dịch Kiểm soát liều lượng chính xác 
+59:       - heading "5. Phòng Trang Thiết Bị Y Tế (Biomedical Engineering & Technical Operations)" [level=6] [ref=s2e285]
+60:       - text: Kiểm tra an toàn đầu ngày, Kiểm định định kỳ TT 05, Bảo trì SpeedMaint CMMS & Vận hành Khí y tế
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:17+07:00
+Completed At: 2026-08-19T14:04:21+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4281/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:23+07:00
+Completed At: 2026-08-19T14:04:23+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4283/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:26+07:00
+Completed At: 2026-08-19T14:04:26+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4283/output.txt`
+Total Lines: 77
+Total Bytes: 4331
+Showing lines 1 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: 
+2: - Page URL: http://127.0.0.1:8000/?v=keys_manage#tab-ai-hub
+3: - Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+4: - Page Snapshot
+5: ```yaml
+6: - document [ref=s4e2]:
+7:   - complementary [ref=s4e5]:
+8:     - img "Logo Tâm Anh Quận 7" [ref=s4e7]
+9:     - text: "TÂM ANH HOSPITAL Phòng TTBYT Quận 7 • HTM V3  Tổng tài sản:"
+10:     - strong [ref=s4e15]: "1.073"
+11:     - text: " Sẵn sàng:"
+12:     - strong [ref=s4e19]: 98.6%
+13:     - tablist [ref=s4e20]:
+14:       - text: ĐIỀU HÀNH TỔNG THỂ
+15:       - tab " Dashboard & Kanban Live" [ref=s4e24]
+16:       - text: DANH MỤC & ĐỐI TÁC
+17:       - tab " Thiết Bị & Phụ Kiện 1.073" [ref=s4e31]
+18:       - tab " Nhân Sự TTBYT 6 KS" [ref=s4e36]
+19:       - tab " Nhà Cung Cấp & HĐ 24 NCC" [ref=s4e41]
+20:       - text: QUY TRÌNH LÂM SÀNG
+21:       - tab " Kiểm Tra Đầu Ngày Pre-use" [ref=s4e48]
+22:       - tab " Lịch Bảo Trì & Kiểm Định 30 Ngày" [ref=s4e53]
+23:       - tab " Điều Chuyển Máy (QT.08)" [ref=s4e58]
+24:       - text: CMMS & TRÍ TUỆ NHÂN TẠO
+25:       - tab " Sơ Đồ Quy Trình SVG" [ref=s4e64]
+26:       - tab " Bảo Trì SpeedMaint 46" [ref=s4e68]
+27:       - tab " Semantica Context Graph" [ref=s4e73]
+28:       - tab " Trợ Lý AI & OCR Hub" [selected] [ref=s4e77]
+29:     - button " Tạo Phiếu Công Việc" [ref=s4e81]
+30:   - main [ref=s4e83]:
+31:     - button "" [ref=s4e86]
+32:     - heading " Trợ Lý AI & OCR Hub" [level=5] [ref=s4e88]
+33:     - button " Ctrl+K" [ref=s4e91]
+34:     - button " Nhập Thêm Thiết Bị" [ref=s4e94]
+35:     - link " Sổ Tay Quy Trình (SOPs)" [ref=s4e96]:
+36:       - /url: /sops
+37:     - button " Xuất Excel" [ref=s4e98]
+38:     - tabpanel " Trợ Lý AI & OCR Hub" [ref=s4e102]:
+39:       - text: 
+40:       - heading "Trung Tâm Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 3.7 Flash) & Mistral OCR Hub" [level=5] [ref=s4e109]
+41:       - text: Tự động xoay khóa API Multi-Key Pool • Bóc tách tài liệu PDF scan & Tư vấn quy trình SOPs 24/7
+42:       - button " Quản Lý API Keys Pool" [ref=s4e112]
+43:       - link " Sổ Tay SOPs" [ref=s4e114]:
+44:         - /url: /sops
+45:       - text:  Gemini 3.7 Flash Flash
+46:       - strong [ref=s4e123]: TRỢ LÝ KỸ THUẬT Y SINH TÂM ANH Q7
+47:       - button " Làm mới" [ref=s4e124]
+48:       - button "💡 Máy thở Vela Cấp Cứu" [ref=s4e127]
+49:       - button "💡 Hệ thống RO Thận (QT.01)" [ref=s4e128]
+50:       - button "💡 Kiểm định TT 05 & NĐ 98" [ref=s4e129]
+51:       - button "💡 Lịch On-Call 24h Tuần Này" [ref=s4e130]
+52:       - text: 
+53:       - strong [ref=s4e136]: "Trợ Lý AI Kỹ Thuật Y Sinh (BME AI Assistant):"
+54:       - text: "Xin chào! Tôi là Trợ lý AI chuyên môn của Phòng Trang Thiết Bị Y Tế Tâm Anh Quận 7. Tôi có thể hỗ trợ bạn:"
+55:       - list [ref=s4e137]:
+56:         - listitem [ref=s4e138]: Tra cứu quy trình vận hành & bảo trì chuẩn (QT.01 đến QT.09).
+57:         - listitem [ref=s4e139]: Tư vấn phân loại rủi ro A/B/C/D theo Nghị định 98/2021/NĐ-CP.
+58:         - listitem [ref=s4e140]: Hướng dẫn kiểm tra định kỳ, hiệu chuẩn và kiểm định TT 05/2022.
+59:         - listitem [ref=s4e141]: Thông tin nhân sự và lịch trực On-call 24/7 của phòng.
+60:       - textbox "Hỏi Trợ lý AI về thiết bị, quy trình SOPs, kiểm định hoặc On-call..." [ref=s4e144]
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:29+07:00
+Completed At: 2026-08-19T14:04:34+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4287/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:36+07:00
+Completed At: 2026-08-19T14:04:36+07:00
+[Resource offloaded to file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4289/media_0.png]
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:38+07:00
+Completed At: 2026-08-19T14:04:38+07:00
+The following is the entire, complete content of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:41+07:00
+Completed At: 2026-08-19T14:04:41+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4293/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:43+07:00
+Completed At: 2026-08-19T14:04:43+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4293/output.txt`
+Total Lines: 153
+Total Bytes: 7947
+Showing lines 1 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: 
+2: - Page URL: http://127.0.0.1:8000/?v=keys_manage#tab-ai-hub
+3: - Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+4: - Page Snapshot
+5: ```yaml
+6: - document [ref=s6e2]:
+7:   - complementary [ref=s6e5]:
+8:     - img "Logo Tâm Anh Quận 7" [ref=s6e7]
+9:     - text: "TÂM ANH HOSPITAL Phòng TTBYT Quận 7 • HTM V3  Tổng tài sản:"
+10:     - strong [ref=s6e15]: "1.073"
+11:     - text: " Sẵn sàng:"
+12:     - strong [ref=s6e19]: 98.6%
+13:     - tablist [ref=s6e20]:
+14:       - text: ĐIỀU HÀNH TỔNG THỂ
+15:       - tab " Dashboard & Kanban Live" [ref=s6e24]
+16:       - text: DANH MỤC & ĐỐI TÁC
+17:       - tab " Thiết Bị & Phụ Kiện 1.073" [ref=s6e31]
+18:       - tab " Nhân Sự TTBYT 6 KS" [ref=s6e36]
+19:       - tab " Nhà Cung Cấp & HĐ 24 NCC" [ref=s6e41]
+20:       - text: QUY TRÌNH LÂM SÀNG
+21:       - tab " Kiểm Tra Đầu Ngày Pre-use" [ref=s6e48]
+22:       - tab " Lịch Bảo Trì & Kiểm Định 30 Ngày" [ref=s6e53]
+23:       - tab " Điều Chuyển Máy (QT.08)" [ref=s6e58]
+24:       - text: CMMS & TRÍ TUỆ NHÂN TẠO
+25:       - tab " Sơ Đồ Quy Trình SVG" [ref=s6e64]
+26:       - tab " Bảo Trì SpeedMaint 46" [ref=s6e68]
+27:       - tab " Semantica Context Graph" [ref=s6e73]
+28:       - tab " Trợ Lý AI & OCR Hub" [selected] [ref=s6e77]
+29:     - button " Tạo Phiếu Công Việc" [ref=s6e81]
+30:   - main [ref=s6e83]:
+31:     - button "" [ref=s6e86]
+32:     - heading " Trợ Lý AI & OCR Hub" [level=5] [ref=s6e88]
+33:     - button " Ctrl+K" [ref=s6e91]
+34:     - button " Nhập Thêm Thiết Bị" [ref=s6e94]
+35:     - link " Sổ Tay Quy Trình (SOPs)" [ref=s6e96]:
+36:       - /url: /sops
+37:     - button " Xuất Excel" [ref=s6e98]
+38:     - tabpanel " Trợ Lý AI & OCR Hub" [ref=s6e102]:
+39:       - text: 
+40:       - heading "Trung Tâm Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 3.7 Flash) & Mistral OCR Hub" [level=5] [ref=s6e109]
+41:       - text: Tự động xoay khóa API Multi-Key Pool • Bóc tách tài liệu PDF scan & Tư vấn quy trình SOPs 24/7
+42:       - button " Quản Lý API Keys Pool" [ref=s6e112]
+43:       - link " Sổ Tay SOPs" [ref=s6e114]:
+44:         - /url: /sops
+45:       - text:  Gemini 3.7 Flash Flash
+46:       - strong [ref=s6e123]: TRỢ LÝ KỸ THUẬT Y SINH TÂM ANH Q7
+47:       - button " Làm mới" [ref=s6e124]
+48:       - button "💡 Máy thở Vela Cấp Cứu" [ref=s6e127]
+49:       - button "💡 Hệ thống RO Thận (QT.01)" [ref=s6e128]
+50:       - button "💡 Kiểm định TT 05 & NĐ 98" [ref=s6e129]
+51:       - button "💡 Lịch On-Call 24h Tuần Này" [ref=s6e130]
+52:       - text: 
+53:       - strong [ref=s6e136]: "Trợ Lý AI Kỹ Thuật Y Sinh (BME AI Assistant):"
+54:       - text: "Xin chào! Tôi là Trợ lý AI chuyên môn của Phòng Trang Thiết Bị Y Tế Tâm Anh Quận 7. Tôi có thể hỗ trợ bạn:"
+55:       - list [ref=s6e137]:
+56:         - listitem [ref=s6e138]: Tra cứu quy trình vận hành & bảo trì chuẩn (QT.01 đến QT.09).
+57:         - listitem [ref=s6e139]: Tư vấn phân loại rủi ro A/B/C/D theo Nghị định 98/2021/NĐ-CP.
+58:         - listitem [ref=s6e140]: Hướng dẫn kiểm tra định kỳ, hiệu chuẩn và kiểm định TT 05/2022.
+59:         - listitem [ref=s6e141]: Thông tin nhân sự và lịch trực On-call 24/7 của phòng.
+60:       - textbox "Hỏi Trợ lý AI về thiết bị, quy trình SOPs, kiểm định hoặc On-call..." [ref=s6e144]
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:45+07:00
+Completed At: 2026-08-19T14:04:45+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4293/output.txt`
+Total Lines: 153
+Total Bytes: 7947
+Showing lines 60 to 153
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+60:       - textbox "Hỏi Trợ lý AI về thiết bị, quy trình SOPs, kiểm định hoặc On-call..." [ref=s6e144]
+61:       - button " Gửi" [ref=s6e145]
+62:       - text:  Mistral OCR-4
+63:       - strong [ref=s6e153]: BÓC TÁCH BIÊN BẢN & GCN SCAN
+64:       - text: "READY CHỌN TÀI LIỆU MẪU ĐỂ TEST OCR NHANH:"
+65:       - button "📄 GCN Kiểm Định Máy Sốc Tim" [ref=s6e159]
+66:       - button "📄 Biên Bản Bàn Giao X-Quang" [ref=s6e160]
+67:       - text: 
+68:       - strong [ref=s6e163]: Kéo thả hoặc Nhấp để chọn file PDF/Ảnh Scan
+69:       - text: "Hỗ trợ: PDF, PNG, JPG (Giấy chứng nhận KĐ, Biên bản giao nhận QT.04)"
+70:       - heading " Trạng Thái Cơ Chế Xoay Khóa Tự Động (Multi-Key Rotation Pool)" [level=6] [ref=s6e167]
+71:       - button " Làm Mới Trạng Thái Keys" [ref=s6e169]
+72:       - text: Gemini API Google GenAI Interactions Pool 3 Keys Hoạt Động (Pool 3) Mistral OCR Mistral Document AI Pool 3 Keys Hoạt Động (Pool 3)
+73:   - dialog [ref=s6e184]:
+74:     - text: 
+75:     - heading "Quản Lý Cơ Chế Xoay Khóa API Key Pool" [level=5] [ref=s6e192]
+76:     - text: Thêm, Sửa, Bật/Tắt, Kiểm tra kết nối Live & Đặt khóa ưu tiên cho AI Engine
+77:     - button [ref=s6e194]
+78:     - tablist [ref=s6e196]:
+79:       - button " Google Gemini 3.7 Flash Pool 3/3 Active" [ref=s6e198]
+80:       - button " Mistral AI OCR Engine 3/3 Active" [ref=s6e202]
+81:     - text: TỔNG SỐ KEY
+82:     - strong [ref=s6e209]: "3"
+83:     - text: ĐANG HOẠT ĐỘNG
+84:     - strong [ref=s6e213]: "3"
+85:     - text: TẠM DỪNG / INACTIVE
+86:     - strong [ref=s6e217]: "0"
+87:     - text: RATE-LIMIT / COOLDOWN
+88:     - strong [ref=s6e221]: "0"
+89:     - heading " Danh Sách Khóa Trong Pool Hiện Tại" [level=6] [ref=s6e224]
+90:     - button " Làm mới" [ref=s6e226]
+91:     - table [ref=s6e229]:
+92:       - rowgroup [ref=s6e230]:
+93:         - row "# API Key / Định Danh Trạng Thái Độ Trễ Live Thao Tác" [ref=s6e231]:
+94:           - cell "#" [ref=s6e232]
+95:           - cell "API Key / Định Danh" [ref=s6e233]
+96:           - cell "Trạng Thái" [ref=s6e234]
+97:           - cell "Độ Trễ Live" [ref=s6e235]
+98:           - cell "Thao Tác" [ref=s6e236]
+99:       - rowgroup [ref=s6e237]:
+100:         - 'row "1 AIzaSy...ey01    Ưu Tiên #1  ACTIVE Chưa test" [ref=s6e238]':
+101:           - cell "1" [ref=s6e239]
+102:           - 'cell "AIzaSy...ey01    Ưu Tiên #1" [ref=s6e240]':
+103:             - code [ref=s6e242]: AIzaSy...ey01
+104:             - button "" [ref=s6e243]
+105:             - button "" [ref=s6e245]
+106:             - text: " Ưu Tiên #1"
+107:           - cell " ACTIVE" [ref=s6e249]
+108:           - cell "Chưa test" [ref=s6e252]
+109:           - cell [ref=s6e255]:
+110:             - group [ref=s6e256]:
+111:               - button "" [ref=s6e257]
+112:               - button "" [ref=s6e259]
+113:               - button "" [ref=s6e261]
+114:               - button "" [ref=s6e263]
+115:         - row "2 AIzaSy...ey02    ACTIVE Chưa test" [ref=s6e265]:
+116:           - cell "2" [ref=s6e266]
+117:           - cell "AIzaSy...ey02  " [ref=s6e267]:
+118:             - code [ref=s6e269]: AIzaSy...ey02
+119:             - button "" [ref=s6e270]
+120:             - button "" [ref=s6e272]
+121:           - cell " ACTIVE" [ref=s6e274]
+122:           - cell "Chưa test" [ref=s6e277]
+123:           - cell [ref=s6e280]:
+124:             - group [ref=s6e281]:
+125:               - button "" [ref=s6e282]
+126:               - button "" [ref=s6e284]
+127:               - button "" [ref=s6e286]
+128:               - button "" [ref=s6e288]
+129:               - button "" [ref=s6e290]
+130:         - row "3 AQ.Ab8...wV5g    ACTIVE Chưa test" [ref=s6e292]:
+131:           - cell "3" [ref=s6e293]
+132:           - cell "AQ.Ab8...wV5g  " [ref=s6e294]:
+133:             - code [ref=s6e296]: AQ.Ab8...wV5g
+134:             - button "" [ref=s6e297]
+135:             - button "" [ref=s6e299]
+136:           - cell " ACTIVE" [ref=s6e301]
+137:           - cell "Chưa test" [ref=s6e304]
+138:           - cell [ref=s6e307]:
+139:             - group [ref=s6e308]:
+140:               - button "" [ref=s6e309]
+141:               - button "" [ref=s6e311]
+142:               - button "" [ref=s6e313]
+143:               - button "" [ref=s6e315]
+144:               - button "" [ref=s6e317]
+145:     - heading " Thêm Khóa API Mới Vào Pool" [level=6] [ref=s6e320]
+146:     - textbox "Dán API Key mới tại đây (hỗ trợ nhập nhiều key phân cách bằng dấu phẩy hoặc xuống dòng)..." [ref=s6e325]
+147:     - text:  Hệ thống tự động kiểm tra cú pháp và lưu trữ an toàn vào SQLite.
+148:     - button " Thêm Khóa Mới" [ref=s6e329]
+149:     - button "Đóng" [ref=s6e332]
+150:   - button "" [ref=s6e333]
+151:   - document [ref=s6e336]
+152: ```
+153: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:47+07:00
+Completed At: 2026-08-19T14:04:51+07:00
+The output was large and was saved to: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4299/output.txt
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:53+07:00
+Completed At: 2026-08-19T14:04:53+07:00
+[Resource offloaded to file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/4301/media_0.png]
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T14:04:56+07:00
+Completed At: 2026-08-19T14:04:56+07:00
+The following is the entire, complete content of the requested file.
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*

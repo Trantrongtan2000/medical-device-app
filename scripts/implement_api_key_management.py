@@ -1,4 +1,12 @@
-"""
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+app_dir = Path(r"C:\Users\tantt\Downloads\medical-device-app")
+
+# 1. Update app/key_rotator.py with full CRUD and Live Testing capabilities
+key_rotator_code = """\"\"\"
 API Key Rotation & Management System for Gemini AI and Mistral OCR
 Hỗ trợ:
 - Quản lý danh sách nhiều API Keys (Multi-Key Pool)
@@ -7,7 +15,7 @@ Hỗ trợ:
 - Kiểm thử kết nối Live (Test API Connectivity & Latency ms)
 - Lưu trữ cấu hình bền vững vào SQLite
 - Theo dõi trạng thái hoạt động (Active, Inactive, Rate-Limited, Invalid)
-"""
+\"\"\"
 
 import os
 import time
@@ -31,7 +39,7 @@ class KeyPool:
     def _init_db(self):
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
-        cur.execute("""
+        cur.execute(\"\"\"
             CREATE TABLE IF NOT EXISTS api_keys_config (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 service_name TEXT NOT NULL,
@@ -39,7 +47,7 @@ class KeyPool:
                 status TEXT DEFAULT 'ACTIVE',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
-        """)
+        \"\"\")
         conn.commit()
         conn.close()
 
@@ -86,12 +94,12 @@ class KeyPool:
             print(f"[WARN] Không thể đọc keys từ DB: {e}")
 
     def add_keys(self, new_keys_str: str) -> int:
-        """Thêm 1 hoặc nhiều API keys mới (ngăn cách bằng dấu phẩy hoặc xuống dòng)"""
+        \"\"\"Thêm 1 hoặc nhiều API keys mới (ngăn cách bằng dấu phẩy hoặc xuống dòng)\"\"\"
         added_count = 0
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
         
-        raw_keys = [k.strip() for k in new_keys_str.replace("\n", ",").split(",") if k.strip()]
+        raw_keys = [k.strip() for k in new_keys_str.replace("\\n", ",").split(",") if k.strip()]
         for k in raw_keys:
             existing = next((item for item in self.keys if item["key"] == k), None)
             if not existing:
@@ -115,7 +123,7 @@ class KeyPool:
         return added_count
 
     def update_key(self, old_key: str, new_key: str, status: Optional[str] = None) -> bool:
-        """Chỉnh sửa thông tin và giá trị của một API Key"""
+        \"\"\"Chỉnh sửa thông tin và giá trị của một API Key\"\"\"
         old_key = old_key.strip()
         new_key = new_key.strip()
         conn = sqlite3.connect(DB_PATH)
@@ -151,7 +159,7 @@ class KeyPool:
             return False
 
     def set_key_status(self, api_key: str, status: str) -> bool:
-        """Cập nhật trạng thái của API key: ACTIVE, INACTIVE, RATE_LIMITED, INVALID"""
+        \"\"\"Cập nhật trạng thái của API key: ACTIVE, INACTIVE, RATE_LIMITED, INVALID\"\"\"
         api_key = api_key.strip()
         for item in self.keys:
             if item["key"] == api_key:
@@ -166,7 +174,7 @@ class KeyPool:
         return True
 
     def set_primary_key(self, api_key: str) -> bool:
-        """Đưa API key lên vị trí ưu tiên số 1 (Head of Pool)"""
+        \"\"\"Đưa API key lên vị trí ưu tiên số 1 (Head of Pool)\"\"\"
         api_key = api_key.strip()
         target = next((item for item in self.keys if item["key"] == api_key), None)
         if target:
@@ -177,7 +185,7 @@ class KeyPool:
         return False
 
     def remove_key(self, api_key: str) -> bool:
-        """Xóa 1 API key khỏi cấu hình và CSDL"""
+        \"\"\"Xóa 1 API key khỏi cấu hình và CSDL\"\"\"
         api_key = api_key.strip()
         self.keys = [k for k in self.keys if k["key"] != api_key]
         conn = sqlite3.connect(DB_PATH)
@@ -188,7 +196,7 @@ class KeyPool:
         return True
 
     def test_key(self, api_key: str) -> Dict[str, Any]:
-        """Kiểm thử kết nối API trực tiếp (Live Connectivity Test) & đo độ trễ ms"""
+        \"\"\"Kiểm thử kết nối API trực tiếp (Live Connectivity Test) & đo độ trễ ms\"\"\"
         api_key = api_key.strip()
         start_time = time.time()
         
@@ -253,7 +261,7 @@ class KeyPool:
         return {"valid": False, "status": "UNKNOWN", "message": "Dịch vụ không xác định"}
 
     def get_next_active_key(self) -> Optional[str]:
-        """Lấy API Key hoạt động tiếp theo theo cơ chế Round-Robin & Auto-Failover"""
+        \"\"\"Lấy API Key hoạt động tiếp theo theo cơ chế Round-Robin & Auto-Failover\"\"\"
         if not self.keys:
             return None
 
@@ -277,7 +285,7 @@ class KeyPool:
         return chosen["key"]
 
     def mark_rate_limited(self, api_key: str):
-        """Đánh dấu key bị quá tải (HTTP 429) để tạm ngưng 60 giây và xoay sang key khác"""
+        \"\"\"Đánh dấu key bị quá tải (HTTP 429) để tạm ngưng 60 giây và xoay sang key khác\"\"\"
         for k in self.keys:
             if k["key"] == api_key:
                 k["status"] = "RATE_LIMITED"
@@ -286,14 +294,14 @@ class KeyPool:
                 print(f"[KEY ROTATOR] Đã xoay key {self.service_name} do Rate-Limited: {api_key[:8]}...****")
 
     def mark_invalid(self, api_key: str):
-        """Đánh dấu key không hợp lệ (HTTP 401/403)"""
+        \"\"\"Đánh dấu key không hợp lệ (HTTP 401/403)\"\"\"
         for k in self.keys:
             if k["key"] == api_key:
                 k["status"] = "INVALID"
                 k["last_used"] = time.time()
 
     def get_detailed_list(self) -> List[Dict[str, Any]]:
-        """Trả về danh sách đầy đủ thông tin để người dùng quản lý & chỉnh sửa"""
+        \"\"\"Trả về danh sách đầy đủ thông tin để người dùng quản lý & chỉnh sửa\"\"\"
         res = []
         for i, k in enumerate(self.keys):
             raw = k["key"]
@@ -313,7 +321,7 @@ class KeyPool:
         return res
 
     def get_pool_stats(self) -> Dict[str, Any]:
-        """Trả về thống kê tổng hợp số lượng key theo trạng thái"""
+        \"\"\"Trả về thống kê tổng hợp số lượng key theo trạng thái\"\"\"
         return {
             "service": self.service_name,
             "total_keys": len(self.keys),
@@ -328,3 +336,8 @@ class KeyPool:
 # Singleton Key Pools
 gemini_key_pool = KeyPool("gemini", ["GEMINI_API_KEY", "GOOGLE_API_KEY"])
 mistral_key_pool = KeyPool("mistral", ["MISTRAL_API_KEY"])
+"""
+
+with open(app_dir / "app" / "key_rotator.py", "w", encoding="utf-8") as f:
+    f.write(key_rotator_code)
+print("✅ [1] Đã nâng cấp `app/key_rotator.py` với tính năng CRUD & Test Live!")
