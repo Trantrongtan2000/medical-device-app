@@ -1357,7 +1357,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
 
                                 <div class="mb-2">
-                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">ĐỊA BÀN PHỤ TRÁCH:</span>
+                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">KHU VỰC PHỤ TRÁCH:</span>
                                     <div class="d-flex flex-wrap">${depts}</div>
                                 </div>
 

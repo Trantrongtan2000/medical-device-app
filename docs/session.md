@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 10:45:33`  
+> **Thời gian xuất:** `19/08/2026 10:46:31`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7 / PKĐK Tâm Anh Q7)  
 
 ---
@@ -51852,6 +51852,333 @@ await page.screenshot({
 });
 ```
 [Resource offloaded to file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2877/media_0.png]
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:45:32+07:00
+Completed At: 2026-08-19T10:45:33+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 2859
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\session.md
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:45:35+07:00
+Completed At: 2026-08-19T10:45:42+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'scripts/integrate_oncall_system.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/setup_q7_staff_and_oncall.py', LF will be replaced by CRLF the next time Git touches it
+[feat/htm-clinical-workflow-v3 dd56a78] feat(oncall): restructure personnel module for exact 6 Q7 BME members and implement weekly 24/7 on-call duty schedule system
+ 9 files changed, 2064 insertions(+), 62 deletions(-)
+ create mode 100644 scripts/integrate_oncall_system.py
+ create mode 100644 scripts/setup_q7_staff_and_oncall.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   f98d74b..dd56a78  feat/htm-clinical-workflow-v3 -> feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/main'.
+Switched to branch 'main'
+Updating f98d74b..dd56a78
+Fast-forward
+ app/routes.py                        |  46 +++
+ database/devices.db                  | Bin 897024 -> 897024 bytes
+ docs/SESSION_TRANSCRIPT_20260818.md  | 531 ++++++++++++++++++++++++++++++++++-
+ docs/session.md                      | 531 ++++++++++++++++++++++++++++++++++-
+ scripts/integrate_oncall_system.py   | 490 ++++++++++++++++++++++++++++++++
+ scripts/setup_q7_staff_and_oncall.py | 162 +++++++++++
+ tests/test_api.py                    |  17 ++
+ web/index.html                       | 164 +++++++----
+ web/js/app.js                        | 185 +++++++++++-
+ 9 files changed, 2064 insertions(+), 62 deletions(-)
+ create mode 100644 scripts/integrate_oncall_system.py
+ create mode 100644 scripts/setup_q7_staff_and_oncall.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   f98d74b..dd56a78  main -> main
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+Switched to branch 'feat/htm-clinical-workflow-v3'
+On branch feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 🚨 BÁO CÁO HOÀN TẤT: CẬP NHẬT 6 NHÂN SỰ QUẬN 7 & HỆ THỐNG LỊCH ON-CALL TTBYT
+
+Theo đúng yêu cầu của bạn, hệ thống đã được cập nhật toàn diện:
+1. **Gỡ bỏ hoàn toàn khái niệm "Trực ca"** và thay thế bằng **"Lịch On-Call TTBYT 24/7"**.
+2. **Chuẩn hóa danh sách đúng 6 nhân sự chính thức của Phòng TTBYT Quận 7**: Châu, Lợi, Nguyễn Quốc Việt, Lê Minh Thiện, Trần Trọng Tấn, Trần Đăng Hiếu.
+3. **Thêm Bảng Lịch On-Call 7 ngày trong tuần** kèm tính năng **Đổi ca / Chỉnh sửa trực tuyến**.
+
+---
+
+### 👨‍🔧 1. DANH SÁCH 6 NHÂN SỰ CHÍNH THỨC PHÒNG TTBYT QUẬN 7:
+
+| STT | Mã NV | Họ và Tên | Chức Vụ | Chuyên Môn Phụ Trách | Số Điện Thoại | Email |
+| :---: | :---: | :--- | :--- | :--- | :---: | :--- |
+| **1** | `BME-Q7-01` | **Nguyễn Quốc Việt** | Trưởng Phòng TTBYT | Chỉ đạo Toàn diện Hệ thống TTBYT, Hệ thống RO Thận & An toàn Y tế | `0902.769.710` | `vietnq@tahospital.vn` |
+| **2** | `BME-Q7-02` | **Nguyễn Tấn Lợi** | Phó Phòng TTBYT | Hệ Thống Chẩn Đoán Hình Ảnh (CT, MRI, X-Quang, Siêu Âm 4D) & Khí Y Tế | `0779.798.786` | `loint@tahospital.vn` |
+| **3** | `BME-Q7-03` | **Trần Đăng Hiếu** | Kỹ Sư Y Sinh | Thiết Bị Hồi Sức Cấp Cứu, Máy Thở, Máy Sốc Tim, Monitor & Bơm Tiêm | `0888.536.278` | `hieutd@tahospital.vn` |
+| **4** | `BME-Q7-04` | **Lê Minh Thiện** | Kỹ Sư / KTV | Thiết Bị Xét Nghiệm, Khí Di Động (QT.03/QT.09) & Bảo Trì PM | `0378.716.561` | `thienlm@tahospital.vn` |
+| **5** | `BME-Q7-05` | **Trần Thị Ngọc Châu** | Quản Lý Hồ Sơ & Kho | Quản Lý Hồ Sơ Lý Lịch Máy (BM05), Hợp Đồng Mua Sắm & CMMS | `0335.802.380` | `chauttn@tahospital.vn` |
+| **6** | `BME-Q7-06` | **Trần Trọng Tấn** | Kỹ Sư / Quản Trị HTM | Phần Mềm Quản Lý TTBYT, AI Diagnostics & Điều Chuyển Máy (QT.08) | `0334.968.114` | `tantt@tahospital.vn` |
+
+---
+
+### 📅 2. BẢNG PHÂN CÔNG LỊCH ON-CALL TTBYT 7 NGÀY (CÓ THỂ CHỈNH SỬA):
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 LỊCH ON-CALL XỬ LÝ SỰ CỐ KHẨN CẤP TTBYT Q7                             │
+├───────────┬────────────┬──────────────────────┬──────────────────────┬─────────────────┬───────────────┤
+│ THỨ       │ NGÀY       │ KỸ SƯ ON-CALL CHÍNH  │ KỸ SƯ DỰ PHÒNG (BACK)│ LÃNH ĐẠO TRỰC   │ KHUNG GIỜ     │
+├───────────┼────────────┼──────────────────────┼──────────────────────┼─────────────────┼───────────────┤
+│ Thứ Hai   │ 18/08/2026 │ Trần Trọng Tấn       │ Trần Đăng Hiếu       │ Nguyễn Quốc Việt│ 16:30 - 07:30 │
+│ Thứ Ba    │ 19/08/2026 │ Trần Đăng Hiếu 🔴    │ Trần Trọng Tấn       │ Nguyễn Quốc Việt│ 16:30 - 07:30 │
+│ Thứ Tư    │ 20/08/2026 │ Lê Minh Thiện        │ Nguyễn Tấn Lợi       │ Nguyễn Quốc Việt│ 16:30 - 07:30 │
+│ Thứ Năm   │ 21/08/2026 │ Nguyễn Tấn Lợi       │ Trần Trọng Tấn       │ Nguyễn Quốc Việt│ 16:30 - 07:30 │
+│ Thứ Sáu   │ 22/08/2026 │ Trần Thị Ngọc Châu   │ Trần Đăng Hiếu       │ Nguyễn Quốc Việt│ 16:30 - 07:30 │
+│ Thứ Bảy   │ 23/08/2026 │ Trần Trọng Tấn       │ Lê Minh Thiện        │ Nguyễn Quốc Việt│ 24/24 Giờ     │
+│ Chủ Nhật  │ 24/08/2026 │ Trần Đăng Hiếu       │ Nguyễn Tấn Lợi       │ Nguyễn Quốc Việt│ 24/24 Giờ     │
+└───────────┴────────────┴──────────────────────┴──────────────────────┴─────────────────┴───────────────┘
+```
+*(🔴 Hôm nay: KS. **Trần Đăng Hiếu** On-call trực chính, KS. **Trần Trọng Tấn** dự phòng, KS. **Nguyễn Quốc Việt** lãnh đạo trực).*
+
+---
+
+### 🛠️ 3. TÍNH NĂNG ĐIỀU CHỈNH LỊCH ON-CALL TRỰC TIẾP:
+* Trên bảng lịch On-call, bấm nút **`Đổi Ca`** trên bất kỳ ngày nào $\rightarrow$ Mở popup modal **`#editOncallModal`** để đổi Kỹ sư trực chính, Kỹ sư dự phòng, khung giờ và ghi chú công việc.
+* Dữ liệu cập nhật ngay lập tức qua API backend `PUT /api/oncall/schedule/{id}`.
+
+---
+
+### 🧪 4. KIỂM THỬ & TRẠNG THÁI TRIỂN KHAI:
+* ✅ **12/12 Bài kiểm thử tự động Pytest Passed (100%)** trong 1.06s.
+* ✅ Đã commit và push đồng bộ lên GitHub: [**https://github.com/Trantrongtan2000/medical-device-app**](https://github.com/Trantrongtan2000/medical-device-app).
+* 🖥️ **Xem trực tiếp trên giao diện:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000) *(Tab **"Nhân Sự TTBYT 6 KS (Q7)"** $\rightarrow$ bấm nút **"Lịch On-Call 7 Ngày"**)*.
+
+
+### 👤 Lượt 102: Yêu cầu từ Người Dùng (USER)
+```text
+Địa bàn phụ trách đổi thành Khu vực phụ trách
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:45:51+07:00
+Completed At: 2026-08-19T10:45:51+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/update_area_wording.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:45:53+07:00
+Completed At: 2026-08-19T10:45:54+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ Đã cập nhật văn phong 'Khu vực phụ trách' trong `app.js`
+Hoàn tất cập nhật 1 tệp!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:45:57+07:00
+Completed At: 2026-08-19T10:45:58+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scratch/check_dia_ban.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:45:59+07:00
+Completed At: 2026-08-19T10:46:00+07:00
+
+				The command exited with code 0.
+				Output:
+				index.html:1767: <label class="form-label small fw-bold text-dark">KHOA / PHÒNG PHỤ TRÁCH ĐỊA BÀN</label>
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:46:02+07:00
+Completed At: 2026-08-19T10:46:18+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+We did our best to apply changes despite some inaccuracies. Double check if the edit applied is what you intended.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:46:20+07:00
+Completed At: 2026-08-19T10:46:20+07:00
+
+				The command exited with code 0.
+				Output:
+				index.html:1767: <label class="form-label small fw-bold text-dark">KHOA / PHÒNG PHỤ TRÁCH ĐỊA BÀN</label>
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:46:22+07:00
+Completed At: 2026-08-19T10:46:22+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 2026
+Total Bytes: 154479
+Showing lines 1760 to 1775
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1760:                             </div>
+1761:                             <div class="col-md-6">
+1762:                                 <label class="form-label small fw-bold text-dark">EMAIL LIÊN HỆ</label>
+1763:                                 <input type="email" id="staff-add-email" class="form-control form-control-sm" placeholder="VD: bme.staff@tamanhhospital.vn">
+1764:                             </div>
+1765:                         </div>
+1766:                         <div class="mb-3">
+1767:                             <label class="form-label small fw-bold text-dark">KHOA / PHÒNG PHỤ TRÁCH ĐỊA BÀN</label>
+1768:                             <input type="text" id="staff-add-depts" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu, Khoa Hồi Sức Tích Cực (ICU)...">
+1769:                         </div>
+1770:                         <div class="mb-3">
+1771:                             <label class="form-label small fw-bold text-dark">CHỨNG CHỈ NGHỀ NGHIỆP & AN TOÀN</label>
+1772:                             <textarea id="staff-add-certs" class="form-control form-control-sm" rows="2" placeholder="VD: Chứng chỉ An toàn Bức xạ Y tế, Chứng chỉ Kiểm định An toàn Điện Y Sinh IEC 62353..."></textarea>
+1773:                         </div>
+1774:                         <div class="row g-3 mb-3">
+1775:                             <div class="col-md-6">
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:46:24+07:00
+Completed At: 2026-08-19T10:46:24+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1764,7 +1764,7 @@
+                             </div>
+                         </div>
+                         <div class="mb-3">
+-                            <label class="form-label small fw-bold text-dark">KHOA / PHÒNG PHỤ TRÁCH ĐỊA BÀN</label>
++                            <label class="form-label small fw-bold text-dark">KHOA / PHÒNG THUỘC KHU VỰC PHỤ TRÁCH</label>
+                             <input type="text" id="staff-add-depts" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu, Khoa Hồi Sức Tích Cực (ICU)...">
+                         </div>
+                         <div class="mb-3">
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:46:26+07:00
+Completed At: 2026-08-19T10:46:29+07:00
+
+				The command exited with code 0.
+				Output:
+				============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\tantt\Downloads\medical-device-app
+plugins: anyio-4.14.1, langsmith-0.8.5, logfire-4.35.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 12 items
+
+tests/test_api.py::test_root_index_html PASSED                           [  8%]
+tests/test_api.py::test_get_devices_api PASSED                           [ 16%]
+tests/test_api.py::test_get_single_device_passport PASSED                [ 25%]
+tests/test_api.py::test_filter_risk_level PASSED                         [ 33%]
+tests/test_api.py::test_speedmaint_work_orders PASSED                    [ 41%]
+tests/test_api.py::test_semantica_provenance PASSED                      [ 50%]
+tests/test_api.py::test_dashboard_and_kanban_markup PASSED               [ 58%]
+tests/test_api.py::test_dashboard_activity_feed PASSED                   [ 66%]
+tests/test_api.py::test_status_type_warehouse_not_matching_khoa PASSED   [ 75%]
+tests/test_api.py::test_checkout_checkin_roundtrip PASSED                [ 83%]
+tests/test_api.py::test_bme_staff_endpoints PASSED                       [ 91%]
+tests/test_api.py::test_oncall_schedule_endpoints PASSED                 [100%]
+
+============================== warnings summary ===============================
+..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+app\models.py:84
+  C:\Users\tantt\Downloads\medical-device-app\app\models.py:84: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Device(DeviceBase):
+
+app\models.py:114
+  C:\Users\tantt\Downloads\medical-device-app\app\models.py:114: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class CalibrationCertificate(CalibrationCertificateBase):
+
+..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\openpyxl\worksheet\_reader.py:329
+  C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\openpyxl\worksheet\_reader.py:329: UserWarning: Data Validation extension is not supported and will be removed
+    warn(msg)
+
+app\main.py:64
+  C:\Users\tantt\Downloads\medical-device-app\app\main.py:64: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\applications.py:4598
+  C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\applications.py:4598: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 6 warnings in 0.99s ========================
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
