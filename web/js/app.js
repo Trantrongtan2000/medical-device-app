@@ -1520,6 +1520,11 @@ document.addEventListener('DOMContentLoaded', function () {
         setupFormSubmissions() {
             this.setupCheckoutForm();
             this.setupStaffEventListeners();
+
+            document.getElementById('btn-tab-staff')?.addEventListener('click', () => {
+                this.loadStaff();
+            });
+    
             this.setupGlobalShortcuts();
             // Pre-use inspection submit
             const insForm = document.getElementById('preUseChecklistForm');

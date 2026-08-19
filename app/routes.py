@@ -571,6 +571,7 @@ async def get_dashboard_summary(db = Depends(get_db)):
     }
 
 
+@router.get("/api/facilities")
 @router.get("/api/dashboard/facilities")
 async def get_facilities(db = Depends(get_db)):
     """Danh sách khoa/phòng ban và số lượng thiết bị"""
@@ -585,6 +586,7 @@ async def get_facilities(db = Depends(get_db)):
     return [dict(row) for row in result]
 
 
+@router.get("/api/categories")
 @router.get("/api/dashboard/categories")
 async def get_categories(db = Depends(get_db)):
     """Danh sách loại thiết bị"""
