@@ -639,26 +639,89 @@ document.addEventListener('DOMContentLoaded', function () {
                     fetch('/api/facilities'),
                     fetch('/api/categories')
                 ]);
-                this.facilities = await facRes.json();
-                this.categories = await catRes.json();
+                const facJson = await facRes.json();
+                const catJson = await catRes.json();
+                this.facilities = Array.isArray(facJson) ? facJson : [];
+                this.categories = Array.isArray(catJson) ? catJson : [];
 
-                // Populate filter dropdowns
-                const filterFac = document.getElementById('filter-facility');
-                const trFromFac = document.getElementById('tr-from-facility');
-                const trToFac = document.getElementById('tr-to-facility');
+                if (!this.facilities.length || !this.categories.length) {
+                    // Fallback if bare aliases are unavailable on an older process
+                    const [fac2, cat2] = await Promise.all([
+                        fetch('/api/dashboard/facilities'),
+                        fetch('/api/dashboard/categories')
+                    ]);
+                    if (!this.facilities.length) {
+                        const j = await fac2.json();
+                        this.facilities = Array.isArray(j) ? j : [];
+                    }
+                    if (!this.categories.length) {
+                        const j = await cat2.json();
+                        this.categories = Array.isArray(j) ? j : [];
+                    }
+                }
 
-                if (filterFac) {
-                    filterFac.innerHTML = '<option value="">-- Tất cả 21 Khoa/Phòng --</option>' +
-                        this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
-                }
-                if (trFromFac) {
-                    trFromFac.innerHTML = this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
-                }
-                if (trToFac) {
-                    trToFac.innerHTML = this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
-                }
+                this.populateFacilityAndCategorySelects();
             } catch (err) {
                 console.error('Error loading initial data:', err);
+            }
+        },
+
+        populateFacilityAndCategorySelects() {
+            const facOptions = this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
+            const catOptions = this.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+            const filterFac = document.getElementById('filter-facility');
+            const trFromFac = document.getElementById('tr-from-facility');
+            const trToFac = document.getElementById('tr-to-facility');
+            if (filterFac) {
+                filterFac.innerHTML = '<option value="">-- Tất cả 21 Khoa/Phòng --</option>' + facOptions;
+            }
+            if (trFromFac) trFromFac.innerHTML = facOptions;
+            if (trToFac) trToFac.innerHTML = facOptions;
+
+            ['create-dev-facility', 'edit-dev-facility'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = facOptions;
+            });
+            ['create-dev-category', 'edit-dev-category'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = catOptions;
+            });
+        },
+
+        async openEditDeviceModal(deviceId) {
+            try {
+                const res = await fetch(`/api/devices/${deviceId}`);
+                if (!res.ok) throw new Error('Không tải được hồ sơ thiết bị');
+                const d = await res.json();
+
+                if (!this.facilities.length || !this.categories.length) {
+                    await this.loadInitialData();
+                } else {
+                    this.populateFacilityAndCategorySelects();
+                }
+
+                document.getElementById('edit-dev-id').value = d.id;
+                document.getElementById('edit-modal-tag-sn').textContent =
+                    `BVQ7-TTB-${String(d.id).padStart(5, '0')} | S/N: ${d.serial_no || '-'}`;
+                document.getElementById('edit-dev-name').value = d.device_name || '';
+                document.getElementById('edit-dev-model').value = d.model || '';
+                document.getElementById('edit-dev-serial').value = d.serial_no || '';
+                document.getElementById('edit-dev-facility').value = d.facility_id || '';
+                document.getElementById('edit-dev-category').value = d.category_id || '';
+                document.getElementById('edit-dev-mfg').value = d.manufacturer || '';
+                document.getElementById('edit-dev-country').value = d.country_of_manufacturer || '';
+                document.getElementById('edit-dev-year').value = d.year_of_manufacture || '';
+                document.getElementById('edit-dev-risk').value = d.risk_level || 'A';
+                document.getElementById('edit-dev-status').value = d.status || 'IN_SERVICE';
+                document.getElementById('edit-dev-install-date').value = (d.installation_date || '').substring(0, 10);
+                document.getElementById('edit-dev-notes').value = d.notes || '';
+
+                const modal = new bootstrap.Modal(document.getElementById('editDeviceModal'));
+                modal.show();
+            } catch (err) {
+                console.error(err);
+                alert('❌ Không mở được form chỉnh sửa: ' + err.message);
             }
         },
 
@@ -1026,14 +1089,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 tbody.innerHTML = this.workOrders.map(wo => `
                     <tr>
-                        <td class="font-mono fw-bold text-primary">#WO-${wo.id}</td>
-                        <td class="fw-bold text-dark">${wo.title}</td>
-                        <td>${wo.device_name || 'Hệ thống'} <span class="text-muted small font-mono">(${wo.asset_tag || ''})</span></td>
-                        <td class="text-center"><span class="badge ${wo.priority === 'URGENT' ? 'bg-danger' : wo.priority === 'HIGH' ? 'bg-warning text-dark' : 'bg-secondary'}">${wo.priority}</span></td>
-                        <td class="text-center"><span class="badge ${wo.status === 'COMPLETED' ? 'bg-success' : 'bg-primary'}">${wo.status}</span></td>
+                        <td class="font-mono fw-bold text-primary">#${wo.task_code || ('WO-' + wo.id)}</td>
+                        <td class="fw-bold text-dark">${wo.title || wo.work_type || 'Phiếu công việc'}</td>
+                        <td>${wo.device_name || 'Hệ thống'} <span class="text-muted small font-mono">(${wo.asset_tag || wo.speedmaint_device_code || ''})</span></td>
+                        <td class="text-center"><span class="badge ${wo.priority === 'URGENT' || wo.priority === 'Khẩn cấp' ? 'bg-danger' : wo.priority === 'HIGH' || wo.priority === 'Cao' ? 'bg-warning text-dark' : 'bg-secondary'}">${wo.priority || 'NORMAL'}</span></td>
+                        <td class="text-center"><span class="badge ${wo.status === 'COMPLETED' || wo.status === 'Hoàn thành' ? 'bg-success' : 'bg-primary'}">${wo.status || 'PENDING'}</span></td>
                         <td>${wo.assigned_to || 'P.TTBYT'}</td>
                         <td class="text-end">
-                            <span class="text-muted small font-mono">${wo.created_at ? wo.created_at.substring(0, 10) : ''}</span>
+                            <span class="text-muted small font-mono">${(wo.created_at || wo.start_date || '').toString().substring(0, 10)}</span>
                         </td>
                     </tr>
                 `).join('');
@@ -2034,6 +2097,59 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
+            // Create Device Form Submit
+            const createForm = document.getElementById('createDeviceForm');
+            if (createForm) {
+                createForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const yearVal = document.getElementById('create-dev-year').value;
+                    const payload = {
+                        device_name: document.getElementById('create-dev-name').value.trim(),
+                        model: document.getElementById('create-dev-model').value.trim(),
+                        serial_no: document.getElementById('create-dev-serial').value.trim(),
+                        facility_id: parseInt(document.getElementById('create-dev-facility').value),
+                        category_id: parseInt(document.getElementById('create-dev-category').value),
+                        manufacturer: document.getElementById('create-dev-mfg').value.trim() || null,
+                        country_of_manufacturer: document.getElementById('create-dev-country').value.trim() || null,
+                        year_of_manufacture: yearVal ? parseInt(yearVal) : null,
+                        risk_level: document.getElementById('create-dev-risk').value,
+                        status: 'IN_SERVICE',
+                        installation_date: document.getElementById('create-dev-install-date').value || null,
+                        certification_no: document.getElementById('create-dev-cert').value.trim() || null,
+                        notes: document.getElementById('create-dev-notes').value.trim() || null
+                    };
+
+                    try {
+                        const res = await fetch('/api/devices', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const result = await res.json();
+                        if (!res.ok) throw new Error(result.detail || 'Lỗi khi nhập thiết bị');
+
+                        alert(`✅ ${result.message}\nAsset Tag: ${result.asset_tag}\nSpeedMaint: ${result.speedmaint_code}`);
+                        bootstrap.Modal.getInstance(document.getElementById('createDeviceModal'))?.hide();
+                        createForm.reset();
+                        this.loadDevices();
+                    } catch (err) {
+                        alert('❌ Lỗi nhập thiết bị: ' + err.message);
+                    }
+                });
+            }
+
+            // Export CSV
+            const exportBtn = document.getElementById('btn-export-csv');
+            if (exportBtn) {
+                exportBtn.addEventListener('click', () => {
+                    const params = new URLSearchParams();
+                    if (this.currentFilters.facility_id) params.append('facility_id', this.currentFilters.facility_id);
+                    if (this.currentFilters.search) params.append('search', this.currentFilters.search);
+                    if (this.currentFilters.risk_level) params.append('risk_level', this.currentFilters.risk_level);
+                    window.location.href = `/api/export/csv?${params.toString()}`;
+                });
+            }
+
             // Edit Device Form Submit
             const editForm = document.getElementById('editDeviceForm');
             if (editForm) {
@@ -2079,27 +2195,36 @@ document.addEventListener('DOMContentLoaded', function () {
             if (woForm) {
                 woForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    const today = new Date().toISOString().slice(0, 10);
                     const payload = {
                         device_id: parseInt(document.getElementById('wo-device-id').value),
                         title: document.getElementById('wo-title').value,
                         description: document.getElementById('wo-desc').value,
                         priority: document.getElementById('wo-priority').value,
                         assigned_to: document.getElementById('wo-assignee').value,
+                        work_type: 'PM định kỳ',
+                        start_date: today,
+                        end_date: today,
+                        reporter: 'P.TTBYT',
                         status: 'PENDING'
                     };
 
-                    const res = await fetch('/api/work-orders', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (res.ok) {
+                    try {
+                        const res = await fetch('/api/work-orders', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const result = await res.json().catch(() => ({}));
+                        if (!res.ok) throw new Error(result.detail || 'Không tạo được phiếu');
                         alert('✅ Đã phát hành Phiếu công việc SpeedMaint thành công!');
                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
                         woForm.reset();
                         this.loadWorkOrders();
-            this.loadStaff();
-            this.loadOncallData();
+                        if (typeof this.loadStaff === 'function') this.loadStaff();
+                        if (typeof this.loadOncallData === 'function') this.loadOncallData();
+                    } catch (err) {
+                        alert('❌ Lỗi tạo phiếu: ' + err.message);
                     }
                 });
             }

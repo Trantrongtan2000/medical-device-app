@@ -326,18 +326,19 @@ class SpeedMaintWorkOrderCreate(BaseModel):
     device_id: int
     title: str
     work_type: str = "PM định kỳ"  # PM định kỳ, Sửa chữa, Điều chuyển, Kiểm định, Khác
-    start_date: str
-    end_date: str
-    assigned_to: str
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    assigned_to: Optional[str] = "Kỹ Sư Trực P.TTBYT"
     co_workers: Optional[str] = None
     supervisor: Optional[str] = None
-    reporter: str
-    priority: str = "Trung bình"  # Khẩn cấp, Cao, Trung bình, Thấp
-    progress: int = 100
+    reporter: Optional[str] = "P.TTBYT"
+    priority: str = "Trung bình"  # Khẩn cấp, Cao, Trung bình, Thấp / URGENT, HIGH, NORMAL
+    progress: int = 0
     is_unplanned: bool = False
     location: Optional[str] = None
-    description: str
+    description: Optional[str] = ""
     materials: Optional[str] = None
+    status: Optional[str] = "PENDING"
 
 @router.get("/api/work-orders")
 async def list_work_orders(db = Depends(get_db)):
@@ -357,10 +358,21 @@ async def list_work_orders(db = Depends(get_db)):
     work_orders = []
     for r in rows:
         item = dict(r)
+        desc = item.get("description") or ""
+        # Extract bracketed work type / title prefix when present: "[PM] Title. rest"
+        title = desc
+        if desc.startswith("[") and "]" in desc:
+            title = desc.split("]", 1)[1].strip()
+        if ". " in title:
+            title = title.split(". ", 1)[0].strip()
+        item["title"] = title or item.get("work_type") or "Phiếu công việc"
         item["task_code"] = f"260{item['id']:03d}"
+        item["asset_tag"] = f"BVQ7-TTB-{item['device_id']:05d}"
         item["speedmaint_device_code"] = f"BM/BVQ7/{item['device_id']:05d}"
         item["progress"] = 100
-        item["status"] = "Hoàn thành"
+        item["priority"] = "NORMAL"
+        item["status"] = "COMPLETED"
+        item["created_at"] = item.get("start_date")
         work_orders.append(item)
         
     return work_orders
@@ -369,18 +381,22 @@ async def list_work_orders(db = Depends(get_db)):
 async def create_work_order(ticket: SpeedMaintWorkOrderCreate, db = Depends(get_db)):
     """Tạo phiếu công việc chi tiết chuẩn SpeedMaint Cloud CMMS (Ảnh 01bc & 605c)"""
     cur = db.cursor()
-    full_desc = f"[{ticket.work_type}] {ticket.title}. {ticket.description}"
+    start = ticket.start_date or date.today().isoformat()
+    full_desc = f"[{ticket.work_type}] {ticket.title}. {ticket.description or ''}".strip()
     if ticket.materials:
         full_desc += f" (Vật tư: {ticket.materials})"
     if ticket.location:
         full_desc += f" (Địa điểm: {ticket.location})"
+    if ticket.priority:
+        full_desc += f" [Ưu tiên: {ticket.priority}]"
         
     cur.execute("""
         INSERT INTO maintenance_logs (device_id, maintenance_date, performed_by, maintenance_type, description)
         VALUES (?, ?, ?, ?, ?)
-    """, (ticket.device_id, ticket.start_date, ticket.assigned_to, normalize_work_type(ticket.work_type), full_desc))
+    """, (ticket.device_id, start, ticket.assigned_to or "Kỹ Sư Trực P.TTBYT", normalize_work_type(ticket.work_type), full_desc))
     
-    if ticket.priority in ("Khẩn cấp", "Cao"):
+    priority_urgent = str(ticket.priority or "").upper() in ("KHẨN CẤP", "CAO", "URGENT", "HIGH")
+    if priority_urgent:
         cur.execute("UPDATE devices SET status = 'REPAIR' WHERE id = ?", (ticket.device_id,))
         
     db.commit()
@@ -821,13 +837,19 @@ async def remove_api_key(req: RemoveKeyRequest):
 
 # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
 
-SOP_HTML_PATH = Path(r"C:\Users\tantt\Downloads\asset-management-tools\quy_trinh_ttbyt.html")
+# Prefer in-repo handbook; fall back to legacy Windows path for local developer machines
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+SOP_HTML_CANDIDATES = [
+    _PROJECT_ROOT / "web" / "sops" / "quy_trinh_ttbyt.html",
+    Path(r"C:\Users\tantt\Downloads\asset-management-tools\quy_trinh_ttbyt.html"),
+]
 
 @router.get("/sops")
 async def view_sop_handbook():
     """Hiển thị trực tiếp Sổ tay Quy trình & Biểu mẫu Trang thiết bị y tế (quy_trinh_ttbyt.html)"""
-    if SOP_HTML_PATH.exists():
-        return FileResponse(SOP_HTML_PATH, media_type="text/html; charset=utf-8")
+    for sop_path in SOP_HTML_CANDIDATES:
+        if sop_path.exists():
+            return FileResponse(sop_path, media_type="text/html; charset=utf-8")
     raise HTTPException(status_code=404, detail="Không tìm thấy tệp sổ tay quy trình quy_trinh_ttbyt.html")
 
 @router.get("/api/sops")
