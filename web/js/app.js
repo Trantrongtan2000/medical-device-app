@@ -1322,13 +1322,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             container.innerHTML = list.map(s => {
-                const statusBadge = s.status === 'ON_DUTY' 
-                    ? '<span class="badge bg-success"><i class="bi bi-broadcast me-1"></i>Đang Trực Ca 24/7</span>'
-                    : (s.status === 'ACTIVE' ? '<span class="badge bg-primary bg-opacity-10 text-primary border border-primary">Đang Làm Việc</span>' : '<span class="badge bg-secondary">Nghỉ Phép</span>');
+                const statusBadge = s.oncall_status === 'ONCALL_TODAY' 
+                    ? '<span class="badge bg-danger pulse-emergency"><i class="bi bi-broadcast-pin me-1"></i>On-call 24h</span>'
+                    : '<span class="badge bg-success bg-opacity-10 text-success border border-success">Sẵn Sàng</span>';
                 
                 const depts = s.assigned_departments ? s.assigned_departments.split(',').map(d => `<span class="badge bg-light text-dark border me-1 mb-1 font-mono" style="font-size: 0.72rem;">📍 ${d.trim()}</span>`).join('') : '<span class="text-muted small">Toàn viện</span>';
                 
-                const certs = s.certificates ? s.certificates.split(',').map(c => `<div class="small text-muted mb-1"><i class="bi bi-patch-check-fill text-primary me-1"></i>${c.trim()}</div>`).join('') : '<div class="text-muted small">Đang cập nhật chứng chỉ</div>';
+                const certs = s.certificates && s.certificates.trim() 
+                    ? s.certificates.split(',').map(c => `<div class="small text-dark mb-1"><i class="bi bi-file-earmark-check-fill text-success me-1"></i>${this.escapeHtml(c.trim())}</div>`).join('') 
+                    : '<span class="badge bg-light text-muted border font-mono" style="font-size: 0.72rem;"><i class="bi bi-shield-lock me-1 text-secondary"></i>Chưa cập nhật hồ sơ minh chứng</span>';
 
                 const initial = s.full_name.replace('KS. ', '').replace('CN. ', '').trim().charAt(0) || 'K';
 
@@ -1362,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
 
                                 <div class="mb-3">
-                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">CHỨNG CHỈ NĂNG LỰC:</span>
+                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">VĂN BẰNG & CHỨNG CHỈ MINH CHỨNG:</span>
                                     ${certs}
                                 </div>
                             </div>

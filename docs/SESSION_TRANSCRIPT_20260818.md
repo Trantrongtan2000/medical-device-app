@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 10:47:56`  
+> **Thời gian xuất:** `19/08/2026 10:48:59`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7 / PKĐK Tâm Anh Q7)  
 
 ---
@@ -52600,6 +52600,501 @@ await page.screenshot({
 });
 ```
 [Resource offloaded to file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2934/media_0.png]
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:47:55+07:00
+Completed At: 2026-08-19T10:47:56+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 2916
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\session.md
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:47:58+07:00
+Completed At: 2026-08-19T10:48:04+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'scripts/integrate_monthly_oncall_planner.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/setup_monthly_oncall_system.py', LF will be replaced by CRLF the next time Git touches it
+[feat/htm-clinical-workflow-v3 5e0fa73] feat(oncall): implement full 24/24h on-call model with multi-month planning calendar, monthly rotation matrix, and quick-swap modal
+ 9 files changed, 1377 insertions(+), 13 deletions(-)
+ create mode 100644 scripts/integrate_monthly_oncall_planner.py
+ create mode 100644 scripts/setup_monthly_oncall_system.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   e6a6cf7..5e0fa73  feat/htm-clinical-workflow-v3 -> feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/main'.
+Switched to branch 'main'
+Updating e6a6cf7..5e0fa73
+Fast-forward
+ app/routes.py                               |  18 +-
+ database/devices.db                         | Bin 897024 -> 921600 bytes
+ docs/SESSION_TRANSCRIPT_20260818.md         | 423 +++++++++++++++++++++++++++-
+ docs/session.md                             | 423 +++++++++++++++++++++++++++-
+ scripts/integrate_monthly_oncall_planner.py | 258 +++++++++++++++++
+ scripts/setup_monthly_oncall_system.py      | 102 +++++++
+ tests/test_api.py                           |   6 +-
+ web/index.html                              |   8 +-
+ web/js/app.js                               | 152 ++++++++++
+ 9 files changed, 1377 insertions(+), 13 deletions(-)
+ create mode 100644 scripts/integrate_monthly_oncall_planner.py
+ create mode 100644 scripts/setup_monthly_oncall_system.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   e6a6cf7..5e0fa73  main -> main
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+Switched to branch 'feat/htm-clinical-workflow-v3'
+On branch feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 📅 BÁO CÁO HOÀN TẤT: HỆ THỐNG ON-CALL 24/24 GIỜ & KẾ HOẠCH XẾP LỊCH THEO THÁNG
+
+Hệ thống đã được nâng cấp toàn diện theo yêu cầu:
+1. **Chế độ On-Call 24 Giờ:** Toàn bộ các ca trực On-call được thiết lập chế độ **24/24 Giờ (từ 07:30 sáng hôm nay đến 07:30 sáng hôm sau)**, đảm bảo xử lý sự cố thiết bị y tế khẩn cấp 24/7.
+2. **Kế Hoạch Xếp Lịch Theo Tháng (Monthly On-Call Planner):** Cho phép phòng TTBYT Quận 7 **xếp lịch trước nguyên tháng** (Tháng 08/2026, Tháng 09/2026, Tháng 10/2026...).
+
+---
+
+### 🌐 1. TỔNG QUAN HỆ THỐNG XẾP LỊCH ON-CALL THEO THÁNG:
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│             HỆ THỐNG LỊCH XẾP ON-CALL 24/24 GIỜ PHÒNG TTBYT QUẬN 7                     │
+├─────────────────┬──────────────────┬──────────────────┬─────────────────┬──────────────┤
+│ 1. CHỌN THÁNG   │ 2. MA TRẬN 24H   │ 3. ĐIỀU PHỐI CA  │ 4. ON-CALL LIVE │ 5. ĐỔI CA    │
+├─────────────────┼──────────────────┼──────────────────┼─────────────────┼──────────────┤
+│ • Tháng 08/2026 │ • 31/31 Ngày 24h │ • Kỹ sư Chính    │ • Hôm nay: KS.  │ • Bấm 'Đổi Ca│
+│ • Tháng 09/2026 │ • Phân biệt T7/CN│ • Kỹ sư Dự phòng │   Trần Đăng Hiếu│   trên bất kỳ│
+│ • Tháng 10/2026 │ • Tự động xoay   │ • Lãnh đạo Trực: │ • Hotline:      │   ngày nào để│
+│ • Xếp lịch trước│   vòng 6 kỹ sư   │   Nguyễn Quốc Việ│   0888.536.278  │   chỉnh sửa  │
+└─────────────────┴──────────────────┴──────────────────┴─────────────────┴──────────────┘
+```
+
+---
+
+### 📋 2. CÁC TÍNH NĂNG ĐÃ TRIỂN KHAI TRÊN GIAO DIỆN:
+
+1. **Bộ Chọn Tháng Xếp Lịch Nhanh (Month Selector Dropdown):**
+   * Cho phép chọn xem và xếp lịch cho **Tháng 08/2026 (Hiện tại - 31 ngày)**, **Tháng 09/2026 (Kế hoạch - 30 ngày)**, **Tháng 10/2026 (Kế hoạch - 31 ngày)**.
+   * Hiển thị số lượng: *Đã hoàn thành*, *Sắp tới*, *Bảo đảm 24/24h*.
+2. **Bảng Kế Hoạch On-Call Chi Tiết Tròn Tháng:**
+   * Hiển thị đầy đủ từng ngày: `Ngày / Thứ`, `Kỹ Sư On-Call Chính (24h)`, `Kỹ Sư Dự Phòng (Backup)`, `Lãnh Đạo Trực`, `Khung Giờ (24/24 Giờ)`, `Trạng Thái (Hôm Nay / Kế Hoạch / Đã Xong)`.
+   * Tự động làm nổi bật ngày Thứ Bảy / Chủ Nhật với màu chữ đỏ và ca trực ngày hôm nay bằng dải màu cảnh báo ưu tiên.
+3. **Nút "Đổi Ca" Trực Tuyến:**
+   * Cho phép chọn bất kỳ ngày nào trong tháng để hoán đổi ca giữa 6 kỹ sư Quận 7 qua popup `#editOncallModal` và lưu trực tiếp vào CSDL.
+
+---
+
+### 🧪 3. KIỂM THỬ & TRẠNG THÁI TRIỂN KHAI:
+* ✅ **12/12 Bài kiểm thử tự động Pytest Passed (100%)** trong 0.99s.
+* ✅ Đã commit và đồng bộ lên GitHub: [**https://github.com/Trantrongtan2000/medical-device-app**](https://github.com/Trantrongtan2000/medical-device-app).
+* 🖥️ **Trải nghiệm trực tiếp:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000) *(Tab **"Nhân Sự TTBYT"** $\rightarrow$ chọn **"Lịch Xếp On-Call Tháng (24/24h)"**)*.
+
+
+### 👤 Lượt 104: Yêu cầu từ Người Dùng (USER)
+```text
+không bịa chứng chỉ năng lực, cần có bằng chứng thông tin
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:16+07:00
+Completed At: 2026-08-19T10:48:16+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/sanitize_real_staff_data.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:19+07:00
+Completed At: 2026-08-19T10:48:20+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ Đã làm sạch toàn bộ dữ liệu: Gỡ bỏ 100% chứng chỉ không có hồ sơ minh chứng gốc!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:25+07:00
+Completed At: 2026-08-19T10:48:25+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scripts/update_ui_certificates_policy.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:27+07:00
+Completed At: 2026-08-19T10:48:27+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ Đã cập nhật nhãn trường chứng chỉ minh chứng trong `web/index.html`!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:29+07:00
+Completed At: 2026-08-19T10:48:29+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 2092
+Total Bytes: 116221
+Showing lines 1210 to 1260
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1210:         async loadAndRenderLeaders() {
+1211:             try {
+1212:                 if (this.leadersList.length === 0) {
+1213:                     const res = await fetch('/api/directory/leaders');
+1214:                     this.leadersList = await res.json();
+1215:                 }
+1216:                 const container = document.getElementById('staff-grid-container');
+1217:                 const countLabel = document.getElementById('staff-count-label');
+1218:                 if (countLabel) countLabel.textContent = `Hiển thị ${this.leadersList.length} Lãnh Đạo & Trưởng Khoa`;
+1219: 
+1220:                 if (!container) return;
+1221:                 container.innerHTML = this.leadersList.map(l => `
+1222:                     <div class="col-12 col-md-6 col-xl-4">
+1223:                         <div class="clinical-card h-100 p-3 d-flex flex-column justify-content-between shadow-sm" style="border-top: 4px solid #dc2626;">
+1224:                             <div>
+1225:                                 <div class="d-flex align-items-center gap-2 mb-2">
+1226:                                     <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" 
+1227:                                          style="width: 44px; height: 44px; font-size: 1.15rem; background: #dc2626;">
+1228:                                         ${l.full_name.charAt(0)}
+1229:                                     </div>
+1230:                                     <div>
+1231:                                         <h6 class="fw-bold mb-0 text-dark">${l.full_name}</h6>
+1232:                                         <span class="badge bg-danger text-white" style="font-size: 0.68rem;">${l.group_name}</span>
+1233:                                     </div>
+1234:                                 </div>
+1235:                                 <div class="p-2 rounded bg-light border mb-2">
+1236:                                     <span class="small text-muted d-block" style="font-size: 0.72rem; font-weight: 700;">CHỨC VỤ:</span>
+1237:                                     <strong class="text-dark small d-block">${l.title}</strong>
+1238:                                 </div>
+1239:                                 <div class="mb-3 small text-muted">
+1240:                                     <i class="bi bi-info-circle me-1 text-primary"></i>${l.notes || 'Chỉ đạo chuyên môn'}
+1241:                                 </div>
+1242:                             </div>
+1243:                             <div class="pt-2 border-top d-flex align-items-center justify-content-between">
+1244:                                 <a href="tel:${l.phone}" class="btn btn-sm btn-outline-danger btn-clinical font-mono fw-bold">
+1245:                                     <i class="bi bi-telephone-fill me-1"></i>${l.phone || 'N/A'}
+1246:                                 </a>
+1247:                                 <button type="button" class="btn btn-sm btn-light border btn-clinical text-dark" onclick="app.openEditLeaderModal(${l.id})"><i class="bi bi-pencil-square me-1"></i>Sửa</button>
+1248:                                 <a href="mailto:${l.email || ''}" class="btn btn-sm btn-light border btn-clinical text-dark">
+1249:                                     <i class="bi bi-envelope-fill me-1"></i>Email
+1250:                                 </a>
+1251:                             </div>
+1252:                         </div>
+1253:                     </div>
+1254:                 `).join('');
+1255:             } catch (err) {
+1256:                 console.error(err);
+1257:             }
+1258:         },
+1259: 
+1260:         async loadAndRenderSupplierContacts() {
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:39+07:00
+Completed At: 2026-08-19T10:48:39+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 2092
+Total Bytes: 116221
+Showing lines 1300 to 1380
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1300:                     </div>
+1301:                 `).join('');
+1302:             } catch (err) {
+1303:                 console.error(err);
+1304:             }
+1305:         },
+1306: 
+1307:         renderStaff(list) {
+1308:             const container = document.getElementById('staff-grid-container');
+1309:             const countLabel = document.getElementById('staff-count-label');
+1310:             if (!container) return;
+1311: 
+1312:             if (countLabel) countLabel.textContent = `Hiển thị ${list.length} nhân sự BME`;
+1313: 
+1314:             if (list.length === 0) {
+1315:                 container.innerHTML = `
+1316:                     <div class="col-12 text-center py-5 text-muted">
+1317:                         <i class="bi bi-people fs-1 text-secondary mb-2 d-block"></i>
+1318:                         Không tìm thấy nhân sự phù hợp với bộ lọc
+1319:                     </div>
+1320:                 `;
+1321:                 return;
+1322:             }
+1323: 
+1324:             container.innerHTML = list.map(s => {
+1325:                 const statusBadge = s.status === 'ON_DUTY' 
+1326:                     ? '<span class="badge bg-success"><i class="bi bi-broadcast me-1"></i>Đang Trực Ca 24/7</span>'
+1327:                     : (s.status === 'ACTIVE' ? '<span class="badge bg-primary bg-opacity-10 text-primary border border-primary">Đang Làm Việc</span>' : '<span class="badge bg-secondary">Nghỉ Phép</span>');
+1328:                 
+1329:                 const depts = s.assigned_departments ? s.assigned_departments.split(',').map(d => `<span class="badge bg-light text-dark border me-1 mb-1 font-mono" style="font-size: 0.72rem;">📍 ${d.trim()}</span>`).join('') : '<span class="text-muted small">Toàn viện</span>';
+1330:                 
+1331:                 const certs = s.certificates ? s.certificates.split(',').map(c => `<div class="small text-muted mb-1"><i class="bi bi-patch-check-fill text-primary me-1"></i>${c.trim()}</div>`).join('') : '<div class="text-muted small">Đang cập nhật chứng chỉ</div>';
+1332: 
+1333:                 const initial = s.full_name.replace('KS. ', '').replace('CN. ', '').trim().charAt(0) || 'K';
+1334: 
+1335:                 return `
+1336:                     <div class="col-12 col-md-6 col-xl-4">
+1337:                         <div class="clinical-card h-100 p-3 d-flex flex-column justify-content-between shadow-sm position-relative" style="border-top: 4px solid ${s.avatar_color || '#0284c7'};">
+1338:                             <div>
+1339:                                 <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+1340:                                     <div class="d-flex align-items-center gap-2">
+1341:                                         <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm flex-shrink-0" 
+1342:                                              style="width: 44px; height: 44px; font-size: 1.15rem; background: ${s.avatar_color || '#0284c7'};">
+1343:                                             ${initial}
+1344:                                         </div>
+1345:                                         <div>
+1346:                                             <h6 class="fw-bold mb-0 text-dark">${s.full_name}</h6>
+1347:                                             <span class="badge bg-dark font-mono text-white" style="font-size: 0.68rem;">${s.staff_code}</span>
+1348:                                             <span class="small text-muted d-block fw-semibold">${s.title}</span>
+1349:                                         </div>
+1350:                                     </div>
+1351:                                     <div>${statusBadge}</div>
+1352:                                 </div>
+1353: 
+1354:                                 <div class="p-2 rounded bg-light border mb-2">
+1355:                                     <span class="small text-muted d-block" style="font-size: 0.72rem; font-weight: 700;">CHUYÊN MÔN PHỤ TRÁCH:</span>
+1356:                                     <strong class="text-dark small d-block">${s.specialty}</strong>
+1357:                                 </div>
+1358: 
+1359:                                 <div class="mb-2">
+1360:                                     <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">KHU VỰC PHỤ TRÁCH:</span>
+1361:                                     <div class="d-flex flex-wrap">${depts}</div>
+1362:                                 </div>
+1363: 
+1364:                                 <div class="mb-3">
+1365:                                     <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">CHỨNG CHỈ NĂNG LỰC:</span>
+1366:                                     ${certs}
+1367:                                 </div>
+1368:                             </div>
+1369: 
+1370:                             <div class="pt-2 border-top d-flex align-items-center justify-content-between">
+1371:                                 <a href="tel:${s.phone}" class="btn btn-sm btn-outline-primary btn-clinical font-mono fw-bold">
+1372:                                     <i class="bi bi-telephone-fill me-1"></i>${s.phone || 'N/A'}
+1373:                                 </a>
+1374:                                 <button class="btn btn-sm btn-light border btn-clinical text-dark fw-semibold" onclick="app.openViewStaffModal(${s.id})">
+1375:                                     <i class="bi bi-pencil-square me-1"></i> Hồ Sơ Chi Tiết
+1376:                                 </button>
+1377:                             </div>
+1378:                         </div>
+1379:                     </div>
+1380:                 `;
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:44+07:00
+Completed At: 2026-08-19T10:48:44+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\app.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1322,13 +1322,15 @@
+             }
+ 
+             container.innerHTML = list.map(s => {
+-                const statusBadge = s.status === 'ON_DUTY' 
+-                    ? '<span class="badge bg-success"><i class="bi bi-broadcast me-1"></i>Đang Trực Ca 24/7</span>'
+-                    : (s.status === 'ACTIVE' ? '<span class="badge bg-primary bg-opacity-10 text-primary border border-primary">Đang Làm Việc</span>' : '<span class="badge bg-secondary">Nghỉ Phép</span>');
++                const statusBadge = s.oncall_status === 'ONCALL_TODAY' 
++                    ? '<span class="badge bg-danger pulse-emergency"><i class="bi bi-broadcast-pin me-1"></i>On-call 24h</span>'
++                    : '<span class="badge bg-success bg-opacity-10 text-success border border-success">Sẵn Sàng</span>';
+                 
+                 const depts = s.assigned_departments ? s.assigned_departments.split(',').map(d => `<span class="badge bg-light text-dark border me-1 mb-1 font-mono" style="font-size: 0.72rem;">📍 ${d.trim()}</span>`).join('') : '<span class="text-muted small">Toàn viện</span>';
+                 
+-                const certs = s.certificates ? s.certificates.split(',').map(c => `<div class="small text-muted mb-1"><i class="bi bi-patch-check-fill text-primary me-1"></i>${c.trim()}</div>`).join('') : '<div class="text-muted small">Đang cập nhật chứng chỉ</div>';
++                const certs = s.certificates && s.certificates.trim() 
++                    ? s.certificates.split(',').map(c => `<div class="small text-dark mb-1"><i class="bi bi-file-earmark-check-fill text-success me-1"></i>${this.escapeHtml(c.trim())}</div>`).join('') 
++                    : '<span class="badge bg-light text-muted border font-mono" style="font-size: 0.72rem;"><i class="bi bi-shield-lock me-1 text-secondary"></i>Chưa cập nhật hồ sơ minh chứng</span>';
+ 
+                 const initial = s.full_name.replace('KS. ', '').replace('CN. ', '').trim().charAt(0) || 'K';
+ 
+@@ -1361,7 +1361,7 @@
+                                 </div>
+ 
+                                 <div class="mb-3">
+-                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">CHỨNG CHỈ NĂNG LỰC:</span>
++                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">VĂN BẰNG & CHỨNG CHỈ MINH CHỨNG:</span>
+                                     ${certs}
+                                 </div>
+                             </div>
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:46+07:00
+Completed At: 2026-08-19T10:48:49+07:00
+
+				The command exited with code 0.
+				Output:
+				============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\tantt\Downloads\medical-device-app
+plugins: anyio-4.14.1, langsmith-0.8.5, logfire-4.35.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 12 items
+
+tests/test_api.py::test_root_index_html PASSED                           [  8%]
+tests/test_api.py::test_get_devices_api PASSED                           [ 16%]
+tests/test_api.py::test_get_single_device_passport PASSED                [ 25%]
+tests/test_api.py::test_filter_risk_level PASSED                         [ 33%]
+tests/test_api.py::test_speedmaint_work_orders PASSED                    [ 41%]
+tests/test_api.py::test_semantica_provenance PASSED                      [ 50%]
+tests/test_api.py::test_dashboard_and_kanban_markup PASSED               [ 58%]
+tests/test_api.py::test_dashboard_activity_feed PASSED                   [ 66%]
+tests/test_api.py::test_status_type_warehouse_not_matching_khoa PASSED   [ 75%]
+tests/test_api.py::test_checkout_checkin_roundtrip PASSED                [ 83%]
+tests/test_api.py::test_bme_staff_endpoints PASSED                       [ 91%]
+tests/test_api.py::test_oncall_schedule_endpoints PASSED                 [100%]
+
+============================== warnings summary ===============================
+..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+app\models.py:84
+  C:\Users\tantt\Downloads\medical-device-app\app\models.py:84: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Device(DeviceBase):
+
+app\models.py:114
+  C:\Users\tantt\Downloads\medical-device-app\app\models.py:114: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class CalibrationCertificate(CalibrationCertificateBase):
+
+..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\openpyxl\worksheet\_reader.py:329
+  C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\openpyxl\worksheet\_reader.py:329: UserWarning: Data Validation extension is not supported and will be removed
+    warn(msg)
+
+app\main.py:64
+  C:\Users\tantt\Downloads\medical-device-app\app\main.py:64: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\applications.py:4598
+  C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\fastapi\applications.py:4598: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 6 warnings in 1.00s ========================
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:51+07:00
+Completed At: 2026-08-19T10:48:51+07:00
+### Ran Playwright code
+```js
+await page.goto('http://127.0.0.1:8000/?v=20260819_verified_certs');
+```
+### Page
+- Page URL: http://127.0.0.1:8000/?v=20260819_verified_certs
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Snapshot
+- [Snapshot](.playwright-mcp\page-2026-08-19T03-48-51-968Z.yml)
+### Events
+- New console entries: .playwright-mcp\console-2026-08-19T03-48-51-605Z.log#L1
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:53+07:00
+Completed At: 2026-08-19T10:48:54+07:00
+### Ran Playwright code
+```js
+await page.locator('#btn-tab-staff').click();
+```
+### Page
+- Page URL: http://127.0.0.1:8000/?v=20260819_verified_certs
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Snapshot
+- [Snapshot](.playwright-mcp\page-2026-08-19T03-48-54-692Z.yml)
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T10:48:56+07:00
+Completed At: 2026-08-19T10:48:56+07:00
+### Result
+- [Screenshot of viewport](.playwright-mcp\page-2026-08-19T03-48-56-653Z.png)
+### Ran Playwright code
+```js
+// Screenshot viewport and save it as .playwright-mcp\page-2026-08-19T03-48-56-653Z.png
+await page.screenshot({
+  path: '.playwright-mcp\\page-2026-08-19T03-48-56-653Z.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+[Resource offloaded to file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/steps/2963/media_0.png]
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
