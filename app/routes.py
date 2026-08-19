@@ -791,3 +791,160 @@ async def get_semantica_stats():
 async def explain_device_with_semantica(device_id: int):
     """Giải trình chuỗi nguyên nhân và nguồn gốc (Causal Provenance & Zero-Hallucination Reasoning)"""
     return semantica_engine.explain_device(device_id)
+
+
+# ==================== HTM CLINICAL WORKFLOWS (V3 LIFECYCLE EXTENSIONS) ====================
+
+class AccessoryCreateRequest(BaseModel):
+    parent_device_id: int
+    name: str
+    model: Optional[str] = None
+    serial_no: Optional[str] = None
+    accessory_type: Optional[str] = "Probe"
+    status: Optional[str] = "Sẵn sàng sử dụng"
+    notes: Optional[str] = None
+
+class PreUseInspectionRequest(BaseModel):
+    device_id: int
+    inspector_name: str
+    department: str
+    power_ok: bool = True
+    physical_ok: bool = True
+    gas_pressure_ok: bool = True
+    selftest_ok: bool = True
+    notes: Optional[str] = None
+
+class BedsideIssueReportRequest(BaseModel):
+    reporter_name: str
+    department: str
+    issue_description: str
+    priority: str = "HIGH" # URGENT, HIGH, NORMAL
+
+class DeviceTransferRequest(BaseModel):
+    device_id: int
+    from_facility_id: int
+    to_facility_id: int
+    giver_name: str
+    receiver_name: str
+    transfer_reason: str
+    transfer_date: str
+
+@router.get("/api/devices/{device_id}/accessories")
+async def get_device_accessories(device_id: int, db = Depends(get_db)):
+    """Lấy danh sách phụ kiện và cấu kiện đi kèm (Parent-Child Hierarchy)"""
+    cur = db.cursor()
+    cur.execute("SELECT * FROM device_accessories WHERE parent_device_id = ? ORDER BY id ASC", (device_id,))
+    rows = [dict(r) for r in cur.fetchall()]
+    return rows
+
+@router.post("/api/devices/{device_id}/accessories")
+async def add_device_accessory(device_id: int, req: AccessoryCreateRequest, db = Depends(get_db)):
+    """Thêm phụ kiện mới gắn với thiết bị chính"""
+    cur = db.cursor()
+    cur.execute("""
+        INSERT INTO device_accessories (parent_device_id, name, model, serial_no, accessory_type, status, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    """, (device_id, req.name, req.model, req.serial_no, req.accessory_type, req.status, req.notes))
+    db.commit()
+    new_id = cur.lastrowid
+    return {"status": "success", "id": new_id, "message": "Đã thêm phụ kiện thành công"}
+
+@router.delete("/api/accessories/{accessory_id}")
+async def delete_device_accessory(accessory_id: int, db = Depends(get_db)):
+    """Xóa phụ kiện"""
+    cur = db.cursor()
+    cur.execute("DELETE FROM device_accessories WHERE id = ?", (accessory_id,))
+    db.commit()
+    return {"status": "success", "message": "Đã xóa phụ kiện"}
+
+@router.get("/api/inspections")
+async def get_pre_use_inspections(limit: int = 50, db = Depends(get_db)):
+    """Lấy danh sách bảng kiểm an toàn vận hành đầu ngày"""
+    cur = db.cursor()
+    cur.execute("""
+        SELECT p.*, d.device_name, d.model, d.serial_no,
+               'BVQ7-TTB-' || substr('00000' || d.id, -5) AS asset_tag
+        FROM pre_use_inspections p
+        JOIN devices d ON p.device_id = d.id
+        ORDER BY p.inspection_time DESC
+        LIMIT ?
+    """, (limit,))
+    rows = [dict(r) for r in cur.fetchall()]
+    return rows
+
+@router.post("/api/inspections")
+async def create_pre_use_inspection(req: PreUseInspectionRequest, db = Depends(get_db)):
+    """Ghi nhận Bảng kiểm tra an toàn đầu ngày (Pre-use Checklist)"""
+    cur = db.cursor()
+    overall = "PASSED" if (req.power_ok and req.physical_ok and req.gas_pressure_ok and req.selftest_ok) else "WARNING"
+    cur.execute("""
+        INSERT INTO pre_use_inspections (device_id, inspector_name, department, power_ok, physical_ok, gas_pressure_ok, selftest_ok, overall_status, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (req.device_id, req.inspector_name, req.department, req.power_ok, req.physical_ok, req.gas_pressure_ok, req.selftest_ok, overall, req.notes))
+    db.commit()
+    ins_id = cur.lastrowid
+    return {"status": "success", "id": ins_id, "overall_status": overall, "message": "Đã lưu bảng kiểm tra an toàn đầu ngày"}
+
+@router.post("/api/devices/{device_id}/report-issue")
+async def report_bedside_issue(device_id: int, req: BedsideIssueReportRequest, db = Depends(get_db)):
+    """Báo hỏng 1-chạm tại giường: Chuyển trạng thái máy và tự động tạo Phiếu công việc SpeedMaint"""
+    cur = db.cursor()
+    
+    # 1. Cập nhật trạng thái thiết bị sang Đang sửa chữa
+    cur.execute("UPDATE devices SET status = 'Đang sửa chữa' WHERE id = ?", (device_id,))
+    
+    # 2. Tạo Work Order khẩn
+    title = f"[BÁO HỎNG TẠI GIƯỜNG] {req.department} - {req.issue_description[:50]}"
+    cur.execute("""
+        INSERT INTO work_orders (device_id, title, description, priority, status, assigned_to)
+        VALUES (?, ?, ?, ?, 'PENDING', 'Kỹ Sư Trực P.TTBYT')
+    """, (device_id, title, f"Người báo: {req.reporter_name} ({req.department})\nMô tả: {req.issue_description}", req.priority))
+    
+    wo_id = cur.lastrowid
+    db.commit()
+    return {
+        "status": "success",
+        "work_order_id": wo_id,
+        "device_status": "Đang sửa chữa",
+        "message": f"Đã tiếp nhận báo hỏng và phân công Phiếu công việc #{wo_id} cho Kỹ Sư Trực P.TTBYT"
+    }
+
+@router.get("/api/transfers")
+async def get_device_transfers(limit: int = 50, db = Depends(get_db)):
+    """Lấy danh sách biên bản điều chuyển thiết bị (QT.08)"""
+    cur = db.cursor()
+    cur.execute("""
+        SELECT t.*, d.device_name, d.model, d.serial_no,
+               'BVQ7-TTB-' || substr('00000' || d.id, -5) AS asset_tag,
+               f1.name AS from_facility_name, f2.name AS to_facility_name
+        FROM device_transfers t
+        JOIN devices d ON t.device_id = d.id
+        LEFT JOIN facilities f1 ON t.from_facility_id = f1.id
+        LEFT JOIN facilities f2 ON t.to_facility_id = f2.id
+        ORDER BY t.transfer_date DESC
+        LIMIT ?
+    """, (limit,))
+    rows = [dict(r) for r in cur.fetchall()]
+    return rows
+
+@router.post("/api/transfers")
+async def create_device_transfer(req: DeviceTransferRequest, db = Depends(get_db)):
+    """Thực hiện điều chuyển thiết bị giữa các khoa phòng (QT.08)"""
+    cur = db.cursor()
+    
+    # 1. Cập nhật vị trí khoa phòng mới của thiết bị
+    cur.execute("UPDATE devices SET facility_id = ? WHERE id = ?", (req.to_facility_id, req.device_id))
+    
+    # 2. Ghi nhận biên bản điều chuyển
+    cur.execute("""
+        INSERT INTO device_transfers (device_id, from_facility_id, to_facility_id, giver_name, receiver_name, transfer_reason, transfer_date, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'COMPLETED')
+    """, (req.device_id, req.from_facility_id, req.to_facility_id, req.giver_name, req.receiver_name, req.transfer_reason, req.transfer_date))
+    
+    trans_id = cur.lastrowid
+    db.commit()
+    return {
+        "status": "success",
+        "transfer_id": trans_id,
+        "message": f"Đã thực hiện điều chuyển thiết bị thành công theo Quy trình QT.08"
+    }

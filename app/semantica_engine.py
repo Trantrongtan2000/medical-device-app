@@ -172,17 +172,42 @@ class SemanticaMedicalGraph:
                             if sup_id not in self.nodes:
                                 self.add_node(GraphNode(sup_id, "Supplier", sup_str))
                             self.add_edge(GraphEdge(c_id, sup_id, "SUPPLIED_BY"))
-
-                ws4 = wb['Dropdown']
-                for r in range(2, ws4.max_row + 1):
-                    sup_dd = ws4.cell(r, 2).value
-                    if sup_dd:
-                        sup_str = str(sup_dd).strip()
-                        sup_id = f"SUP-{sup_str[:25].replace(' ', '_').replace('/', '_')}"
-                        if sup_id not in self.nodes:
-                            self.add_node(GraphNode(sup_id, "Supplier", sup_str))
             except Exception:
                 pass
+
+        # 7. Device Accessories & Components Hierarchy
+        try:
+            cur.execute("SELECT * FROM device_accessories")
+            for acc in cur.fetchall():
+                acc_id = f"ACC-{acc['id']}"
+                dev_id = f"DEV-{acc['parent_device_id']}"
+                self.add_node(GraphNode(acc_id, "Accessory", acc['name'], {
+                    "model": acc['model'],
+                    "serial_no": acc['serial_no'],
+                    "accessory_type": acc['accessory_type'],
+                    "status": acc['status']
+                }))
+                self.add_edge(GraphEdge(dev_id, acc_id, "HAS_ACCESSORY"))
+        except Exception:
+            pass
+
+        # 8. Device Transfers (QT.08)
+        try:
+            cur.execute("SELECT * FROM device_transfers")
+            for tr in cur.fetchall():
+                tr_id = f"TR-{tr['id']}"
+                dev_id = f"DEV-{tr['device_id']}"
+                to_fac_id = f"FAC-{tr['to_facility_id']}"
+                self.add_node(GraphNode(tr_id, "Transfer", f"Phiếu điều chuyển #{tr['id']}", {
+                    "giver": tr['giver_name'],
+                    "receiver": tr['receiver_name'],
+                    "reason": tr['transfer_reason'],
+                    "date": tr['transfer_date']
+                }))
+                self.add_edge(GraphEdge(dev_id, tr_id, "TRANSFERRED_VIA"))
+                self.add_edge(GraphEdge(tr_id, to_fac_id, "TRANSFERRED_TO"))
+        except Exception:
+            pass
 
         conn.close()
 
