@@ -1,0 +1,17 @@
+TABLES: 16
+api_keys_config: 5
+bme_staff: 6
+calibration_certificates: 107
+contracts: 198
+device_accessories: 49
+device_categories: 10
+device_transfers: 3
+devices: 1211
+facilities: 39
+hospital_directory: 7
+maintenance_logs: 48
+maintenance_schedules: 0
+oncall_schedule: 92
+pre_use_inspections: 1
+supplier_contacts: 102
+system_feedback: 2

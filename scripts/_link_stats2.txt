@@ -1,0 +1,18 @@
+checked md có source_pdf: 2430
+PDF tìm thấy trong thư mục chuẩn hóa gốc: 2269
+PDF KHÔNG tìm thấy bất kỳ đâu: 161
+--- VÍ DỤ TÌM THẤY (5) ---
+BBBG NB_200x Cảm biến đo nồng độ bão hòa_Q726040027.md  ->  03_BAN_GIAO_VA_NGHIEM_THU\docs_raw\BBBG NB_200x Cảm biến đo nồng độ bão hòa_Q726040027.pdf
+BBBG NB_VirtueRF_CT Lasera_SN 26003.md  ->  03_BAN_GIAO_VA_NGHIEM_THU\docs_raw\BBBG NB_VirtueRF_CT Lasera_SN 26003.pdf
+Cấp cứu - Thận Nhân Tạo\2026\BBBG NB_Compact II_SN CPII53365.md  ->  03_BAN_GIAO_VA_NGHIEM_THU\Cap_Cuu_Than_Nhan_Tao\2026\BBBG NB_Compact II_SN CPII53365.pdf
+02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\0. LINH PHỤ KIỆN_DỤNG CỤ\2025\22 Đầu nhựa kết nối dây oxy với lưu lượng kế_Nguyễn Lạc_2025NL-TAMANH2505034167.md  ->  02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\22 Đầu nhựa kết nối dây oxy với lưu lượng kế_Nguyễn Lạc_2025NL-TAMANH2505034167.pdf
+02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\0. LINH PHỤ KIỆN_DỤNG CỤ\2025\17.04.2025_Bộ test nước thận nhân tạo.md  ->  02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\17.04.2025_Bộ test nước thận nhân tạo.pdf
+--- VÍ DỤ THIẾU (8) ---
+BBBG NB_B125M_2_CT GE_SN SR724460006SA.md  (src=BBBG NB_B125M_2_CT GE_SN SR724460006SA.pdf)
+0024.01.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-5VSA0Z25-07-01-2026.md  (src=0024.01.26Y-MÁY CHẠY THẬN NHÂN TẠO HDF ONLINE-5VSA0Z25-07-01-2026.pdf)
+0084.02.26Y-DAO MỎ ĐIỆN CAO TẦN-A07COAT0477-unknown-date.md  (src=0084.02.26Y-DAO MỎ ĐIỆN CAO TẦN-A07COAT0477-unknown-date.pdf)
+0084.02.26Y-DAO MỞ ĐIỆN CAO TÀN-A07COAT0477-unknown-date.md  (src=0084.02.26Y-DAO MỞ ĐIỆN CAO TÀN-A07COAT0477-unknown-date.pdf)
+0085.02.26Y-DAO MỔ ĐIỆN CAO TẦN LƯỠNG CỰC ZEUS-150-A07COAT0484-07-02-2026_1.md  (src=0085.02.26Y-DAO MỔ ĐIỆN CAO TẦN LƯỠNG CỰC ZEUS-150-A07COAT0484-07-02-2026_1.pdf)
+0085.02.26Y-DAO MỔ ĐIỆN CAO TẦN LƯỠNG CỰC ZEUS-150-A07COAT0484-07-02-2026.md  (src=0085.02.26Y-DAO MỔ ĐIỆN CAO TẦN LƯỠNG CỰC ZEUS-150-A07COAT0484-07-02-2026.pdf)
+0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026.md  (src=0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026.pdf)
+0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026_1.md  (src=0086.02.26Y-MÁY CẮT ĐỐT CAO TẦN VIO 300S-11557011-07-02-2026_1.pdf)

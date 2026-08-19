@@ -1,0 +1,31 @@
+--- md/ : phân bố theo thư mục cấp 1 ---
+05_KIEM DINH: 3003
+2024: 2071
+02_HOP DONG MUA SAM: 813
+03_BAO TRI THIET BI: 503
+2025: 433
+04_SUA CHUA THIET BI: 369
+06_THAM DINH: 272
+kiemdinh_tachfile: 220
+Họp Ống nội soi: 11
+_feedback: 3
+docs_raw: 2
+Cấp cứu - Thận Nhân Tạo: 1
+_sample: 1
+Hình ảnh tham khảo đề xuất mua hàng: 1
+2026: 1
+_debug_out: 1
+scripts: 1
+_debug: 1
+sample: 0
+medical-device-app: 0
+
+--- Liên kết front-matter (trên 7715 md) ---
+có source_pdf: 2430 | không có: 5268
+source_pdf tồn tại cùng thư mục: 0 | không tìm thấy: 2430
+--- ocr_model ---
+"mistral-ocr-latest": 1918
+"chandra-ocr-2": 92
+mistral-ocr-latest: 5
+
+04_KIEM_DINH_VA_HIEU_CHUAN (gốc G:): 438 md
