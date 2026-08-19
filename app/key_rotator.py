@@ -13,7 +13,9 @@ import sqlite3
 from typing import List, Dict, Any, Optional
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "medical_devices.db"
+DB_PATH = Path(__file__).parent.parent / "database" / "devices.db"
+if not DB_PATH.parent.exists():
+    DB_PATH = Path(__file__).parent / "medical_devices.db"
 
 class KeyPool:
     def __init__(self, service_name: str, env_var_names: List[str]):
