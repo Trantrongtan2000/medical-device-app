@@ -814,12 +814,6 @@ class PreUseInspectionRequest(BaseModel):
     selftest_ok: bool = True
     notes: Optional[str] = None
 
-class BedsideIssueReportRequest(BaseModel):
-    reporter_name: str
-    department: str
-    issue_description: str
-    priority: str = "HIGH" # URGENT, HIGH, NORMAL
-
 class DeviceTransferRequest(BaseModel):
     device_id: int
     from_facility_id: int
@@ -884,30 +878,6 @@ async def create_pre_use_inspection(req: PreUseInspectionRequest, db = Depends(g
     db.commit()
     ins_id = cur.lastrowid
     return {"status": "success", "id": ins_id, "overall_status": overall, "message": "Đã lưu bảng kiểm tra an toàn đầu ngày"}
-
-@router.post("/api/devices/{device_id}/report-issue")
-async def report_bedside_issue(device_id: int, req: BedsideIssueReportRequest, db = Depends(get_db)):
-    """Báo hỏng 1-chạm tại giường: Chuyển trạng thái máy và tự động tạo Phiếu công việc SpeedMaint"""
-    cur = db.cursor()
-    
-    # 1. Cập nhật trạng thái thiết bị sang Đang sửa chữa
-    cur.execute("UPDATE devices SET status = 'Đang sửa chữa' WHERE id = ?", (device_id,))
-    
-    # 2. Tạo Work Order khẩn
-    title = f"[BÁO HỎNG TẠI GIƯỜNG] {req.department} - {req.issue_description[:50]}"
-    cur.execute("""
-        INSERT INTO work_orders (device_id, title, description, priority, status, assigned_to)
-        VALUES (?, ?, ?, ?, 'PENDING', 'Kỹ Sư Trực P.TTBYT')
-    """, (device_id, title, f"Người báo: {req.reporter_name} ({req.department})\nMô tả: {req.issue_description}", req.priority))
-    
-    wo_id = cur.lastrowid
-    db.commit()
-    return {
-        "status": "success",
-        "work_order_id": wo_id,
-        "device_status": "Đang sửa chữa",
-        "message": f"Đã tiếp nhận báo hỏng và phân công Phiếu công việc #{wo_id} cho Kỹ Sư Trực P.TTBYT"
-    }
 
 @router.get("/api/transfers")
 async def get_device_transfers(limit: int = 50, db = Depends(get_db)):

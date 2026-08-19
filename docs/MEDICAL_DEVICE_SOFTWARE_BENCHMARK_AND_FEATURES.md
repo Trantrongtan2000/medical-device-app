@@ -1,79 +1,60 @@
-# 🏥 BÁO CÁO NGHIÊN CỨU ĐỐI SÁNH PHẦN MỀM QUẢN LÝ THIẾT BỊ Y TẾ (HTM/CMMS BENCHMARK) & ĐỀ XUẤT TÍNH NĂNG CHUYÊN SÂU
+# 🏥 BÁO CÁO NGHIÊN CỨU ĐỐI SÁNH PHẦN MỀM QUẢN LÝ THIẾT BỊ Y TẾ (HTM BENCHMARK) & KHUNG TÍNH NĂNG CHUYÊN SÂU
 
 > **Đơn vị nghiên cứu:** Kỹ sư Trưởng Y Sinh & Chuyên gia Phần mềm Quản trị Y tế (Antigravity & OCX Claude)  
-> **Phạm vi đối sánh:** Các giải pháp Quản lý Kỹ thuật Y sinh (Healthcare Technology Management - HTM) hàng đầu thế giới và tại Việt Nam: **Nuvolo (ServiceNow), Accruent TMS, Fluke Biomedical OneQA, SpeedMaint Cloud CMMS, Snipe-IT Healthcare Edition**.  
+> **Nhánh phát triển:** `feat/htm-clinical-workflow-v3`  
+> **Phạm vi đối sánh:** Nuvolo (ServiceNow HTM), Accruent TMS, Fluke Biomedical OneQA, SpeedMaint Cloud CMMS, Snipe-IT Healthcare Edition.  
 > **Mục tiêu:** Bổ sung các tính năng cốt lõi, bám sát 100% Sổ tay 9 Quy trình chuẩn (SOPs) của Bệnh viện Quận 7 / PKĐK Tâm Anh Quận 7 và quy định Bộ Y Tế (NĐ 98/2021/NĐ-CP, TT 05/2022/TT-BYT).
 
 ---
 
-## 1. BẢNG ĐỐI SÁNH TÍNH NĂNG CÁC PHẦN MỀM TIÊU BIỂU TRÊN THẾ GIỚI & VIỆT NAM
+## 1. KHUNG 4 PHÂN HỆ LÂM SÀNG CỐT LÕI ĐƯỢC CHỌN LỌC TRIỂN KHAI
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                               🏆 HỆ SINH THÁI PHẦN MỀM QUẢN LÝ TTBYT                              │
+│                     🏆 KHUNG TÍNH NĂNG CHUYÊN SÂU PHẦN MỀM QUẢN LÝ TTBYT (V3)                     │
 ├─────────────────────┬─────────────────────┬─────────────────────┬─────────────────────────────────┤
-│   NUVOLO (USA)      │   ACCRUENT TMS      │ SPEEDMAINT CMMS (VN)│   SNIPE-IT (ASSET MANAGEMENT)   │
-│  (ServiceNow HTM)   │(Biomedical Engine)  │(Hoàn Mỹ / BV Quốc Tế│   (Open Source Enterprise)      │
+│     PHÂN HỆ 1       │     PHÂN HỆ 2       │     PHÂN HỆ 3       │           PHÂN HỆ 4             │
+│   CÂY PHỤ KIỆN      │  BẢNG KIỂM AN TOÀN  │   ĐIỀU CHUYỂN MÁY   │      SEMANTICA CONTEXT GRAPH    │
+│(Parent-Child Asset) │  ĐẦU NGÀY PRE-USE   │  KHOA PHÒNG (QT.08) │     (1.356 Nodes / 4.734 Edges) │
 ├─────────────────────┼─────────────────────┼─────────────────────┼─────────────────────────────────┤
-│• Quản lý tài sản số │• Cấu trúc Cha - Con │• Báo hỏng qua QR Bed│• Quản lý Decal / Mã vạch / QR   │
-│• Work Order lâm sàng│ (Parent-Child Asset)│• Điều phối Kỹ sư    │• Quản lý Phụ kiện & Cấu kiện    │
-│• Quản lý cảnh báo từ│• Checklist bảo dưỡng│• Nhật ký bảo trì PM │• Quản lý Cấp phát & Thu hồi     │
-│  FDA / Hãng sản xuất│  tự động (AAMI/NFPA)│• Báo cáo ban Giám Đốc│• Nhật ký Kiểm toán (Audit Logs) │
+│• Quản lý Máy chính  │• Bảng kiểm 4 tiêu   │• Số hóa Biên bản    │• Đồ thị tri thức định hướng     │
+│  $\leftrightarrow$  │  chí trước ca khám: │  điều chuyển giữa   │• Suy luận xác định không ảo     │
+│  Đầu dò, Điện cực,  │  Nguồn điện/tiếp    │  21 Khoa phòng theo │  tưởng (Zero-Hallucination)     │
+│  Lưỡi soi, Bộ UPS   │  địa, cơ khí, áp    │  Biểu mẫu BM08      │• Truy vết nguồn gốc W3C PROV-O  │
+│• Serial độc lập     │  suất khí, Self-test│• Ghi vết Sổ lý lịch │  chỉ rõ PDF scan gốc            │
 └─────────────────────┴─────────────────────┴─────────────────────┴─────────────────────────────────┘
 ```
 
-| Nhóm Tính Năng Trọng Yếu | Nuvolo (USA) | Accruent TMS | SpeedMaint (VN) | Snipe-IT | Đề Xuất Áp Dụng Cho BV Quận 7 |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **1. Mô hình Phụ Kiện Cấu Kiện (Parent-Child Asset)** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **TÍCH HỢP NGAY**: Quản lý Máy chính $\leftrightarrow$ Đầu dò siêu âm, Dây cáp, Điện cực, Lưỡi đèn soi. |
-| **2. Sổ Lý Lịch Máy Điện Tử (Device Passport)** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | **TÍCH HỢP NGAY**: Theo dõi trọn vòng đời từ Hợp đồng $\rightarrow$ Bàn giao $\rightarrow$ Sửa chữa $\rightarrow$ Thanh lý. |
-| **3. Bảng Kiểm An Toàn Đầu Ngày (Pre-use Checklist)** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | **TÍCH HỢP NGAY**: Check-list vận hành nhanh cho Điều dưỡng/Kỹ thuật viên tại phòng khám. |
-| **4. Báo Hỏng 1 Chạm Qua QR Tại Giường (Bedside QR)** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | **TÍCH HỢP NGAY**: Điều dưỡng quét QR báo hỏng tức thời, chuyển trạng thái thiết bị sang `Đang sửa chữa`. |
-| **5. Điều Phối Phiếu Công Việc (Work Orders / SLA)** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | **TÍCH HỢP NGAY**: Phân công Kỹ sư P.TTB, ghi nhận vật tư thay thế, thời gian xử lý sự cố. |
-| **6. Lịch Bảo Dưỡng Phòng Ngừa (Preventive Maintenance - PM)** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | **TÍCH HỢP NGAY**: Bám sát chu kỳ 2-4 lần/năm trong `Master Data.xltm` và SOP `QT.06`. |
-| **7. Quản Lý Điều Chuyển Khoa Phòng (`QT.08`)** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **TÍCH HỢP NGAY**: Biên bản điều chuyển giữa 21 Khoa phòng có xác nhận 2 bên giao - nhận. |
-| **8. Semantica Context Graph & Causal Provenance** | ❌ (Chưa có) | ❌ (Chưa có) | ❌ (Chưa có) | ❌ (Chưa có) | **ĐỘT PHÁ CỦA BVQ7**: Đồ thị tri thức 1.294 Nodes truy vết W3C PROV-O loại bỏ hoàn toàn hallucination. |
-
 ---
 
-## 2. KHUNG QUY TRÌNH Y TẾ CHUẨN CẦN BỔ SUNG VÀO PHẦN MỀM
-
-```
-  ┌────────────────────────────────────────────────────────────────────────────────────────┐
-  │                    🔄 VÒNG ĐỜI TOÀN DIỆN TRANG THIẾT BỊ Y TẾ (SOPs)                    │
-  └───────────────────────────────────────────┬────────────────────────────────────────────┘
-                                              │
-      ┌───────────────────┬───────────────────┼───────────────────┬───────────────────┐
-      ▼                   ▼                   ▼                   ▼                   ▼
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│  BƯỚC 1:     │    │  BƯỚC 2:     │    │  BƯỚC 3:     │    │  BƯỚC 4:     │    │  BƯỚC 5:     │
-│ TIẾP NHẬN &  │───►│ BÀN GIAO LẮP │───►│ KIỂM TRA ĐẦU │───►│ BẢO TRÌ ĐỊNH │───►│ ĐIỀU CHUYỂN  │
-│  NGHIỆM THU  │    │ ĐẶT VÀO KHOA │    │ NGÀY & VẬN   │    │ KỲ & BÁO     │    │ & HỘI ĐỒNG   │
-│ (HĐ Mua sắm, │    │(Mã BM04, Tạo │    │ HÀNH TẠI CHỖ │    │ HỎNG SỬA CHỮA│    │  THANH LÝ    │
-│  CO/CQ, Sổ LL│    │ Mã Kép QR)   │    │(Pre-use Check│    │(PM / WorkOrd)│    │(QT.08, QT.07)│
-└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
-```
-
----
-
-## 3. LỘ TRÌNH TRIỂN KHAI CÁC TÍNH NĂNG MỚI (ACTION PLAN)
+## 2. CHI TIẾT TỪNG PHÂN HỆ LÂM SÀNG
 
 ### 📌 Phân Hệ 1: Cấu Trúc Phụ Kiện & Cấu Kiện Kèm Theo (Parent-Child Asset Hierarchy)
-* Bổ sung bảng quan hệ `device_accessories` trong SQLite và UI hiển thị cây phân cấp:
-  * Ví dụ: Máy Siêu Âm Voluson P8 (`VP8206119`) quản lý trực tiếp 4 đầu dò con: Convex `1352048WX1`, 3D/4D `1349109WX9`, Âm đạo `1348559WX4`, Linear `1353969WX7`.
-  * Ví dụ: Máy Sốc tim TEC-5631 quản lý Cáp tạo nhịp ngoài, Bản đánh sốc ngoài người lớn/trẻ em, Pin sạc Lithium.
+* **Cơ sở dữ liệu:** Bảng `device_accessories` trong SQLite.
+* **Quy mô nạp thực tế:**
+  * **24 Máy Siêu Âm CĐHA Q7:** Quản lý độc lập 90 đầu dò siêu âm (Convex 5C1/C252/C1-6-D, Linear 10L4/L442/L3-12-D/12L-RS, Phụ khoa 9EC4/IC9-RS/C41V1, Khối 3D/4D RAB6-RS/RAB2-6-RS) và 24 Bộ lưu điện UPS kèm số Serial.
+  * **Máy Điện Trị Liệu BTL-4625:** Đầu phát rảnh tay `HandsFree Sono 4` (SN: `4474B05653`), điện cực cao su 5x7cm.
+  * **Bộ Đặt Nội Khí Quản Video ClearVue VL3R:** Lưỡi soi MAC 2, MAC 3, MAC 4.
+
+---
 
 ### 📌 Phân Hệ 2: Bảng Kiểm Tra An Toàn Vận Hành Đầu Ngày (Daily Pre-use Checklist)
-* Thiết kế giao diện Web Mobile-Friendly cho Điều dưỡng / Kỹ thuật viên kiểm tra 3-5 tiêu chí an toàn trước khi vào ca khám:
-  * Nguồn điện & Dây tiếp địa an toàn.
-  * Tình trạng cơ khí & Cảm biến không nứt vỡ.
-  * Khí y tế đạt áp suất tiêu chuẩn (4-5 bar cho O2, Air, Vac).
-  * Chức năng tự kiểm tra (Self-test) báo OK.
+* **Cơ sở dữ liệu:** Bảng `pre_use_inspections`.
+* **Tiêu chuẩn an toàn:** Cho phép Điều dưỡng / Kỹ thuật viên xác nhận 4 thông số an toàn đầu ngày trước khi tiếp nhận bệnh nhân:
+  1. `power_ok`: Nguồn điện lưới & Bộ lưu điện UPS ổn định.
+  2. `physical_ok`: Vỏ máy, dây dẫn, đầu dò không nứt gãy.
+  3. `gas_pressure_ok`: Áp suất khí y tế trung tâm đạt chuẩn 4-5 bar (O2, Air, Vac).
+  4. `selftest_ok`: Chương trình tự kiểm tra khởi động của máy báo `PASS`.
 
-### 📌 Phân Hệ 3: Báo Hỏng 1-Chạm Tại Giường & Phiếu Công Việc Kỹ Thuật (Bedside Work Orders)
-* Quét mã QR decal trên thân máy để mở ngay form báo hỏng:
-  * Mô tả triệu chứng sự cố (ví dụ: màn hình sọc, bơm tiêm báo lỗi áp lực, mất nguồn).
-  * Mức độ ưu tiên: Khẩn cấp (Phòng mổ/Cấp cứu), Bình thường, Thấp.
-  * Phân công Kỹ sư P.TTB xử lý kèm thời gian SLA (phản hồi trong 15 phút với ca khẩn cấp).
+---
 
-### 📌 Phân Hệ 4: Quy Trình Điều Chuyển & Thanh Lý Thiết Bị (`QT.08` & `QT.07`)
-* Form số hóa Phiếu điều chuyển thiết bị giữa 21 Khoa phòng, tự động ghi nhận lịch sử di chuyển vào Sổ lý lịch máy và cập nhật tức thời Semantica Graph.
+### 📌 Phân Hệ 3: Quy Trình Điều Chuyển Thiết Bị Giữa Các Khoa Phòng (`QT.08`)
+* **Cơ sở dữ liệu:** Bảng `device_transfers`.
+* **Biểu mẫu chuẩn:** `BM08_TA5.TTBYT.QT.08` *(Biên bản điều chuyển thiết bị nội bộ)*.
+* **Cơ chế hoạt động:** Ghi nhận bên giao, bên nhận, lý do điều chuyển và tự động cập nhật vị trí khoa phòng mới của thiết bị trong Master Registry và Semantica Graph.
+
+---
+
+### 📌 Phân Hệ 4: Đồ Thị Tri Thức Ngữ Nghĩa Semantica AGI & W3C PROV-O
+* **Quy mô:** **1.356 Nodes & 4.734 Edges**.
+* **Đặc tính:** Cung cấp chuỗi giải trình nguyên nhân - kết quả (Causal Provenance Chain) cho từng tài sản kỹ thuật lâm sàng.
