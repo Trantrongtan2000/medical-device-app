@@ -1,19 +1,19 @@
 # 🗺️ Magika File Map: `medical-device-app`
 
 - **Đường dẫn gốc:** `C:\Users\tantt\Downloads\medical-device-app`
-- **Thời gian quét:** 2026-08-19T16:39:21.749955
-- **Tổng số tệp:** **245** tệp
+- **Thời gian quét:** 2026-08-19T16:42:27.235980
+- **Tổng số tệp:** **247** tệp
 - **Tổng số thư mục:** **38** thư mục
-- **Tổng dung lượng:** **82.32 MB** (86,321,927 bytes)
-- **Thời gian phân tích AI Magika:** 1.72 giây
+- **Tổng dung lượng:** **82.36 MB** (86,364,944 bytes)
+- **Thời gian phân tích AI Magika:** 2.17 giây
 
 ## 1. 📊 Phân bố theo Nhóm Tệp (Magika Group)
 
 | Nhóm (Group) | Số lượng tệp | Tỷ lệ (%) | Dung lượng |
 |---|---|---|---|
-| **`code`** | 183 | 74.7% | 8.06 MB |
-| **`text`** | 49 | 20.0% | 10.54 MB |
-| **`image`** | 7 | 2.9% | 1.22 MB |
+| **`code`** | 185 | 74.9% | 8.06 MB |
+| **`text`** | 49 | 19.8% | 10.58 MB |
+| **`image`** | 7 | 2.8% | 1.22 MB |
 | **`application`** | 4 | 1.6% | 2.59 MB |
 | **`archive`** | 2 | 0.8% | 59.91 MB |
 
@@ -21,15 +21,15 @@
 
 | Label AI | Nhóm (Group) | MIME Type | Số lượng | Tỷ lệ (%) | Tổng dung lượng |
 |---|---|---|---|---|---|
-| **`python`** | `code` | `text/x-python` | 141 | 57.6% | 1.02 MB |
-| **`markdown`** | `text` | `text/markdown` | 43 | 17.6% | 10.45 MB |
+| **`python`** | `code` | `text/x-python` | 143 | 57.9% | 1.02 MB |
+| **`markdown`** | `text` | `text/markdown` | 41 | 16.6% | 540.11 KB |
 | **`json`** | `code` | `application/json` | 11 | 4.5% | 4.13 MB |
-| **`txt`** | `text` | `text/plain` | 6 | 2.4% | 97.30 KB |
+| **`txt`** | `text` | `text/plain` | 8 | 3.2% | 10.05 MB |
 | **`html`** | `code` | `text/html` | 6 | 2.4% | 2.13 MB |
 | **`yaml`** | `code` | `application/x-yaml` | 5 | 2.0% | 5.00 KB |
 | **`powershell`** | `code` | `application/x-powershell` | 5 | 2.0% | 44.33 KB |
 | **`png`** | `image` | `image/png` | 5 | 2.0% | 1.11 MB |
-| **`batch`** | `code` | `text/x-msdos-batch` | 5 | 2.0% | 278.84 KB |
+| **`batch`** | `code` | `text/x-msdos-batch` | 5 | 2.0% | 278.59 KB |
 | **`sqlite`** | `application` | `application/octet-stream` | 4 | 1.6% | 2.59 MB |
 | **`javascript`** | `code` | `application/javascript` | 4 | 1.6% | 231.16 KB |
 | **`zip`** | `archive` | `application/zip` | 2 | 0.8% | 59.91 MB |
@@ -45,7 +45,7 @@
 
 | Extension | Số lượng |
 |---|---|
-| `.py` | 143 |
+| `.py` | 145 |
 | `.md` | 43 |
 | `.txt` | 12 |
 | `.json` | 11 |
@@ -128,7 +128,7 @@
 | 59 | `docs/MEDICAL_DEVICE_SOFTWARE_BENCHMARK_AND_FEATURES.md` | 5.32 KB | `markdown` | `text/markdown` | 98.9% |
 | 60 | `docs/OCX_CLAUDE_AUDIT_REPORT_SEMANTICA.md` | 3.99 KB | `markdown` | `text/markdown` | 99.8% |
 | 61 | `docs/PROJECT_FEATURES_MAPPING.md` | 3.41 KB | `markdown` | `text/markdown` | 99.5% |
-| 62 | `docs/SESSION_TRANSCRIPT_20260818.md` | 4.96 MB | `markdown` | `text/markdown` | 96.7% |
+| 62 | `docs/SESSION_TRANSCRIPT_20260818.md` | 4.98 MB | `txt` | `text/plain` | 75.0% |
 | 63 | `docs/STANDARDIZATION_AUDIT_REPORT.md` | 4.98 KB | `markdown` | `text/markdown` | 99.7% |
 | 64 | `docs/TA5_SOP_REGULATORY_WORKFLOW_ANALYSIS.md` | 7.56 KB | `markdown` | `text/markdown` | 99.8% |
 | 65 | `docs/diagrams/device-lifecycle.html` | 10.79 KB | `html` | `text/html` | 90.7% |
@@ -137,7 +137,7 @@
 | 68 | `docs/modal_optimized_5tabs.png` | 214.91 KB | `png` | `image/png` | 100.0% |
 | 69 | `docs/modal_perfect_5tabs.png` | 229.62 KB | `png` | `image/png` | 100.0% |
 | 70 | `docs/modal_perfect_segmented.png` | 228.54 KB | `png` | `image/png` | 100.0% |
-| 71 | `docs/session.md` | 4.96 MB | `markdown` | `text/markdown` | 96.7% |
+| 71 | `docs/session.md` | 4.98 MB | `txt` | `text/plain` | 75.0% |
 | 72 | `docs/standalone_review_screenshot.png` | 238.27 KB | `png` | `image/png` | 100.0% |
 | 73 | `import_devices.py` | 9.00 KB | `python` | `text/x-python` | 100.0% |
 | 74 | `medical-device-app-full-bundle.zip` | 4.63 MB | `zip` | `application/zip` | 93.6% |
@@ -145,13 +145,13 @@
 | 76 | `requirements.txt` | 161 B | `txt` | `text/plain` | 39.8% |
 | 77 | `scripts/_db_count_out.txt` | 26 B | `yaml` | `application/x-yaml` | 74.7% |
 | 78 | `scripts/_db_stats.txt` | 350 B | `yaml` | `application/x-yaml` | 61.3% |
-| 79 | `scripts/_debug_995.py` | 720 B | `python` | `text/x-python` | 100.0% |
+| 79 | `scripts/_debug_995.py` | 741 B | `python` | `text/x-python` | 100.0% |
 | 80 | `scripts/_find_056pdf.py` | 911 B | `python` | `text/x-python` | 100.0% |
 | 81 | `scripts/_find_b125m.py` | 689 B | `python` | `text/x-python` | 100.0% |
 | 82 | `scripts/_find_missing_tokens.py` | 1.01 KB | `python` | `text/x-python` | 100.0% |
 | 83 | `scripts/_g_stats.txt` | 569 B | `txt` | `text/plain` | 29.4% |
-| 84 | `scripts/_link_fix2_log.json` | 61.87 KB | `json` | `application/json` | 99.9% |
-| 85 | `scripts/_link_fix2_result.txt` | 27.53 KB | `batch` | `text/x-msdos-batch` | 88.3% |
+| 84 | `scripts/_link_fix2_log.json` | 62.20 KB | `json` | `application/json` | 100.0% |
+| 85 | `scripts/_link_fix2_result.txt` | 27.27 KB | `batch` | `text/x-msdos-batch` | 88.2% |
 | 86 | `scripts/_link_fix_log.json` | 1.20 MB | `json` | `application/json` | 100.0% |
 | 87 | `scripts/_link_fix_report.json` | 2.87 MB | `json` | `application/json` | 99.9% |
 | 88 | `scripts/_link_fix_report.txt` | 90.19 KB | `txt` | `text/plain` | 44.7% |
@@ -203,7 +203,7 @@
 | 134 | `scripts/enrich_cdha_ultrasound_and_heavy_equipment.py` | 5.88 KB | `python` | `text/x-python` | 99.9% |
 | 135 | `scripts/ensure_full_editability.py` | 17.75 KB | `python` | `text/x-python` | 99.1% |
 | 136 | `scripts/execute_master_standardization.py` | 11.75 KB | `python` | `text/x-python` | 99.9% |
-| 137 | `scripts/export_session_to_md.py` | 3.71 KB | `python` | `text/x-python` | 99.9% |
+| 137 | `scripts/export_session_to_md.py` | 4.15 KB | `python` | `text/x-python` | 99.9% |
 | 138 | `scripts/export_to_md.py` | 7.14 KB | `python` | `text/x-python` | 100.0% |
 | 139 | `scripts/extract_all_37_thamdinh_vendors.py` | 2.41 KB | `python` | `text/x-python` | 99.8% |
 | 140 | `scripts/extract_exact_suppliers_from_mds.py` | 2.27 KB | `python` | `text/x-python` | 100.0% |
@@ -211,7 +211,7 @@
 | 142 | `scripts/fix_an_viet_hera_w10_supplier.py` | 5.02 KB | `python` | `text/x-python` | 99.8% |
 | 143 | `scripts/fix_loang_xuong_than_data.py` | 1.04 KB | `python` | `text/x-python` | 99.9% |
 | 144 | `scripts/fix_md_pdf_links.py` | 7.28 KB | `python` | `text/x-python` | 99.8% |
-| 145 | `scripts/fix_md_pdf_links2.py` | 5.56 KB | `python` | `text/x-python` | 100.0% |
+| 145 | `scripts/fix_md_pdf_links2.py` | 5.86 KB | `python` | `text/x-python` | 100.0% |
 | 146 | `scripts/fix_object_records.py` | 1.08 KB | `python` | `text/x-python` | 100.0% |
 | 147 | `scripts/fix_sidebar_layout_and_wrapping.py` | 11.31 KB | `python` | `text/x-python` | 92.1% |
 | 148 | `scripts/fix_staff_tab_complete.py` | 9.77 KB | `python` | `text/x-python` | 95.9% |
@@ -244,71 +244,73 @@
 | 175 | `scripts/parse_exact_md_contracts_and_suppliers.py` | 3.82 KB | `python` | `text/x-python` | 99.8% |
 | 176 | `scripts/perfect_sidebar_collapse_and_overflow.py` | 5.43 KB | `txt` | `text/plain` | 42.0% |
 | 177 | `scripts/polish_sops_ui.py` | 1.28 KB | `python` | `text/x-python` | 96.3% |
-| 178 | `scripts/read_master_data_v6.py` | 912 B | `python` | `text/x-python` | 100.0% |
-| 179 | `scripts/reconcile_real_suppliers_from_md.py` | 20.08 KB | `python` | `text/x-python` | 99.9% |
-| 180 | `scripts/rename_cht_to_mri.py` | 1.47 KB | `python` | `text/x-python` | 99.0% |
-| 181 | `scripts/reorganize_device_display_and_collapsible_sidebar.py` | 33.62 KB | `python` | `text/x-python` | 75.2% |
-| 182 | `scripts/reorganize_dirs_final.py` | 5.62 KB | `python` | `text/x-python` | 99.3% |
-| 183 | `scripts/run_analyze.py` | 1.57 KB | `python` | `text/x-python` | 100.0% |
-| 184 | `scripts/run_claude_standardization.py` | 2.17 KB | `python` | `text/x-python` | 99.9% |
-| 185 | `scripts/sanitize_all_secret_traces.py` | 1.40 KB | `python` | `text/x-python` | 99.2% |
-| 186 | `scripts/sanitize_real_staff_data.py` | 3.14 KB | `python` | `text/x-python` | 99.4% |
-| 187 | `scripts/sanitize_sqlite_keys.py` | 805 B | `python` | `text/x-python` | 99.9% |
-| 188 | `scripts/scan_and_pack_ocr_work.py` | 3.17 KB | `python` | `text/x-python` | 99.4% |
-| 189 | `scripts/seed_data.py` | 5.10 KB | `python` | `text/x-python` | 100.0% |
-| 190 | `scripts/setup_htm_clinical_tables.py` | 7.82 KB | `python` | `text/x-python` | 99.9% |
-| 191 | `scripts/setup_monthly_oncall_system.py` | 3.39 KB | `python` | `text/x-python` | 98.2% |
-| 192 | `scripts/setup_q7_staff_and_oncall.py` | 7.55 KB | `python` | `text/x-python` | 99.8% |
-| 193 | `scripts/setup_weekly_3engineers_oncall.py` | 2.72 KB | `python` | `text/x-python` | 96.0% |
-| 194 | `scripts/standardize_4_clinical_departments_and_gemini_37.py` | 24.78 KB | `python` | `text/x-python` | 98.3% |
-| 195 | `scripts/standardize_master_by_contracts_and_depts.py` | 11.39 KB | `python` | `text/x-python` | 100.0% |
-| 196 | `scripts/sync_g_drive_pdfs.py` | 1.85 KB | `python` | `text/x-python` | 100.0% |
-| 197 | `scripts/sync_schema_sql.py` | 1.79 KB | `python` | `text/x-python` | 99.9% |
-| 198 | `scripts/sync_sops_and_ifixai_remediation.py` | 5.21 KB | `python` | `text/x-python` | 100.0% |
-| 199 | `scripts/systematize_master_data.py` | 10.31 KB | `python` | `text/x-python` | 99.8% |
-| 200 | `scripts/test_ai_ocr_features.py` | 2.06 KB | `python` | `text/x-python` | 99.7% |
-| 201 | `scripts/test_api.py` | 3.00 KB | `python` | `text/x-python` | 100.0% |
-| 202 | `scripts/test_api_final.py` | 1.36 KB | `python` | `text/x-python` | 99.8% |
-| 203 | `scripts/test_clean_rules.py` | 5.18 KB | `python` | `text/x-python` | 99.2% |
-| 204 | `scripts/test_command_code_runner.py` | 559 B | `python` | `text/x-python` | 100.0% |
-| 205 | `scripts/test_create_device.py` | 1.64 KB | `python` | `text/x-python` | 99.8% |
-| 206 | `scripts/test_db.py` | 1.04 KB | `python` | `text/x-python` | 100.0% |
-| 207 | `scripts/test_edit.py` | 1.98 KB | `python` | `text/x-python` | 99.7% |
-| 208 | `scripts/test_feedback_api.py` | 1.01 KB | `python` | `text/x-python` | 99.8% |
-| 209 | `scripts/test_mistral_ocr_piezotome.py` | 2.56 KB | `python` | `text/x-python` | 100.0% |
-| 210 | `scripts/test_pdf_resolution.py` | 878 B | `python` | `text/x-python` | 99.9% |
-| 211 | `scripts/test_quick.py` | 288 B | `python` | `text/x-python` | 100.0% |
-| 212 | `scripts/test_simple.py` | 2.63 KB | `python` | `text/x-python` | 99.9% |
-| 213 | `scripts/test_sops.py` | 583 B | `python` | `text/x-python` | 99.8% |
-| 214 | `scripts/unify_supplier_names.py` | 1.27 KB | `python` | `text/x-python` | 99.9% |
-| 215 | `scripts/update_app_js_key_methods.py` | 20.23 KB | `python` | `text/x-python` | 95.4% |
-| 216 | `scripts/update_area_wording.py` | 1.31 KB | `python` | `text/x-python` | 99.8% |
-| 217 | `scripts/update_filter_chips_for_4_depts.py` | 4.63 KB | `python` | `text/x-python` | 94.4% |
-| 218 | `scripts/update_tab_staff_and_fluid_layout.py` | 8.19 KB | `python` | `text/x-python` | 53.0% |
-| 219 | `scripts/update_ui_certificates_policy.py` | 3.89 KB | `python` | `text/x-python` | 86.3% |
-| 220 | `scripts/update_ui_counts_to_1046.py` | 854 B | `python` | `text/x-python` | 98.6% |
-| 221 | `scripts/update_ui_counts_to_1211.py` | 1.15 KB | `python` | `text/x-python` | 99.9% |
-| 222 | `scripts/verify_v6_api.py` | 961 B | `python` | `text/x-python` | 99.4% |
-| 223 | `scripts/wire_4_departments_cards_actions.py` | 21.32 KB | `python` | `text/x-python` | 88.6% |
-| 224 | `specs/001-medical-device-management/plan.md` | 2.62 KB | `markdown` | `text/markdown` | 99.9% |
-| 225 | `specs/001-medical-device-management/spec.md` | 3.18 KB | `markdown` | `text/markdown` | 100.0% |
-| 226 | `specs/001-medical-device-management/tasks.md` | 1.84 KB | `markdown` | `text/markdown` | 99.4% |
-| 227 | `specs/002-data-deduplication/plan.md` | 2.07 KB | `markdown` | `text/markdown` | 100.0% |
-| 228 | `specs/003-speedmaint-snipeit-ai-integration/plan.md` | 2.31 KB | `markdown` | `text/markdown` | 99.9% |
-| 229 | `specs/003-speedmaint-snipeit-ai-integration/spec.md` | 4.17 KB | `markdown` | `text/markdown` | 98.8% |
-| 230 | `specs/003-speedmaint-snipeit-ai-integration/tasks.md` | 1.96 KB | `markdown` | `text/markdown` | 92.6% |
-| 231 | `specs/004-htm-clinical-workflow-v3/plan.md` | 2.66 KB | `markdown` | `text/markdown` | 99.4% |
-| 232 | `specs/004-htm-clinical-workflow-v3/spec.md` | 4.11 KB | `markdown` | `text/markdown` | 100.0% |
-| 233 | `specs/004-htm-clinical-workflow-v3/tasks.md` | 2.58 KB | `markdown` | `text/markdown` | 99.3% |
-| 234 | `start_server.py` | 1.25 KB | `python` | `text/x-python` | 100.0% |
-| 235 | `web/css/style.css` | 17.79 KB | `css` | `text/css` | 93.3% |
-| 236 | `web/img/logo_pkta_q7.jpg` | 56.28 KB | `jpeg` | `image/jpeg` | 100.0% |
-| 237 | `web/img/logo_tamanh.jpg` | 56.28 KB | `jpeg` | `image/jpeg` | 100.0% |
-| 238 | `web/index.html` | 244.70 KB | `html` | `text/html` | 95.9% |
-| 239 | `web/js/api.js` | 5.99 KB | `javascript` | `application/javascript` | 97.1% |
-| 240 | `web/js/app.js` | 200.19 KB | `javascript` | `application/javascript` | 97.5% |
-| 241 | `web/js/diagrams.js` | 19.33 KB | `javascript` | `application/javascript` | 65.6% |
-| 242 | `web/package.json` | 410 B | `json` | `application/json` | 99.9% |
-| 243 | `web/project_review_standalone.html` | 815.64 KB | `html` | `text/html` | 97.1% |
-| 244 | `web/quy_trinh_ttbyt.html` | 549.84 KB | `html` | `text/html` | 97.1% |
-| 245 | `web/sops.html` | 549.84 KB | `html` | `text/html` | 97.1% |
+| 178 | `scripts/rclone_push_both.py` | 2.02 KB | `python` | `text/x-python` | 98.8% |
+| 179 | `scripts/read_master_data_v6.py` | 912 B | `python` | `text/x-python` | 100.0% |
+| 180 | `scripts/reconcile_real_suppliers_from_md.py` | 20.08 KB | `python` | `text/x-python` | 99.9% |
+| 181 | `scripts/rename_cht_to_mri.py` | 1.47 KB | `python` | `text/x-python` | 99.0% |
+| 182 | `scripts/reorganize_device_display_and_collapsible_sidebar.py` | 33.62 KB | `python` | `text/x-python` | 75.2% |
+| 183 | `scripts/reorganize_dirs_final.py` | 5.62 KB | `python` | `text/x-python` | 99.3% |
+| 184 | `scripts/run_analyze.py` | 1.57 KB | `python` | `text/x-python` | 100.0% |
+| 185 | `scripts/run_claude_standardization.py` | 2.17 KB | `python` | `text/x-python` | 99.9% |
+| 186 | `scripts/sanitize_all_secret_traces.py` | 1.40 KB | `python` | `text/x-python` | 99.2% |
+| 187 | `scripts/sanitize_real_staff_data.py` | 3.14 KB | `python` | `text/x-python` | 99.4% |
+| 188 | `scripts/sanitize_sqlite_keys.py` | 805 B | `python` | `text/x-python` | 99.9% |
+| 189 | `scripts/scan_and_pack_ocr_work.py` | 3.17 KB | `python` | `text/x-python` | 99.4% |
+| 190 | `scripts/seed_data.py` | 5.10 KB | `python` | `text/x-python` | 100.0% |
+| 191 | `scripts/setup_htm_clinical_tables.py` | 7.82 KB | `python` | `text/x-python` | 99.9% |
+| 192 | `scripts/setup_monthly_oncall_system.py` | 3.39 KB | `python` | `text/x-python` | 98.2% |
+| 193 | `scripts/setup_q7_staff_and_oncall.py` | 7.55 KB | `python` | `text/x-python` | 99.8% |
+| 194 | `scripts/setup_weekly_3engineers_oncall.py` | 2.72 KB | `python` | `text/x-python` | 96.0% |
+| 195 | `scripts/standardize_4_clinical_departments_and_gemini_37.py` | 24.78 KB | `python` | `text/x-python` | 98.3% |
+| 196 | `scripts/standardize_master_by_contracts_and_depts.py` | 11.39 KB | `python` | `text/x-python` | 100.0% |
+| 197 | `scripts/sync_g_drive_pdfs.py` | 1.85 KB | `python` | `text/x-python` | 100.0% |
+| 198 | `scripts/sync_schema_sql.py` | 1.79 KB | `python` | `text/x-python` | 99.9% |
+| 199 | `scripts/sync_sops_and_ifixai_remediation.py` | 5.21 KB | `python` | `text/x-python` | 100.0% |
+| 200 | `scripts/systematize_master_data.py` | 10.31 KB | `python` | `text/x-python` | 99.8% |
+| 201 | `scripts/test_ai_ocr_features.py` | 2.06 KB | `python` | `text/x-python` | 99.7% |
+| 202 | `scripts/test_api.py` | 3.00 KB | `python` | `text/x-python` | 100.0% |
+| 203 | `scripts/test_api_final.py` | 1.36 KB | `python` | `text/x-python` | 99.8% |
+| 204 | `scripts/test_clean_rules.py` | 5.18 KB | `python` | `text/x-python` | 99.2% |
+| 205 | `scripts/test_command_code_runner.py` | 559 B | `python` | `text/x-python` | 100.0% |
+| 206 | `scripts/test_create_device.py` | 1.64 KB | `python` | `text/x-python` | 99.8% |
+| 207 | `scripts/test_db.py` | 1.04 KB | `python` | `text/x-python` | 100.0% |
+| 208 | `scripts/test_edit.py` | 1.98 KB | `python` | `text/x-python` | 99.7% |
+| 209 | `scripts/test_feedback_api.py` | 1.01 KB | `python` | `text/x-python` | 99.8% |
+| 210 | `scripts/test_mistral_ocr_piezotome.py` | 2.56 KB | `python` | `text/x-python` | 100.0% |
+| 211 | `scripts/test_pdf_resolution.py` | 878 B | `python` | `text/x-python` | 99.9% |
+| 212 | `scripts/test_quick.py` | 288 B | `python` | `text/x-python` | 100.0% |
+| 213 | `scripts/test_simple.py` | 2.63 KB | `python` | `text/x-python` | 99.9% |
+| 214 | `scripts/test_sops.py` | 583 B | `python` | `text/x-python` | 99.8% |
+| 215 | `scripts/unify_supplier_names.py` | 1.27 KB | `python` | `text/x-python` | 99.9% |
+| 216 | `scripts/update_app_js_key_methods.py` | 20.23 KB | `python` | `text/x-python` | 95.4% |
+| 217 | `scripts/update_area_wording.py` | 1.31 KB | `python` | `text/x-python` | 99.8% |
+| 218 | `scripts/update_filter_chips_for_4_depts.py` | 4.63 KB | `python` | `text/x-python` | 94.4% |
+| 219 | `scripts/update_tab_staff_and_fluid_layout.py` | 8.19 KB | `python` | `text/x-python` | 53.0% |
+| 220 | `scripts/update_ui_certificates_policy.py` | 3.89 KB | `python` | `text/x-python` | 86.3% |
+| 221 | `scripts/update_ui_counts_to_1046.py` | 854 B | `python` | `text/x-python` | 98.6% |
+| 222 | `scripts/update_ui_counts_to_1211.py` | 1.15 KB | `python` | `text/x-python` | 99.9% |
+| 223 | `scripts/verify_links_total.py` | 2.19 KB | `python` | `text/x-python` | 99.8% |
+| 224 | `scripts/verify_v6_api.py` | 961 B | `python` | `text/x-python` | 99.4% |
+| 225 | `scripts/wire_4_departments_cards_actions.py` | 21.32 KB | `python` | `text/x-python` | 88.6% |
+| 226 | `specs/001-medical-device-management/plan.md` | 2.62 KB | `markdown` | `text/markdown` | 99.9% |
+| 227 | `specs/001-medical-device-management/spec.md` | 3.18 KB | `markdown` | `text/markdown` | 100.0% |
+| 228 | `specs/001-medical-device-management/tasks.md` | 1.84 KB | `markdown` | `text/markdown` | 99.4% |
+| 229 | `specs/002-data-deduplication/plan.md` | 2.07 KB | `markdown` | `text/markdown` | 100.0% |
+| 230 | `specs/003-speedmaint-snipeit-ai-integration/plan.md` | 2.31 KB | `markdown` | `text/markdown` | 99.9% |
+| 231 | `specs/003-speedmaint-snipeit-ai-integration/spec.md` | 4.17 KB | `markdown` | `text/markdown` | 98.8% |
+| 232 | `specs/003-speedmaint-snipeit-ai-integration/tasks.md` | 1.96 KB | `markdown` | `text/markdown` | 92.6% |
+| 233 | `specs/004-htm-clinical-workflow-v3/plan.md` | 2.66 KB | `markdown` | `text/markdown` | 99.4% |
+| 234 | `specs/004-htm-clinical-workflow-v3/spec.md` | 4.11 KB | `markdown` | `text/markdown` | 100.0% |
+| 235 | `specs/004-htm-clinical-workflow-v3/tasks.md` | 2.58 KB | `markdown` | `text/markdown` | 99.3% |
+| 236 | `start_server.py` | 1.25 KB | `python` | `text/x-python` | 100.0% |
+| 237 | `web/css/style.css` | 17.79 KB | `css` | `text/css` | 93.3% |
+| 238 | `web/img/logo_pkta_q7.jpg` | 56.28 KB | `jpeg` | `image/jpeg` | 100.0% |
+| 239 | `web/img/logo_tamanh.jpg` | 56.28 KB | `jpeg` | `image/jpeg` | 100.0% |
+| 240 | `web/index.html` | 244.70 KB | `html` | `text/html` | 95.9% |
+| 241 | `web/js/api.js` | 5.99 KB | `javascript` | `application/javascript` | 97.1% |
+| 242 | `web/js/app.js` | 200.19 KB | `javascript` | `application/javascript` | 97.5% |
+| 243 | `web/js/diagrams.js` | 19.33 KB | `javascript` | `application/javascript` | 65.6% |
+| 244 | `web/package.json` | 410 B | `json` | `application/json` | 99.9% |
+| 245 | `web/project_review_standalone.html` | 815.64 KB | `html` | `text/html` | 97.1% |
+| 246 | `web/quy_trinh_ttbyt.html` | 549.84 KB | `html` | `text/html` | 97.1% |
+| 247 | `web/sops.html` | 549.84 KB | `html` | `text/html` | 97.1% |

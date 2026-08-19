@@ -1,20 +1,20 @@
 {
   "summary": {
-    "generated_at": "2026-08-19T16:39:21.749955",
+    "generated_at": "2026-08-19T16:42:27.235980",
     "root_path": "C:\\Users\\tantt\\Downloads\\medical-device-app",
-    "total_files": 245,
+    "total_files": 247,
     "total_directories": 38,
-    "total_size_bytes": 86321927,
-    "total_size_formatted": "82.32 MB",
-    "scan_duration_seconds": 1.72,
+    "total_size_bytes": 86364944,
+    "total_size_formatted": "82.36 MB",
+    "scan_duration_seconds": 2.17,
     "by_group": {
       "code": {
-        "count": 183,
-        "size": 8448134
+        "count": 185,
+        "size": 8453305
       },
       "text": {
         "count": 49,
-        "size": 11055908
+        "size": 11093754
       },
       "image": {
         "count": 7,
@@ -31,26 +31,26 @@
     },
     "by_label": {
       "python": {
-        "count": 141,
-        "size": 1068316,
+        "count": 143,
+        "size": 1073411,
         "mime": "text/x-python",
         "group": "code"
       },
       "markdown": {
-        "count": 43,
-        "size": 10956276,
+        "count": 41,
+        "size": 553072,
         "mime": "text/markdown",
         "group": "text"
       },
       "json": {
         "count": 11,
-        "size": 4335293,
+        "size": 4335629,
         "mime": "application/json",
         "group": "code"
       },
       "txt": {
-        "count": 6,
-        "size": 99632,
+        "count": 8,
+        "size": 10540682,
         "mime": "text/plain",
         "group": "text"
       },
@@ -80,7 +80,7 @@
       },
       "batch": {
         "count": 5,
-        "size": 285532,
+        "size": 285272,
         "mime": "text/x-msdos-batch",
         "group": "code"
       },
@@ -147,20 +147,20 @@
     },
     "by_mime_type": {
       "text/x-python": {
-        "count": 141,
-        "size": 1068316
+        "count": 143,
+        "size": 1073411
       },
       "text/markdown": {
-        "count": 43,
-        "size": 10956276
+        "count": 41,
+        "size": 553072
       },
       "application/json": {
         "count": 11,
-        "size": 4335293
+        "size": 4335629
       },
       "text/plain": {
-        "count": 7,
-        "size": 100110
+        "count": 9,
+        "size": 10541160
       },
       "text/html": {
         "count": 6,
@@ -180,7 +180,7 @@
       },
       "text/x-msdos-batch": {
         "count": 5,
-        "size": 285532
+        "size": 285272
       },
       "application/octet-stream": {
         "count": 4,
@@ -220,7 +220,7 @@
       }
     },
     "by_extension": {
-      ".py": 143,
+      ".py": 145,
       ".md": 43,
       ".txt": 12,
       ".json": 11,
@@ -904,7 +904,7 @@
       "path": "database/devices.db",
       "size_bytes": 1077248,
       "size_formatted": "1.03 MB",
-      "modified_at": "2026-08-19T16:38:52.511733",
+      "modified_at": "2026-08-19T16:39:30.998688",
       "extension": ".db",
       "magika": {
         "label": "sqlite",
@@ -964,7 +964,7 @@
       "path": "database/schema.sql",
       "size_bytes": 9439,
       "size_formatted": "9.22 KB",
-      "modified_at": "2026-08-19T16:38:52.156829",
+      "modified_at": "2026-08-19T16:39:30.144368",
       "extension": ".sql",
       "magika": {
         "label": "sql",
@@ -1157,16 +1157,16 @@
     },
     {
       "path": "docs/SESSION_TRANSCRIPT_20260818.md",
-      "size_bytes": 5201602,
-      "size_formatted": "4.96 MB",
-      "modified_at": "2026-08-19T16:39:01.239134",
+      "size_bytes": 5220525,
+      "size_formatted": "4.98 MB",
+      "modified_at": "2026-08-19T16:39:54.646469",
       "extension": ".md",
       "magika": {
-        "label": "markdown",
-        "mime_type": "text/markdown",
+        "label": "txt",
+        "mime_type": "text/plain",
         "group": "text",
-        "description": "Markdown document",
-        "score": 0.967,
+        "description": "Generic text document",
+        "score": 0.7498,
         "is_text": true
       }
     },
@@ -1292,16 +1292,16 @@
     },
     {
       "path": "docs/session.md",
-      "size_bytes": 5201602,
-      "size_formatted": "4.96 MB",
-      "modified_at": "2026-08-19T16:39:01.268315",
+      "size_bytes": 5220525,
+      "size_formatted": "4.98 MB",
+      "modified_at": "2026-08-19T16:39:54.668547",
       "extension": ".md",
       "magika": {
-        "label": "markdown",
-        "mime_type": "text/markdown",
+        "label": "txt",
+        "mime_type": "text/plain",
         "group": "text",
-        "description": "Markdown document",
-        "score": 0.967,
+        "description": "Generic text document",
+        "score": 0.7498,
         "is_text": true
       }
     },
@@ -1412,16 +1412,16 @@
     },
     {
       "path": "scripts/_debug_995.py",
-      "size_bytes": 720,
-      "size_formatted": "720 B",
-      "modified_at": "2026-08-19T16:39:07.096237",
+      "size_bytes": 741,
+      "size_formatted": "741 B",
+      "modified_at": "2026-08-19T16:39:54.671532",
       "extension": ".py",
       "magika": {
         "label": "python",
         "mime_type": "text/x-python",
         "group": "code",
         "description": "Python source",
-        "score": 0.9998,
+        "score": 0.9999,
         "is_text": true
       }
     },
@@ -1487,31 +1487,31 @@
     },
     {
       "path": "scripts/_link_fix2_log.json",
-      "size_bytes": 63353,
-      "size_formatted": "61.87 KB",
-      "modified_at": "2026-08-19T16:39:01.282737",
+      "size_bytes": 63689,
+      "size_formatted": "62.20 KB",
+      "modified_at": "2026-08-19T16:39:59.305632",
       "extension": ".json",
       "magika": {
         "label": "json",
         "mime_type": "application/json",
         "group": "code",
         "description": "JSON document",
-        "score": 0.9992,
+        "score": 0.9999,
         "is_text": true
       }
     },
     {
       "path": "scripts/_link_fix2_result.txt",
-      "size_bytes": 28187,
-      "size_formatted": "27.53 KB",
-      "modified_at": "2026-08-19T16:39:01.283733",
+      "size_bytes": 27927,
+      "size_formatted": "27.27 KB",
+      "modified_at": "2026-08-19T16:39:59.307626",
       "extension": ".txt",
       "magika": {
         "label": "batch",
         "mime_type": "text/x-msdos-batch",
         "group": "code",
         "description": "DOS batch file",
-        "score": 0.8827,
+        "score": 0.8817,
         "is_text": true
       }
     },
@@ -2282,16 +2282,16 @@
     },
     {
       "path": "scripts/export_session_to_md.py",
-      "size_bytes": 3795,
-      "size_formatted": "3.71 KB",
-      "modified_at": "2026-08-19T16:38:52.880422",
+      "size_bytes": 4248,
+      "size_formatted": "4.15 KB",
+      "modified_at": "2026-08-19T16:39:54.672529",
       "extension": ".py",
       "magika": {
         "label": "python",
         "mime_type": "text/x-python",
         "group": "code",
         "description": "Python source",
-        "score": 0.9987,
+        "score": 0.9993,
         "is_text": true
       }
     },
@@ -2402,9 +2402,9 @@
     },
     {
       "path": "scripts/fix_md_pdf_links2.py",
-      "size_bytes": 5696,
-      "size_formatted": "5.56 KB",
-      "modified_at": "2026-08-19T16:39:01.300055",
+      "size_bytes": 6002,
+      "size_formatted": "5.86 KB",
+      "modified_at": "2026-08-19T16:39:54.673526",
       "extension": ".py",
       "magika": {
         "label": "python",
@@ -2896,6 +2896,21 @@
       }
     },
     {
+      "path": "scripts/rclone_push_both.py",
+      "size_bytes": 2070,
+      "size_formatted": "2.02 KB",
+      "modified_at": "2026-08-19T16:41:55.172935",
+      "extension": ".py",
+      "magika": {
+        "label": "python",
+        "mime_type": "text/x-python",
+        "group": "code",
+        "description": "Python source",
+        "score": 0.9881,
+        "is_text": true
+      }
+    },
+    {
       "path": "scripts/read_master_data_v6.py",
       "size_bytes": 912,
       "size_formatted": "912 B",
@@ -3004,7 +3019,7 @@
       "path": "scripts/sanitize_all_secret_traces.py",
       "size_bytes": 1437,
       "size_formatted": "1.40 KB",
-      "modified_at": "2026-08-19T16:39:14.310223",
+      "modified_at": "2026-08-19T16:39:54.674522",
       "extension": ".py",
       "magika": {
         "label": "python",
@@ -3552,6 +3567,21 @@
         "group": "code",
         "description": "Python source",
         "score": 0.999,
+        "is_text": true
+      }
+    },
+    {
+      "path": "scripts/verify_links_total.py",
+      "size_bytes": 2245,
+      "size_formatted": "2.19 KB",
+      "modified_at": "2026-08-19T16:41:11.157853",
+      "extension": ".py",
+      "magika": {
+        "label": "python",
+        "mime_type": "text/x-python",
+        "group": "code",
+        "description": "Python source",
+        "score": 0.9975,
         "is_text": true
       }
     },
