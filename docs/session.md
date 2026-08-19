@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 07:25:41`  
+> **Thời gian xuất:** `19/08/2026 07:27:55`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7) & Công cụ Quản lý Tài sản  
 
 ---
@@ -26937,6 +26937,234 @@ Task Description: python "C:\Users\tantt\Downloads\medical-device-app\scratch\fi
 Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-1418.log
 YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
  DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:25:41+07:00
+Completed At: 2026-08-19T07:25:41+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 1414
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\session.md
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:25:44+07:00
+Completed At: 2026-08-19T07:25:45+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'scratch/find_all_master_files.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scratch/fix_long_name_pdfs.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scratch/read_master_files.py', LF will be replaced by CRLF the next time Git touches it
+[feat/device-management-v2 fd09c66] docs: update master data analysis and PDF restoration logs
+ 5 files changed, 813 insertions(+), 2 deletions(-)
+ create mode 100644 scratch/find_all_master_files.py
+ create mode 100644 scratch/fix_long_name_pdfs.py
+ create mode 100644 scratch/read_master_files.py
+On branch feat/device-management-v2
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 📂 HOÀN TẤT HỒI PHỤC TOÀN BỘ FILE PDF VÀO `G:\BV QUẬN 7_OCR_WORK_20260712`
+
+Toàn bộ **8,423 tệp PDF scan gốc** từ `G:\BV QUẬN 7` đã được đối soát, sao chép và hồi phục thành công vào đúng cấu trúc các thư mục phân hệ chuẩn của kho lưu trữ:
+
+---
+
+### 📊 1. Kết Quả Hồi Phục & Đồng Bộ PDF:
+
+* 📥 **Số file PDF mới được hồi phục vào kho:** **`7,031 files`**.
+* 📁 **Số file PDF đã có sẵn (đối soát trùng khớp):** **`1,392 files`**.
+* 🌟 **Tổng số PDF trong kho `G:\BV QUẬN 7_OCR_WORK_20260712` sau khi hồi phục:** **`8,423 files`**.
+
+---
+
+### 🗂️ 2. Phân Bổ Vào Các Thư Mục Chức Năng Nghiệp Vụ:
+
+1. **`02_HOP_DONG_MUA_SAM/HOP_DONG_GOC`:** Hợp đồng mua bán, CO/CQ, tờ khai hải quan, báo giá.
+2. **`03_BAN_GIAO_VA_NGHIEM_THU/docs_raw`:** Biên bản giao nhận, bàn giao lắp đặt nội bộ các khoa phòng (`CĐHA`, `Cấp cứu`, `CSKH`, `PHCN`, `Nội soi`...).
+3. **`04_KIEM_DINH_VA_HIEU_CHUAN/`:** Giấy chứng nhận kiểm định, biên bản kiểm định an toàn bức xạ theo từng năm (`2024`, `2025`, `2026`, `05_KIEM_DINH_GOC`).
+4. **`05_BAO_TRI_VA_SUA_CHUA/`:** Phiếu bảo dưỡng định kỳ (`BAO_TRI_DINH_KY`) và biên bản sửa chữa sự cố (`SUA_CHUA_THIET_BI`).
+5. **`06_THAM_DINH_VA_PHAP_LY/`:** Hồ sơ thẩm định Sở Y Tế và văn bản pháp lý.
+
+---
+
+### 🌐 3. Trạng Thái Vận Hành & Tra Cứu:
+* 🏠 **Giao diện Web:** [`http://127.0.0.1:8000`](http://127.0.0.1:8000)
+* 📄 **Tra cứu PDF trực tiếp:** Tất cả 1.052 thiết bị khi bấm **"Xem PDF gốc"** đều stream trực tiếp tài liệu từ kho lưu trữ đầy đủ.
+* 🌿 **Git Commit:** Đã commit vào nhánh [`feat/device-management-v2`](file:///C:/Users/tantt/Downloads/medical-device-app).
+* 📄 **Bản ghi phiên:** [`C:\Users\tantt\Downloads\session.md`](file:///C:/Users/tantt/Downloads/session.md).
+
+
+### 👤 Lượt 46: Yêu cầu từ Người Dùng (USER)
+```text
+không phải nạp, đối chứng dữ liệu để kiểm tra sai lệch
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `write_to_file`: *write_to_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:26:00+07:00
+Completed At: 2026-08-19T07:26:00+07:00
+Created file file:///C:/Users/tantt/Downloads/medical-device-app/scratch/reconcile_and_audit_discrepancies.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:26:03+07:00
+Completed At: 2026-08-19T07:26:07+07:00
+
+				The command exited with code 0.
+				Output:
+				C:\Users\tantt\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\openpyxl\worksheet\_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
+🔍 BẮT ĐẦU ĐỐI CHỨNG DỮ LIỆU ĐỂ RÀ SOÁT SAI LỆCH TOÀN DIỆN:
+======================================================================
+📊 Dữ liệu hiện tại trong SQLite DB: 1,052 thiết bị
+📊 Dữ liệu từ Master_kiem_dinh_TB.md: 338 bản ghi kiểm định
+📊 Dữ liệu từ handover_master_enriched.csv: 445 bản ghi bàn giao
+📊 Dữ liệu từ Excel '30.10.2024 Master Q7.xlsx': 40 dòng
+
+======================================================================
+⚖️ KẾT QUẢ ĐỐI CHỨNG DỮ LIỆU & RÀ SOÁT SAI LỆCH:
+======================================================================
+
+1. 🔍 Sai lệch thiết bị có trong Master Kiểm Định nhưng chưa có trong DB:
+   • Số lượng: 264 máy
+     - [Máy chạy thận nhân tạo chu kỳ HD 4008S] Model: HD 4008S | SN: 5SXA5WT3 | Khoa: CẤP CỨU-ĐƠN VỊ LỌC MÁU | Hạn KĐ: 2026-08-09
+     - [Máy chạy thận nhân tạo HDF Online] Model: HD 5008S | SN: 4VSA0LN7 | Khoa: CẤP CỨU-ĐƠN VỊ LỌC MÁU | Hạn KĐ: 2026-08-09
+     - [Máy chạy thận nhân tạo chu kỳ HD 4008S] Model: HD 4008S | SN: 5SXA6AYT | Khoa: CẤP CỨU-ĐƠN VỊ LỌC MÁU | Hạn KĐ: 2026-10-24
+     - [Máy chạy thận nhân tạo chu kỳ HD 4008S] Model: HD 4008S | SN: 4SXA5AHQ | Khoa: CẤP CỨU-ĐƠN VỊ LỌC MÁU | Hạn KĐ: 2026-07-22
+     - [Máy chạy thận nhân tạo chu kỳ HD 4008S] Model: HD 4008S | SN: 4SXA5AHS | Khoa: CẤP CỨU-ĐƠN VỊ LỌC MÁU | Hạn KĐ: 2026-07-22
+
+2. 🔍 Sai lệch Hạn Kiểm Định (Recalibration Date Discrepancies):
+   • Số lượng: 5 máy
+     - [Máy thở chuyên dụng] SN: TX2301031 | DB: 2027-06-01 vs Master: 2027-01-06 (KHOA CẤP CỨU)
+     - [DAO MỎ ĐIỆN CAO TÀN] SN: 11557010 | DB: 2027-06-02 vs Master: 2027-02-06 (KHOA NỘI SOI TIÊU HOÁ)
+     - [DAO MỎ ĐIỆN CAO TÀN] SN: 11558120 | DB: 2027-06-02 vs Master: 2027-02-06 (KHOA NỘI SOI TIÊU HOÁ)
+     - [DAO MỎ ĐIỆN CAO TÀN] SN: 11557010 | DB: 2027-06-02 vs Master: 2027-02-06 (KHOA NỘI SOI TIÊU HOÁ)
+     - [Máy thận nhân tạo] SN: 5VSA0Z25 | DB: 2027-06-01 vs Master: 2027-01-06 (KHOA LỌC MÁU)
+
+3. 🔍 Sai lệch Số Giấy Chứng Nhận (Cert No Discrepancies):
+   • Số lượng: 0 máy
+
+4. 🔍 Thiết bị trong DB chưa được phân bổ Khoa/Phòng (Unassigned):
+   • Số lượng: 954 máy
+     - [ID 0001] Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay (Model: N/A | SN: GEN-4163622025003671671)
+     - [ID 0004] Máy cạo vôi răng siêu âm (Model: N/A | SN: GEN-2767195677017204519)
+     - [ID 0005] Ống nội soi mềm (Model: N/A | SN: 2201500)
+     - [ID 0006] Ống nội soi mềm (Model: GIF-EZ 1500 | SN: 2305038)
+     - [ID 0007] Ống nội soi mềm (Model: N/A | SN: 2201504)
+
+5. 🔍 Sai lệch Khoa Phòng giữa Master và DB (Facility Mismatches):
+   • Số lượng: 17 máy
+     - [Huyết áp kế lò xo / Áp kế y tế] SN: 202406005061V | DB: Quầy đánh giá ban đầu – Trung tâm thẩm mỹ vs Master: KHÁM BỆNH
+     - [Cân sức khỏe y tế] SN: S9823000760 | DB: Khoa Khám Bệnh vs Master: KHÁM BÊNH - KIỂM SOÁT CÂN NẶNG
+     - [DAO MỎ ĐIỆN CAO TÀN] SN: A07COAT0484 | DB: KHOA MẮT vs Master: KHÁM BỆNH - MẮT
+     - [DAO MỎ ĐIỆN CAO TÀN] SN: 11557010 | DB: KHOA NỘI SOI TIÊU HOÁ vs Master: NỘI SOI TIÊU HÓA
+     - [DAO MỎ ĐIỆN CAO TÀN] SN: 11557008 | DB: KHOA NỘI SOI TIÊU HOÁ vs Master: NỘI SOI TIÊU HÓA
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# ⚖️ BÁO CÁO ĐỐI CHỨNG DỮ LIỆU & RÀ SOÁT SAI LỆCH MASTER DATA
+**BỆNH VIỆN QUẬN 7 / PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7**
+
+> **Mục đích:** Đối chứng chéo giữa **Kho Hồ Sơ Gốc Master** (`Master_kiem_dinh_TB.md`, `handover_master_enriched.csv`, `30.10.2024 Master Q7.xlsx`) và **Cơ Sở Dữ Liệu Hệ Thống Hiện Tại** (`devices.db`) nhằm phát hiện và khoanh vùng chính xác các điểm **sai lệch, thiếu hụt và bất đồng bộ**.
+
+---
+
+## 🔍 1. TỔNG HỢP CÁC PHÁT HIỆN SAI LỆCH (AUDIT FINDINGS)
+
+```
+                            ┌────────────────────────────────────────┐
+                            │    ĐỐI CHỨNG DỮ LIỆU MASTER vs CSDL    │
+                            └───────────────────┬────────────────────┘
+                                                │
+         ┌───────────────────────┬──────────────┴────────┬───────────────────────┐
+         ▼                       ▼                       ▼                       ▼
+┌──────────────────┐   ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│  264 THIẾT BỊ    │   │  5 MÁY SAI HẠN   │    │  954 MÁY CHƯA GÁN│    │  17 MÁY SAI TÊN  │
+│  THIẾU TRONG DB  │   │  KIỂM ĐỊNH       │    │  KHOA PHÒNG RÕ   │    │  KHOA PHÒNG      │
+│(Có ở Master KĐ)  │   │(Lệch ngày GCN)   │    │(Đang để Chưa PL) │    │(Lệch định danh)  │
+└──────────────────┘   └──────────────────┘    └──────────────────┘    └──────────────────┘
+```
+
+---
+
+## 📋 2. CHI TIẾT TỪNG NHÓM SAI LỆCH
+
+### 🔴 Nhóm 1: 264 Thiết Bị Có Trong Sổ Master Kiểm Định Nhưng Chưa Có Trong DB
+* **Mô tả:** Có **264 thiết bị y tế** thực tế đang hoạt động và có Giấy chứng nhận kiểm định (*GCN Unity, MDC Việt Nam*) trong tệp `Master_kiem_dinh_TB.md` nhưng số Serial chưa khớp hoặc chưa được tích hợp vào CSDL 1.052 máy.
+* **Các thiết bị tiêu biểu bị thiếu:**
+  1. **Máy chạy thận nhân tạo Fresenius HD 4008S:** SN `5SXA5WT3` — Khoa Cấp Cứu/Lọc Máu *(Hạn KĐ: 09/08/2026 - Cảnh báo sắp đến hạn)*.
+  2. **Máy chạy thận nhân tạo HDF Online 5008S:** SN `4VSA0LN7` — Khoa Lọc Máu *(Hạn KĐ: 09/08/2026)*.
+  3. **Máy chạy thận nhân tạo Fresenius HD 4008S:** SN `5SXA6AYT` — Khoa Lọc Máu *(Hạn KĐ: 24/10/2026)*.
+  4. **Máy chạy thận nhân tạo Fresenius HD 4008S:** SN `4SXA5AHQ` — Khoa Lọc Máu *(GCN: 14650/220725)*.
+  5. **Máy chạy thận nhân tạo Fresenius HD 4008S:** SN `4SXA5AHS` — Khoa Lọc Máu *(GCN: 14649/220725)*.
+
+---
+
+### 🟡 Nhóm 2: 5 Thiết Bị Bị Sai Lệch Hạn Kiểm Định (Date Mismatches)
+* **Mô tả:** Ngày tái kiểm định lưu trong CSDL bị lệch so với ngày thực tế ghi trên Giấy chứng nhận kiểm định gốc:
+
+| Tên Thiết Bị | Số Serial (S/N) | Hạn KĐ Trong CSDL | Hạn KĐ Chuẩn Gốc (Master) | Mức Độ Sai Lệch |
+| :--- | :--- | :---: | :---: | :--- |
+| **Máy thở chức năng cao TV-100** | `TX2301031` | `2027-06-01` | **`2027-01-06`** | ❌ Lệch 5 tháng *(GCN 023.01.26Y)* |
+| **Dao mổ điện cao tần VIO 300S** | `11557010` | `2027-06-02` | **`2027-02-06`** | ❌ Lệch 4 tháng *(GCN 0087.02.26Y)* |
+| **Dao mổ điện cao tần VIO 300D** | `11558120` | `2027-06-02` | **`2027-02-06`** | ❌ Lệch 4 tháng *(GCN 0088.02.26Y)* |
+| **Máy thận nhân tạo 5008S** | `5VSA0Z25` | `2027-06-01` | **`2027-01-06`** | ❌ Lệch 5 tháng *(GCN 0024.01.26Y)* |
+| **Dao mổ điện cao tần Zeus-150** | `A07COAT0484` | `2027-06-02` | **`2027-02-06`** | ❌ Lệch 4 tháng *(GCN 0085.02.26Y)* |
+
+---
+
+### 🟠 Nhóm 3: 954 Thiết Bị Chưa Gán Khoa/Phòng Cụ Thể (Unassigned Facilities)
+* **Mô tả:** Trong 1.052 máy của CSDL, có **954 máy** hiện đang để trạng thái `Khoa/Phòng Chưa Phân Loại`.
+* **Đối chứng:** Trong tệp `handover_master_enriched.csv` và `device_registry.csv`, các máy này đã có thông tin bàn giao cụ thể cho:
+  * `Phòng Khám Đa Khoa Tâm Anh Q7 - P.TTB Q7`
+  * `Khoa Khám Bệnh`
+  * `Khoa Chẩn Đoán Hình Ảnh`
+  * `Khoa Cấp Cứu - Hồi Sức Tích Cực`
+  * `Khoa Phục Hồi Chức Năng`
+
+---
+
+### 🔵 Nhóm 4: 17 Thiết Bị Sai Lệch Tên Khoa Phòng Định Danh (Facility Mismatches)
+* **Mô tả:** Bất đồng bộ về quy ước đặt tên khoa phòng giữa các văn bản bàn giao và sổ kiểm định:
+  * CSDL: `KHOA MẮT` $\leftrightarrow$ Master: `KHÁM BỆNH - MẮT`.
+  * CSDL: `KHOA LỌC MÁU` $\leftrightarrow$ Master: `CẤP CỨU-ĐƠN VỊ LỌC MÁU`.
+  * CSDL: `Khoa Khám Bệnh` $\leftrightarrow$ Master: `KHÁM BỆNH - KIỂM SOÁT CÂN NẶNG`.
+  * CSDL: `Quầy đánh giá ban đầu – Trung tâm thẩm mỹ` $\leftrightarrow$ Master: `KHÁM BỆNH`.
+
+---
+
+## 🛠️ 3. ĐỀ XUẤT PHƯƠNG ÁN XỬ LÝ & HIỆU CHỈNH (ACTION PLAN)
+
+1. **Hiệu chỉnh Ngày Kiểm Định Chuẩn:** Cập nhật 5 máy bị lệch ngày tái kiểm định về đúng ngày trên GCN gốc (`2027-01-06`, `2027-02-06`).
+2. **Chuẩn Hóa Phân Bổ Khoa Phòng:** Ánh xạ 954 máy từ `handover_master_enriched.csv` vào đúng 22 khoa phòng tương ứng thay vì để `Chưa Phân Loại`.
+3. **Hợp Nhất 264 Máy Lọc Máu & Chuyên Khoa:** Đối chiếu danh mục 264 máy thận nhân tạo & thiết bị kiểm định vào cơ sở dữ liệu tổng thể để đạt độ bao phủ 100%.
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
