@@ -197,6 +197,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     const rStyle = riskMap[d.risk_level] || { bg: '#64748b', text: '#ffffff' };
                     const riskBadge = d.risk_level ? `<span class="badge badge-risk-${d.risk_level}" style="background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.15);">${d.risk_level}</span>` : '<span class="text-muted">-</span>';
 
+                    // Tag Nhà Cung Cấp / Hãng
+                    const supplierName = d.supplier_name || (d.manufacturer ? `Hãng ${d.manufacturer}` : 'Chưa có thông tin NCC');
+                    const supplierTag = `<span class="badge bg-light text-dark border border-secondary-subtle font-mono" style="font-size: 0.74rem; font-weight: 600; padding: 0.25rem 0.5rem;"><i class="bi bi-building text-primary me-1"></i>${supplierName}</span>`;
+
+                    // Tag Khoa Phòng Quản Lý
+                    const facName = d.facility || d.facility_name;
+                    const facilityTag = facName ? 
+                        `<span class="badge bg-light text-dark border border-primary-subtle fw-bold" style="font-size: 0.8rem; padding: 0.35rem 0.65rem;"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${facName}</span>` : 
+                        `<span class="badge bg-warning-subtle text-warning border" style="font-size: 0.75rem;">Chưa phân khoa</span>`;
+
                     return `
                         <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
                             <td class="ps-3 font-mono fw-semibold text-primary">
@@ -204,11 +214,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="text-muted" style="font-size: 0.72rem;">${d.speedmaint_code || ''}</div>
                             </td>
                             <td>
-                                <div class="fw-bold text-dark text-hover-primary">${d.device_name}</div>
-                                <div class="text-muted small">${d.model || ''} • ${d.manufacturer || ''}</div>
+                                <div class="fw-bold text-dark text-hover-primary mb-1">${d.device_name}</div>
+                                <div class="d-flex flex-wrap align-items-center gap-1">
+                                    <span class="badge bg-secondary-subtle text-dark font-mono" style="font-size: 0.72rem;">Model: ${d.model || 'N/A'}</span>
+                                    ${supplierTag}
+                                </div>
                             </td>
-                            <td class="font-mono">${d.serial_no || '<span class="text-muted">-</span>'}</td>
-                            <td>${d.facility_name || '<span class="text-muted">Chưa phân khoa</span>'}</td>
+                            <td class="font-mono fw-semibold text-dark">${d.serial_no || '<span class="text-muted">-</span>'}</td>
+                            <td>${facilityTag}</td>
                             <td class="text-center">${riskBadge}</td>
                             <td class="text-center">
                                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span>
@@ -277,6 +290,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (statusBadge) {
                     statusBadge.textContent = dev.status || 'IN_SERVICE';
                 }
+
+                // 1b. Header Tags for Supplier & Facility
+                const headerFacTag = document.getElementById('modal-header-fac-tag');
+                if (headerFacTag) headerFacTag.innerHTML = `<i class="bi bi-geo-alt-fill text-danger me-1"></i>${dev.facility || 'Kho thiết bị trung tâm'}`;
+                
+                const headerSupTag = document.getElementById('modal-header-sup-tag');
+                if (headerSupTag) headerSupTag.innerHTML = `<i class="bi bi-building text-info me-1"></i>${dev.supplier_name || dev.manufacturer || 'Tổng kho'}`;
 
                 // 2. Tab 1: General Info
                 document.getElementById('modal-dev-facility').textContent = dev.facility || 'Kho thiết bị trung tâm';
