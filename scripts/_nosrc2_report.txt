@@ -1,0 +1,28 @@
+tổng md không src: 5723
+  có tiêu đề # ....pdf và PDF tồn tại: 2812
+  có tiêu đề # ....pdf nhưng PDF không có: 0
+  không có tiêu đề pdf (tài liệu hệ thống/md thuần): 2881
+
+--- khớp tiêu đề -> PDF (8 ví dụ) ---
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\DEAWON\BBBG_1 đầu xịt phun khí bàn khám TMH IU 3000 PO Q725080155 CT Deawon.md  |  BBBG_1 đầu xịt phun khí bàn khám TMH IU 3000 PO Q725080155 CT Deawon.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\BBBG_1 đầu xịt phun khí bàn khám TMH IU 3000 PO Q725080155 CT Deawon.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\DEAWON\Hợp đồng\2025\Hopdong 03625Q7\BBBG_CT Deawon_0001.md  |  BBBG_CT Deawon_0001.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\BBBG_CT Deawon_0001.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\DEAWON\Hợp đồng\2025\Hopdong 03625Q7\BBNT_23.01.26_1 bàn khám-1 ghế khám TMH_HD 03625Q7.md  |  BBNT_23.01.26_1 bàn khám-1 ghế khám TMH_HD 03625Q7.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\BBNT_23.01.26_1 bàn khám-1 ghế khám TMH_HD 03625Q7.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\DEAWON\Hợp đồng\2025\Hopdong 03625Q7\Hợp đồng 03625Q7_CT Deawon_0001.md  |  Hợp đồng 03625Q7_CT Deawon_0001.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\Hợp đồng 03625Q7_CT Deawon_0001.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\DEAWON\Hợp đồng\2025\Hopdong 03625Q7\Bộ chứng từ_CT Deawon_0001.md  |  Bộ chứng từ_CT Deawon_0001.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\Bộ chứng từ_CT Deawon_0001.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\DHT\BBBG_1 mô hình tắm bé trai 1 mô hình tấm bé gái_CT DHT.md  |  BBBG_1 mô hình tắm bé trai 1 mô hình tấm bé gái_CT DHT.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\BBBG_1 mô hình tắm bé trai 1 mô hình tấm bé gái_CT DHT.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\Duy Minh\Hợp đồng\2024\44.2024.HĐĐM.CTDM-PKĐKTA.Q7\BGLĐ.md  |  BGLĐ.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\BGLĐ.pdf
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\Duy Minh\Hợp đồng\2024\44.2024.HĐĐM.CTDM-PKĐKTA.Q7\NT_HD 44.2024.HĐĐM.CTDM-ĐKTA.Q7_CT Duy Minh_Máy xét nghiệm.md  |  NT_HD 44.2024.HĐĐM.CTDM-ĐKTA.Q7_CT Duy Minh_Máy xét nghiệm.pdf  ->  G:\BV QUẬN 7_OCR_WORK_20260712\02_HOP_DONG_MUA_SAM\HOP_DONG_GOC\NT_HD 44.2024.HĐĐM.CTDM-ĐKTA.Q7_CT Duy Minh_Máy xét nghiệm.pdf
+
+--- tiêu đề pdf nhưng không thấy PDF (8 ví dụ) ---
+
+--- không tiêu đề (10 ví dụ) ---
+G:\BV QUẬN 7_OCR_WORK_20260712\md\audit_ocr_final.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\MEDICAL_DEVICE_SKILL_PROFILE.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\NANOBOT_DEVICE_MANAGEMENT_INSTRUCTIONS.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\TONG_QUAN_DU_LIEU.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\session.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\_feedback\vibe_test_3000024482.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\_feedback\vibe_cli_test.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\_feedback\pdf_cannot_ocr.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\_sample\02 Máy cạo vôi răng, 01 Tra dầu bảo dưỡng ,01 tay khoan siêu tốc,02 tay khoan tốc độ chậm, 04 tay khoan siêu tốc, 04 khớp nối nhan, 10 mũi cạo_Khám bệnh-Nha khoa_25624WH1P.audit.md
+G:\BV QUẬN 7_OCR_WORK_20260712\md\02_HOP DONG MUA SAM\Bàn giao lắp đặt + Chứng từ CO,CQ\Năng Động\NANG DONG 0202.2026 - xoagia.md

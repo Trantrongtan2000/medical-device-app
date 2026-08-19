@@ -1,0 +1,6 @@
+md KHÔNG có source_pdf: 5723
+  có PDF trùng tên chuẩn hóa (thêm được source_pdf): 0
+    trong đó PDF cùng thư mục md: 0
+  KHÔNG có PDF trùng tên (chưa OCR / tên lệch): 5723
+
+--- 20 ví dụ khớp ---
