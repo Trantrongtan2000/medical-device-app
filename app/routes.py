@@ -1487,3 +1487,79 @@ async def update_oncall_schedule(sched_id: int, req: OncallScheduleUpdate, db = 
         db.execute(f"UPDATE oncall_schedule SET {', '.join(fields)} WHERE id = ?", params)
         db.commit()
     return {"status": "success", "message": f"Đã cập nhật lịch On-call cho {row['day_name']} thành công!"}
+
+
+
+class QuickAssignWeeklyRequest(BaseModel):
+    month: int
+    year: int
+    assign_mode: str = "AUTO_MONTH" # "AUTO_MONTH", "SPECIFIC_WEEK", "CUSTOM_RANGE"
+    start_engineer: str = "Trần Trọng Tấn" # "Trần Trọng Tấn", "Lê Minh Thiện", "Trần Đăng Hiếu"
+    start_day: Optional[int] = None
+    end_day: Optional[int] = None
+    target_engineer: Optional[str] = None
+    backup_engineer: Optional[str] = None
+
+@router.post("/api/oncall/quick-assign-weekly")
+async def quick_assign_weekly_oncall(req: QuickAssignWeeklyRequest, db = Depends(get_db)):
+    """Chỉnh nhanh phân công lịch On-call 1 tuần cho 3 nhân sự chính: Tấn, Thiện, Hiếu"""
+    engineers_map = {
+        "Trần Trọng Tấn": "0334968114",
+        "Lê Minh Thiện": "0378716561",
+        "Trần Đăng Hiếu": "0888536278",
+        "Nguyễn Tấn Lợi": "0779798786",
+        "Nguyễn Quốc Việt": "0902769710",
+        "Trần Thị Ngọc Châu": "0335802380"
+    }
+    
+    order = ["Trần Trọng Tấn", "Lê Minh Thiện", "Trần Đăng Hiếu"]
+    
+    if req.assign_mode == "AUTO_MONTH":
+        # Start rotating 3 engineers week-by-week
+        rows = db.execute("SELECT id, day_num, day_name, date_str FROM oncall_schedule WHERE month = ? AND year = ? ORDER BY day_num ASC", (req.month, req.year)).fetchall()
+        if not rows:
+            raise HTTPException(status_code=404, detail="Chưa có dữ liệu tháng này")
+        
+        # Start index
+        start_idx = 0
+        if req.start_engineer in order:
+            start_idx = order.index(req.start_engineer)
+            
+        cur_idx = start_idx
+        for r in rows:
+            d_id = r["id"]
+            d_name = r["day_name"]
+            
+            # Switch engineer every Monday
+            if d_name == "Thứ Hai" and r["day_num"] > 1:
+                cur_idx = (cur_idx + 1) % len(order)
+                
+            prim = order[cur_idx]
+            back = order[(cur_idx + 1) % len(order)]
+            
+            db.execute("""
+                UPDATE oncall_schedule
+                SET primary_engineer = ?, primary_phone = ?, backup_engineer = ?, backup_phone = ?, notes = ?
+                WHERE id = ?
+            """, (prim, engineers_map.get(prim, ""), back, engineers_map.get(back, ""), f"Phân công nhanh tuần (On-call 24h {prim})", d_id))
+            
+        db.commit()
+        return {"status": "success", "message": f"Đã tự động xếp lịch On-call 24h trọn Tháng {req.month}/{req.year} xoay vòng theo 3 kỹ sư: Tấn -> Thiện -> Hiếu!"}
+
+    elif req.assign_mode == "CUSTOM_RANGE":
+        if not req.start_day or not req.end_day or not req.target_engineer:
+            raise HTTPException(status_code=400, detail="Thiếu thông tin khoảng ngày hoặc kỹ sư")
+            
+        prim = req.target_engineer
+        back = req.backup_engineer or order[(order.index(prim) + 1) % len(order)] if prim in order else "Trần Đăng Hiếu"
+        
+        db.execute("""
+            UPDATE oncall_schedule
+            SET primary_engineer = ?, primary_phone = ?, backup_engineer = ?, backup_phone = ?, notes = ?
+            WHERE month = ? AND year = ? AND day_num >= ? AND day_num <= ?
+        """, (prim, engineers_map.get(prim, ""), back, engineers_map.get(back, ""), f"Chỉnh nhanh trọn tuần cho {prim}", req.month, req.year, req.start_day, req.end_day))
+        
+        db.commit()
+        return {"status": "success", "message": f"Đã gán trọn ca (Ngày {req.start_day:02d} -> {req.end_day:02d}/{req.month:02d}) cho KS. {prim} thành công!"}
+
+    return {"status": "success", "message": "Thao tác thành công"}

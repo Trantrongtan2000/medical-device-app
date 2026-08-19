@@ -163,3 +163,17 @@ def test_oncall_schedule_endpoints():
     assert res_today.status_code == 200
     today = res_today.json()
     assert "primary_engineer" in today
+
+
+
+def test_quick_assign_weekly_endpoint():
+    payload = {
+        "month": 8,
+        "year": 2026,
+        "assign_mode": "AUTO_MONTH",
+        "start_engineer": "Trần Trọng Tấn"
+    }
+    res = client.post("/api/oncall/quick-assign-weekly", json=payload)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "success"

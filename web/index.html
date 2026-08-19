@@ -711,6 +711,9 @@
                                 </p>
                             </div>
                             <div class="d-flex gap-2">
+                                <button class="btn btn-warning text-dark btn-clinical fw-bold shadow-sm" onclick="app.openQuickAssignModal()">
+                                    <i class="bi bi-lightning-charge-fill me-1"></i> Chỉnh Nhanh Tuần (Tấn - Thiện - Hiếu)
+                                </button>
                                 <button class="btn btn-outline-primary btn-clinical fw-semibold" onclick="app.switchStaffView('oncall')">
                                     <i class="bi bi-calendar-week-fill me-1"></i> Lịch Xếp On-Call Theo Tháng (24h)
                                 </button>
@@ -2014,6 +2017,82 @@
                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
                             <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
                                 <i class="bi bi-check-lg me-1"></i> Cập Nhật Lịch On-Call
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL: CHỈNH NHANH LỊCH ON-CALL THEO TUẦN (3 NHÂN SỰ TẤN / THIỆN / HIẾU) ==================== -->
+    <div class="modal fade" id="quickAssignWeeklyOncallModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-warning text-dark px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-lightning-charge-fill me-2"></i>Chỉnh Nhanh Phân Công On-Call Theo Tuần</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="alert alert-warning d-flex align-items-center gap-2 mb-3 py-2 small">
+                        <i class="bi bi-info-circle-fill fs-5"></i>
+                        <div><strong>Quy tắc On-call Q7:</strong> 3 nhân sự chính (<strong>Tấn, Thiện, Hiếu</strong>) sẽ luân phiên trực On-call 24/24h <strong>trọn 1 tuần</strong> (Thứ 2 đến CN).</div>
+                    </div>
+
+                    <form id="quickAssignWeeklyForm">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">CHỌN PHƯƠNG THỨC XẾP NHANH</label>
+                            <select id="quick-assign-mode" class="form-select form-select-sm" onchange="app.toggleQuickAssignMode(this.value)">
+                                <option value="AUTO_MONTH">1 Click: Tự động xếp xoay vòng 3 KS trọn cả tháng (Tấn -> Thiện -> Hiếu)</option>
+                                <option value="CUSTOM_RANGE">Gán 1 tuần / khoảng ngày cụ thể cho 1 Kỹ sư</option>
+                            </select>
+                        </div>
+
+                        <div id="quick-auto-month-options">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark">KỸ SƯ TRỰC TUẦN ĐẦU TIÊN CỦA THÁNG (*)</label>
+                                <select id="quick-start-engineer" class="form-select form-select-sm font-mono fw-bold">
+                                    <option value="Trần Trọng Tấn">KS. Trần Trọng Tấn (Tuần 1: Tấn -> Tuần 2: Thiện -> Tuần 3: Hiếu)</option>
+                                    <option value="Lê Minh Thiện">KS. Lê Minh Thiện (Tuần 1: Thiện -> Tuần 2: Hiếu -> Tuần 3: Tấn)</option>
+                                    <option value="Trần Đăng Hiếu">KS. Trần Đăng Hiếu (Tuần 1: Hiếu -> Tuần 2: Tấn -> Tuần 3: Thiện)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="quick-custom-range-options" class="d-none">
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label small fw-bold text-dark">TỪ NGÀY</label>
+                                    <input type="number" id="quick-start-day" class="form-control form-control-sm" min="1" max="31" value="1">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small fw-bold text-dark">ĐẾN NGÀY</label>
+                                    <input type="number" id="quick-end-day" class="form-control form-control-sm" min="1" max="31" value="7">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark">KỸ SƯ ON-CALL CHÍNH (24H)</label>
+                                <select id="quick-target-engineer" class="form-select form-select-sm font-mono fw-bold">
+                                    <option value="Trần Trọng Tấn">KS. Trần Trọng Tấn (0334.968.114)</option>
+                                    <option value="Lê Minh Thiện">KS. Lê Minh Thiện (0378.716.561)</option>
+                                    <option value="Trần Đăng Hiếu">KS. Trần Đăng Hiếu (0888.536.278)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-dark">KỸ SƯ DỰ PHÒNG (BACKUP)</label>
+                                <select id="quick-backup-engineer" class="form-select form-select-sm font-mono">
+                                    <option value="Trần Đăng Hiếu">KS. Trần Đăng Hiếu (0888.536.278)</option>
+                                    <option value="Trần Trọng Tấn">KS. Trần Trọng Tấn (0334.968.114)</option>
+                                    <option value="Lê Minh Thiện">KS. Lê Minh Thiện (0378.716.561)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-warning text-dark btn-clinical fw-bold shadow-sm">
+                                <i class="bi bi-lightning-charge-fill me-1"></i> Áp Dụng Xếp Lịch Nhanh
                             </button>
                         </div>
                     </form>

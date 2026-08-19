@@ -1947,11 +1947,65 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         },
 
+        
+        openQuickAssignModal() {
+            const modal = new bootstrap.Modal(document.getElementById('quickAssignWeeklyOncallModal'));
+            modal.show();
+        },
+
+        toggleQuickAssignMode(mode) {
+            const autoOpt = document.getElementById('quick-auto-month-options');
+            const customOpt = document.getElementById('quick-custom-range-options');
+            if (mode === 'AUTO_MONTH') {
+                autoOpt?.classList.remove('d-none');
+                customOpt?.classList.add('d-none');
+            } else {
+                autoOpt?.classList.add('d-none');
+                customOpt?.classList.remove('d-none');
+            }
+        },
+
+        setupQuickAssignForm() {
+            const form = document.getElementById('quickAssignWeeklyForm');
+            form?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const mode = document.getElementById('quick-assign-mode').value;
+                const payload = {
+                    month: this.currentOncallMonth || 8,
+                    year: this.currentOncallYear || 2026,
+                    assign_mode: mode,
+                    start_engineer: document.getElementById('quick-start-engineer').value,
+                    start_day: parseInt(document.getElementById('quick-start-day').value || 1, 10),
+                    end_day: parseInt(document.getElementById('quick-end-day').value || 7, 10),
+                    target_engineer: document.getElementById('quick-target-engineer').value,
+                    backup_engineer: document.getElementById('quick-backup-engineer').value
+                };
+
+                try {
+                    const res = await fetch('/api/oncall/quick-assign-weekly', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi xếp lịch nhanh');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('quickAssignWeeklyOncallModal'))?.hide();
+                    await this.loadOncallData(this.currentOncallMonth, this.currentOncallYear);
+                    this.renderOncallSchedule();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+        },
+
         setupFormSubmissions() {
             this.setupCheckoutForm();
             this.setupStaffEventListeners();
             this.setupDirectoryEditForms();
             this.setupOncallEditForm();
+            this.setupQuickAssignForm();
 
             document.getElementById('btn-tab-staff')?.addEventListener('click', () => {
                 this.loadStaff();
