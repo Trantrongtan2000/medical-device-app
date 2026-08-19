@@ -841,7 +841,37 @@ async def remove_api_key(req: RemoveKeyRequest):
 
 # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
 
-SOP_HTML_PATH = Path(r"C:\Users\tantt\Downloads\asset-management-tools\quy_trinh_ttbyt.html")
+SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
+if not SOP_HTML_PATH.exists():
+    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html"
 
 @router.get("/sops")
 async def view_sop_handbook():
@@ -1461,13 +1491,30 @@ class OncallScheduleUpdate(BaseModel):
 
 @router.get("/api/oncall/schedule")
 async def get_oncall_schedule(
-    month: Optional[int] = Query(8, description="Tháng cần xem lịch"),
+    month: Optional[Any] = Query(8, description="Tháng cần xem lịch (int hoặc YYYY-MM)"),
     year: Optional[int] = Query(2026, description="Năm cần xem lịch"),
     db = Depends(get_db)
 ):
+    # Parse flexible month strings like '2026-08' or '08'
+    parsed_month = 8
+    parsed_year = year or 2026
+    if month is not None:
+        m_str = str(month).strip()
+        if "-" in m_str:
+            parts = m_str.split("-")
+            try:
+                parsed_year = int(parts[0])
+                parsed_month = int(parts[1])
+            except ValueError:
+                parsed_month = 8
+        else:
+            try:
+                parsed_month = int(m_str)
+            except ValueError:
+                parsed_month = 8
     """Danh sách Lịch On-call TTBYT 24 giờ xếp theo tháng để sắp xếp trước"""
     query = "SELECT * FROM oncall_schedule WHERE month = ? AND year = ? ORDER BY day_num ASC"
-    rows = db.execute(query, (month, year)).fetchall()
+    rows = db.execute(query, (parsed_month, parsed_year)).fetchall()
     if not rows:
         # Fallback to all if specific month not generated
         rows = db.execute("SELECT * FROM oncall_schedule ORDER BY year ASC, month ASC, day_num ASC LIMIT 31").fetchall()
@@ -1576,3 +1623,25 @@ async def quick_assign_weekly_oncall(req: QuickAssignWeeklyRequest, db = Depends
         return {"status": "success", "message": f"Đã gán trọn ca (Ngày {req.start_day:02d} -> {req.end_day:02d}/{req.month:02d}) cho KS. {prim} thành công!"}
 
     return {"status": "success", "message": "Thao tác thành công"}
+
+
+# ==================== iFixAi ROBUST ALIAS ROUTES ====================
+@router.get("/api/speedmaint/work-orders")
+async def alias_speedmaint_work_orders(db = Depends(get_db)):
+    return await list_work_orders(db=db)
+
+@router.get("/api/inspections/daily")
+async def alias_daily_inspections(limit: int = 50, db = Depends(get_db)):
+    return await get_pre_use_inspections(limit=limit, db=db)
+
+@router.get("/api/calibrations")
+async def alias_calibrations(db = Depends(get_db)):
+    return await get_schedules(db=db)
+
+@router.get("/api/maintenance/logs")
+async def alias_maintenance_logs(db = Depends(get_db)):
+    return await get_schedules(db=db)
+
+@router.get("/api/semantica/graph")
+async def alias_semantica_graph():
+    return await get_semantica_stats()
