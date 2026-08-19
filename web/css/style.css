@@ -1,7 +1,6 @@
 /* ==========================================================================
    Medical Device Management System (BV Quận 7 / PKĐK Tâm Anh Q7)
-   Google Stitch & UI/UX Pro Max Clinical Design System
-   "Less, but better" - High-Clarity Typography, Glass Accents & Micro-Interactions
+   Google Stitch & UI/UX Pro Max - High Contrast & Crystal Clear Typography
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
@@ -10,43 +9,47 @@
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* Google Stitch Medical Palette */
-    --color-primary: #0284c7;
-    --color-primary-dark: #0369a1;
-    --color-primary-light: #f0f9ff;
-    --color-primary-subtle: rgba(2, 132, 199, 0.08);
+    /* High Contrast Clinical Palette */
+    --color-primary: #0369a1;          /* Deep Sky Blue - Strong contrast */
+    --color-primary-hover: #0284c7;
+    --color-primary-dark: #075985;
+    --color-primary-light: #e0f2fe;
+    --color-primary-subtle: #f0f9ff;
 
-    --color-teal: #0d9488;
-    --color-teal-light: #f0fdfa;
+    --color-teal: #0f766e;
+    --color-teal-light: #ccfbf1;
 
-    --color-success: #059669;
-    --color-success-bg: #ecfdf5;
+    --color-success: #15803d;          /* Deep Emerald */
+    --color-success-bg: #dcfce7;
+    --color-success-text: #14532d;
 
-    --color-warning: #d97706;
-    --color-warning-bg: #fffbeb;
+    --color-warning: #b45309;          /* Deep Amber */
+    --color-warning-bg: #fef3c7;
+    --color-warning-text: #78350f;
 
-    --color-danger: #dc2626;
-    --color-danger-bg: #fef2f2;
+    --color-danger: #b91c1c;           /* Deep Crimson */
+    --color-danger-bg: #fee2e2;
+    --color-danger-text: #7f1d1d;
 
     --surface-page: #f8fafc;
     --surface-card: #ffffff;
-    --border-color: #e2e8f0;
-    --border-light: #f1f5f9;
+    --border-color: #cbd5e1;           /* Clear separation border */
+    --border-light: #e2e8f0;
 
     --sidebar-bg: #0f172a;
-    --sidebar-text: #94a3b8;
+    --sidebar-text: #cbd5e1;           /* Brightened for clear reading */
     --sidebar-active: #ffffff;
 
-    --text-main: #0f172a;
-    --text-muted: #64748b;
+    --text-main: #0f172a;              /* Pure dark navy for maximum readability */
+    --text-muted: #475569;             /* Darker slate for high contrast */
+    --text-dim: #64748b;
 
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
     
-    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -60,12 +63,38 @@ body {
     background-color: var(--surface-page);
     color: var(--text-main);
     font-size: 0.9rem;
-    line-height: 1.45;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
 
 .font-mono {
     font-family: var(--font-mono);
+}
+
+/* Explicit Subtle Backgrounds with Guaranteed High Contrast Text */
+.bg-primary-subtle {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+}
+
+.bg-success-subtle {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+}
+
+.bg-warning-subtle {
+    background-color: #fef3c7 !important;
+    color: #b45309 !important;
+}
+
+.bg-danger-subtle {
+    background-color: #fee2e2 !important;
+    color: #b91c1c !important;
+}
+
+.bg-info-subtle {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
 }
 
 /* App Layout */
@@ -74,7 +103,7 @@ body {
     min-height: 100vh;
 }
 
-/* Left Sidebar */
+/* Sidebar */
 .sidebar-left {
     width: 250px;
     background: var(--sidebar-bg);
@@ -100,7 +129,7 @@ body {
 .sidebar-brand .brand-icon {
     width: 36px;
     height: 36px;
-    background: rgba(2, 132, 199, 0.2);
+    background: rgba(3, 105, 161, 0.3);
     color: #38bdf8;
     border-radius: var(--radius-sm);
     display: flex;
@@ -119,7 +148,7 @@ body {
 }
 
 .sidebar-nav .nav-link {
-    color: var(--sidebar-text);
+    color: #cbd5e1 !important;
     padding: 0.65rem 0.85rem;
     border-radius: var(--radius-sm);
     display: flex;
@@ -136,25 +165,21 @@ body {
 }
 
 .sidebar-nav .nav-link:hover {
-    color: #f1f5f9;
-    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-nav .nav-link.active {
-    color: #ffffff;
-    background: var(--color-primary);
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-}
-
-.sidebar-nav .nav-link i {
-    font-size: 1.05rem;
+    color: #ffffff !important;
+    background: var(--color-primary) !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.4);
 }
 
 .sidebar-footer {
     padding: 1rem 1.25rem;
     border-top: 1px solid #1e293b;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.95);
 }
 
 /* Main Content Area */
@@ -166,14 +191,11 @@ body {
 }
 
 /* Top App Header */
-.app-header {
+.top-header {
     height: 64px;
-    background: var(--surface-card);
+    background: #ffffff;
     border-bottom: 1px solid var(--border-color);
     padding: 0 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 90;
@@ -181,12 +203,11 @@ body {
 
 /* Clinical KPI Banner Cards */
 .kpi-card {
-    background: var(--surface-card);
+    background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 1rem 1.25rem;
     box-shadow: var(--shadow-card);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .kpi-card:hover {
@@ -208,13 +229,13 @@ body {
 .chip-filter {
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.85rem;
+    padding: 0.4rem 0.9rem;
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #334155;
     cursor: pointer;
     transition: all 0.15s ease;
     user-select: none;
@@ -223,58 +244,72 @@ body {
 .chip-filter:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
-    background: var(--color-primary-subtle);
+    background: #f0f9ff;
 }
 
 .chip-filter.active {
-    background: var(--color-primary);
-    color: #ffffff;
+    background: var(--color-primary) !important;
+    color: #ffffff !important;
     border-color: var(--color-primary);
-    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    box-shadow: 0 2px 6px rgba(3, 105, 161, 0.3);
 }
 
 /* Clinical Card */
 .clinical-card {
-    background: var(--surface-card);
+    background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-card);
 }
 
-/* Risk Badges */
+/* Tables with High Contrast */
+.table thead th {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    background-color: #f1f5f9 !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc !important;
+}
+
+/* Risk Badges (Clear text on tinted background) */
 .badge-risk-A {
-    background-color: #ecfdf5;
-    color: #047857;
-    border: 1px solid #a7f3d0;
-    font-weight: 700;
+    background-color: #dcfce7 !important;
+    color: #14532d !important;
+    border: 1px solid #86efac !important;
+    font-weight: 800 !important;
 }
 
 .badge-risk-B {
-    background-color: #f0f9ff;
-    color: #0369a1;
-    border: 1px solid #bae6fd;
-    font-weight: 700;
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #7dd3fc !important;
+    font-weight: 800 !important;
 }
 
 .badge-risk-C {
-    background-color: #fffbeb;
-    color: #b45309;
-    border: 1px solid #fde68a;
-    font-weight: 700;
+    background-color: #fef3c7 !important;
+    color: #78350f !important;
+    border: 1px solid #fcd34d !important;
+    font-weight: 800 !important;
 }
 
 .badge-risk-D {
-    background-color: #fef2f2;
-    color: #b91c1c;
-    border: 1px solid #fecaca;
-    font-weight: 700;
+    background-color: #fee2e2 !important;
+    color: #7f1d1d !important;
+    border: 1px solid #fca5a5 !important;
+    font-weight: 800 !important;
 }
 
 /* Live Pulse Animation for E-Carts */
 @keyframes live-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
-    70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(185, 28, 28, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); }
 }
 
 .pulse-emergency {
