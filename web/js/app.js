@@ -5,8 +5,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('🚀 UI/UX Pro Max Clinical Client Logic initialized.');
-
     const app = {
         devices: [],
         facilities: [],
@@ -16,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ecarts: [],
         workOrders: [],
         currentSelectedDeviceId: null,
+        currentSelectedDevice: null,
+        searchTimer: null,
         currentFilters: {
             search: '',
             facility_id: '',
@@ -24,18 +24,88 @@ document.addEventListener('DOMContentLoaded', function () {
             offset: 0
         },
 
+        formatNumber(value) {
+            const n = Number(value || 0);
+            return n.toLocaleString('vi-VN');
+        },
+
+        statusLabel(status) {
+            const map = {
+                IN_SERVICE: 'Hoạt động',
+                CALIBRATION_DUE: 'Sắp đến hạn KĐ',
+                MAINTENANCE: 'Bảo trì',
+                REPAIR: 'Sửa chữa',
+                RETIRED: 'Ngưng sử dụng',
+                PASSED: 'Đạt',
+                FAILED: 'Không đạt',
+                PENDING: 'Chờ xử lý',
+                COMPLETED: 'Hoàn thành',
+                URGENT: 'Khẩn cấp',
+                HIGH: 'Ưu tiên cao',
+                NORMAL: 'Bình thường'
+            };
+            return map[status] || status || 'Hoạt động';
+        },
+
+        statusClass(status) {
+            if (['IN_SERVICE', 'PASSED', 'COMPLETED', 'OK'].includes(status)) {
+                return 'bg-success-subtle text-success border border-success-subtle';
+            }
+            if (['WARNING', 'CALIBRATION_DUE', 'HIGH', 'PENDING'].includes(status)) {
+                return 'bg-warning-subtle text-warning border border-warning-subtle';
+            }
+            if (['OVERDUE', 'REPAIR', 'URGENT', 'FAILED'].includes(status)) {
+                return 'bg-danger-subtle text-danger border border-danger-subtle';
+            }
+            return 'bg-secondary-subtle text-secondary border border-secondary-subtle';
+        },
+
+        toast(message, type = 'info') {
+            const stack = document.getElementById('toast-stack');
+            if (!stack) {
+                window.alert(message);
+                return;
+            }
+            const el = document.createElement('div');
+            el.className = `app-toast ${type}`;
+            el.innerHTML = `<div>${message}</div>`;
+            stack.appendChild(el);
+            setTimeout(() => el.remove(), 4200);
+        },
+
+        skeletonRows(cols = 7) {
+            return Array.from({ length: 4 }).map(() =>
+                `<tr class="skeleton-row"><td colspan="${cols}"><span class="skeleton" style="width:${55 + Math.round(Math.random() * 30)}%;"></span></td></tr>`
+            ).join('');
+        },
+
+        emptyRow(cols, icon, message) {
+            return `<tr><td colspan="${cols}"><div class="empty-state"><i class="bi ${icon}"></i>${message}</div></td></tr>`;
+        },
+
+        setSidebarOpen(open) {
+            const sidebar = document.getElementById('app-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar?.classList.toggle('is-open', open);
+            overlay?.classList.toggle('is-visible', open);
+            if (overlay) overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+        },
+
         async init() {
             this.setupNavigation();
             this.setupFormSubmissions();
             await this.loadInitialData();
-            await this.loadDevices();
-            await this.loadInspections();
-            await this.loadTransfers();
-            await this.loadECarts();
-            await this.loadWorkOrders();
-            await this.loadSemanticaStats();
+            await Promise.all([
+                this.loadDashboardSummary(),
+                this.loadDevices(),
+                this.loadInspections(),
+                this.loadTransfers(),
+                this.loadECarts(),
+                this.loadWorkOrders(),
+                this.loadSemanticaStats(),
+                this.loadSopList()
+            ]);
 
-            // Render default diagram
             if (window.DiagramEngine) {
                 DiagramEngine.render('diagram-container', 'qt04');
             }
@@ -44,6 +114,17 @@ document.addEventListener('DOMContentLoaded', function () {
         setupNavigation() {
             const navButtons = document.querySelectorAll('.sidebar-nav .nav-link');
             const pageHeading = document.getElementById('page-heading');
+            const pageKicker = document.getElementById('page-kicker');
+            const kickers = {
+                '#tab-devices': 'Danh mục tài sản',
+                '#tab-inspections': 'An toàn vận hành',
+                '#tab-transfers': 'Quy trình QT.08',
+                '#tab-ecarts': 'Cấp cứu 24/7',
+                '#tab-workorders': 'SpeedMaint CMMS',
+                '#tab-diagrams': 'Sơ đồ quy trình',
+                '#tab-semantica': 'Đồ thị tri thức',
+                '#tab-ai-hub': 'Trợ lý & sổ tay'
+            };
 
             navButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -53,8 +134,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     const targetId = btn.getAttribute('data-bs-target');
                     if (targetId) {
-                        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+                        document.querySelectorAll('#mainTabContent > .tab-pane').forEach(p => p.classList.remove('show', 'active'));
                         document.querySelector(targetId)?.classList.add('show', 'active');
+                        if (pageKicker) pageKicker.textContent = kickers[targetId] || 'Hệ thống HTM';
                     }
 
                     const text = btn.querySelector('span')?.textContent || 'Quản lý TTBYT';
@@ -62,19 +144,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (pageHeading) {
                         pageHeading.innerHTML = `<i class="${iconClass} text-primary me-2"></i>${text}`;
                     }
+                    this.setSidebarOpen(false);
                 });
             });
 
-            // Search filter
+            document.getElementById('btn-sidebar-toggle')?.addEventListener('click', () => {
+                const sidebar = document.getElementById('app-sidebar');
+                this.setSidebarOpen(!sidebar?.classList.contains('is-open'));
+            });
+            document.getElementById('sidebar-overlay')?.addEventListener('click', () => this.setSidebarOpen(false));
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') this.setSidebarOpen(false);
+            });
+
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
                 searchInput.addEventListener('input', (e) => {
                     this.currentFilters.search = e.target.value;
-                    this.loadDevices();
+                    clearTimeout(this.searchTimer);
+                    this.searchTimer = setTimeout(() => this.loadDevices(), 320);
                 });
             }
 
-            // Facility filter
             const facFilter = document.getElementById('filter-facility');
             if (facFilter) {
                 facFilter.addEventListener('change', (e) => {
@@ -83,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // Risk filter
             const riskFilter = document.getElementById('filter-risk');
             if (riskFilter) {
                 riskFilter.addEventListener('change', (e) => {
@@ -92,8 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // Quick Filter Chips
-            const chips = document.querySelectorAll('.chip-filter');
+            const chips = document.querySelectorAll('.chip-filter[data-chip]');
             chips.forEach(chip => {
                 chip.addEventListener('click', () => {
                     chips.forEach(c => c.classList.remove('active'));
@@ -114,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         this.currentFilters.risk_level = '';
                     } else if (filterType === 'highrisk') {
                         this.currentFilters.search = '';
-                        this.currentFilters.risk_level = 'C';
+                        this.currentFilters.risk_level = 'C,D';
                     }
                     const sInput = document.getElementById('search-input');
                     if (sInput) sInput.value = this.currentFilters.search;
@@ -123,9 +212,37 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.loadDevices();
                 });
             });
+
+            document.getElementById('btn-export-csv')?.addEventListener('click', () => {
+                const url = (window.apiClient && apiClient.getCsvExportUrl)
+                    ? apiClient.getCsvExportUrl(this.currentFilters)
+                    : '/api/export/csv';
+                window.open(url, '_blank');
+                this.toast('Đang xuất danh mục CSV theo bộ lọc hiện tại.', 'info');
+            });
+
+            document.getElementById('modal-btn-print-qr')?.addEventListener('click', () => this.printDevicePassport());
         },
 
-        printDevicePassport() {
+        async printDevicePassport() {
+            const dev = this.currentSelectedDevice;
+            if (!dev) {
+                this.toast('Chưa chọn thiết bị để in tem.', 'error');
+                return;
+            }
+            document.getElementById('qr-label-name').textContent = dev.device_name || 'Thiết bị y tế';
+            document.getElementById('qr-label-tag').textContent = dev.asset_tag || '';
+            document.getElementById('qr-label-sm').textContent = dev.speedmaint_code || '';
+            document.getElementById('qr-label-sn').textContent = dev.serial_no || '-';
+            document.getElementById('qr-label-fac').textContent = dev.facility || dev.facility_name || '-';
+            const payload = `${dev.asset_tag || ''} | ${dev.device_name || ''} | SN:${dev.serial_no || '-'}`;
+            try {
+                if (window.QRCode) {
+                    await QRCode.toCanvas(document.getElementById('qr-label-canvas'), payload, { width: 120, margin: 1 });
+                }
+            } catch (err) {
+                console.warn('QR render failed', err);
+            }
             window.print();
         },
 
@@ -144,8 +261,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 const trToFac = document.getElementById('tr-to-facility');
 
                 if (filterFac) {
-                    filterFac.innerHTML = '<option value="">-- Tất cả 21 Khoa/Phòng --</option>' +
+                    filterFac.innerHTML = '<option value="">Tất cả khoa/phòng</option>' +
+                        this.facilities.map(f => `<option value="${f.id}">${f.name}${f.device_count != null ? ' (' + f.device_count + ')' : ''}</option>`).join('');
+                }
+                const cdFac = document.getElementById('cd-facility');
+                if (cdFac) {
+                    cdFac.innerHTML = '<option value="">Chưa phân khoa</option>' +
                         this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
+                }
+                const cdCat = document.getElementById('cd-category');
+                if (cdCat) {
+                    cdCat.innerHTML = '<option value="">Chưa phân nhóm</option>' +
+                        this.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
                 }
                 if (trFromFac) {
                     trFromFac.innerHTML = this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
@@ -158,26 +285,51 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        async loadDashboardSummary() {
+            try {
+                const stats = await (window.apiClient ? apiClient.getSummary() : fetch('/api/dashboard/summary').then(r => r.json()));
+                const total = this.formatNumber(stats.total_devices);
+                const setText = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = value;
+                };
+                setText('kpi-total-devices', total);
+                setText('side-kpi-total', total);
+                setText('nav-badge-total', total);
+                setText('kpi-ok-devices', this.formatNumber(stats.ok_count ?? stats.in_service_count));
+                setText('kpi-warning-devices', this.formatNumber(stats.warning_count));
+                setText('kpi-overdue-devices', this.formatNumber(stats.overdue_count));
+                setText('side-kpi-overdue', this.formatNumber(stats.overdue_count));
+                setText('side-kpi-avail', `${stats.availability_rate ?? 0}%`);
+                setText('kpi-avail-rate', `Sẵn sàng vận hành ${stats.availability_rate ?? 0}%`);
+                const chipAll = document.getElementById('chip-all');
+                if (chipAll) chipAll.textContent = `Tất cả (${total})`;
+            } catch (err) {
+                console.error('Error loading dashboard summary:', err);
+            }
+        },
+
         async loadDevices() {
+            const tbody = document.getElementById('device-table-body');
+            if (tbody) tbody.innerHTML = this.skeletonRows(7);
             try {
                 let url = `/api/devices?limit=${this.currentFilters.limit}&offset=${this.currentFilters.offset}`;
                 if (this.currentFilters.search) url += `&search=${encodeURIComponent(this.currentFilters.search)}`;
                 if (this.currentFilters.facility_id) url += `&facility_id=${this.currentFilters.facility_id}`;
-                if (this.currentFilters.risk_level) url += `&risk_level=${this.currentFilters.risk_level}`;
+                if (this.currentFilters.risk_level) url += `&risk_level=${encodeURIComponent(this.currentFilters.risk_level)}`;
 
                 const res = await fetch(url);
+                if (!res.ok) throw new Error('Không tải được danh mục thiết bị');
                 this.devices = await res.json();
 
-                const tbody = document.getElementById('device-table-body');
                 const filterCount = document.getElementById('filter-count');
-                if (filterCount) filterCount.textContent = this.devices.length;
+                if (filterCount) filterCount.textContent = this.formatNumber(this.devices.length);
 
                 if (!this.devices || this.devices.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">Không tìm thấy thiết bị nào phù hợp.</td></tr>';
+                    tbody.innerHTML = this.emptyRow(7, 'bi-inbox', 'Không tìm thấy thiết bị nào phù hợp bộ lọc.');
                     return;
                 }
 
-                // Populate device select dropdowns
                 const insDeviceSelect = document.getElementById('ins-device-id');
                 const trDeviceSelect = document.getElementById('tr-device-id');
                 const woDeviceSelect = document.getElementById('wo-device-id');
@@ -189,25 +341,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 tbody.innerHTML = this.devices.map(d => {
                     const riskBadge = d.risk_level ? `<span class="badge badge-risk-${d.risk_level}">${d.risk_level}</span>` : '<span class="text-muted">-</span>';
-
+                    const status = d.status || 'IN_SERVICE';
                     return `
-                        <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
+                        <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row" tabindex="0">
                             <td class="ps-3 font-mono fw-semibold text-primary">
                                 <div>${d.asset_tag}</div>
                                 <div class="text-muted" style="font-size: 0.72rem;">${d.speedmaint_code || ''}</div>
                             </td>
                             <td>
-                                <div class="fw-bold text-dark text-hover-primary">${d.device_name}</div>
+                                <div class="fw-bold text-dark">${d.device_name}</div>
                                 <div class="text-muted small">${d.model || ''} • ${d.manufacturer || ''}</div>
                             </td>
                             <td class="font-mono">${d.serial_no || '<span class="text-muted">-</span>'}</td>
-                            <td>${d.facility_name || '<span class="text-muted">Chưa phân khoa</span>'}</td>
+                            <td>${d.facility_name || d.facility || '<span class="text-muted">Chưa phân khoa</span>'}</td>
                             <td class="text-center">${riskBadge}</td>
                             <td class="text-center">
-                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span>
+                                <span class="badge ${this.statusClass(status)} px-2 py-1">${this.statusLabel(status)}</span>
                             </td>
                             <td class="pe-3 text-end" onclick="event.stopPropagation()">
-                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
+                                <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
                                     <i class="bi bi-eye"></i> Chi tiết
                                 </button>
                             </td>
@@ -216,6 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }).join('');
             } catch (err) {
                 console.error('Error loading devices:', err);
+                if (tbody) tbody.innerHTML = this.emptyRow(7, 'bi-exclamation-triangle', 'Không tải được danh mục thiết bị. Kiểm tra máy chủ API.');
             }
         },
 
@@ -235,6 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const dev = await devRes.json();
                 const accessories = accRes.ok ? await accRes.json() : [];
                 const prov = provRes.ok ? await provRes.json() : null;
+                this.currentSelectedDevice = dev;
 
                 // 1. Header Information
                 document.getElementById('modal-dev-name').textContent = dev.device_name;
@@ -250,7 +404,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const statusBadge = document.getElementById('modal-dev-status');
                 if (statusBadge) {
-                    statusBadge.textContent = dev.status || 'IN_SERVICE';
+                    statusBadge.className = `badge ${this.statusClass(dev.status || 'IN_SERVICE')}`;
+                    statusBadge.textContent = this.statusLabel(dev.status || 'IN_SERVICE');
                 }
 
                 // 2. Tab 1: General Info
@@ -364,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             } catch (err) {
                 console.error("Error showing device details:", err);
-                alert("Không thể tải chi tiết thiết bị: " + err.message);
+                this.toast("Không thể tải chi tiết thiết bị: " + err.message, 'error');
             }
         },
 
@@ -374,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.inspections = await res.json();
                 const tbody = document.getElementById('inspections-table-body');
                 if (!this.inspections || this.inspections.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Chưa có nhật ký kiểm tra đầu ngày nào.</td></tr>';
+                    tbody.innerHTML = this.emptyRow(5, 'bi-clipboard', 'Chưa có nhật ký kiểm tra đầu ngày nào.');
                     return;
                 }
 
@@ -390,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="text-muted small">${ins.department}</div>
                         </td>
                         <td class="text-center">
-                            <span class="badge ${ins.overall_status === 'PASSED' ? 'bg-success' : 'bg-warning'} px-2 py-1">${ins.overall_status}</span>
+                            <span class="badge ${this.statusClass(ins.overall_status)} px-2 py-1">${this.statusLabel(ins.overall_status)}</span>
                         </td>
                         <td class="text-muted small">${ins.notes || '4/4 tiêu chí đạt chuẩn an toàn'}</td>
                     </tr>
@@ -406,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.transfers = await res.json();
                 const tbody = document.getElementById('transfers-table-body');
                 if (!this.transfers || this.transfers.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Chưa có biên bản điều chuyển thiết bị nào.</td></tr>';
+                    tbody.innerHTML = this.emptyRow(5, 'bi-arrow-left-right', 'Chưa có biên bản điều chuyển thiết bị nào.');
                     return;
                 }
 
@@ -438,13 +593,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.ecarts = await res.json();
                 const grid = document.getElementById('ecarts-grid');
                 if (!grid) return;
+                if (!this.ecarts || this.ecarts.length === 0) {
+                    grid.innerHTML = '<div class="col-12"><div class="clinical-card empty-state">Chưa có dữ liệu xe cấp cứu.</div></div>';
+                    return;
+                }
+                const ecartBadge = document.getElementById('nav-badge-ecart');
+                if (ecartBadge) ecartBadge.textContent = this.ecarts.length;
+                const kpiEcart = document.getElementById('kpi-ecart-status');
+                if (kpiEcart) kpiEcart.textContent = `E-Cart: ${this.ecarts.length}/${this.ecarts.length} xe trực`;
 
                 grid.innerHTML = this.ecarts.map(ec => `
-                    <div class="col-md-3">
-                        <div class="clinical-card p-3 h-100 border-start border-4 border-danger">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="clinical-card p-3 h-100 ecart-card">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="badge bg-danger font-mono">${ec.cart_code}</span>
-                                <span class="badge bg-success-subtle text-success">${ec.status}</span>
+                                <span class="badge ${this.statusClass(ec.status)}">${this.statusLabel(ec.status)}</span>
                             </div>
                             <h6 class="fw-bold text-dark mb-1">${ec.department_name}</h6>
                             <div class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${ec.location_floor} ${ec.zone ? '- Khu ' + ec.zone : ''} ${ec.room_no ? '(Phòng ' + ec.room_no + ')' : ''}</div>
@@ -474,9 +637,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const tbody = document.getElementById('workorders-table-body');
                 const badgeWo = document.getElementById('nav-badge-wo');
                 if (badgeWo) badgeWo.textContent = this.workOrders.length;
+                const kpiWo = document.getElementById('kpi-open-wo');
+                if (kpiWo) kpiWo.textContent = `CMMS: ${this.workOrders.length} phiếu`;
 
                 if (!this.workOrders || this.workOrders.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">Không có phiếu bảo trì / sửa chữa nào đang mở.</td></tr>';
+                    tbody.innerHTML = this.emptyRow(7, 'bi-tools', 'Không có phiếu bảo trì / sửa chữa nào đang mở.');
                     return;
                 }
 
@@ -485,8 +650,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td class="font-mono fw-bold text-primary">#WO-${wo.id}</td>
                         <td class="fw-bold text-dark">${wo.title}</td>
                         <td>${wo.device_name || 'Hệ thống'} <span class="text-muted small font-mono">(${wo.asset_tag || ''})</span></td>
-                        <td class="text-center"><span class="badge ${wo.priority === 'URGENT' ? 'bg-danger' : wo.priority === 'HIGH' ? 'bg-warning text-dark' : 'bg-secondary'}">${wo.priority}</span></td>
-                        <td class="text-center"><span class="badge ${wo.status === 'COMPLETED' ? 'bg-success' : 'bg-primary'}">${wo.status}</span></td>
+                        <td class="text-center"><span class="badge ${this.statusClass(wo.priority)}">${this.statusLabel(wo.priority)}</span></td>
+                        <td class="text-center"><span class="badge ${this.statusClass(wo.status)}">${this.statusLabel(wo.status)}</span></td>
                         <td>${wo.assigned_to || 'P.TTBYT'}</td>
                         <td class="text-end">
                             <span class="text-muted small font-mono">${wo.created_at ? wo.created_at.substring(0, 10) : ''}</span>
@@ -558,8 +723,60 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        async loadSopList() {
+            const box = document.getElementById('sop-list');
+            if (!box) return;
+            try {
+                const res = await fetch('/api/sops');
+                const sops = await res.json();
+                box.innerHTML = sops.map(s => `
+                    <div class="col-12">
+                        <a class="sop-card d-block text-decoration-none" href="${s.ref}" target="_blank" rel="noopener">
+                            <div class="d-flex justify-content-between gap-2">
+                                <span class="badge bg-primary-subtle text-primary font-mono">${s.code}</span>
+                                <span class="text-muted small">${s.type}</span>
+                            </div>
+                            <div class="fw-semibold text-dark mt-2 small">${s.name}</div>
+                        </a>
+                    </div>
+                `).join('');
+            } catch (err) {
+                box.innerHTML = '<div class="col-12 text-muted small">Không tải được danh mục SOP.</div>';
+            }
+        },
+
+        appendAiBubble(role, text) {
+            const box = document.getElementById('ai-transcript');
+            if (!box) return;
+            const el = document.createElement('div');
+            el.className = `ai-bubble ${role}`;
+            el.textContent = text;
+            box.appendChild(el);
+            box.scrollTop = box.scrollHeight;
+        },
+
+        async sendAiPrompt(message) {
+            const text = (message || '').trim();
+            if (!text) return;
+            this.appendAiBubble('user', text);
+            this.appendAiBubble('assistant', 'Đang soạn trả lời...');
+            const box = document.getElementById('ai-transcript');
+            const pending = box?.lastElementChild;
+            try {
+                const data = window.apiClient
+                    ? await apiClient.aiChat(text)
+                    : await fetch('/api/ai/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: text })
+                    }).then(r => r.json());
+                if (pending) pending.textContent = data.reply || data.response || data.message || JSON.stringify(data);
+            } catch (err) {
+                if (pending) pending.textContent = 'Không kết nối được trợ lý AI. Kiểm tra cấu hình API key.';
+            }
+        },
+
         setupFormSubmissions() {
-            // Pre-use inspection submit
             const insForm = document.getElementById('preUseChecklistForm');
             if (insForm) {
                 insForm.addEventListener('submit', async (e) => {
@@ -581,14 +798,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         body: JSON.stringify(payload)
                     });
                     if (res.ok) {
-                        alert('✅ Đã lưu Bảng kiểm tra an toàn đầu ngày thành công!');
+                        this.toast('Đã lưu bảng kiểm tra an toàn đầu ngày.', 'success');
                         insForm.reset();
                         this.loadInspections();
+                    } else {
+                        this.toast('Không lưu được bảng kiểm. Thử lại.', 'error');
                     }
                 });
             }
 
-            // Transfer submit
             const trForm = document.getElementById('deviceTransferForm');
             if (trForm) {
                 trForm.addEventListener('submit', async (e) => {
@@ -609,15 +827,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         body: JSON.stringify(payload)
                     });
                     if (res.ok) {
-                        alert('✅ Đã thực hiện điều chuyển thiết bị thành công theo Quy trình QT.08!');
+                        this.toast('Đã ghi nhận điều chuyển theo QT.08.', 'success');
                         trForm.reset();
                         this.loadTransfers();
                         this.loadDevices();
+                    } else {
+                        this.toast('Không lập được biên bản điều chuyển.', 'error');
                     }
                 });
             }
 
-            // Work Order submit
             const woForm = document.getElementById('createWorkOrderForm');
             if (woForm) {
                 woForm.addEventListener('submit', async (e) => {
@@ -637,13 +856,71 @@ document.addEventListener('DOMContentLoaded', function () {
                         body: JSON.stringify(payload)
                     });
                     if (res.ok) {
-                        alert('✅ Đã phát hành Phiếu công việc SpeedMaint thành công!');
+                        this.toast('Đã phát hành phiếu công việc SpeedMaint.', 'success');
                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
                         woForm.reset();
                         this.loadWorkOrders();
+                    } else {
+                        this.toast('Không phát hành được phiếu công việc.', 'error');
                     }
                 });
             }
+
+            const cdForm = document.getElementById('createDeviceForm');
+            if (cdForm) {
+                cdForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const payload = {
+                        device_name: document.getElementById('cd-name').value,
+                        model: document.getElementById('cd-model').value,
+                        serial_no: document.getElementById('cd-serial').value,
+                        manufacturer: document.getElementById('cd-mfg').value || null,
+                        country_of_manufacturer: document.getElementById('cd-country').value || null,
+                        year_of_manufacture: document.getElementById('cd-year').value ? parseInt(document.getElementById('cd-year').value) : null,
+                        risk_level: document.getElementById('cd-risk').value,
+                        facility_id: document.getElementById('cd-facility').value ? parseInt(document.getElementById('cd-facility').value) : null,
+                        category_id: document.getElementById('cd-category').value ? parseInt(document.getElementById('cd-category').value) : null,
+                        installation_date: document.getElementById('cd-install').value || null,
+                        certification_no: document.getElementById('cd-cert').value || null,
+                        notes: document.getElementById('cd-notes').value || null,
+                        status: 'IN_SERVICE'
+                    };
+                    try {
+                        const created = window.apiClient
+                            ? await apiClient.createDevice(payload)
+                            : await fetch('/api/devices', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            }).then(async r => {
+                                const data = await r.json();
+                                if (!r.ok) throw new Error(data.detail || 'Lỗi nhập thiết bị');
+                                return data;
+                            });
+                        this.toast(`Đã nhập ${created.asset_tag || 'thiết bị mới'} vào danh mục.`, 'success');
+                        bootstrap.Modal.getInstance(document.getElementById('createDeviceModal'))?.hide();
+                        cdForm.reset();
+                        this.loadDevices();
+                        this.loadDashboardSummary();
+                    } catch (err) {
+                        this.toast(err.message || 'Không nhập được thiết bị.', 'error');
+                    }
+                });
+            }
+
+            const aiForm = document.getElementById('aiChatForm');
+            if (aiForm) {
+                aiForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const input = document.getElementById('ai-chat-input');
+                    const message = input?.value || '';
+                    if (input) input.value = '';
+                    await this.sendAiPrompt(message);
+                });
+            }
+            document.querySelectorAll('.ai-prompt-btn').forEach(btn => {
+                btn.addEventListener('click', () => this.sendAiPrompt(btn.getAttribute('data-prompt')));
+            });
         }
     };
 

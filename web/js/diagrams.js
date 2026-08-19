@@ -232,20 +232,21 @@ const DiagramEngine = {
         const container = document.getElementById(containerId);
         if (!container) return;
         const d = this.diagrams[diagramKey] || this.diagrams.qt04;
+        const activeClass = (key) => key === diagramKey ? 'btn btn-sm btn-primary btn-clinical' : 'btn btn-sm btn-outline-primary btn-clinical';
         container.innerHTML = `
             <div class="diagram-wrapper bg-white rounded-3 p-4 border shadow-sm">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
                     <div>
                         <h5 class="fw-bold text-dark mb-1"><i class="bi bi-diagram-3-fill text-primary me-2"></i>${d.title}</h5>
                         <p class="text-muted small mb-0">${d.subtitle}</p>
                     </div>
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-outline-primary active" onclick="DiagramEngine.render('${containerId}', 'qt04')">QT.04 (Bàn Giao)</button>
-                        <button class="btn btn-outline-primary" onclick="DiagramEngine.render('${containerId}', 'ro_loop')">QT.01/02 (Nước RO)</button>
-                        <button class="btn btn-outline-primary" onclick="DiagramEngine.render('${containerId}', 'qt08')">QT.08 (Điều Chuyển)</button>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="${activeClass('qt04')}" onclick="DiagramEngine.render('${containerId}', 'qt04')">QT.04 Bàn giao</button>
+                        <button class="${activeClass('ro_loop')}" onclick="DiagramEngine.render('${containerId}', 'ro_loop')">QT.01/02 Nước RO</button>
+                        <button class="${activeClass('qt08')}" onclick="DiagramEngine.render('${containerId}', 'qt08')">QT.08 Điều chuyển</button>
                     </div>
                 </div>
-                <div class="diagram-svg-box border rounded-3 p-3 bg-light text-center" style="overflow-x: auto;">
+                <div class="diagram-svg-box border rounded-3 p-3 text-center" style="overflow-x: auto;">
                     ${d.svg}
                 </div>
             </div>

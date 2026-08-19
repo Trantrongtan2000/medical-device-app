@@ -170,6 +170,7 @@ const apiClient = {
         if (filters.facility_id) params.append('facility_id', filters.facility_id);
         if (filters.category_id) params.append('category_id', filters.category_id);
         if (filters.alert_status) params.append('alert_status', filters.alert_status);
+        if (filters.risk_level) params.append('risk_level', filters.risk_level);
         if (filters.search) params.append('search', filters.search);
         return `/api/export/csv?${params.toString()}`;
     },

@@ -68,13 +68,28 @@ async def get_devices(
         params.append(status.upper())
 
     if risk_level:
-        conditions.append("risk_level = ?")
-        params.append(risk_level.upper())
+        levels = [x.strip().upper() for x in risk_level.split(",") if x.strip()]
+        if len(levels) == 1:
+            conditions.append("risk_level = ?")
+            params.append(levels[0])
+        elif levels:
+            placeholders = ",".join("?" * len(levels))
+            conditions.append(f"risk_level IN ({placeholders})")
+            params.extend(levels)
     
     if search and search.strip():
-        s = f"%{search.strip()}%"
-        conditions.append("(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?)")
-        params.extend([s, s, s, s])
+        raw = search.strip()
+        s = f"%{raw}%"
+        extra_sql = ""
+        extra_params = [s, s, s, s]
+        tag = raw.upper().replace(" ", "")
+        if tag.startswith("BVQ7-TTB-") or tag.startswith("BM/BVQ7/"):
+            digits = "".join(ch for ch in tag if ch.isdigit())
+            if digits:
+                extra_sql = " OR id = ?"
+                extra_params.append(int(digits))
+        conditions.append(f"(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?{extra_sql})")
+        params.extend(extra_params)
     
     if conditions:
         query += " WHERE " + " AND ".join(conditions)
@@ -504,6 +519,7 @@ async def get_dashboard_summary(db = Depends(get_db)):
     }
 
 
+@router.get("/api/facilities")
 @router.get("/api/dashboard/facilities")
 async def get_facilities(db = Depends(get_db)):
     """Danh sách khoa/phòng ban và số lượng thiết bị"""
@@ -518,6 +534,7 @@ async def get_facilities(db = Depends(get_db)):
     return [dict(row) for row in result]
 
 
+@router.get("/api/categories")
 @router.get("/api/dashboard/categories")
 async def get_categories(db = Depends(get_db)):
     """Danh sách loại thiết bị"""
@@ -578,6 +595,7 @@ async def export_devices_csv(
     category_id: Optional[int] = None,
     alert_status: Optional[str] = None,
     search: Optional[str] = None,
+    risk_level: Optional[str] = None,
     db = Depends(get_db)
 ):
     """Xuất danh mục thiết bị y tế đã lọc ra tệp CSV UTF-8 BOM cho Excel"""
@@ -594,6 +612,15 @@ async def export_devices_csv(
     if alert_status:
         conditions.append("alert_status = ?")
         params.append(alert_status.upper())
+    if risk_level:
+        levels = [x.strip().upper() for x in risk_level.split(",") if x.strip()]
+        if len(levels) == 1:
+            conditions.append("risk_level = ?")
+            params.append(levels[0])
+        elif levels:
+            placeholders = ",".join("?" * len(levels))
+            conditions.append(f"risk_level IN ({placeholders})")
+            params.extend(levels)
     if search and search.strip():
         s = f"%{search.strip()}%"
         conditions.append("(device_name LIKE ? OR model LIKE ? OR serial_no LIKE ? OR manufacturer LIKE ?)")
