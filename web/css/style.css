@@ -331,3 +331,30 @@ body {
         width: 100%;
     }
 }
+
+/* Sidebar Compact KPI Card (Crystal Clear Contrast) */
+.sidebar-kpi-compact {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    padding: 0.65rem 0.85rem !important;
+    margin: 0.85rem 0.85rem 0.35rem 0.85rem !important;
+}
+
+.sidebar-kpi-label {
+    color: #e2e8f0 !important;          /* Very bright slate-200 for 100% readability */
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-kpi-value-white {
+    color: #ffffff !important;          /* Pure bright white */
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
+}
+
+.sidebar-kpi-value-green {
+    color: #4ade80 !important;          /* Vibrant Neon Emerald for high visibility */
+    font-size: 0.92rem !important;
+    font-weight: 800 !important;
+}
