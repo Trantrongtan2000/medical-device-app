@@ -1222,9 +1222,11 @@ class BMEStaffCreate(BaseModel):
     avatar_color: Optional[str] = "#0284c7"
 
 class BMEStaffUpdate(BaseModel):
+    staff_code: Optional[str] = None
     full_name: Optional[str] = None
     title: Optional[str] = None
     role_level: Optional[str] = None
+    department_unit: Optional[str] = None
     specialty: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None
@@ -1376,3 +1378,56 @@ async def list_supplier_contacts(search: Optional[str] = Query(None), db = Depen
     query += " ORDER BY supplier_name ASC"
     rows = db.execute(query, params).fetchall()
     return [dict(r) for r in rows]
+
+
+
+class HospitalLeaderUpdate(BaseModel):
+    group_name: Optional[str] = None
+    full_name: Optional[str] = None
+    title: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    notes: Optional[str] = None
+
+@router.put("/api/directory/leaders/{leader_id}")
+async def update_hospital_leader(leader_id: int, req: HospitalLeaderUpdate, db = Depends(get_db)):
+    """Chỉnh sửa thông tin lãnh đạo / trưởng khoa lâm sàng"""
+    row = db.execute("SELECT * FROM hospital_directory WHERE id = ?", (leader_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy lãnh đạo")
+    fields = []
+    params = []
+    for k, v in req.dict(exclude_unset=True).items():
+        if v is not None:
+            fields.append(f"{k} = ?")
+            params.append(v)
+    if fields:
+        params.append(leader_id)
+        db.execute(f"UPDATE hospital_directory SET {', '.join(fields)} WHERE id = ?", params)
+        db.commit()
+    return {"status": "success", "message": "Đã cập nhật thông tin lãnh đạo thành công!"}
+
+class SupplierContactUpdate(BaseModel):
+    supplier_name: Optional[str] = None
+    contact_person: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    service_scope: Optional[str] = None
+
+@router.put("/api/directory/suppliers/{sup_id}")
+async def update_supplier_contact(sup_id: int, req: SupplierContactUpdate, db = Depends(get_db)):
+    """Chỉnh sửa thông tin đối tác / đại diện hãng kỹ thuật"""
+    row = db.execute("SELECT * FROM supplier_contacts WHERE id = ?", (sup_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy nhà cung cấp")
+    fields = []
+    params = []
+    for k, v in req.dict(exclude_unset=True).items():
+        if v is not None:
+            fields.append(f"{k} = ?")
+            params.append(v)
+    if fields:
+        params.append(sup_id)
+        db.execute(f"UPDATE supplier_contacts SET {', '.join(fields)} WHERE id = ?", params)
+        db.commit()
+    return {"status": "success", "message": "Đã cập nhật thông tin đối tác NCC thành công!"}

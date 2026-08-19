@@ -1877,5 +1877,102 @@
         </div>
     </div>
 
+
+    <!-- ==================== MODAL: CHỈNH SỬA THÔNG TIN LÃNH ĐẠO / TRƯỞNG KHOA ==================== -->
+    <div class="modal fade" id="editLeaderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-danger text-white px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-person-badge me-2"></i>Chỉnh Sửa Thông Tin Lãnh Đạo / Trưởng Khoa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editLeaderForm">
+                        <input type="hidden" id="leader-edit-id">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">HỌ VÀ TÊN (*)</label>
+                            <input type="text" id="leader-edit-name" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">ĐƠN VỊ / NHÓM</label>
+                                <input type="text" id="leader-edit-group" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">CHỨC VỤ (*)</label>
+                                <input type="text" id="leader-edit-title" class="form-control form-control-sm" required>
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">SỐ ĐIỆN THOẠI (*)</label>
+                                <input type="text" id="leader-edit-phone" class="form-control form-control-sm font-mono" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">EMAIL</label>
+                                <input type="email" id="leader-edit-email" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">GHI CHÚ / PHẠM VI CHUYÊN MÔN</label>
+                            <textarea id="leader-edit-notes" class="form-control form-control-sm" rows="2"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger btn-clinical fw-bold shadow-sm">
+                                <i class="bi bi-save me-1"></i> Cập Nhật Thông Tin
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: CHỈNH SỬA THÔNG TIN ĐỐI TÁC / KỸ SƯ HÃNG ==================== -->
+    <div class="modal fade" id="editSupplierContactModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-warning text-dark px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-building me-2"></i>Chỉnh Sửa Thông Tin Kỹ Sư Hãng & NCC</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editSupplierContactForm">
+                        <input type="hidden" id="sup-contact-edit-id">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">TÊN NHÀ CUNG CẤP / HÃNG (*)</label>
+                            <input type="text" id="sup-contact-edit-name" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">ĐẠI DIỆN LIÊN HỆ / KỸ SƯ HÃNG</label>
+                            <input type="text" id="sup-contact-edit-person" class="form-control form-control-sm" placeholder="VD: Anh Thịnh - Kỹ sư Siemens">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">SỐ ĐIỆN THOẠI HOTLINE (*)</label>
+                                <input type="text" id="sup-contact-edit-phone" class="form-control form-control-sm font-mono" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">EMAIL LIÊN HỆ</label>
+                                <input type="email" id="sup-contact-edit-email" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">PHẠM VI DỊCH VỤ & BẢO TRÌ</label>
+                            <input type="text" id="sup-contact-edit-scope" class="form-control form-control-sm" value="Bảo trì, sửa chữa & cung cấp vật tư chính hãng">
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-warning text-dark btn-clinical fw-bold shadow-sm">
+                                <i class="bi bi-save me-1"></i> Cập Nhật Thông Tin
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

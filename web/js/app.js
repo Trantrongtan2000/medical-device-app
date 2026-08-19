@@ -1239,6 +1239,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <a href="tel:${l.phone}" class="btn btn-sm btn-outline-danger btn-clinical font-mono fw-bold">
                                     <i class="bi bi-telephone-fill me-1"></i>${l.phone || 'N/A'}
                                 </a>
+                                <button type="button" class="btn btn-sm btn-light border btn-clinical text-dark" onclick="app.openEditLeaderModal(${l.id})"><i class="bi bi-pencil-square me-1"></i>Sửa</button>
                                 <a href="mailto:${l.email || ''}" class="btn btn-sm btn-light border btn-clinical text-dark">
                                     <i class="bi bi-envelope-fill me-1"></i>Email
                                 </a>
@@ -1288,7 +1289,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <a href="tel:${s.phone}" class="btn btn-sm btn-outline-warning text-dark btn-clinical font-mono fw-bold">
                                     <i class="bi bi-telephone-fill me-1"></i>${s.phone || 'Đang cập nhật'}
                                 </a>
-                                <span class="badge bg-light text-muted border font-mono">${s.email ? s.email : 'Hotline Kỹ Thuật'}</span>
+                                <button type="button" class="btn btn-sm btn-light border btn-clinical text-dark" onclick="app.openEditSupplierContactModal(${s.id})"><i class="bi bi-pencil-square me-1"></i>Sửa</button>
                             </div>
                         </div>
                     </div>
@@ -1517,9 +1518,107 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        
+        openEditLeaderModal(id) {
+            const l = this.leadersList.find(item => item.id === id);
+            if (!l) return;
+
+            document.getElementById('leader-edit-id').value = l.id;
+            document.getElementById('leader-edit-name').value = l.full_name;
+            document.getElementById('leader-edit-group').value = l.group_name || '';
+            document.getElementById('leader-edit-title').value = l.title || '';
+            document.getElementById('leader-edit-phone').value = l.phone || '';
+            document.getElementById('leader-edit-email').value = l.email || '';
+            document.getElementById('leader-edit-notes').value = l.notes || '';
+
+            const modal = new bootstrap.Modal(document.getElementById('editLeaderModal'));
+            modal.show();
+        },
+
+        openEditSupplierContactModal(id) {
+            const s = this.supplierContactsList.find(item => item.id === id);
+            if (!s) return;
+
+            document.getElementById('sup-contact-edit-id').value = s.id;
+            document.getElementById('sup-contact-edit-name').value = s.supplier_name;
+            document.getElementById('sup-contact-edit-person').value = s.contact_person || '';
+            document.getElementById('sup-contact-edit-phone').value = s.phone || '';
+            document.getElementById('sup-contact-edit-email').value = s.email || '';
+            document.getElementById('sup-contact-edit-scope').value = s.service_scope || '';
+
+            const modal = new bootstrap.Modal(document.getElementById('editSupplierContactModal'));
+            modal.show();
+        },
+
+        setupDirectoryEditForms() {
+            // Edit Leader Form
+            const leaderForm = document.getElementById('editLeaderForm');
+            leaderForm?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('leader-edit-id').value;
+                const payload = {
+                    full_name: document.getElementById('leader-edit-name').value.trim(),
+                    group_name: document.getElementById('leader-edit-group').value.trim(),
+                    title: document.getElementById('leader-edit-title').value.trim(),
+                    phone: document.getElementById('leader-edit-phone').value.trim(),
+                    email: document.getElementById('leader-edit-email').value.trim(),
+                    notes: document.getElementById('leader-edit-notes').value.trim()
+                };
+
+                try {
+                    const res = await fetch(`/api/directory/leaders/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi cập nhật');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('editLeaderModal'))?.hide();
+                    this.leadersList = [];
+                    this.loadAndRenderLeaders();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+
+            // Edit Supplier Contact Form
+            const supForm = document.getElementById('editSupplierContactForm');
+            supForm?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('sup-contact-edit-id').value;
+                const payload = {
+                    supplier_name: document.getElementById('sup-contact-edit-name').value.trim(),
+                    contact_person: document.getElementById('sup-contact-edit-person').value.trim(),
+                    phone: document.getElementById('sup-contact-edit-phone').value.trim(),
+                    email: document.getElementById('sup-contact-edit-email').value.trim(),
+                    service_scope: document.getElementById('sup-contact-edit-scope').value.trim()
+                };
+
+                try {
+                    const res = await fetch(`/api/directory/suppliers/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi cập nhật');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('editSupplierContactModal'))?.hide();
+                    this.supplierContactsList = [];
+                    this.loadAndRenderSupplierContacts();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+        },
+
         setupFormSubmissions() {
             this.setupCheckoutForm();
             this.setupStaffEventListeners();
+            this.setupDirectoryEditForms();
 
             document.getElementById('btn-tab-staff')?.addEventListener('click', () => {
                 this.loadStaff();
