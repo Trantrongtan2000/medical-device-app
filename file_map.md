@@ -1,18 +1,18 @@
 # 🗺️ Magika File Map: `medical-device-app`
 
 - **Đường dẫn gốc:** `C:\Users\tantt\Downloads\medical-device-app`
-- **Thời gian quét:** 2026-08-19T16:42:27.235980
+- **Thời gian quét:** 2026-08-19T16:46:32.568350
 - **Tổng số tệp:** **247** tệp
 - **Tổng số thư mục:** **38** thư mục
-- **Tổng dung lượng:** **82.36 MB** (86,364,944 bytes)
-- **Thời gian phân tích AI Magika:** 2.17 giây
+- **Tổng dung lượng:** **82.40 MB** (86,403,314 bytes)
+- **Thời gian hoàn thành:** 2.03 giây
 
 ## 1. 📊 Phân bố theo Nhóm Tệp (Magika Group)
 
 | Nhóm (Group) | Số lượng tệp | Tỷ lệ (%) | Dung lượng |
 |---|---|---|---|
 | **`code`** | 185 | 74.9% | 8.06 MB |
-| **`text`** | 49 | 19.8% | 10.58 MB |
+| **`text`** | 49 | 19.8% | 10.62 MB |
 | **`image`** | 7 | 2.8% | 1.22 MB |
 | **`application`** | 4 | 1.6% | 2.59 MB |
 | **`archive`** | 2 | 0.8% | 59.91 MB |
@@ -22,9 +22,9 @@
 | Label AI | Nhóm (Group) | MIME Type | Số lượng | Tỷ lệ (%) | Tổng dung lượng |
 |---|---|---|---|---|---|
 | **`python`** | `code` | `text/x-python` | 143 | 57.9% | 1.02 MB |
-| **`markdown`** | `text` | `text/markdown` | 41 | 16.6% | 540.11 KB |
+| **`markdown`** | `text` | `text/markdown` | 43 | 17.4% | 10.52 MB |
 | **`json`** | `code` | `application/json` | 11 | 4.5% | 4.13 MB |
-| **`txt`** | `text` | `text/plain` | 8 | 3.2% | 10.05 MB |
+| **`txt`** | `text` | `text/plain` | 6 | 2.4% | 97.30 KB |
 | **`html`** | `code` | `text/html` | 6 | 2.4% | 2.13 MB |
 | **`yaml`** | `code` | `application/x-yaml` | 5 | 2.0% | 5.00 KB |
 | **`powershell`** | `code` | `application/x-powershell` | 5 | 2.0% | 44.33 KB |
@@ -128,7 +128,7 @@
 | 59 | `docs/MEDICAL_DEVICE_SOFTWARE_BENCHMARK_AND_FEATURES.md` | 5.32 KB | `markdown` | `text/markdown` | 98.9% |
 | 60 | `docs/OCX_CLAUDE_AUDIT_REPORT_SEMANTICA.md` | 3.99 KB | `markdown` | `text/markdown` | 99.8% |
 | 61 | `docs/PROJECT_FEATURES_MAPPING.md` | 3.41 KB | `markdown` | `text/markdown` | 99.5% |
-| 62 | `docs/SESSION_TRANSCRIPT_20260818.md` | 4.98 MB | `txt` | `text/plain` | 75.0% |
+| 62 | `docs/SESSION_TRANSCRIPT_20260818.md` | 5.00 MB | `markdown` | `text/markdown` | 94.3% |
 | 63 | `docs/STANDARDIZATION_AUDIT_REPORT.md` | 4.98 KB | `markdown` | `text/markdown` | 99.7% |
 | 64 | `docs/TA5_SOP_REGULATORY_WORKFLOW_ANALYSIS.md` | 7.56 KB | `markdown` | `text/markdown` | 99.8% |
 | 65 | `docs/diagrams/device-lifecycle.html` | 10.79 KB | `html` | `text/html` | 90.7% |
@@ -137,7 +137,7 @@
 | 68 | `docs/modal_optimized_5tabs.png` | 214.91 KB | `png` | `image/png` | 100.0% |
 | 69 | `docs/modal_perfect_5tabs.png` | 229.62 KB | `png` | `image/png` | 100.0% |
 | 70 | `docs/modal_perfect_segmented.png` | 228.54 KB | `png` | `image/png` | 100.0% |
-| 71 | `docs/session.md` | 4.98 MB | `txt` | `text/plain` | 75.0% |
+| 71 | `docs/session.md` | 5.00 MB | `markdown` | `text/markdown` | 94.3% |
 | 72 | `docs/standalone_review_screenshot.png` | 238.27 KB | `png` | `image/png` | 100.0% |
 | 73 | `import_devices.py` | 9.00 KB | `python` | `text/x-python` | 100.0% |
 | 74 | `medical-device-app-full-bundle.zip` | 4.63 MB | `zip` | `application/zip` | 93.6% |
@@ -244,7 +244,7 @@
 | 175 | `scripts/parse_exact_md_contracts_and_suppliers.py` | 3.82 KB | `python` | `text/x-python` | 99.8% |
 | 176 | `scripts/perfect_sidebar_collapse_and_overflow.py` | 5.43 KB | `txt` | `text/plain` | 42.0% |
 | 177 | `scripts/polish_sops_ui.py` | 1.28 KB | `python` | `text/x-python` | 96.3% |
-| 178 | `scripts/rclone_push_both.py` | 2.02 KB | `python` | `text/x-python` | 98.8% |
+| 178 | `scripts/rclone_push_both.py` | 2.08 KB | `python` | `text/x-python` | 99.4% |
 | 179 | `scripts/read_master_data_v6.py` | 912 B | `python` | `text/x-python` | 100.0% |
 | 180 | `scripts/reconcile_real_suppliers_from_md.py` | 20.08 KB | `python` | `text/x-python` | 99.9% |
 | 181 | `scripts/rename_cht_to_mri.py` | 1.47 KB | `python` | `text/x-python` | 99.0% |
@@ -289,7 +289,7 @@
 | 220 | `scripts/update_ui_certificates_policy.py` | 3.89 KB | `python` | `text/x-python` | 86.3% |
 | 221 | `scripts/update_ui_counts_to_1046.py` | 854 B | `python` | `text/x-python` | 98.6% |
 | 222 | `scripts/update_ui_counts_to_1211.py` | 1.15 KB | `python` | `text/x-python` | 99.9% |
-| 223 | `scripts/verify_links_total.py` | 2.19 KB | `python` | `text/x-python` | 99.8% |
+| 223 | `scripts/verify_links_total.py` | 2.26 KB | `python` | `text/x-python` | 100.0% |
 | 224 | `scripts/verify_v6_api.py` | 961 B | `python` | `text/x-python` | 99.4% |
 | 225 | `scripts/wire_4_departments_cards_actions.py` | 21.32 KB | `python` | `text/x-python` | 88.6% |
 | 226 | `specs/001-medical-device-management/plan.md` | 2.62 KB | `markdown` | `text/markdown` | 99.9% |
