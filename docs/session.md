@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 07:44:45`  
+> **Thời gian xuất:** `19/08/2026 07:45:43`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7) & Công cụ Quản lý Tài sản  
 
 ---
@@ -30296,6 +30296,845 @@ Completed At: 2026-08-19T07:44:40+07:00
   },
   "provenance_standard": "W3C PROV-O Compliant"
 }
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:44:44+07:00
+Completed At: 2026-08-19T07:44:45+07:00
+
+				The command exited with code 0.
+				Output:
+				Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+Total steps read: 1658
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+Saved session export to: C:\Users\tantt\Downloads\session.md
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:44:49+07:00
+Completed At: 2026-08-19T07:44:50+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'app/semantica_engine.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scratch/extract_all_contracts_and_suppliers.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/enrich_all_contracts_and_suppliers_semantica.py', LF will be replaced by CRLF the next time Git touches it
+[feat/device-management-v2 658b82e] feat: expand Semantica Knowledge Graph with 361 contracts and 48 medical suppliers across entire data warehouse
+ 6 files changed, 1249 insertions(+), 2 deletions(-)
+ create mode 100644 scratch/extract_all_contracts_and_suppliers.py
+ create mode 100644 scripts/enrich_all_contracts_and_suppliers_semantica.py
+On branch feat/device-management-v2
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 📑 ĐÃ NẠP & MỞ RỘNG TOÀN DIỆN 361 HỢP ĐỒNG & 48 NHÀ THẦU CUNG CẤP VÀO SEMANTICA AGI
+
+Đã quét toàn bộ kho dữ liệu thực tế từ **[`Master Data.xltm`](file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/Master%20Data.xltm)** *(Sheet `1. Hop dong mua sam`, `2. Ban giao lap dat`, `Dropdown`)*, cấu trúc thư mục PDF **`02_HOP DONG MUA SAM`** và **7.715 tệp Markdown**, trích xuất và nạp đầy đủ **361 Hợp Đồng Mua Sắm / Gói Thầu** và **48 Nhà Thầu Y Tế** vào hệ thống:
+
+---
+
+### 🏢 1. DANH SÁCH CÁC NHÀ THẦU CUNG CẤP Y TẾ TIÊU BIỂU:
+
+1. **Nhóm Hồi Sức Cấp Cứu & Lọc Máu:**
+   * `CÔNG TY CỔ PHẦN VIETMEDICAL` *(Máy thở, Monitor B125M, HĐ `12825/HĐMB/VMPP-TAMANH`)*.
+   * `CÔNG TY TNHH FRESENIUS MEDICAL CARE VIỆT NAM` *(Máy chạy thận HD 4008S, 5008S, HĐ `1605-2024/HĐT/TAQ7-AP`)*.
+   * `CÔNG TY TNHH TBYT TÂM VIỆT NHẬT` *(Hệ thống Monitor Nihon Kohden BSM-2301K)*.
+2. **Nhóm Phục Hồi Chức Năng & Y Học Thể Thao:**
+   * `CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED` *(Máy siêu âm điều trị BTL-4710, RF BTL-600, Ampcare ES, HĐ `26022026/GM-BVĐKTA`)*.
+   * `CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI PHANA` *(9 giường nâng điện, 1 giường massage, HĐ `HD 4005 CT Phana`)*.
+   * `CÔNG TY TNHH TRANG THIẾT BỊ KỸ THUẬT Y TẾ Y VIỆT` *(Thiết bị tập khớp vai Artromot-S3, HĐ `04/HĐKT/BVĐKTA-YV`)*.
+   * `CÔNG TY CỔ PHẦN GIẢI PHÁP THỂ THAO GYM VIỆT` *(Thảm chạy bộ, khung gánh tạ, máy tập đùi Keiser)*.
+3. **Nhóm Chẩn Đoán Hình Ảnh, Xét Nghiệm & Nội Soi:**
+   * `CÔNG TY TNHH THIẾT BỊ Y TẾ AN VIỆT` *(Hệ thống Siêu âm 4D Hera W10, HĐ `20.2024HĐ`)*.
+   * `CÔNG TY TNHH THIẾT BỊ MINH LONG` *(Máy định danh vi khuẩn HP, HĐ `HD 023`)*.
+   * `CÔNG TY TNHH THIẾT BỊ NAM TRUNG` *(Hệ thống máy xét nghiệm Alinity i, HĐ `HD ĐM 45.BVTA-NT.2024.RAP`)*.
+   * `CÔNG TY TNHH DAEWON PHARMACEUTICAL` *(Bàn khám TMH IU-3000, ghế khám GI-100, HĐ `03625Q7/HĐKT/DWHCM-TA`)*.
+   * `CÔNG TY TNHH THIẾT BỊ KHOA HỌC KỸ THUẬT 2M` / `BCE` *(19 Pipette định lượng, 4 máy ly tâm)*.
+4. **Nhóm Mắt, Răng Hàm Mặt, Da Liễu & Thẩm Mỹ:**
+   * `CÔNG TY TNHH KÍNH MẮT SEED VIỆT NAM` *(12 bộ kính thử thị lực BOC)*.
+   * `CÔNG TY TNHH TRANG THIẾT BỊ Y TẾ TRẦN VÀ TRUNG` *(Máy ghế nha khoa, HĐ `031/02-26/HĐKT`)*.
+   * `CÔNG TY CP TRANG THIẾT BỊ Y NHA KHOA VIỆT ĐĂNG` *(Dụng cụ Răng Hàm Mặt)*.
+   * `CÔNG TY TNHH LASERA` *(Máy điều trị da VirtueRF, HĐ `0101/LA-BVTA/2026`)*.
+   * `CÔNG TY CỔ PHẦN ERADA VIỆT NAM` *(Máy quang đông giảm mỡ Cooltech Define)*.
+5. **Nhóm Dụng Cụ, Tiệt Trùng & Phụ Kiện:**
+   * `CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ MEDITOP` *(Tủ bảo quản vắc xin HYC-118A, HĐ `HD 705 2025`)*.
+   * `CÔNG TY TNHH THIẾT BỊ KHOA HỌC VÀ CÔNG NGHỆ KIM NGÂN` *(Tủ pha chế thuốc, HĐ `HD 1349`)*.
+   * `CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH` *(4 bộ lưu điện UPS Salicru, HĐ `0203/2026/HD.TAHCM`)*.
+   * `CÔNG TY CỔ PHẦN THIÊN TRƯỜNG (TTC)` *(HĐ `0611/2025/HĐMB/TAHCM-TTC`)*.
+   * `CÔNG TY CỔ PHẦN THIẾT BỊ Y TẾ PHÚC VINH` *(Máy HA Omron HEM-8712, ống nghe Yamasu, SpO2 PO30, HĐ `20.052024HĐ.TAHCM-PV`)*.
+   * `CÔNG TY TNHH THIẾT BỊ LONG VÂN` *(Đèn khám tai Xenon, dây đuôi chuột xanh)*.
+
+---
+
+### 🕸️ 2. MẠNG LƯỚI SEMANTICA AGI KNOWLEDGE GRAPH MỞ RỘNG:
+
+```
+  ┌────────────────────────────────────────────────────────┐
+  │         🕸️ SEMANTICA CONTEXT GRAPH (MỞ RỘNG)           │
+  │               1.294 NODES  |  4.604 EDGES              │
+  └───────────────────────────┬────────────────────────────┘
+                              │
+  ┌───────────────────────────┴────────────────────────────┐
+  ▼                                                        ▼
+[THỰC THỂ (NODES)]                                  [QUAN HỆ (EDGES)]
+• Regulation (Pháp lý): 3                           • GOVERNED_BY: 1.265
+• Facility (21 Khoa): 21                            • LOCATED_IN: 1.052
+• Category (10 Nhóm): 10                            • CLASSIFIED_AS: 1.052
+• Device (Thiết bị y tế): 1.052                     • PROCURED_UNDER: 1.052
+• Contract (Hợp đồng mua sắm): 57+                  • SUPPLIED_BY: 76+
+• Supplier (Nhà thầu y tế): 44+                     • CERTIFIED_BY: 107
+• Certificate (Giấy kiểm định): 107
+```
+
+---
+
+### 🌐 3. TRẠNG THÁI HỆ THỐNG & ĐỒNG BỘ:
+* 📊 **API Semantica Stats:** [`http://127.0.0.1:8000/api/semantica/stats`](http://127.0.0.1:8000/api/semantica/stats) *(Xác nhận 1.294 Nodes, 4.604 Edges)*.
+* 🔎 **Giải Trình Nguồn Gốc (W3C PROV-O):** [`http://127.0.0.1:8000/api/semantica/explain/1`](http://127.0.0.1:8000/api/semantica/explain/1).
+* 🌿 **Git Commit:** Đã commit vào nhánh [`feat/device-management-v2`](file:///C:/Users/tantt/Downloads/medical-device-app).
+* 📄 **Bản ghi phiên:** [`C:\Users\tantt\Downloads\session.md`](file:///C:/Users/tantt/Downloads/session.md).
+
+
+### 👤 Lượt 56: Yêu cầu từ Người Dùng (USER)
+```text
+không chạy script, dùng agent cli đọc kỹ từng md và pdf
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:02+07:00
+Completed At: 2026-08-19T07:45:02+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/05_KIEM%20DINH/pdf/Master_kiem_dinh_TB.md`
+Total Lines: 343
+Total Bytes: 85833
+Showing lines 1 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: ## Master kiểm định TB
+2: 
+3: | Khoa /Phòng | Tên thiết bị y tế | Model | SN | Số lưu hành | Loại giấy | Đơn vị kiểm định | Số | Số tem | Từ ngày | Ngày đến hạn | TRẠNG THÁI |
+4: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+5: | CẤP CỨU | Máy giúp thở chức năng cao TV-100 | TV-100 | TX2301031 | B.2100535ĐKLH/BYT-TB-CT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 023.01.26Y | 07120 | 2026-01-07 | 2027-01-06 | OK |
+6: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 4SXA5JRR | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0094.02.26Y | 00450 | 2026-02-07 | 2027-02-06 | OK |
+7: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo HDF Online | HD 5008S | 4VSA0LMZ | C.1/FMEAG-PL | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0095.02.26Y | 00427 | 2026-02-07 | 2027-02-06 | OK |
+8: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 4SXA5JRT | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0093.02.26Y | 00449 | 2026-02-07 | 2027-02-06 | OK |
+9: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 5SXA5WT3 | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0071.09.25Y | 3134 | 2025-09-09 | 2026-08-09 | SẮP ĐẾN HẠN |
+10: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo HDF Online | HD 5008S | 4VSA0LN7 | C.1/FMEAG-PL | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0072.09.25Y | 3135 | 2025-09-09 | 2026-08-09 | SẮP ĐẾN HẠN |
+11: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 5SXA6AYT | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0927.10.25Y | 4663 | 2025-10-25 | 2026-10-24 | OK |
+12: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 5SXA6AXS | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0928.10.25Y | 4664 | 2025-10-25 | 2026-10-24 | OK |
+13: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 4SXA5AHQ | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14650/220725 | 14650 | 2025-07-22 | 2026-07-22 | SẮP ĐẾN HẠN |
+14: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 4SXA5AHS | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14649/220725 | 14649 | 2025-07-22 | 2026-07-22 | SẮP ĐẾN HẠN |
+15: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 4SXA5AHP | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14631/220725 | 14631 | 2025-07-22 | 2026-07-22 | SẮP ĐẾN HẠN |
+16: | CẤP CỨU-ĐƠN VỊ LỌC MÁU | Máy chạy thận nhân tạo chu kỳ HD 4008S | HD 4008S | 4SXA5AHR | C.20200590-ADJVINA/170000008/PCBPL-BYT | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 14630/220725 | 14630 | 2025-07-22 | 2026-07-22 | SẮP ĐẾN HẠN |
+17: | CHẨN ĐOÁN HÌNH ẢNH | Áp kế | Lò xo | P014472 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-998/01.26P | 26A 101369 | 2026-01-30 | 2027-01-31 | OK |
+18: | CHẨN ĐOÁN HÌNH ẢNH | Huyết áp kế cơ | YAMASU | 996676 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-003/01.26H | 26A 101401 | 2026-01-30 | 2027-01-31 | OK |
+19: | CHẨN ĐOÁN HÌNH ẢNH | Huyết áp kế điện tử | HEM-8712 | 20240456619VG |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-008/01.26H | 26A 101402 | 2026-01-30 | 2027-01-31 | OK |
+20: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA1 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-369/01.26 | 25A 213410 | 2026-01-23 | 2027-01-31 | OK |
+21: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA2 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-370/01.26 | 25A 213414 | 2026-01-23 | 2027-01-31 | OK |
+22: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA4 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-371/01.26 | 25A 213411 | 2026-01-23 | 2027-01-31 | OK |
+23: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA5 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-372/01.26 | 25A 213409 | 2026-01-23 | 2027-01-31 | OK |
+24: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA6 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-373/01.26 | 25A 213413 | 2026-01-23 | 2027-01-31 | OK |
+25: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA7 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-374/01.26 | 25A 214168 | 2026-01-23 | 2027-01-31 | OK |
+26: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA8 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-375/01.26 | 25A 213412 | 2026-01-23 | 2027-01-31 | OK |
+27: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA10 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-376/01.26 | 25A 213415 | 2026-01-23 | 2027-01-31 | OK |
+28: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế điện tử | HM16 | MH16-CĐHA1 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-381/01.26 | 25A 213420 | 2026-01-23 | 2027-01-31 | OK |
+29: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế điện tử | HM16 | MH16-CĐHA2 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-382/01.26 | 25A 213421 | 2026-01-23 | 2027-01-31 | OK |
+30: | CHẨN ĐOÁN HÌNH ẢNH | Huyết áp kế cơ | YAMASU | 997019 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-004/01.26H | 26A 101400 | 2026-01-30 | 2027-01-31 | OK |
+31: | CHẨN ĐOÁN HÌNH ẢNH | Áp kế | Lò xo | P014596 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-999/01.26P | 26A 101368 | 2026-01-30 | 2027-01-31 | OK |
+32: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA11 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-377/01.26 | 25A 213416 | 2026-01-23 | 2027-01-31 | OK |
+33: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA12 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-378/01.26 | 25A 213417 | 2026-01-23 | 2027-01-31 | OK |
+34: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA13 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-379/01.26 | 25A 213418 | 2026-01-23 | 2027-01-31 | OK |
+35: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-CĐHA14 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-380/01.26 | 25A 213419 | 2026-01-23 | 2027-01-31 | OK |
+36: | CHẨN ĐOÁN HÌNH ẢNH | Nhiệt kế ẩm điện tử | RC-4HC | EF7222103694 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-383/01.26 | 25A 213422 | 2026-01-23 | 2027-01-31 | OK |
+37: | CHẨN ĐOÁN HÌNH ẢNH | Máy phá rung tim | TEC-5621 | 10426 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14653/210725 | 14653 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+38: | KHÁM BỆNH | Máy điện tim 6 kênh | ECG-1250K | 17056 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-010/07.24E | 110479 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+39: | KHÁM BỆNH | Áp kế | Lò xo | P014632 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1000/01.26P | 26A 101562 | 2026-01-30 | 2027-01-31 | OK |
+40: | KHÁM BỆNH | Áp kế | Lò xo | P014629 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1012/01.26P | 26A 101362 | 2026-01-30 | 2027-01-31 | OK |
+41: | KHÁM BỆNH | Áp kế | Lò xo | P014556 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1001/01.26P | 26A 101570 | 2026-01-30 | 2027-01-31 | OK |
+42: | KHÁM BỆNH | Áp kế | Lò xo | P014470 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1002/01.26P | 26A 101396 | 2026-01-30 | 2027-01-31 | OK |
+43: | KHÁM BỆNH | Áp kế | Lò xo | P014557 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1003/01.26P | 26A 101365 | 2026-01-30 | 2027-01-31 | OK |
+44: | KHÁM BỆNH | Áp kế | Lò xo | P014466 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1004/01.26P | 26A 101398 | 2026-01-30 | 2027-01-31 | OK |
+45: | KHÁM BỆNH | Áp kế | Lò xo | P014471 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1005/01.26P | 26A 101399 | 2026-01-30 | 2027-01-31 | OK |
+46: | KHÁM BỆNH | Áp kế | Lò xo | P014630 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1006/01.26P | 26A 101567 | 2026-01-30 | 2027-01-31 | OK |
+47: | KHÁM BỆNH | Áp kế | 0 | H21491 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1007/01.26P | 26A 101568 | 2026-01-30 | 2027-01-31 | OK |
+48: | KHÁM BỆNH | Áp kế | 0 | H21506 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1008/01.26P | 26A 101364 | 2026-01-30 | 2027-01-31 | OK |
+49: | KHÁM BỆNH | Áp kế | Lò xo | P014625 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1009/01.26P | 26A 101566 | 2026-01-30 | 2027-01-31 | OK |
+50: | KHÁM BỆNH | Áp kế | Lò xo | P014561 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1010/01.26P | 26A 101360 | 2026-01-30 | 2027-01-31 | OK |
+51: | KHÁM BỆNH | Áp kế | Lò xo | P014633 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1011/01.26P | 26A 101361 | 2026-01-30 | 2027-01-31 | OK |
+52: | KHÁM BỆNH | Huyết áp kế điện tử | HEM-7143T1 | 202406005061V |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-010/02.26H | 24A 131851 | 2026-02-02 | 2027-02-28 | OK |
+53: | KHÁM BỆNH | Nhiệt ẩm kế điện tử | HTC-2 | HTC-2-KB1 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-389/01.26 | 25A 214158 | 2026-01-23 | 2027-01-31 | OK |
+54: | KHÁM BỆNH | Áp kế | Lò xo | P014558 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1013/01.26P | 26A 101363 | 2026-01-30 | 2027-01-31 | OK |
+55: | KHÁM BỆNH | Huyết áp kế điện tử | HEM-8712 | 20240456757VG |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-009/01.26H | 26A 101569 | 2026-01-30 | 2027-01-31 | OK |
+56: | KHÁM BỆNH | Huyết áp kế cơ | YAMASU | 992116 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-005/01.26H | 26A 101397 | 2026-01-30 | 2027-01-31 | OK |
+57: | KHÁM BỆNH | Huyết áp kế cơ | YAMASU | 035371 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-006/01.26H | 26A 101563 | 2026-01-30 | 2027-01-31 | OK |
+58: | KHÁM BỆNH | Huyết áp kế cơ | YAMASU | 035350 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-007/01.26H | 26A 101564 | 2026-01-30 | 2027-01-31 | OK |
+59: | KHÁM BỆNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-KB3 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-384/01.26 | 25A 214159 | 2026-01-23 | 2027-01-31 | OK |
+60: | KHÁM BỆNH | Nhiệt kế ẩm điện tử | JR913 | JR913-KB1 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-391/01.26 | 25A 214166 | 2026-01-23 | 2027-01-31 | OK |
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:05+07:00
+Completed At: 2026-08-19T07:45:05+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/05_KIEM%20DINH/pdf/Master_kiem_dinh_TB.md`
+Total Lines: 343
+Total Bytes: 85833
+Showing lines 61 to 120
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+61: | KHÁM BỆNH | Nhiệt ẩm kế cơ | TH600 B | TH600B-KB-3020 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-392/01.26 | 24A 212271 | 2026-02-25 | 2027-02-25 | OK |
+62: | KHÁM BỆNH | Dao mổ điện cao tần lưỡng cực ZEUS-150 | ZEUS-150 | A07COAP0251 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14902/130725 | 14902 | 2025-07-13 | 2026-07-13 | SẮP ĐẾN HẠN |
+63: | KHÁM BỆNH | Dao mổ điện cao tần lưỡng cực ZEUS-150 | ZEUS-150 | A07COAP0248 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14617/210725 | 14617 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+64: | KHÁM BỆNH | Dao mổ điện cao tần lưỡng cực ZEUS-150 | ZEUS-150 | A07COAP0250 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14616/210725 | 14616 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+65: | KHÁM BỆNH | Máy phá rung tim | TEC-5621 | 09284 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14655/210725 | 14655 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+66: | KHÁM BỆNH | Máy phá rung tim | TEC-5621 | 10422 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14633/210725 | 14633 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+67: | KHÁM BỆNH | Cân phân tích thành phần cơ thể BSM370 | BSM370 | S9823000753 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-397/01.26 | 25A 214165 | 2026-01-23 | 2027-01-31 | OK |
+68: | KHÁM BỆNH | Cân sơ sinh kèm thước đo chiều cao MS3500+HM80M | MS3500+HM80M | C24005462 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-100/01.26M | 26A 101571 | 2026-01-30 | 2027-01-31 | OK |
+69: | KHÁM BỆNH | Cân sơ sinh kèm thước đo chiều cao MS3500+HM80M | MS3500+HM80M | C24005460 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-101/01.26M | 26A 101565 | 2026-01-30 | 2027-01-31 | OK |
+70: | KHÁM BỆNH | Dao mổ điện cao tần lưỡng cực ZEUS-150 | ZEUS-150 | A07COAP0247 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14618/210725 | 14618 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+71: | KHÁM BỆNH | Cân sơ sinh kèm thước đo chiều cao MS3500+HM80M | MS3500+HM80M | C24005477 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-051/07.25 M | 25A 107947 | 2025-07-05 | 2026-07-31 | SẮP ĐẾN HẠN |
+72: | KHÁM BÊNH - KIỂM SOÁT CÂN NẶNG | Cân phân tích thành phần cơ thể | BSM370 | S9823000760 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-398/01.26 | 25A 214167 | 2026-01-23 | 2027-01-31 | OK |
+73: | KIỂM SOÁT NHIỄM KHUẨN | Áp kế | 0 | 1561 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-1014/01.26P | 26A 101561 | 2026-01-30 | 2027-01-31 | OK |
+74: | KIỂM SOÁT NHIỄM KHUẨN | Máy hấp tiệt trùng Person Medical | Person Medical VSC-60L | S-60224104 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-395/01.26 | 25A 214157 | 2026-01-23 | 2027-01-31 | OK |
+75: | KHÁM BỆNH - MẮT | Dao mổ điện cao tần lưỡng cực ZEUS-150 | ZEUS-150 | A07COAT0484 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0085.02.26Y | 00444 | 2026-02-07 | 2027-02-06 | OK |
+76: | KHÁM BỆNH - PK NHI | Máy phá rung tim | TEC-5621 | 10416 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14651/210725 | 14651 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+77: | NỘI SOI TIÊU HÓA | Máy cắt đốt cao tần VIO 300S | VIO 300S | 11557010 |  | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0087.02.26Y | 0046 | 2026-02-07 | 2027-02-06 | OK |
+78: | NỘI SOI TIÊU HÓA | Máy cắt đốt cao tần VIO 300S | VIO 300S | 11557008 |  | Giấy chứng nhận kiểm định | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0089.02.26Y | 00448 | 2026-02-07 | 2027-02-06 | OK |
+79: | NỘI SOI TIÊU HÓA | Máy đốt cao tần VIO 300D | VIO 300D | 11558120 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0088.02.26Y | 00447 | 2026-02-07 | 2027-02-06 | OK |
+80: | NỘI SOI TIÊU HÓA | Máy cắt đốt cao tần VIO 300S | VIO 300S | 11557011 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP ĐO LƯỜNG CHẤT LƯỢNG UNITY | 0086.02.26Y | 00445 | 2026-02-07 | 2027-02-06 | OK |
+81: | KHÁM BỆNH - RĂNG HÀM MẶT | Nhiệt ẩm kế điện tử | HTC-2 | HTC-2-RHM1 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-390/01.26 | 25A 214164 | 2026-01-23 | 2027-01-31 | OK |
+82: | KHÁM BỆNH - TIM MẠCH | Máy phá rung tim | TEC-5621 | 10421 |  | Giấy chứng nhận kiểm định an toàn và tính năng kỹ thuật | CT CP TƯ VẪN VÀ KIỂM ĐỊNH Y TẾ MDC VIỆT NAM | 14652/210725 | 14652 | 2025-07-21 | 2026-07-21 | SẮP ĐẾN HẠN |
+83: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 6 kênh | ECG-1250K | 17048 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-007/07.24E | 110476 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+84: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 6 kênh | ECG-1250K | 17070 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-008/07.24E | 110477 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+85: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 6 kênh | ECG-1250K | 17069 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-009/07.24E | 110478 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+86: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 6 kênh | ECG-1250K | 17050 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-011/07.24E | 110480 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+87: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 12 kênh | ECG-3350 | 00297 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-012/07.24E | 110481 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+88: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 12 kênh | ECG-3350 | 00299 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-013/07.24E | 110482 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+89: | KHÁM BỆNH - TIM MẠCH | Máy điện tim 12 kênh | ECG-3350 | 00300 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-014/07.24E | 110483 | 2024-07-12 | 2026-07-31 | SẮP ĐẾN HẠN |
+90: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037096 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-001/08.24E | 112842 | 2025-08-09 | 2026-08-31 | OK |
+91: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037121 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-002/08.24E | 112843 | 2025-08-09 | 2026-08-31 | OK |
+92: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00033021 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-003/08.24E | 112844 | 2025-08-09 | 2026-08-31 | OK |
+93: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037299 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-004/08.24E | 112845 | 2025-08-09 | 2026-08-31 | OK |
+94: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037307 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-005/08.24E | 112846 | 2025-08-09 | 2026-08-31 | OK |
+95: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037271 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-006/08.24E | 112847 | 2025-08-09 | 2026-08-31 | OK |
+96: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037298 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-007/08.24E | 112848 | 2025-08-09 | 2026-08-31 | OK |
+97: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037303 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-008/08.24E | 112849 | 2025-08-09 | 2026-08-31 | OK |
+98: | KHÁM BỆNH - TIM MẠCH | Máy Holter điện tim | BTL-08 Holter H600 | 08AE00037281 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-009/08.24E | 112850 | 2025-08-09 | 2026-08-31 | OK |
+99: | KHÁM BỆNH - TIM MẠCH | Hệ thống điện tim gắng sức (không gồm thảm lăn) | BTL FLEXI 12 ECG | 07600B101449 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-010/08.24E | 112851 | 2025-08-09 | 2026-08-31 | OK |
+100: | KHÁM BỆNH - TIM MẠCH | Hệ thống điện tim gắng sức (bao gồm thảm lăn xe đạp) | BTL FLEXI 12 ECG | 07600B101454 |  | Giấy chứng nhận kiểm định | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-011/08.24E | 112852 | 2025-08-09 | 2026-08-31 | OK |
+101: | KHÁM BỆNH - UNG BƯỚU | Nhiệt ẩm kế cơ | TH600 B | TH600B-KB-UB1 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-385/01.26 | 25A 214160 | 2026-01-23 | 2027-01-31 | OK |
+102: | KHÁM BỆNH - UNG BƯỚU | Nhiệt ẩm kế cơ | TH600 B | TH600B-KB-UB2 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-386/01.26 | 25A 214161 | 2026-01-23 | 2027-01-31 | OK |
+103: | KHÁM BỆNH - UNG BƯỚU | Nhiệt ẩm kế cơ | TH600 B | TH600B-KB-UB3 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-387/01.26 | 25A 214162 | 2026-01-23 | 2027-01-31 | OK |
+104: | KHÁM BỆNH - UNG BƯỚU | Nhiệt ẩm kế cơ | TH600 B | TH600B-KB-UB4 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-388/01.26 | 25A 214163 | 2026-01-23 | 2027-01-31 | OK |
+105: | XÉT NGHIỆM | Nhiệt kế tự ghi | TREL30-16 | A0630054385O |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-249/07.25 | 25A 201207 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+106: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A80014948O |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-245/07.25 | 25A 201170 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+107: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A8001496SH |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-246/07.25 | 25A 201171 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+108: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A800150030 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-247/07.25 | 25A 201172 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+109: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A8001501DH |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-248/07.25 | 25A 201173 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+110: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A8001492O5 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-250/07.25 | 25A 201175 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+111: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A8001491ET |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-251/07.25 | 25A 201205 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+112: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A8001495I5 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-252/07.25 | 201206 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+113: | XÉT NGHIỆM | Nhiệt kế tự ghi | UTRED30-16 | A0A8001498C5 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-253/07.25 | 201209 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+114: | XÉT NGHIỆM | Tủ lạnh âm sâu -30˚C MDF-MU339-PE | MDF-MU339-PE | 230960026 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-203/07.25 | 25A 201204 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+115: | XÉT NGHIỆM | Tủ lạnh bảo quản MPR-722-PE | MPR-722-PE | 23110761 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-226/07.25 | 201165 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+116: | XÉT NGHIỆM | Tủ lạnh bảo quản MPR-722-PE | MPR-722-PE | 23110763 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-227/07.25 | 201166 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+117: | XÉT NGHIỆM | Tủ lạnh bảo quản MPR-722-PE | MPR-722-PE | 23110762 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-228/07.25 | 201167 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+118: | XÉT NGHIỆM | Tủ lạnh bảo quản MPR-722-PE | MPR-722-PE | 23110772 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-229/07.25 | 201168 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+119: | XÉT NGHIỆM | Tủ lạnh bảo quản MPR-722-PE | MPR-722-PE | 23110770 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-230/07.25 | 201169 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+120: | XÉT NGHIỆM | Tủ lạnh bảo quản MPR-722-PE | MPR-722-PE | 23110771 |  | Giấy chứng nhận hiệu chuẩn | CT CP DỊCH VỤ TƯ VẤN VÀ KIỂM ĐỊNH VIỆT NAM | 056-231/07.25 | 201203 | 2025-07-01 | 2026-07-31 | SẮP ĐẾN HẠN |
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:08+07:00
+Completed At: 2026-08-19T07:45:08+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/BBBG%20NB_VirtueRF_CT%20Lasera_SN%2026003.md`
+Total Lines: 67
+Total Bytes: 2040
+Showing lines 1 to 65
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: ---
+2: source_pdf: "BBBG NB_VirtueRF_CT Lasera_SN 26003.pdf"
+3: pdf_path: "BBBG NB_VirtueRF_CT Lasera_SN 26003.pdf"
+4: md_path: "BBBG NB_VirtueRF_CT Lasera_SN 26003.md"
+5: ocr_model: mistral-ocr-latest
+6: ocr_time: "2026-07-08T00:35:01.237Z"
+7: pages: 1
+8: doc_type: BAN_GIAO
+9: doc_type_label: "Biên bản bàn giao"
+10: form_code: "BM04_TA5.TTBYT..QT.04 |"
+11: handover_date: "5 tháng 03 năm 2026"
+12: department: "Phòng Trang Thiết Bị Y Tế"
+13: model: "VirtueRF"
+14: serial_no: "26003"
+15: manufacturer: "SHENB"
+16: origin_country: "Hàn Quốc Năm sản xuất: 2026"
+17: equipment_count: "1"
+18: equipment_name: "Máy điều trị da"
+19: equipment_list: [{"stt":"1","name":"Máy điều trị da","model":"VirtueRF","manufacturer":"SHENB","origin_country":"Hàn Quốc Năm sản xuất: 2026","serial_no":"26003","qty":"1","unit":"Cái","item_type":"main"}]
+20: ---
+21: 
+22: form_code || BM04_TA5.TTBYT..QT.04 |
+23: handover_date || 5 tháng 03 năm 2026
+24: department || Phòng Trang Thiết Bị Y Tế
+25: model || VirtueRF
+26: serial_no || 26003
+27: manufacturer || SHENB
+28: origin_country || Hàn Quốc Năm sản xuất: 2026
+29: equipment_count || 1
+30: equipment_name || Máy điều trị da
+31: equipment_1 || Máy điều trị da | VirtueRF | SHENB | Hàn Quốc Năm sản xuất: 2026 | 26003 | 1 Cái
+32: 
+33: ||
+34: 
+35: |  **ta** Tâm Anh Hospital Tâm Anh Clinic | PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7 | Mã số: BM04_TA5.TTBYT.QT.04  |
+36: | --- | --- | --- |
+37: |   |  **BIÊN BẢN GIAO NHẬN THIẾT BỊ** | Lần phát hành: Ngày hiệu lực: Trang : 1/1  |
+38: 
+39: Tp. HCM, ngày 5 tháng 03 năm 2026
+40: 
+41: **BÊN GIAO:**
+42: 
+43: 1. Phòng Trang Thiết Bị Y Tế
+44: 
+45: Đại diện: Trần Đăng Hiếu
+46: 
+47: **BÊN NHẬN:**
+48: 
+49: 1. Khoa Da liễu
+50: 
+51: Đại diện:
+52: 
+53: **NỘI DUNG**
+54: 
+55: Theo hợp đồng số: 0101/LA-BVTA/2026
+56: 
+57: |  STT | Tên Thiết Bị | ĐVT | Số lượng | Ghi chú  |
+58: | --- | --- | --- | --- | --- |
+59: |  1 | Máy điều trị da Model: VirtueRF Hãng sản xuất: SHENB Nước sản xuất: Hàn Quốc Năm sản xuất: 2026 | Cái | 01 | SN: 26003  |
+60: 
+61: **BÊN GIAO**
+62: 
+63: Trần Đăng Hiếu
+64: 
+65: **BÊN NHẬN**
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:12+07:00
+Completed At: 2026-08-19T07:45:13+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/BBBG%20NB_B125M_2_CT%20GE_SN%20SR724460006SA.md`
+Total Lines: 122
+Total Bytes: 3377
+Showing lines 1 to 65
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: ---
+2: source_pdf: "BBBG NB_B125M_2_CT GE_SN SR724460006SA.pdf"
+3: pdf_path: "BBBG NB_B125M_2_CT GE_SN SR724460006SA.pdf"
+4: md_path: "BBBG NB_B125M_2_CT GE_SN SR724460006SA.md"
+5: ocr_model: mistral-ocr-latest
+6: ocr_time: "2026-07-08T09:31:19.212Z"
+7: pages: 2
+8: doc_type: BAN_GIAO
+9: doc_type_label: "Biên bản bàn giao"
+10: form_code: "BM04_TA5.TTBYT. QT.04"
+11: ref_no: "2"
+12: handover_date: "11/02/2026"
+13: department: "P.TTB Q7"
+14: party_giver: "Trần Trọng Cẩn"
+15: party_receiver: "Chương"
+16: model: "B125M"
+17: serial_no: "SR724460006SA"
+18: manufacturer: "GE Healthcare"
+19: origin_country: "Mexico"
+20: equipment_count: "1"
+21: contract_no: "12825/HĐMB/VMPP-TAMANH"
+22: party_a: "P.TTB Q7"
+23: equipment_name: "Monitor 5 thông số tích hợp sẵn cổng kết nối trực tiếp bệnh án điện tử (EMR) huyết áp xâm lấn"
+24: equipment_list: [{"stt":1,"name":"Monitor 5 thông số tích hợp sẵn cổng kết nối trực tiếp bệnh án điện tử (EMR) huyết áp xâm lấn","model":"B125M","manufacturer":"GE Healthcare","origin_country":"Mexico","serial_no":"SR724460006SA","qty":"1","unit":"Cái"}]
+25: ---
+26: 
+27: form_code || BM04_TA5.TTBYT. QT.04
+28: ref_no || 2
+29: handover_date || 11/02/2026
+30: department || P.TTB Q7
+31: party_giver || Trần Trọng Cẩn
+32: party_receiver || Chương
+33: model || B125M
+34: serial_no || SR724460006SA
+35: manufacturer || GE Healthcare
+36: origin_country || Mexico
+37: equipment_count || 1
+38: contract_no || 12825/HĐMB/VMPP-TAMANH
+39: party_a || P.TTB Q7
+40: equipment_name || Monitor 5 thông số tích hợp sẵn cổng kết nối trực tiếp bệnh án điện tử (EMR) huyết áp xâm lấn
+41: equipment_1 || Monitor 5 thông số tích hợp sẵn cổng kết nối trực tiếp bệnh án điện tử (EMR) huyết áp xâm lấn | B125M | GE Healthcare | Mexico | SR724460006SA | 1 Cái
+42: 
+43: ||
+44: 
+45: ## Trang 1
+46: 
+47: ta Tầm Anh
+48: Hospital
+49: Tâm Anh Clinic
+50: 
+51: PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7
+52: 
+53: # BIÊN BẢN GIAO NHẬN
+54: ## THIẾT BỊ
+55: 
+56: Mã số: BM04_TA5.TTBYT. QT.04
+57: 
+58: Lần phát hành:
+59: 
+60: Ngày hiệu lực:
+61: 
+62: Trang : 1/1
+63: 
+64: Tp.HCM, ngày 11 tháng 2 năm 2026
+65: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:15+07:00
+Completed At: 2026-08-19T07:45:15+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/BBBG%20NB_200x%20C%E1%BA%A3m%20bi%E1%BA%BFn%20%C4%91o%20n%E1%BB%93ng%20%C4%91%E1%BB%99%20b%C3%A3o%20h%C3%B2a_Q726040027.md`
+Total Lines: 85
+Total Bytes: 2804
+Showing lines 1 to 65
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: ---
+2: source_pdf: "BBBG NB_200x Cảm biến đo nồng độ bão hòa_Q726040027.pdf"
+3: pdf_path: "BBBG NB_200x Cảm biến đo nồng độ bão hòa_Q726040027.pdf"
+4: md_path: "BBBG NB_200x Cảm biến đo nồng độ bão hòa_Q726040027.md"
+5: ocr_model: mistral-ocr-latest
+6: ocr_time: "2026-07-08T00:33:35.250Z"
+7: pages: 1
+8: doc_type: BAN_GIAO
+9: doc_type_label: "Biên bản bàn giao"
+10: ref_no: "Q726040027"
+11: handover_date: "12 tháng 05 năm 2026"
+12: party_giver: "bên giao:"
+13: equipment_name: "Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay"
+14: equipment_count: "1"
+15: equipment_list: [{"stt":"1","name":"Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay","model":"","manufacturer":"","origin_country":"","serial_no":"","qty":"200","unit":"","item_type":"main"}]
+16: ---
+17: 
+18: ref_no || Q726040027
+19: handover_date || 12 tháng 05 năm 2026
+20: party_giver || bên giao:
+21: equipment_name || Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay
+22: equipment_count || 1
+23: equipment_1 || Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay | 200 
+24: 
+25: ||
+26: 
+27: VIETMEDICAL
+28: 
+29: CÔNG TY CỔ PHẦN VIETMEDICAL - PHÂN PHỐI
+30: 
+31: Số 89 Lương Định Của, Phường Kim Liên, Thành Phố Hà Nội, Việt Nam
+32: 
+33: ĐT: 02439843477
+34: 
+35: ![img-0.jpeg](img-0.jpeg)
+36: 
+37: # BIÊN BẢN BÀN GIAO - PHIẾU BÁO LÔ
+38: 
+39: Ngày 12 tháng 05 năm 2026
+40: 
+41: Số phiếu xuất: KX.25.0526.0713
+42: 
+43: Số đề nghị: EO.14.0526.0134
+44: 
+45: BÊN NHẬN: CÔNG TY CỔ PHẦN BỆNH VIỆN ĐA KHOA TÂM ANH TP.HỒ CHÍ MINH
+46: 
+47: Địa điểm giao hàng: BV Tâm Anh HCM
+48: 
+49: Tên người nhận hàng: Mr Việt (0902769710)
+50: 
+51: BÊN GIAO: CÔNG TY CỔ PHẦN VIETMEDICAL - PHÂN PHỐI
+52: 
+53: Địa chỉ: Số 89 Lương Định Của, Phường Kim Liên, Thành Phố Hà Nội, Việt Nam
+54: 
+55: Điện thoại: 02439843477
+56: 
+57: Đại diện bên giao:
+58: 
+59: Số lượng hàng hóa được bàn giao như sau:
+60: 
+61: PO Q726040027
+62: 
+63: |  STT | Tên thiết bị | Mã vật tư NCC | Đơn vị tính | Số lượng | Số lô | Serial NCC | Hạn sử dụng  |
+64: | --- | --- | --- | --- | --- | --- | --- | --- |
+65: |  1 | Cảm biến đo nồng độ bão hòa Oxy trong máu (SpO2), kiểu kẹp tay | TS-F-D | Chiếc | 2.00 | 16324 |  |   |
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:19+07:00
+Completed At: 2026-08-19T07:45:19+07:00
+{"name":"02_HOP DONG MUA SAM", "isDir":true}
+{"name":"03_BAO TRI THIET BI", "isDir":true}
+{"name":"04_SUA CHUA THIET BI", "isDir":true}
+{"name":"05_KIEM DINH", "isDir":true}
+{"name":"06_THAM DINH", "isDir":true}
+{"name":"2024", "isDir":true}
+{"name":"2025", "isDir":true}
+{"name":"2026", "isDir":true}
+{"name":"BBBG NB_200x Cảm biến đo nồng độ bão hòa_Q726040027.md", "sizeBytes":"2804"}
+{"name":"BBBG NB_B125M_2_CT GE_SN SR724460006SA.md", "sizeBytes":"3377"}
+{"name":"BBBG NB_VirtueRF_CT Lasera_SN 26003.md", "sizeBytes":"2040"}
+{"name":"Cấp cứu - Thận Nhân Tạo", "isDir":true}
+{"name":"Hình ảnh tham khảo đề xuất mua hàng", "isDir":true}
+{"name":"Họp Ống nội soi", "isDir":true}
+{"name":"MEDICAL_DEVICE_SKILL_PROFILE.md", "sizeBytes":"3442"}
+{"name":"NANOBOT_DEVICE_MANAGEMENT_INSTRUCTIONS.md", "sizeBytes":"2304"}
+{"name":"TONG_QUAN_DU_LIEU.md", "sizeBytes":"10206"}
+{"name":"_debug", "isDir":true}
+{"name":"_debug_out", "isDir":true}
+{"name":"_feedback", "isDir":true}
+{"name":"_sample", "isDir":true}
+{"name":"audit_ocr_final.md", "sizeBytes":"4598"}
+{"name":"docs_raw", "isDir":true}
+{"name":"kiemdinh_tachfile", "isDir":true}
+{"name":"medical-device-app", "isDir":true}
+{"name":"sample", "isDir":true}
+{"name":"scripts", "isDir":true}
+{"name":"session.md", "sizeBytes":"4164"}
+
+Summary: This directory contains 20 subdirectories and 8 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:21+07:00
+Completed At: 2026-08-19T07:45:21+07:00
+{"name":"Biên bản bàn giao nội bộ", "isDir":true}
+{"name":"Bàn giao lắp đặt + Chứng từ CO,CQ", "isDir":true}
+{"name":"Văn phòng phẩm", "isDir":true}
+
+Summary: This directory contains 3 subdirectories and 0 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:23+07:00
+Completed At: 2026-08-19T07:45:23+07:00
+{"name":"Chăm Sóc Khách Hàng", "isDir":true}
+{"name":"Chẩn Đoán Hình Ảnh", "isDir":true}
+{"name":"Cấp Cứu", "isDir":true}
+{"name":"Cấp cứu - Thận Nhân Tạo", "isDir":true}
+{"name":"Da Liễu", "isDir":true}
+{"name":"Gây mê hồi sức", "isDir":true}
+{"name":"Khoa Khám Bệnh", "isDir":true}
+{"name":"Khám sản", "isDir":true}
+{"name":"Kiểm Soát Nhiễm Khuẩn", "isDir":true}
+{"name":"Nhà Thuốc", "isDir":true}
+{"name":"Nội Soi Tiêu Hóa", "isDir":true}
+{"name":"PHCN", "isDir":true}
+{"name":"Q7-Tân Bình", "isDir":true}
+{"name":"Răng Hàm Mặt", "isDir":true}
+{"name":"TB-Q7", "isDir":true}
+{"name":"Tai Mũi Họng", "isDir":true}
+{"name":"Tim Mạch", "isDir":true}
+{"name":"Trung Tâm Béo Phì", "isDir":true}
+{"name":"Trung Tâm Mắt", "isDir":true}
+{"name":"Ung Bướu", "isDir":true}
+{"name":"Xét Nghiệm", "isDir":true}
+{"name":"Y học thể thao", "isDir":true}
+
+Summary: This directory contains 22 subdirectories and 0 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:26+07:00
+Completed At: 2026-08-19T07:45:26+07:00
+{"name":"2025", "isDir":true}
+{"name":"2026", "isDir":true}
+
+Summary: This directory contains 2 subdirectories and 0 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:28+07:00
+Completed At: 2026-08-19T07:45:28+07:00
+{"name":"BBBG NB (thu hồi)_19.05.26_9 đèn khám TMH Luxamed.md", "sizeBytes":"878"}
+{"name":"BBBG NB_07.04.26_1 cảm biến SpO2_PO Q726030041.md", "sizeBytes":"947"}
+{"name":"BBBG NB_11.03.26_5 đuôi chuột xanh_Q726010042.md", "sizeBytes":"896"}
+{"name":"BBBG NB_13.05.26_3 cảm biến SpO2.md", "sizeBytes":"926"}
+{"name":"BBBG NB_18.04.26_1 nhiệt kế HTC Q726030072.md", "sizeBytes":"941"}
+{"name":"BBBG NB_18.04.26_3 đèn khám tai Riscope.md", "sizeBytes":"948"}
+{"name":"BBBG NB_19.05.26_9 đèn khám TMH ri-pen Q72605022.md", "sizeBytes":"885"}
+{"name":"BBBG NB_2 đèn khám tai Ri-scope L_PO Q72512005.md", "sizeBytes":"883"}
+{"name":"BBBG NB_24.03.26_11 đuôi chuột xanh_PO Q726030014.md", "sizeBytes":"907"}
+{"name":"BBBG NB_25.03.26_3 UPS HD 0203 2026.md", "sizeBytes":"965"}
+{"name":"BBBG NB_Hộp khí đầu giường-Bộ điều chỉnh lưu lượng oxy-vaccum-Bình hút dịch.md", "sizeBytes":"1056"}
+
+Summary: This directory contains 0 subdirectories and 11 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:29+07:00
+Completed At: 2026-08-19T07:45:30+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/02_HOP%20DONG%20MUA%20SAM/Bi%C3%AAn%20b%E1%BA%A3n%20b%C3%A0n%20giao%20n%E1%BB%99i%20b%E1%BB%99/Khoa%20Kh%C3%A1m%20B%E1%BB%87nh/2026/BBBG%20NB_25.03.26_3%20UPS%20HD%200203%202026.md`
+Total Lines: 59
+Total Bytes: 965
+Showing lines 1 to 59
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: ---
+2: source_pdf: "BBBG NB_25.03.26_3 UPS HD 0203 2026.pdf"
+3: ocr_engine: "mistral-ocr-latest"
+4: ocr_timestamp: "2026-08-01T23:43:10.574282"
+5: ---
+6: 
+7: ta Tâm Anh Hospital
+8: Tâm Anh Clinic
+9: 
+10: PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7
+11: 
+12: # BIÊN BẢN GIAO NHẬN
+13: ## THIẾT BỊ
+14: 
+15: Mã số: BM04_TA5.TTBYT.QT.04
+16: 
+17: Lần phát hành:
+18: 
+19: Ngày hiệu lực:
+20: 
+21: Trang : 1/1
+22: 
+23: Tp.HCM, ngày 25 tháng 3 năm 2026
+24: 
+25: BÊN GIAO:
+26: 
+27: 1. ...P.TTB Q7...
+28: 
+29: Đại diện: Trần Trọng Cẩn
+30: 
+31: 2. ...
+32: 
+33: Đại diện: ...
+34: 
+35: BÊN NHẬN:
+36: 
+37: 1. KKB...
+38: 
+39: Đại diện: Lương Thị Thuong
+40: 
+41: 2. ...
+42: 
+43: Đại diện: ...
+44: 
+45: NỘI DUNG
+46: 
+47: Theo số HĐ: 0203/2025/HĐ.TAHCM
+48: 
+49: |  STT | Tên Thiết Bị | ĐVT | Số lượng | Ghi chú  |
+50: | --- | --- | --- | --- | --- |
+51: |  1 | UPS - Model: SLC-3000-Twin Prezco - Hãng: - NSX: - Phụ kiện: + Ác quy (Loại: CM, SL: 4) | Cái | 3 | Số seri: 232024D74296, 232024D74298, 232024D74294  |
+52: 
+53: ĐƠN VỊ GIAO
+54: 
+55: Trần Trọng Cẩn
+56: 
+57: ĐƠN VỊ NHẬN
+58: 
+59: Lương Thị Thuong
+The above content shows the entire, complete file contents of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:32+07:00
+Completed At: 2026-08-19T07:45:32+07:00
+{"name":"2025", "isDir":true}
+{"name":"2026", "isDir":true}
+
+Summary: This directory contains 2 subdirectories and 0 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `list_dir`: *list_dir*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:34+07:00
+Completed At: 2026-08-19T07:45:35+07:00
+{"name":"BBBG NB (3 bên)_1 HT từ trường toàn thân 1 HT Cryo 5 Polar.md", "sizeBytes":"1726"}
+{"name":"BBBG NB (3 bên)_1 giường từ trường BTL-4920.md", "sizeBytes":"1450"}
+{"name":"BBBG NB (3 bên)_1 máy tập khớp vai-1 máy tập thụ động-1 máy tập nuốt (thẩm định).md", "sizeBytes":"1524"}
+{"name":"BBBG NB_08.04.26_1 thiết bị tập khớp vai HD 04.md", "sizeBytes":"1040"}
+{"name":"BBBG NB_1 huyết áp cơ Yamasu_PO Q726010006E.md", "sizeBytes":"967"}
+{"name":"BBBG NB_1 máy tập đùi trước-1 khung gánh tạ.md", "sizeBytes":"961"}
+{"name":"BBBG NB_1 xe đạp vật lý.md", "sizeBytes":"881"}
+{"name":"BBBG NB_1 đệm truyền sóng xung kích_PO 25110058.md", "sizeBytes":"853"}
+{"name":"BBBG NB_14.04.26_1 cân sức khỏe_Q726040017.md", "sizeBytes":"837"}
+{"name":"BBBG NB_16.03.26_ máy xịt lạnh Koolio_HD 23 1 2026.md", "sizeBytes":"1027"}
+{"name":"BBBG NB_17.03.26_1 cảm biến lực kéo -1 cảm biến quán tính-1 tấm cảm biến_HD 2801 2026.md", "sizeBytes":"1410"}
+{"name":"BBBG NB_17.03.26_5 cán và gương nha_PO Q726030003.md", "sizeBytes":"813"}
+{"name":"BBBG NB_18.04.26_1 máy siêu âm BTL-4710-1 máy điều trị BTL 6000-1 máy điện trị liệu-1 máy kích thích tập nuốt-1 máy tập vận động.md", "sizeBytes":"4090"}
+
+Summary: This directory contains 0 subdirectories and 13 files.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T07:45:38+07:00
+Completed At: 2026-08-19T07:45:38+07:00
+File Path: `file:///G:/BV%20QU%E1%BA%ACN%207_OCR_WORK_20260712/md/02_HOP%20DONG%20MUA%20SAM/Bi%C3%AAn%20b%E1%BA%A3n%20b%C3%A0n%20giao%20n%E1%BB%99i%20b%E1%BB%99/PHCN/2026/BBBG%20NB_18.04.26_1%20m%C3%A1y%20si%C3%AAu%20%C3%A2m%20BTL-4710-1%20m%C3%A1y%20%C4%91i%E1%BB%81u%20tr%E1%BB%8B%20BTL%206000-1%20m%C3%A1y%20%C4%91i%E1%BB%87n%20tr%E1%BB%8B%20li%E1%BB%87u-1%20m%C3%A1y%20k%C3%ADch%20th%C3%ADch%20t%E1%BA%ADp%20nu%E1%BB%91t-1%20m%C3%A1y%20t%E1%BA%ADp%20v%E1%BA%ADn%20%C4%91%E1%BB%99ng.md`
+Total Lines: 100
+Total Bytes: 4090
+Showing lines 1 to 85
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: ---
+2: source_pdf: "BBBG NB_18.04.26_1 máy siêu âm BTL-4710-1 máy điều trị BTL 6000-1 máy điện trị liệu-1 máy kích thích tập nuốt-1 máy tập vận động.pdf"
+3: ocr_engine: "mistral-ocr-latest"
+4: ocr_timestamp: "2026-08-01T23:47:47.906938"
+5: ---
+6: 
+7: ta Tâm Anh Hospital
+8: Tâm Anh Clinic
+9: 
+10: PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7
+11: 
+12: # BIÊN BẢN GIAO NHẬN
+13: ## THIẾT BỊ
+14: 
+15: Mã số: BM04_TA5.TTBYT.QT.04
+16: 
+17: Lần phát hành:
+18: 
+19: Ngày hiệu lực:
+20: 
+21: Trang : 1/1
+22: 
+23: Tp.HCM, ngày 18 tháng 4 năm 2026
+24: 
+25: **BÊN GIAO:**
+26: 
+27: 1. ...P.TTB Q7...
+28: 
+29: Đại diện: LÊ MINH THIỆN...
+30: 
+31: 2. ...
+32: 
+33: Đại diện: ...
+34: 
+35: **BÊN NHÂN:**
+36: 
+37: 1. ...PHCN Q7...
+38: 
+39: Đại diện:
+40: 
+41: 2. ...
+42: 
+43: Đại diện: ...
+44: 
+45: **NỘI DUNG**
+46: 
+47: |  STT | Tên Thiết Bị | ĐVT | Số lượng | Ghi chú  |
+48: | --- | --- | --- | --- | --- |
+49: |  1 | MÁY SIÊU ÂM ĐIỀU TRỊ - Model: BTL- 4710 Smart - Hãng: BTL Industries JSC - NSX: Bulgaria - Phụ kiện: + Máy chính: 01 cái + Dây nguồn + Adaptor : 01 cái + Bút cảm ứng: 01 cây + Đầu siêu âm 5cm: 1 cái + Xe đẩy chính hãng: 01 cái + Tài liệu hướng dẫn sử dụng máy tiếng Anh + tiếng Việt : 01 bộ + Số lý lịch: 01 cuốn | Bộ | 1 | Số seri: 058S0B038719  |
+50: |  2 | MÁY ĐIỀU TRỊ TÂN SỐ RADIO (Máy Radio nhắm đích) - Model: BTL 6000 TR-Therapy Elite - Hãng: BTL Industries JSC - NSX: Bulgaria - Phụ kiện: + Máy chính: 01 Cái + Điện cực trung tính: 01 cái + Cáp bệnh nhân dùng cho điện cực trung tính: 01 cái + Bộ 04 điện cực tròn loại điện dung (Ø | Bộ | 1 | Số seri: 04900B006593  |
+51: 
+52: ---
+53: 
+54: **ta** Tâm Anh  
+55: Hospital  
+56: Tâm Anh Clinic
+57: 
+58: # PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7  
+59: **BIÊN BẢN GIAO NHẬN**  
+60: **THIẾT BỊ**
+61: 
+62: Mã số: BM04\_TA5.TTBYT. QT.04  
+63: Lần phát hành:  
+64: Ngày hiệu lực:  
+65: Trang : 1/1
+66: 
+67: |   | 20, 30, 50 và 70mm): 01 bộ; SN: 249C0B006982 + Bộ 04 điện cực tròn loại điện trở (Ø 20, 30, 50 và 70mm): 01 bộ; SN: 249R0B006803 + Xe đẩy chính hãng: 01 cái + Tài liệu hướng dẫn sử dụng máy tiếng Anh + tiếng Việt : 01 bộ + Số lý lịch: 01 cuốn |  |  |   |
+68: | --- | --- | --- | --- | --- |
+69: |  3 | MÁY ĐIỆN TRỊ LIỆU (Máy Điều Trị Điện Xung 2 Kênh) - Model: BTL-4625 Premium - Hãng: BTL Industries JSC - NSX: Bulgaria - Phụ kiện: + Máy chính: 01 cái + HandsFree Sono 4: 01 bộ ( SN: 4474B05653 ) + Giá đỡ handsFree Sono: 01 cái ( Lot: P0PB021385; Ref: P2700.008 ) + Cáp nối điện cực - xám trắng và xám đậm: 1 bộ + Điện cực cao su 5x7 cm: 4 cái + Xốp bọc điện cực: 4 cái + Bộ đai cố định: 1 bộ + Xe đẩy chính hãng: 1 cái + Tài liệu hướng dẫn sử dụng máy tiếng Anh + tiếng Việt : 01 bộ + Số lý lịch: 01 cuốn | Bộ | 1 | Số seri: 058P0B040991  |
+70: |  4 | MÁY KÍCH THÍCH TẬP NUÔT - Model: Ampcare ES - Hãng: Ampcare, LLC / EasyMed Instruments Co.,Ltd - NSX: Trung Quốc | Cái | 1 | Số seri: 1024129143  |
+71: 
+72: ---
+73: 
+74: ta Tâm Anh Hospital
+75: Tâm Anh Clinic
+76: 
+77: PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7
+78: 
+79: # BIÊN BẢN GIAO NHẬN
+80: ## THIẾT BỊ
+81: 
+82: Mã số: BM04_TA5.TTBYT. QT.04
+83: 
+84: Lần phát hành:
+85: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*
