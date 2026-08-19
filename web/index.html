@@ -234,7 +234,7 @@
                         </div>
 
                         
-                                                <!-- 🏥 CỔNG 4 KHOA LÂM SÀNG CHÍNH - PKĐK TÂM ANH QUẬN 7 (CHUẨN HOÁ KHÔNG NỘI TRÚ) -->
+                                                                        <!-- 🏥 CỔNG 4 KHOA LÂM SÀNG CHÍNH - PKĐK TÂM ANH QUẬN 7 (CHUẨN HOÁ KHÔNG NỘI TRÚ) -->
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
@@ -265,28 +265,28 @@
                                     </div>
                                 </div>
                                 <div class="ta-module-grid">
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Khám Bệnh Đa Khoa')">
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Khám Bệnh Đa Khoa')" title="Xem danh sách thiết bị Khoa Khám Bệnh">
                                         <div class="ta-module-icon bg-success-subtle text-success"><i class="bi bi-clipboard2-pulse"></i></div>
                                         <div>
                                             <div class="ta-module-title">Phòng Khám Đa Khoa</div>
                                             <div class="ta-module-desc">Huyết áp kế, Đèn khám, Cân</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Khám Sức Khỏe Đoàn')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Cân')" title="Tìm kiếm máy đo và cân khám sức khỏe">
                                         <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-people-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Khám Sức Khỏe Đoàn</div>
-                                            <div class="ta-module-desc">Máy đo thị lực, Đo thính lực</div>
+                                            <div class="ta-module-desc">Máy đo thị lực, Cân điện tử</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-inspections')?.click();">
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-inspections')?.click();" title="Mở Bảng kiểm tra an toàn đầu ngày">
                                         <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-shield-check"></i></div>
                                         <div>
                                             <div class="ta-module-title">Kiểm Tra Đầu Ngày (QT.05)</div>
                                             <div class="ta-module-desc">Bảng kiểm an toàn trước khám</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-transfers')?.click();">
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-transfers')?.click();" title="Mở sổ Điều chuyển thiết bị QT.08">
                                         <div class="ta-module-icon bg-warning-subtle text-warning"><i class="bi bi-arrow-left-right"></i></div>
                                         <div>
                                             <div class="ta-module-title">Điều Chuyển Máy (QT.08)</div>
@@ -313,28 +313,28 @@
                                     </div>
                                 </div>
                                 <div class="ta-module-grid">
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('MRI')" title="Xem 4 hệ thống chụp Cộng Hưởng Từ MRI">
                                         <div class="ta-module-icon" style="background: #EEF2FF; color: #4F46E5;"><i class="bi bi-magnet-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Hệ Thống MRI 3T & 1.5T</div>
                                             <div class="ta-module-desc">Signa Hero, Creator, Amira</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('X-Quang')" title="Xem hệ thống máy chụp X-Quang và CT">
                                         <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-circle-square"></i></div>
                                         <div>
                                             <div class="ta-module-title">Hệ Thống CT & X-Quang</div>
                                             <div class="ta-module-desc">CT Revolution, X-Quang KTS</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Siêu Âm')" title="Xem các dòng máy Siêu Âm Màu 4D/5D">
                                         <div class="ta-module-icon bg-success-subtle text-success"><i class="bi bi-soundwave"></i></div>
                                         <div>
                                             <div class="ta-module-title">Siêu Âm Màu 4D/5D</div>
                                             <div class="ta-module-desc">Voluson E10, HERA W10</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-schedule')?.click();">
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-schedule')?.click();" title="Xem hạn kiểm định thiết bị CĐHA">
                                         <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-patch-check-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Kiểm Định TT 05 (CĐHA)</div>
@@ -355,34 +355,34 @@
                                             <h6 class="fw-bold text-dark mb-0">3. Khoa Nội Soi Tiêu Hóa (NSTH — Dạ Dày, Đại Tràng, Can Thiệp)</h6>
                                             <span class="text-muted small">Hệ thống nội soi 4K Olympus EVIS X1 / Fujifilm ELUXEO 7000, Máy rửa khử khuẩn ống soi tự động</span>
                                         </div>
-                                        <button class="btn btn-sm btn-outline-warning text-dark btn-clinical font-mono" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                        <button class="btn btn-sm btn-outline-warning text-dark btn-clinical font-mono" onclick="app.filterByFacility('Khoa Nội Soi Tiêu Hóa')">
                                             <i class="bi bi-filter me-1"></i> Lọc NSTH
                                         </button>
                                     </div>
                                 </div>
                                 <div class="ta-module-grid">
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Nội Soi Tiêu Hóa')" title="Xem danh mục thiết bị Nội Soi Tiêu Hóa">
                                         <div class="ta-module-icon bg-warning-subtle text-warning"><i class="bi bi-camera-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Hệ Thống Nội Soi Cao Cấp</div>
                                             <div class="ta-module-desc">Dây soi dạ dày, đại tràng 4K</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Khử Khuẩn')" title="Xem máy rửa và tiệt trùng ống soi">
                                         <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-moisture"></i></div>
                                         <div>
                                             <div class="ta-module-title">Máy Rửa Khử Khuẩn Ống Soi</div>
                                             <div class="ta-module-desc">Tiệt khuẩn tự động kiểm soát NK</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Dao Mổ')" title="Xem dao cắt đốt cao tần can thiệp polyp">
                                         <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-lightning-charge-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Dao Cắt Đốt Polyp NSTH</div>
                                             <div class="ta-module-desc">Cắt đốt cao tần can thiệp</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-speedmaint')?.click();">
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-speedmaint')?.click();" title="Mở danh sách phiếu bảo trì SpeedMaint">
                                         <div class="ta-module-icon bg-secondary-subtle text-secondary"><i class="bi bi-tools"></i></div>
                                         <div>
                                             <div class="ta-module-title">Bảo Trì Định Kỳ PM NSTH</div>
@@ -409,28 +409,28 @@
                                     </div>
                                 </div>
                                 <div class="ta-module-grid">
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Máy Thở')" title="Xem Máy Thở xâm lấn Vela">
                                         <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-lungs-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Máy Thở Xâm Lấn Vela</div>
                                             <div class="ta-module-desc">Rủi ro Loại D • Duy trì thở</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Sốc Tim')" title="Xem Máy Sốc Tim Phá Rung TEC-5600">
                                         <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-lightning-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Máy Sốc Tim TEC-5600</div>
                                             <div class="ta-module-desc">Phá rung tim khẩn cấp 24/7</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                    <div class="ta-module-card" onclick="app.filterBySearch('Monitor')" title="Xem các màn hình theo dõi bệnh nhân">
                                         <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-activity"></i></div>
                                         <div>
                                             <div class="ta-module-title">Monitor 5 Thông Số</div>
                                             <div class="ta-module-desc">Theo dõi SpO2, ECG, NIBP</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-diagrams')?.click();">
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-diagrams')?.click();" title="Xem sơ đồ vận hành khí y tế QT.03">
                                         <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-diagram-3-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Hệ Thống Khí Y Tế QT.03</div>

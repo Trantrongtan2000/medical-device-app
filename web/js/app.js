@@ -2322,6 +2322,59 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        filterBySearch(query) {
+            document.getElementById('btn-tab-devices')?.click();
+            const sInput = document.getElementById('search-input');
+            const facSelect = document.getElementById('filter-facility');
+            const rSelect = document.getElementById('filter-risk');
+            
+            if (facSelect) facSelect.value = '';
+            if (rSelect) rSelect.value = '';
+            this.currentFilters.facility_id = '';
+            this.currentFilters.risk_level = '';
+            this.currentFilters.search = query || '';
+            
+            if (sInput) {
+                sInput.value = query || '';
+            }
+            this.loadDevices();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        filterByFacility(facName) {
+            document.getElementById('btn-tab-devices')?.click();
+            const select = document.getElementById('filter-facility');
+            const sInput = document.getElementById('search-input');
+            const rSelect = document.getElementById('filter-risk');
+            
+            if (rSelect) rSelect.value = '';
+            this.currentFilters.risk_level = '';
+            
+            if (select) {
+                let matched = false;
+                for (let i = 0; i < select.options.length; i++) {
+                    const optText = select.options[i].text.toLowerCase();
+                    const target = facName.toLowerCase();
+                    if (optText.includes(target) || target.includes(optText)) {
+                        select.selectedIndex = i;
+                        this.currentFilters.facility_id = select.options[i].value;
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    if (sInput) sInput.value = facName;
+                    this.currentFilters.search = facName;
+                    this.currentFilters.facility_id = '';
+                } else {
+                    if (sInput) sInput.value = '';
+                    this.currentFilters.search = '';
+                }
+            }
+            this.loadDevices();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
         renderCurrentDeviceView() {
             if (!this.devices) return;
 
