@@ -234,144 +234,207 @@
                         </div>
 
                         
-                        <!-- 🏥 CỔNG PHÂN HỆ Y TẾ & TRANG THIẾT BỊ (CHUẨN APP.TAHOSPITAL.VN) -->
+                                                <!-- 🏥 CỔNG 4 KHOA LÂM SÀNG CHÍNH - PKĐK TÂM ANH QUẬN 7 (CHUẨN HOÁ KHÔNG NỘI TRÚ) -->
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
                                     <h6 class="fw-bold text-dark mb-1">
-                                        <i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>Cổng Phân Hệ Chuyên Môn & Quản Lý TTBYT Tâm Anh Q7
+                                        <i class="bi bi-hospital-fill text-primary me-2"></i>Cơ Cấu 4 Khoa Chuyên Môn Chính — PKĐK Tâm Anh Quận 7
                                     </h6>
-                                    <p class="text-muted small mb-0">Hệ sinh thái 4 Khối chuyên môn đồng bộ chuẩn nhận diện <code>app.tahospital.vn</code></p>
+                                    <p class="text-muted small mb-0">Hệ thống phân bổ TTBYT theo mô hình Phòng Khám Đa Khoa (Ngoại trú chuyên sâu, không lưu bệnh Nội trú)</p>
                                 </div>
                                 <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-mono px-3 py-1">
-                                    <i class="bi bi-hospital me-1"></i> TA Quận 7
+                                    <i class="bi bi-geo-alt-fill text-danger me-1"></i> TA Quận 7 • 4 Khoa Trọng Điểm
                                 </span>
                             </div>
 
-                            <!-- 🟢 KHỐI 1: NGOẠI TRÚ & CẤP CỨU NGOẠI VIỆN -->
+                            <!-- 🩺 KHOA 1: KHOA KHÁM BỆNH -->
                             <div class="ta-domain-row mb-3">
                                 <div class="ta-domain-header">
                                     <div class="ta-domain-icon-lg bg-success-subtle text-success">
-                                        <i class="bi bi-heart-pulse-fill"></i>
+                                        <i class="bi bi-person-heart"></i>
                                     </div>
-                                    <div>
-                                        <h6 class="fw-bold text-dark mb-0">Khối Ngoại Trú & Khám Chữa Bệnh</h6>
-                                        <span class="text-muted small">Cấp cứu ngoại viện, Phòng khám chuyên khoa & Thủ thuật</span>
+                                    <div class="d-flex justify-content-between align-items-center flex-grow-1">
+                                        <div>
+                                            <h6 class="fw-bold text-dark mb-0">1. Khoa Khám Bệnh (Đa Khoa, Chuyên Khoa & Khám Sức Khỏe)</h6>
+                                            <span class="text-muted small">Khám bệnh ngoại trú, Phòng thủ thuật, Tai Mũi Họng, Mắt, Răng Hàm Mặt, Sản phụ khoa & Đoàn KSK</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-success btn-clinical font-mono" onclick="app.filterByFacility('Khoa Khám Bệnh Đa Khoa')">
+                                            <i class="bi bi-filter me-1"></i> Lọc Thiết Bị
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="ta-module-grid">
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-devices')?.click(); app.filterByQuickRisk('D');">
-                                        <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-truck-front-fill"></i></div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Khám Bệnh Đa Khoa')">
+                                        <div class="ta-module-icon bg-success-subtle text-success"><i class="bi bi-clipboard2-pulse"></i></div>
                                         <div>
-                                            <div class="ta-module-title">Cấp Cứu Ngoại Viện</div>
-                                            <div class="ta-module-desc">Máy thở, Sốc tim di động</div>
+                                            <div class="ta-module-title">Phòng Khám Đa Khoa</div>
+                                            <div class="ta-module-desc">Huyết áp kế, Đèn khám, Cân</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-devices')?.click();">
-                                        <div class="ta-module-icon bg-success-subtle text-success"><i class="bi bi-person-check-fill"></i></div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Khám Sức Khỏe Đoàn')">
+                                        <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-people-fill"></i></div>
                                         <div>
                                             <div class="ta-module-title">Khám Sức Khỏe Đoàn</div>
-                                            <div class="ta-module-desc">Huyết áp kế, Cân y tế</div>
+                                            <div class="ta-module-desc">Máy đo thị lực, Đo thính lực</div>
                                         </div>
                                     </div>
                                     <div class="ta-module-card" onclick="document.getElementById('btn-tab-inspections')?.click();">
-                                        <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-shield-check"></i></div>
+                                        <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-shield-check"></i></div>
                                         <div>
-                                            <div class="ta-module-title">Kiểm Tra Đầu Ngày</div>
-                                            <div class="ta-module-desc">Bảng kiểm QT.05 an toàn</div>
+                                            <div class="ta-module-title">Kiểm Tra Đầu Ngày (QT.05)</div>
+                                            <div class="ta-module-desc">Bảng kiểm an toàn trước khám</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-devices')?.click();">
-                                        <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-activity"></i></div>
-                                        <div>
-                                            <div class="ta-module-title">Vật Lý Trị Liệu</div>
-                                            <div class="ta-module-desc">Máy siêu âm trị liệu, Kéo giãn</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 🔵 KHỐI 2: NỘI TRÚ & PHÒNG MỔ (OTM) -->
-                            <div class="ta-domain-row mb-3">
-                                <div class="ta-domain-header">
-                                    <div class="ta-domain-icon-lg bg-primary-subtle text-primary">
-                                        <i class="bi bi-hospital"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold text-dark mb-0">Khối Nội Trú & Khu Phẫu Thuật (OTM)</h6>
-                                        <span class="text-muted small">Phòng mổ GMHS, Giường bệnh & Hồi tỉnh</span>
-                                    </div>
-                                </div>
-                                <div class="ta-module-grid">
                                     <div class="ta-module-card" onclick="document.getElementById('btn-tab-transfers')?.click();">
-                                        <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-arrow-left-right"></i></div>
+                                        <div class="ta-module-icon bg-warning-subtle text-warning"><i class="bi bi-arrow-left-right"></i></div>
                                         <div>
                                             <div class="ta-module-title">Điều Chuyển Máy (QT.08)</div>
-                                            <div class="ta-module-desc">Biên bản bàn giao BM03</div>
-                                        </div>
-                                    </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-devices')?.click();">
-                                        <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-scissors"></i></div>
-                                        <div>
-                                            <div class="ta-module-title">Phòng Mổ OTM</div>
-                                            <div class="ta-module-desc">Dao mổ điện, Đèn mổ LED</div>
-                                        </div>
-                                    </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-speedmaint')?.click();">
-                                        <div class="ta-module-icon bg-warning-subtle text-warning"><i class="bi bi-tools"></i></div>
-                                        <div>
-                                            <div class="ta-module-title">Bảo Trì SpeedMaint CMMS</div>
-                                            <div class="ta-module-desc">Báo hỏng & Phiếu công việc</div>
-                                        </div>
-                                    </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-diagrams')?.click();">
-                                        <div class="ta-module-icon bg-secondary-subtle text-secondary"><i class="bi bi-diagram-3-fill"></i></div>
-                                        <div>
-                                            <div class="ta-module-title">Sơ Đồ Quy Trình SVG</div>
-                                            <div class="ta-module-desc">QT.01 - QT.09 trực quan</div>
+                                            <div class="ta-module-desc">Biên bản giao nhận BM03</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- 🟣 KHỐI 3: CẬN LÂM SÀNG, CHẨN ĐOÁN HÌNH ẢNH & TTBYT -->
+                            <!-- 🩻 KHOA 2: KHOA CHẨN ĐOÁN HÌNH ẢNH (CĐHA) -->
                             <div class="ta-domain-row mb-3">
                                 <div class="ta-domain-header">
-                                    <div class="ta-domain-icon-lg bg-info-subtle text-info" style="color: #6366F1 !important; background: #EEF2FF !important;">
-                                        <i class="bi bi-display-fill"></i>
+                                    <div class="ta-domain-icon-lg" style="background: #EEF2FF; color: #4F46E5;">
+                                        <i class="bi bi-badge-hd-fill"></i>
                                     </div>
-                                    <div>
-                                        <h6 class="fw-bold text-dark mb-0">Khối Cận Lâm Sàng & Quản Lý TTBYT Chuyên Sâu</h6>
-                                        <span class="text-muted small">CĐHA (MRI, CT, Siêu âm), Xét nghiệm & Thận nhân tạo RO</span>
+                                    <div class="d-flex justify-content-between align-items-center flex-grow-1">
+                                        <div>
+                                            <h6 class="fw-bold text-dark mb-0">2. Khoa Chẩn Đoán Hình Ảnh (CĐHA — MRI, CT, X-Quang, Siêu Âm)</h6>
+                                            <span class="text-muted small">Hệ thống MRI 3T Signa Hero, MRI 1.5T, CT-Scanner Revolution EVO, X-Quang KTS & Siêu âm 4D</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-primary btn-clinical font-mono" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                            <i class="bi bi-filter me-1"></i> Lọc CĐHA
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="ta-module-grid">
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-devices')?.click();">
-                                        <div class="ta-module-icon" style="background: #EEF2FF; color: #4F46E5;"><i class="bi bi-badge-hd-fill"></i></div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                        <div class="ta-module-icon" style="background: #EEF2FF; color: #4F46E5;"><i class="bi bi-magnet-fill"></i></div>
                                         <div>
-                                            <div class="ta-module-title">Hệ Thống MRI & CT</div>
-                                            <div class="ta-module-desc">MRI 3T, 1.5T, CT Revolution</div>
+                                            <div class="ta-module-title">Hệ Thống MRI 3T & 1.5T</div>
+                                            <div class="ta-module-desc">Signa Hero, Creator, Amira</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                        <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-circle-square"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Hệ Thống CT & X-Quang</div>
+                                            <div class="ta-module-desc">CT Revolution, X-Quang KTS</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Chẩn Đoán Hình Ảnh')">
+                                        <div class="ta-module-icon bg-success-subtle text-success"><i class="bi bi-soundwave"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Siêu Âm Màu 4D/5D</div>
+                                            <div class="ta-module-desc">Voluson E10, HERA W10</div>
                                         </div>
                                     </div>
                                     <div class="ta-module-card" onclick="document.getElementById('btn-tab-schedule')?.click();">
-                                        <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-calendar2-check-fill"></i></div>
+                                        <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-patch-check-fill"></i></div>
                                         <div>
-                                            <div class="ta-module-title">Kiểm Định Thông Tư 05</div>
-                                            <div class="ta-module-desc">Hạn KĐ 30 ngày CS.TTBYT.04</div>
+                                            <div class="ta-module-title">Kiểm Định TT 05 (CĐHA)</div>
+                                            <div class="ta-module-desc">An toàn bức xạ & Giấy phép</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-ai-hub')?.click();">
-                                        <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-stars"></i></div>
+                                </div>
+                            </div>
+
+                            <!-- 🔬 KHOA 3: KHOA NỘI SOI TIÊU HÓA (NSTH) -->
+                            <div class="ta-domain-row mb-3">
+                                <div class="ta-domain-header">
+                                    <div class="ta-domain-icon-lg bg-warning-subtle text-warning">
+                                        <i class="bi bi-camera-video-fill"></i>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center flex-grow-1">
                                         <div>
-                                            <div class="ta-module-title">Trợ Lý AI & Mistral OCR</div>
-                                            <div class="ta-module-desc">Hỏi đáp SOPs & Scan hồ sơ</div>
+                                            <h6 class="fw-bold text-dark mb-0">3. Khoa Nội Soi Tiêu Hóa (NSTH — Dạ Dày, Đại Tràng, Can Thiệp)</h6>
+                                            <span class="text-muted small">Hệ thống nội soi 4K Olympus EVIS X1 / Fujifilm ELUXEO 7000, Máy rửa khử khuẩn ống soi tự động</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-warning text-dark btn-clinical font-mono" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                            <i class="bi bi-filter me-1"></i> Lọc NSTH
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="ta-module-grid">
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                        <div class="ta-module-icon bg-warning-subtle text-warning"><i class="bi bi-camera-fill"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Hệ Thống Nội Soi Cao Cấp</div>
+                                            <div class="ta-module-desc">Dây soi dạ dày, đại tràng 4K</div>
                                         </div>
                                     </div>
-                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-semantica')?.click();">
-                                        <div class="ta-module-icon bg-warning-subtle text-warning"><i class="bi bi-share-fill"></i></div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                        <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-moisture"></i></div>
                                         <div>
-                                            <div class="ta-module-title">Semantica Context Graph</div>
-                                            <div class="ta-module-desc">Đồ thị tri thức & Nguồn gốc</div>
+                                            <div class="ta-module-title">Máy Rửa Khử Khuẩn Ống Soi</div>
+                                            <div class="ta-module-desc">Tiệt khuẩn tự động kiểm soát NK</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Thăm Dò Chức Năng & Nội Soi')">
+                                        <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-lightning-charge-fill"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Dao Cắt Đốt Polyp NSTH</div>
+                                            <div class="ta-module-desc">Cắt đốt cao tần can thiệp</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-speedmaint')?.click();">
+                                        <div class="ta-module-icon bg-secondary-subtle text-secondary"><i class="bi bi-tools"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Bảo Trì Định Kỳ PM NSTH</div>
+                                            <div class="ta-module-desc">Kiểm tra rò rỉ dây soi định kỳ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 🚨 KHOA 4: KHOA CẤP CỨU -->
+                            <div class="ta-domain-row mb-3">
+                                <div class="ta-domain-header">
+                                    <div class="ta-domain-icon-lg bg-danger-subtle text-danger">
+                                        <i class="bi bi-heart-pulse-fill"></i>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center flex-grow-1">
+                                        <div>
+                                            <h6 class="fw-bold text-dark mb-0">4. Khoa Cấp Cứu (Emergency Department — 24/7 Sẵn Sàng Ứng Cứu)</h6>
+                                            <span class="text-muted small">Máy thở xâm lấn Vela, Máy sốc tim Defibrillator TEC-5600, Monitor theo dõi, Khí y tế trung tâm & Bình Oxy</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-danger btn-clinical font-mono" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                            <i class="bi bi-filter me-1"></i> Lọc Cấp Cứu
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="ta-module-grid">
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                        <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-lungs-fill"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Máy Thở Xâm Lấn Vela</div>
+                                            <div class="ta-module-desc">Rủi ro Loại D • Duy trì thở</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                        <div class="ta-module-icon bg-danger-subtle text-danger"><i class="bi bi-lightning-fill"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Máy Sốc Tim TEC-5600</div>
+                                            <div class="ta-module-desc">Phá rung tim khẩn cấp 24/7</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="app.filterByFacility('Khoa Cấp Cứu')">
+                                        <div class="ta-module-icon bg-primary-subtle text-primary"><i class="bi bi-activity"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Monitor 5 Thông Số</div>
+                                            <div class="ta-module-desc">Theo dõi SpO2, ECG, NIBP</div>
+                                        </div>
+                                    </div>
+                                    <div class="ta-module-card" onclick="document.getElementById('btn-tab-diagrams')?.click();">
+                                        <div class="ta-module-icon bg-info-subtle text-info"><i class="bi bi-diagram-3-fill"></i></div>
+                                        <div>
+                                            <div class="ta-module-title">Hệ Thống Khí Y Tế QT.03</div>
+                                            <div class="ta-module-desc">O2, Vacuum, N2O, Air</div>
                                         </div>
                                     </div>
                                 </div>
@@ -820,11 +883,12 @@
                             <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 border-top gap-2">
                                 <div class="d-flex flex-wrap gap-2 align-items-center">
                                     <span class="text-muted small fw-bold me-1"><i class="bi bi-funnel-fill text-primary me-1"></i>Lọc nhanh:</span>
-                                    <div class="chip-filter active" data-chip="all">Tất cả (1.073)</div>
-                                    <div class="chip-filter" data-chip="cdha">🩺 Siêu Âm & CĐHA</div>
-                                    <div class="chip-filter" data-chip="emergency">🚨 Cấp Cứu & Hồi Sức</div>
-                                    <div class="chip-filter" data-chip="ro">💧 Thận Nhân Tạo RO</div>
-                                    <div class="chip-filter" data-chip="highrisk">⚠️ Rủi Ro Loại C & D</div>
+                                    <div class="chip-filter active" data-chip="all"><i class="bi bi-grid-fill me-1"></i>Tất cả (1.073)</div>
+                                    <div class="chip-filter" data-chip="khambenh"><i class="bi bi-person-heart text-success me-1"></i>Khoa Khám Bệnh</div>
+                                    <div class="chip-filter" data-chip="cdha"><i class="bi bi-badge-hd-fill text-primary me-1"></i>Khoa CĐHA</div>
+                                    <div class="chip-filter" data-chip="nsth"><i class="bi bi-camera-video-fill text-warning me-1"></i>Khoa NSTH</div>
+                                    <div class="chip-filter" data-chip="emergency"><i class="bi bi-heart-pulse-fill text-danger me-1"></i>Khoa Cấp Cứu</div>
+                                    <div class="chip-filter" data-chip="highrisk"><i class="bi bi-exclamation-triangle-fill text-danger me-1"></i>Rủi Ro Loại C & D</div>
                                 </div>
                                 <span class="text-muted small">Đang hiển thị: <strong id="filter-count" class="text-primary font-mono fw-bold">1.073</strong> thiết bị</span>
                             </div>
@@ -1343,7 +1407,7 @@
                                         <i class="bi bi-stars"></i>
                                     </div>
                                     <div>
-                                        <h5 class="fw-bold mb-0 text-white">Trung Tâm Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 2.5) & Mistral OCR Hub</h5>
+                                        <h5 class="fw-bold mb-0 text-white">Trung Tâm Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 3.7 Flash) & Mistral OCR Hub</h5>
                                         <span class="small text-white text-opacity-75">Tự động xoay khóa API Multi-Key Pool • Bóc tách tài liệu PDF scan & Tư vấn quy trình SOPs 24/7</span>
                                     </div>
                                 </div>
@@ -1365,7 +1429,7 @@
                                 <div class="clinical-card h-100 d-flex flex-column shadow-sm">
                                     <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light rounded-top">
                                         <div class="d-flex align-items-center gap-2">
-                                            <span class="badge bg-primary px-2 py-1"><i class="bi bi-robot me-1"></i>Gemini 2.5 Flash</span>
+                                            <span class="badge bg-primary px-2 py-1"><i class="bi bi-robot me-1"></i>Gemini 3.7 Flash Flash</span>
                                             <strong class="text-dark small">TRỢ LÝ KỸ THUẬT Y SINH TÂM ANH Q7</strong>
                                         </div>
                                         <button class="btn btn-sm btn-outline-secondary btn-clinical" onclick="app.clearAIChat()" title="Xóa hội thoại">
@@ -2586,7 +2650,7 @@
 
 
     <!-- Floating Quick AI & Action Button (Tâm Anh Speed Dial) -->
-    <button class="ta-fab-btn" onclick="document.getElementById('btn-tab-ai-hub')?.click();" title="Mở Trợ Lý AI Y Sinh & OCR Hub (Gemini 2.5 Flash)">
+    <button class="ta-fab-btn" onclick="document.getElementById('btn-tab-ai-hub')?.click();" title="Mở Trợ Lý AI Y Sinh & OCR Hub (Gemini 3.7 Flash Flash)">
         <i class="bi bi-stars"></i>
     </button>
 

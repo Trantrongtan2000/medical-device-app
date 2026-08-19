@@ -62,7 +62,7 @@ class GeminiAgentService:
                 from google import genai
                 client = genai.Client(api_key=active_key)
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.7-flash",
                     contents=full_prompt
                 )
                 if response and response.text:
@@ -131,7 +131,7 @@ class GeminiAgentService:
             )
         else:
             return (
-                f"🤖 **Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 2.5 Flash Engine)**:\n\n"
+                f"🤖 **Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 3.7 Flash Engine)**:\n\n"
                 f"Tôi đã tiếp nhận câu hỏi của bạn: *'{user_message}'*\n\n"
                 f"Hệ thống hiện quản lý **1.073 thiết bị y tế** và **21 khoa phòng** tại PKĐK Tâm Anh Quận 7. "
                 f"Bạn có thể yêu cầu tôi hướng dẫn quy trình vận hành (QT.01 - QT.09), tra cứu phân loại rủi ro A/B/C/D, kiểm tra hạn kiểm định hoặc phân công lịch On-call 24/7."
