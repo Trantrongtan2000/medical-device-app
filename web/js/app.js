@@ -744,7 +744,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="qr-label-card">
                             <img src="${qrUrl}" alt="QR" style="width: 70px; height: 70px;" class="rounded border">
                             <div class="qr-label-info">
-                                <div class="qr-hospital">BV QUẬN 7</div>
+                                <div class="d-flex align-items-center gap-1 mb-1">
+                                    <img src="img/logo_pkta_q7.jpg" alt="Logo" style="height: 18px; object-fit: contain;">
+                                    <span class="qr-hospital font-bold">TÂM ANH Q7</span>
+                                </div>
                                 <div class="qr-dev-name">${d.device_name}</div>
                                 <div class="qr-serial font-mono">TAG: ${assetTag}</div>
                                 <div class="text-muted small">SN: ${d.serial_no}</div>

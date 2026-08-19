@@ -53,6 +53,9 @@ if (web_dir / "css").exists():
 if (web_dir / "js").exists():
     app.mount("/js", StaticFiles(directory=str(web_dir / "js")), name="js")
 
+if (web_dir / "img").exists():
+    app.mount("/img", StaticFiles(directory=str(web_dir / "img")), name="img")
+
 diagrams_dir = Path(__file__).parent.parent / "docs" / "diagrams"
 if diagrams_dir.exists():
     app.mount("/diagrams", StaticFiles(directory=str(diagrams_dir)), name="diagrams")
