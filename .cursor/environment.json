@@ -1,0 +1,10 @@
+{
+  "name": "Medical Device Management (BVQ7 / PKĐK Tâm Anh Q7)",
+  "install": "pip install --user -r requirements.txt",
+  "terminals": [
+    {
+      "name": "FastAPI Server",
+      "command": "python start_server.py"
+    }
+  ]
+}
