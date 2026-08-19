@@ -78,9 +78,9 @@ class GeminiAgentService:
         # Intelligent Built-in Knowledge & Clinical Rule-Based Fallback
         q_lower = user_message.lower()
         
-        if "máy thở" in q_lower or "ventilator" in q_lower or "icu" in q_lower:
+        if "máy thở" in q_lower or "ventilator" in q_lower or "cấp cứu" in q_lower:
             return (
-                "🏥 **Phân tích Trang Thiết Bị Y Tế: MÁY THỞ (ICU VENTILATOR)**\n\n"
+                "🏥 **Phân tích Trang Thiết Bị Y Tế: MÁY THỞ CHỨC NĂNG CAO (KHOA CẤP CỨU)**\n\n"
                 "1. **Phân loại rủi ro IMDA MOH (Bộ Y Tế):** **Mức D** (Rủi ro đặc biệt cao - Thiết bị duy trì sự sống trực tiếp).\n"
                 "2. **Quy định Kiểm định:** Bắt buộc kiểm định an toàn và tính năng kỹ thuật định kỳ **12 tháng/lần** theo Thông tư 05/2022/TT-BYT.\n"
                 "3. **Khuyến nghị Vận hành & Bảo trì (SpeedMaint CMMS):**\n"
@@ -92,7 +92,7 @@ class GeminiAgentService:
         elif "kiểm định" in q_lower or "hạn" in q_lower or "quá hạn" in q_lower:
             return (
                 "📋 **Quy trình Quản lý & Cảnh báo Kiểm định TTBYT BV Quận 7:**\n\n"
-                "• **Tổng số thiết bị:** 1.049 thiết bị đã được chuẩn hóa số liệu.\n"
+                "• **Tổng số thiết bị:** 1.052 thiết bị đã được chuẩn hóa số liệu.\n"
                 "• **Nguyên tắc cảnh báo 3 cấp độ:**\n"
                 "  - 🟢 **Đạt chuẩn (OK):** Thiết bị có giấy chứng nhận kiểm định còn hiệu lực > 30 ngày.\n"
                 "  - 🟡 **Cảnh báo (WARNING):** Thiết bị còn dưới 30 ngày trước ngày tái kiểm định.\n"
@@ -103,10 +103,10 @@ class GeminiAgentService:
         elif "phân loại" in q_lower or "nghị định 98" in q_lower or "rủi ro" in q_lower:
             return (
                 "⚖️ **Phân Loại Mức Độ Rủi Ro Theo Cổng IMDA Bộ Y Tế & NĐ 98/2021/NĐ-CP:**\n\n"
-                "• **Mức A (Rủi ro rất thấp):** 851 máy (81.1%) - Huyết áp kế, áp kế, nhiệt kế, ống nghe.\n"
-                "• **Mức B (Rủi ro trung bình thấp):** 71 máy (6.8%) - Monitor theo dõi 5 thông số, ECG, bơm tiêm điện, máy hút.\n"
-                "• **Mức C (Rủi ro trung bình cao):** 87 máy (8.3%) - Hệ thống X-Quang kỹ thuật số, Siêu âm màu Doppler, Thận nhân tạo.\n"
-                "• **Mức D (Rủi ro đặc biệt cao):** 40 máy (3.8%) - Máy thở ICU, Máy gây mê kèm thở, Máy sốc điện phá rung, ECMO."
+                "• **Mức A (Rủi ro rất thấp):** 851 máy (80.9%) - Huyết áp kế, áp kế, nhiệt kế, ống nghe.\n"
+                "• **Mức B (Rủi ro trung bình thấp):** 71 máy (6.7%) - Monitor theo dõi 5 thông số, ECG, bơm tiêm điện, máy hút.\n"
+                "• **Mức C (Rủi ro trung bình cao):** 88 máy (8.4%) - Hệ thống X-Quang kỹ thuật số, Siêu âm màu Doppler, Thận nhân tạo.\n"
+                "• **Mức D (Rủi ro đặc biệt cao):** 42 máy (4.0%) - Máy thở chức năng cao Cấp Cứu, Máy gây mê kèm thở, Máy sốc điện phá rung."
             )
             
         else:

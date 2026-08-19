@@ -2,7 +2,7 @@
 **BỆNH VIỆN QUẬN 7 / PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7**
 
 > **Phiên bản:** 2.0.0 (Snipe-IT & SpeedMaint Cloud CMMS Edition)  
-> **Thời điểm cập nhật:** 19/08/2026 07:31:30  
+> **Thời điểm cập nhật:** 19/08/2026 07:35:08  
 > **Cơ sở pháp lý:** Nghị định 98/2021/NĐ-CP, Thông tư 05/2022/TT-BYT, Tiêu chuẩn ISO 13485, Sổ tay Quy trình TTBYT.
 
 ---
@@ -35,7 +35,7 @@
 | 01 | **Khoa Khám Bệnh Đa Khoa** | `KKB` | 650 máy | 61.8% |
 | 02 | **Kho Lưu Trữ Thiết Bị / Chờ Cấp Phát** | `KHO` | 176 máy | 16.7% |
 | 03 | **Đơn Vị Thận Nhân Tạo / Lọc Máu** | `TNT` | 55 máy | 5.2% |
-| 04 | **Khoa Cấp Cứu - Hồi Sức Tích Cực** | `ICU` | 48 máy | 4.6% |
+| 04 | **Khoa Cấp Cứu** | `CC` | 48 máy | 4.6% |
 | 05 | **Khoa Phẫu Thuật - GMHS / Phòng Mổ** | `GMHS` | 33 máy | 3.1% |
 | 06 | **Khoa Chẩn Đoán Hình Ảnh** | `CDHA` | 29 máy | 2.8% |
 | 07 | **Khoa Xét Nghiệm Y Học** | `XN` | 24 máy | 2.3% |
@@ -52,7 +52,7 @@
 | 18 | **Khoa Sản Phụ Khoa** | `SPK` | 0 máy | 0.0% |
 | 19 | **Khu Tiếp Đón & Đánh Giá Ban Đầu** | `RECEPT` | 0 máy | 0.0% |
 | 20 | **Phòng Chăm Sóc Khách Hàng** | `CSKH` | 0 máy | 0.0% |
-| 21 | **Phòng Trang Thiết BY Tế** | `TTBYT` | 0 máy | 0.0% |
+| 21 | **Phòng Trang Thiết Bị Y Tế** | `TTBYT` | 0 máy | 0.0% |
 | 22 | **Trung Tâm Giảm Béo - Béo Phì** | `TTBP` | 0 máy | 0.0% |
 
 ---

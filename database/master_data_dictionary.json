@@ -3,7 +3,7 @@
     "system": "Medical Device Management System (BV Quận 7)",
     "organization": "Phòng Khám Đa Khoa Tâm Anh Quận 7 / BV Quận 7",
     "version": "2.0.0 (Snipe-IT & SpeedMaint Edition)",
-    "generated_at": "2026-08-19T07:31:30.059254",
+    "generated_at": "2026-08-19T07:35:08.714390",
     "standards": [
       "Nghị định 98/2021/NĐ-CP",
       "Thông tư 05/2022/TT-BYT",
@@ -45,8 +45,8 @@
     },
     {
       "id": 1,
-      "name": "Khoa Cấp Cứu - Hồi Sức Tích Cực",
-      "code": "ICU",
+      "name": "Khoa Cấp Cứu",
+      "code": "CC",
       "device_count": 48
     },
     {
@@ -147,7 +147,7 @@
     },
     {
       "id": 19,
-      "name": "Phòng Trang Thiết BY Tế",
+      "name": "Phòng Trang Thiết Bị Y Tế",
       "code": "TTBYT",
       "device_count": 0
     },
