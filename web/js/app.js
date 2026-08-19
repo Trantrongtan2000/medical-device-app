@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         async init() {
+            this.initKanban();
             this.initOverviewCharts();
             this.setupNavigation();
             this.setupFormSubmissions();
@@ -43,6 +44,287 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         
+        
+        // ==================== KANBAN BOARD INTERACTIVE ENGINE ====================
+        kanbanTasks: [
+            {
+                id: 'kb-1',
+                col: 'todo',
+                priority: 'Khẩn cấp',
+                type: 'Báo hỏng',
+                title: 'Máy thở xâm lấn Vela',
+                meta: 'Khoa Cấp Cứu • S/N: VEL8829',
+                assignee: 'BS. Nguyễn Tuấn',
+                deadline: 'Hạn: Hôm nay'
+            },
+            {
+                id: 'kb-2',
+                col: 'todo',
+                priority: 'Cao',
+                type: 'Kiểm định',
+                title: 'Máy Chụp X-Quang Kỹ Thuật Số',
+                meta: 'Khoa CĐHA • S/N: XR2024-91',
+                assignee: 'Viện Trang Thiết Bị',
+                deadline: '15 ngày tới'
+            },
+            {
+                id: 'kb-3',
+                col: 'todo',
+                priority: 'Bình thường',
+                type: 'QT.08',
+                title: 'Điều chuyển Monitor Bionet',
+                meta: 'Khoa Cấp Cứu → Khoa Khám Bệnh',
+                assignee: 'ĐD. Trưởng Khoa',
+                deadline: 'Chờ ký BM03'
+            },
+            {
+                id: 'kb-4',
+                col: 'inprog',
+                priority: 'Bình thường',
+                type: 'PM Định kỳ',
+                title: 'Hệ Thống Lọc Nước RO Thận #01',
+                meta: 'Khu Thận Nhân Tạo • QT.01',
+                assignee: 'KS. Trần Văn Hùng',
+                deadline: 'Tiến độ 60%'
+            },
+            {
+                id: 'kb-5',
+                col: 'inprog',
+                priority: 'Cao',
+                type: 'Sửa chữa',
+                title: 'Máy Siêu Âm Voluson E10',
+                meta: 'Khoa CĐHA • Thay cáp đầu dò',
+                assignee: 'Hãng GE Healthcare',
+                deadline: 'Đang test'
+            },
+            {
+                id: 'kb-6',
+                col: 'review',
+                priority: 'Bình thường',
+                type: 'BM04',
+                title: 'Máy Sốc Tim E-Cart Số 01',
+                meta: 'Khu Cấp Cứu Tầng Trệt',
+                assignee: 'ĐD. Trưởng trực',
+                deadline: 'Chờ ký BM04'
+            },
+            {
+                id: 'kb-7',
+                col: 'review',
+                priority: 'Cao',
+                type: 'TT 05',
+                title: 'Máy Đo Điện Tim 6 Cần ECG',
+                meta: 'Phòng Khám Nội • GCN #2026-881',
+                assignee: 'TT Kiểm Định 3',
+                deadline: 'Dán tem ĐẠT'
+            },
+            {
+                id: 'kb-8',
+                col: 'done',
+                priority: 'Bình thường',
+                type: 'Hoàn tất',
+                title: 'Máy Siêu Âm 4D HERA W10',
+                meta: 'Cty An Việt • Bàn giao 5 đầu dò',
+                assignee: 'Khoa CĐHA',
+                deadline: 'Đã nghiệm thu'
+            },
+            {
+                id: 'kb-9',
+                col: 'done',
+                priority: 'Bình thường',
+                type: 'Hoàn tất',
+                title: 'Bảo dưỡng Khí Y Tế Trung Tâm',
+                meta: 'Áp suất Oxy & N2O đạt chuẩn QT.03',
+                assignee: 'P.TTBYT',
+                deadline: 'Sẵn sàng 100%'
+            }
+        ],
+
+        initKanban() {
+            // Load saved state from localStorage if available
+            const saved = localStorage.getItem('tamanh_kanban_tasks');
+            if (saved) {
+                try {
+                    this.kanbanTasks = JSON.parse(saved);
+                } catch (e) {
+                    console.error("Error loading saved kanban:", e);
+                }
+            }
+
+            this.renderKanban();
+            this.setupKanbanDragAndDrop();
+            this.setupKanbanForm();
+        },
+
+        saveKanbanState() {
+            localStorage.setItem('tamanh_kanban_tasks', JSON.stringify(this.kanbanTasks));
+        },
+
+        renderKanban() {
+            const cols = {
+                todo: document.getElementById('kanban-col-todo'),
+                inprog: document.getElementById('kanban-col-inprog'),
+                review: document.getElementById('kanban-col-review'),
+                done: document.getElementById('kanban-col-done')
+            };
+
+            if (!cols.todo) return;
+
+            // Clear containers
+            Object.values(cols).forEach(c => { if (c) c.innerHTML = ''; });
+
+            const counts = { todo: 0, inprog: 0, review: 0, done: 0 };
+
+            this.kanbanTasks.forEach(task => {
+                const targetCol = cols[task.col] || cols.todo;
+                counts[task.col = task.col || 'todo']++;
+
+                let borderClass = 'border-primary';
+                let pBadgeClass = 'bg-primary text-white';
+                if (task.priority === 'Khẩn cấp') {
+                    borderClass = 'border-danger';
+                    pBadgeClass = 'bg-danger text-white';
+                } else if (task.priority === 'Cao') {
+                    borderClass = 'border-warning';
+                    pBadgeClass = 'bg-warning text-dark';
+                }
+
+                const isDone = task.col === 'done';
+
+                const cardEl = document.createElement('div');
+                cardEl.className = `kanban-card border-start border-4 ${borderClass} ${isDone ? 'opacity-75' : ''}`;
+                cardEl.draggable = true;
+                cardEl.id = task.id;
+
+                cardEl.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start mb-1">
+                        <span class="badge ${pBadgeClass} font-mono" style="font-size: 0.7rem;">${task.priority}</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <span class="text-muted font-mono" style="font-size: 0.7rem;">${task.type}</span>
+                            <button class="btn btn-sm btn-link p-0 text-muted kanban-card-actions" onclick="event.stopPropagation(); app.deleteKanbanTask('${task.id}')" title="Xóa thẻ">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="kanban-card-title ${isDone ? 'text-decoration-line-through text-muted' : ''}">${task.title}</div>
+                    <div class="kanban-card-meta mb-1">${task.meta}</div>
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                        <span class="text-muted"><i class="bi bi-person me-1"></i>${task.assignee || 'P.TTBYT'}</span>
+                        <span class="${task.priority === 'Khẩn cấp' ? 'text-danger fw-bold' : (isDone ? 'text-success fw-bold' : 'text-primary')}">${task.deadline || ''}</span>
+                    </div>
+                    <!-- Quick Move Controls -->
+                    <div class="d-flex justify-content-end gap-1 mt-2 pt-1 border-top kanban-card-actions">
+                        ${task.col !== 'todo' ? `<button class="btn btn-sm btn-light border py-0 px-1 font-mono" style="font-size: 0.68rem;" onclick="event.stopPropagation(); app.moveKanbanTask('${task.id}', -1)">◀ Lùi</button>` : ''}
+                        ${task.col !== 'done' ? `<button class="btn btn-sm btn-light border py-0 px-1 font-mono text-primary" style="font-size: 0.68rem;" onclick="event.stopPropagation(); app.moveKanbanTask('${task.id}', 1)">Tiếp ▶</button>` : ''}
+                    </div>
+                `;
+
+                // Add dragstart & dragend
+                cardEl.addEventListener('dragstart', (e) => {
+                    cardEl.classList.add('dragging');
+                    e.dataTransfer.setData('text/plain', task.id);
+                });
+
+                cardEl.addEventListener('dragend', () => {
+                    cardEl.classList.remove('dragging');
+                });
+
+                targetCol.appendChild(cardEl);
+            });
+
+            // Update badge counts
+            const elTodo = document.getElementById('kanban-count-todo');
+            const elInprog = document.getElementById('kanban-count-inprog');
+            const elReview = document.getElementById('kanban-count-review');
+            const elDone = document.getElementById('kanban-count-done');
+
+            if (elTodo) elTodo.textContent = counts.todo;
+            if (elInprog) elInprog.textContent = counts.inprog;
+            if (elReview) elReview.textContent = counts.review;
+            if (elDone) elDone.textContent = counts.done;
+        },
+
+        setupKanbanDragAndDrop() {
+            const columns = document.querySelectorAll('.kanban-column');
+
+            columns.forEach(col => {
+                col.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    col.classList.add('drag-over');
+                });
+
+                col.addEventListener('dragleave', () => {
+                    col.classList.remove('drag-over');
+                });
+
+                col.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    col.classList.remove('drag-over');
+
+                    const taskId = e.dataTransfer.getData('text/plain');
+                    const cardsContainer = col.querySelector('.kanban-cards-container');
+                    if (!cardsContainer) return;
+
+                    const colId = cardsContainer.id.replace('kanban-col-', ''); // todo, inprog, review, done
+                    
+                    const task = this.kanbanTasks.find(t => t.id === taskId);
+                    if (task && task.col !== colId) {
+                        task.col = colId;
+                        this.saveKanbanState();
+                        this.renderKanban();
+                    }
+                });
+            });
+        },
+
+        moveKanbanTask(taskId, direction) {
+            const steps = ['todo', 'inprog', 'review', 'done'];
+            const task = this.kanbanTasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            const currentIndex = steps.indexOf(task.col);
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < steps.length) {
+                task.col = steps[newIndex];
+                this.saveKanbanState();
+                this.renderKanban();
+            }
+        },
+
+        deleteKanbanTask(taskId) {
+            if (confirm("Bạn có chắc muốn xóa thẻ Kanban này?")) {
+                this.kanbanTasks = this.kanbanTasks.filter(t => t.id !== taskId);
+                this.saveKanbanState();
+                this.renderKanban();
+            }
+        },
+
+        setupKanbanForm() {
+            const form = document.getElementById('createKanbanTaskForm');
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const newTask = {
+                    id: 'kb-' + Date.now(),
+                    title: document.getElementById('kanban-input-title').value,
+                    type: document.getElementById('kanban-input-type').value,
+                    priority: document.getElementById('kanban-input-priority').value,
+                    meta: document.getElementById('kanban-input-facility').value || 'Khoa lâm sàng',
+                    assignee: document.getElementById('kanban-input-assignee').value || 'P.TTBYT',
+                    col: document.getElementById('kanban-input-col').value,
+                    deadline: document.getElementById('kanban-input-deadline').value || 'Trong tuần'
+                };
+
+                this.kanbanTasks.unshift(newTask);
+                this.saveKanbanState();
+                this.renderKanban();
+
+                form.reset();
+                bootstrap.Modal.getInstance(document.getElementById('createKanbanTaskModal'))?.hide();
+            });
+        },
+
         initOverviewCharts() {
             if (!window.Chart) return;
 

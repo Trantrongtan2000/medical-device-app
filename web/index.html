@@ -1493,5 +1493,77 @@
     <script src="js/diagrams.js"></script>
     <script src="js/api.js"></script>
     <script src="js/app.js?v=20260819_TASTE_SKILL_V1"></script>
+
+    <!-- ==================== MODAL: THÊM TÁC VỤ KANBAN MỚI ==================== -->
+    <div class="modal fade" id="createKanbanTaskModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-kanban-fill me-2"></i>Thêm Tác Vụ Kanban Mới</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="createKanbanTaskForm">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">TIÊU ĐỀ TÁC VỤ / BÁO HỎNG (*)</label>
+                            <input type="text" id="kanban-input-title" class="form-control form-control-sm" placeholder="VD: Bảo dưỡng màng RO Thận #02..." required>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">LOẠI CÔNG TÁC</label>
+                                <select id="kanban-input-type" class="form-select form-select-sm">
+                                    <option value="Báo hỏng">Báo hỏng / Sửa chữa</option>
+                                    <option value="PM Định kỳ" selected>Bảo trì PM định kỳ</option>
+                                    <option value="Kiểm định">Kiểm định Thông tư 05</option>
+                                    <option value="QT.08">Điều chuyển máy (QT.08)</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">MỨC ĐỘ ƯU TIÊN</label>
+                                <select id="kanban-input-priority" class="form-select form-select-sm">
+                                    <option value="Khẩn cấp">Khẩn cấp (Hôm nay)</option>
+                                    <option value="Cao">Cao</option>
+                                    <option value="Bình thường" selected>Bình thường</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">KHOA / VỊ TRÍ PHÒNG</label>
+                                <input type="text" id="kanban-input-facility" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">NGƯỜI PHỤ TRÁCH / KỸ SƯ</label>
+                                <input type="text" id="kanban-input-assignee" class="form-control form-control-sm" placeholder="VD: KS. Trần Văn Hùng">
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">GIAI ĐOẠN KHỞI TẠO</label>
+                                <select id="kanban-input-col" class="form-select form-select-sm">
+                                    <option value="todo" selected>1. Chờ Tiếp Nhận (To Do)</option>
+                                    <option value="inprog">2. Đang Xử Lý (In Progress)</option>
+                                    <option value="review">3. Chờ Nghiệm Thu (Review)</option>
+                                    <option value="done">4. Đã Hoàn Tất (Done)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">HẠN HOÀN THÀNH</label>
+                                <input type="text" id="kanban-input-deadline" class="form-control form-control-sm font-mono" placeholder="VD: 3 ngày tới">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+                                <i class="bi bi-plus-lg me-1"></i> Tạo Thẻ Kanban
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

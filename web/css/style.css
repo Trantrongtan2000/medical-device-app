@@ -476,3 +476,59 @@ body {
     font-size: 0.74rem;
     color: #475569;
 }
+
+/* ==================== INTERACTIVE KANBAN BOARD (DRAG & DROP) ==================== */
+.kanban-column {
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.kanban-column.drag-over {
+    background-color: #f0fdf4 !important;
+    border: 2px dashed #059669 !important;
+}
+
+.kanban-card {
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.kanban-card:active {
+    cursor: grabbing;
+}
+
+.kanban-card.dragging {
+    opacity: 0.45;
+    transform: scale(0.98);
+    border: 2px dashed #0284c7 !important;
+}
+
+.kanban-card-actions {
+    opacity: 0.6;
+    transition: opacity 0.15s ease;
+}
+
+.kanban-card:hover .kanban-card-actions {
+    opacity: 1;
+}
+
+.kanban-badge-priority-urgent {
+    background-color: #fee2e2 !important;
+    color: #b91c1c !important;
+    border: 1px solid #fca5a5 !important;
+    font-weight: 800;
+}
+
+.kanban-badge-priority-high {
+    background-color: #fef3c7 !important;
+    color: #b45309 !important;
+    border: 1px solid #fcd34d !important;
+    font-weight: 800;
+}
+
+.kanban-badge-priority-normal {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #7dd3fc !important;
+    font-weight: 800;
+}
