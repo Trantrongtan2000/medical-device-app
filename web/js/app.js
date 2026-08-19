@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             await this.loadTransfers();
             await this.loadECarts();
             await this.loadWorkOrders();
+            this.loadStaff();
             await this.loadSemanticaStats();
             await this.loadActivityFeed();
 
@@ -1137,8 +1138,260 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        
+        // ==================== BME STAFF MANAGEMENT ENGINE ====================
+        staffList: [],
+
+        async loadStaff() {
+            try {
+                const res = await fetch('/api/staff');
+                if (!res.ok) throw new Error('Không thể tải danh sách nhân sự BME');
+                this.staffList = await res.json();
+                this.renderStaff(this.staffList);
+                this.updateStaffKPIs();
+            } catch (err) {
+                console.error('Error loading BME staff:', err);
+            }
+        },
+
+        updateStaffKPIs() {
+            const total = this.staffList.length;
+            const onDuty = this.staffList.filter(s => s.status === 'ON_DUTY').length;
+            const specialists = this.staffList.filter(s => (s.role_level && s.role_level.includes('Trưởng')) || (s.role_level && s.role_level.includes('Chuyên Gia'))).length;
+
+            const elTotal = document.getElementById('kpi-total-staff');
+            const elOnDuty = document.getElementById('kpi-onduty-staff');
+            const elSpecialist = document.getElementById('kpi-specialist-staff');
+            const elBadge = document.getElementById('badge-staff-count');
+
+            if (elTotal) elTotal.textContent = total;
+            if (elOnDuty) elOnDuty.textContent = onDuty;
+            if (elSpecialist) elSpecialist.textContent = specialists;
+            if (elBadge) elBadge.textContent = `${total} KS`;
+        },
+
+        renderStaff(list) {
+            const container = document.getElementById('staff-grid-container');
+            const countLabel = document.getElementById('staff-count-label');
+            if (!container) return;
+
+            if (countLabel) countLabel.textContent = `Hiển thị ${list.length} nhân sự BME`;
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5 text-muted">
+                        <i class="bi bi-people fs-1 text-secondary mb-2 d-block"></i>
+                        Không tìm thấy nhân sự phù hợp với bộ lọc
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = list.map(s => {
+                const statusBadge = s.status === 'ON_DUTY' 
+                    ? '<span class="badge bg-success"><i class="bi bi-broadcast me-1"></i>Đang Trực Ca 24/7</span>'
+                    : (s.status === 'ACTIVE' ? '<span class="badge bg-primary bg-opacity-10 text-primary border border-primary">Đang Làm Việc</span>' : '<span class="badge bg-secondary">Nghỉ Phép</span>');
+                
+                const depts = s.assigned_departments ? s.assigned_departments.split(',').map(d => `<span class="badge bg-light text-dark border me-1 mb-1 font-mono" style="font-size: 0.72rem;">📍 ${d.trim()}</span>`).join('') : '<span class="text-muted small">Toàn viện</span>';
+                
+                const certs = s.certificates ? s.certificates.split(',').map(c => `<div class="small text-muted mb-1"><i class="bi bi-patch-check-fill text-primary me-1"></i>${c.trim()}</div>`).join('') : '<div class="text-muted small">Đang cập nhật chứng chỉ</div>';
+
+                const initial = s.full_name.replace('KS. ', '').replace('CN. ', '').trim().charAt(0) || 'K';
+
+                return `
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="clinical-card h-100 p-3 d-flex flex-column justify-content-between shadow-sm position-relative" style="border-top: 4px solid ${s.avatar_color || '#0284c7'};">
+                            <div>
+                                <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm flex-shrink-0" 
+                                             style="width: 44px; height: 44px; font-size: 1.15rem; background: ${s.avatar_color || '#0284c7'};">
+                                            ${initial}
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-dark">${s.full_name}</h6>
+                                            <span class="badge bg-dark font-mono text-white" style="font-size: 0.68rem;">${s.staff_code}</span>
+                                            <span class="small text-muted d-block fw-semibold">${s.title}</span>
+                                        </div>
+                                    </div>
+                                    <div>${statusBadge}</div>
+                                </div>
+
+                                <div class="p-2 rounded bg-light border mb-2">
+                                    <span class="small text-muted d-block" style="font-size: 0.72rem; font-weight: 700;">CHUYÊN MÔN PHỤ TRÁCH:</span>
+                                    <strong class="text-dark small d-block">${s.specialty}</strong>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">ĐỊA BÀN PHỤ TRÁCH:</span>
+                                    <div class="d-flex flex-wrap">${depts}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <span class="small text-muted d-block mb-1" style="font-size: 0.72rem; font-weight: 700;">CHỨNG CHỈ NĂNG LỰC:</span>
+                                    ${certs}
+                                </div>
+                            </div>
+
+                            <div class="pt-2 border-top d-flex align-items-center justify-content-between">
+                                <a href="tel:${s.phone}" class="btn btn-sm btn-outline-primary btn-clinical font-mono fw-bold">
+                                    <i class="bi bi-telephone-fill me-1"></i>${s.phone || 'N/A'}
+                                </a>
+                                <button class="btn btn-sm btn-light border btn-clinical text-dark fw-semibold" onclick="app.openViewStaffModal(${s.id})">
+                                    <i class="bi bi-pencil-square me-1"></i> Hồ Sơ Chi Tiết
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        setupStaffEventListeners() {
+            const searchInput = document.getElementById('staff-search-input');
+            const statusFilter = document.getElementById('staff-status-filter');
+
+            const filterFn = () => {
+                const query = (searchInput?.value || '').toLowerCase().trim();
+                const status = statusFilter?.value || '';
+
+                const filtered = this.staffList.filter(s => {
+                    const matchQuery = !query || 
+                        s.full_name.toLowerCase().includes(query) || 
+                        s.staff_code.toLowerCase().includes(query) || 
+                        s.specialty.toLowerCase().includes(query) ||
+                        (s.assigned_departments && s.assigned_departments.toLowerCase().includes(query));
+                    const matchStatus = !status || s.status === status;
+                    return matchQuery && matchStatus;
+                });
+
+                this.renderStaff(filtered);
+            };
+
+            searchInput?.addEventListener('input', filterFn);
+            statusFilter?.addEventListener('change', filterFn);
+
+            // Create Staff Form
+            const createForm = document.getElementById('createStaffForm');
+            createForm?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const payload = {
+                    staff_code: document.getElementById('staff-add-code').value.trim().toUpperCase(),
+                    full_name: document.getElementById('staff-add-name').value.trim(),
+                    title: document.getElementById('staff-add-title').value.trim(),
+                    role_level: document.getElementById('staff-add-role').value,
+                    specialty: document.getElementById('staff-add-specialty').value.trim(),
+                    phone: document.getElementById('staff-add-phone').value.trim(),
+                    email: document.getElementById('staff-add-email').value.trim(),
+                    assigned_departments: document.getElementById('staff-add-depts').value.trim(),
+                    certificates: document.getElementById('staff-add-certs').value.trim(),
+                    duty_shift: document.getElementById('staff-add-shift').value.trim(),
+                    status: document.getElementById('staff-add-status').value
+                };
+
+                try {
+                    const res = await fetch('/api/staff', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi khi thêm nhân sự');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('createStaffModal'))?.hide();
+                    createForm.reset();
+                    this.loadStaff();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+
+            // Edit Staff Form
+            const editForm = document.getElementById('editStaffForm');
+            editForm?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const staffId = document.getElementById('staff-edit-id').value;
+                const payload = {
+                    title: document.getElementById('staff-edit-title').value.trim(),
+                    specialty: document.getElementById('staff-edit-specialty').value.trim(),
+                    phone: document.getElementById('staff-edit-phone').value.trim(),
+                    email: document.getElementById('staff-edit-email').value.trim(),
+                    assigned_departments: document.getElementById('staff-edit-depts').value.trim(),
+                    certificates: document.getElementById('staff-edit-certs').value.trim(),
+                    status: document.getElementById('staff-edit-status').value
+                };
+
+                try {
+                    const res = await fetch(`/api/staff/${staffId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi cập nhật');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('viewStaffModal'))?.hide();
+                    this.loadStaff();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+
+            // Delete Staff Button
+            document.getElementById('btn-delete-staff')?.addEventListener('click', async () => {
+                const staffId = document.getElementById('staff-edit-id').value;
+                const staffName = document.getElementById('staff-modal-name').textContent;
+                if (!confirm(`Bạn có chắc muốn xóa nhân sự "${staffName}" khỏi hệ thống?`)) return;
+
+                try {
+                    const res = await fetch(`/api/staff/${staffId}`, { method: 'DELETE' });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi khi xóa');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('viewStaffModal'))?.hide();
+                    this.loadStaff();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+        },
+
+        async openViewStaffModal(staffId) {
+            try {
+                const res = await fetch(`/api/staff/${staffId}`);
+                if (!res.ok) throw new Error('Không thể tải chi tiết nhân sự');
+                const staff = await res.json();
+
+                document.getElementById('staff-edit-id').value = staff.id;
+                document.getElementById('staff-modal-name').textContent = staff.full_name;
+                document.getElementById('staff-modal-code').textContent = staff.staff_code;
+                document.getElementById('staff-edit-title').value = staff.title;
+                document.getElementById('staff-edit-specialty').value = staff.specialty;
+                document.getElementById('staff-edit-phone').value = staff.phone || '';
+                document.getElementById('staff-edit-email').value = staff.email || '';
+                document.getElementById('staff-edit-depts').value = staff.assigned_departments || '';
+                document.getElementById('staff-edit-certs').value = staff.certificates || '';
+                document.getElementById('staff-edit-status').value = staff.status || 'ACTIVE';
+
+                const avatar = document.getElementById('staff-modal-avatar');
+                if (avatar) {
+                    avatar.textContent = staff.full_name.replace('KS. ', '').replace('CN. ', '').trim().charAt(0) || 'K';
+                    avatar.style.background = staff.avatar_color || '#0284c7';
+                }
+
+                const modal = new bootstrap.Modal(document.getElementById('viewStaffModal'));
+                modal.show();
+            } catch (err) {
+                alert('❌ Lỗi: ' + err.message);
+            }
+        },
+
         setupFormSubmissions() {
             this.setupCheckoutForm();
+            this.setupStaffEventListeners();
             this.setupGlobalShortcuts();
             // Pre-use inspection submit
             const insForm = document.getElementById('preUseChecklistForm');
@@ -1262,6 +1515,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
                         woForm.reset();
                         this.loadWorkOrders();
+            this.loadStaff();
                     }
                 });
             }

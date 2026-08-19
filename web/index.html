@@ -78,7 +78,12 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="btn-tab-suppliers" data-bs-toggle="pill" data-bs-target="#tab-suppliers" type="button">
+                                            <button class="nav-link" id="btn-tab-staff" data-bs-toggle="pill" data-bs-target="#tab-staff" type="button">
+                            <i class="bi bi-people-fill text-info"></i>
+                            <span>Nhân Sự TTBYT</span>
+                            <span class="badge bg-info text-dark rounded-pill ms-auto font-mono" id="badge-staff-count">6 KS</span>
+                        </button>
+                        <button class="nav-link" id="btn-tab-suppliers" data-bs-toggle="pill" data-bs-target="#tab-suppliers" type="button">
                         <i class="bi bi-building text-warning"></i>
                         <span>Nhà Cung Cấp & HĐ</span>
                         <span class="badge bg-warning-subtle text-dark rounded-pill ms-auto font-mono">24 NCC</span>
@@ -1592,6 +1597,161 @@
                             <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
                                 <i class="bi bi-check-lg me-1"></i> Xác Nhận Bàn Giao
                             </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL: THÊM NHÂN SỰ TTBYT MỚI ==================== -->
+    <div class="modal fade" id="createStaffModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill me-2"></i>Thêm Hồ Sơ Nhân Sự / Kỹ Sư TTBYT</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="createStaffForm">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark">MÃ NHÂN SỰ (*)</label>
+                                <input type="text" id="staff-add-code" class="form-control form-control-sm font-mono text-uppercase" placeholder="VD: BME-007" required>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label small fw-bold text-dark">HỌ VÀ TÊN (*)</label>
+                                <input type="text" id="staff-add-name" class="form-control form-control-sm" placeholder="VD: KS. Nguyễn Văn B" required>
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">CHỨC DANH / VỊ TRÍ (*)</label>
+                                <input type="text" id="staff-add-title" class="form-control form-control-sm" placeholder="VD: Kỹ Sư Y Sinh Chuyên Trách" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">CẤP BẬC / VAI TRÒ</label>
+                                <select id="staff-add-role" class="form-select form-select-sm">
+                                    <option value="Chuyên Gia Cao Cấp">Chuyên Gia Cao Cấp</option>
+                                    <option value="Kỹ Sư Trưởng">Kỹ Sư Trưởng</option>
+                                    <option value="Kỹ Sư Chính" selected>Kỹ Sư Chính</option>
+                                    <option value="Kỹ Sư Đo Lường">Kỹ Sư Đo Lường / Kiểm Định</option>
+                                    <option value="Chuyên Viên HTM">Chuyên Viên Quản Trị HTM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">CHUYÊN MÔN / HỆ THỐNG PHỤ TRÁCH (*)</label>
+                            <input type="text" id="staff-add-specialty" class="form-control form-control-sm" placeholder="VD: Hệ thống RO Thận Nhân Tạo & Thiết Bị Phòng Mổ" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">SỐ ĐIỆN THOẠI TRỰC (*)</label>
+                                <input type="text" id="staff-add-phone" class="form-control form-control-sm font-mono" placeholder="VD: 0912.345.678" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">EMAIL LIÊN HỆ</label>
+                                <input type="email" id="staff-add-email" class="form-control form-control-sm" placeholder="VD: bme.staff@tamanhhospital.vn">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">KHOA / PHÒNG PHỤ TRÁCH ĐỊA BÀN</label>
+                            <input type="text" id="staff-add-depts" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu, Khoa Hồi Sức Tích Cực (ICU)...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">CHỨNG CHỈ NGHỀ NGHIỆP & AN TOÀN</label>
+                            <textarea id="staff-add-certs" class="form-control form-control-sm" rows="2" placeholder="VD: Chứng chỉ An toàn Bức xạ Y tế, Chứng chỉ Kiểm định An toàn Điện Y Sinh IEC 62353..."></textarea>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">CHẾ ĐỘ CA TRỰC</label>
+                                <input type="text" id="staff-add-shift" class="form-control form-control-sm" value="Hành chính (07:30 - 16:30)">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">TRẠNG THÁI HIỆN TẠI</label>
+                                <select id="staff-add-status" class="form-select form-select-sm">
+                                    <option value="ACTIVE" selected>Đang Làm Việc (ACTIVE)</option>
+                                    <option value="ON_DUTY">Đang Trực Ca 24/7 (ON_DUTY)</option>
+                                    <option value="ON_LEAVE">Nghỉ Phép / Đào Tạo (ON_LEAVE)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+                                <i class="bi bi-check-lg me-1"></i> Lưu Nhân Sự Mới
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: CHI TIẾT & SỬA HỒ SƠ NHÂN SỰ ==================== -->
+    <div class="modal fade" id="viewStaffModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+                    <div class="d-flex align-items-center gap-2">
+                        <div id="staff-modal-avatar" class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; font-size: 1.1rem; background: #0284c7;">H</div>
+                        <div>
+                            <h5 class="modal-title fw-bold mb-0" id="staff-modal-name">KS. Trần Văn Hùng</h5>
+                            <span class="badge bg-light text-dark font-mono" id="staff-modal-code">BME-001</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editStaffForm">
+                        <input type="hidden" id="staff-edit-id">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">CHỨC DANH</label>
+                                <input type="text" id="staff-edit-title" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">TRẠNG THÁI CA TRỰC</label>
+                                <select id="staff-edit-status" class="form-select form-select-sm">
+                                    <option value="ACTIVE">Đang Làm Việc (ACTIVE)</option>
+                                    <option value="ON_DUTY">Đang Trực Ca 24/7 (ON_DUTY)</option>
+                                    <option value="ON_LEAVE">Nghỉ Phép / Đào Tạo (ON_LEAVE)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">CHUYÊN MÔN PHỤ TRÁCH</label>
+                            <input type="text" id="staff-edit-specialty" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">HOTLINE TRỰC</label>
+                                <input type="text" id="staff-edit-phone" class="form-control form-control-sm font-mono" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">EMAIL</label>
+                                <input type="email" id="staff-edit-email" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">KHOA PHÒNG PHỤ TRÁCH</label>
+                            <textarea id="staff-edit-depts" class="form-control form-control-sm" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">CHỨNG CHỈ ĐÀO TẠO & AN TOÀN</label>
+                            <textarea id="staff-edit-certs" class="form-control form-control-sm" rows="2"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <button type="button" class="btn btn-outline-danger btn-sm btn-clinical" id="btn-delete-staff">
+                                <i class="bi bi-trash me-1"></i> Xóa Nhân Sự
+                            </button>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+                                    <i class="bi bi-save me-1"></i> Cập Nhật Hồ Sơ
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

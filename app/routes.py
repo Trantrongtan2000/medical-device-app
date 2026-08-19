@@ -1200,3 +1200,156 @@ async def get_dashboard_activity(limit: int = Query(20, ge=1, le=100), db = Depe
 
     events.sort(key=lambda e: str(e.get("occurred_at") or ""), reverse=True)
     return events[:limit]
+
+
+
+# ==================== BME STAFF & PERSONNEL MANAGEMENT ENDPOINTS ====================
+
+class BMEStaffCreate(BaseModel):
+    staff_code: str
+    full_name: str
+    title: str
+    role_level: Optional[str] = "Kỹ Sư Chính"
+    specialty: str
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    assigned_departments: Optional[str] = None
+    certificates: Optional[str] = None
+    duty_shift: Optional[str] = "Hành chính (07:30 - 16:30)"
+    status: Optional[str] = "ACTIVE"
+    avatar_color: Optional[str] = "#0284c7"
+
+class BMEStaffUpdate(BaseModel):
+    full_name: Optional[str] = None
+    title: Optional[str] = None
+    role_level: Optional[str] = None
+    specialty: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    assigned_departments: Optional[str] = None
+    certificates: Optional[str] = None
+    duty_shift: Optional[str] = None
+    status: Optional[str] = None
+    avatar_color: Optional[str] = None
+
+@router.get("/api/staff")
+async def list_bme_staff(
+    status: Optional[str] = Query(None, description="Lọc theo trạng thái trực: ACTIVE, ON_DUTY, ON_LEAVE"),
+    search: Optional[str] = Query(None, description="Tìm theo tên, mã NV, chuyên môn"),
+    db = Depends(get_db)
+):
+    """Danh sách nhân sự và kỹ sư phòng Trang Thiết Bị Y Tế (BME Staff)"""
+    query = "SELECT * FROM bme_staff"
+    conditions = []
+    params = []
+    
+    if status:
+        conditions.append("status = ?")
+        params.append(status.upper())
+        
+    if search and search.strip():
+        s = f"%{search.strip()}%"
+        conditions.append("(full_name LIKE ? OR staff_code LIKE ? OR specialty LIKE ? OR title LIKE ?)")
+        params.extend([s, s, s, s])
+        
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+        
+    query += " ORDER BY CASE status WHEN 'ON_DUTY' THEN 1 WHEN 'ACTIVE' THEN 2 ELSE 3 END, id ASC"
+    rows = db.execute(query, params).fetchall()
+    return [dict(r) for r in rows]
+
+@router.get("/api/staff/{staff_id}")
+async def get_bme_staff_detail(staff_id: int, db = Depends(get_db)):
+    """Hồ sơ chi tiết và phân công nhiệm vụ của nhân sự TTBYT"""
+    row = db.execute("SELECT * FROM bme_staff WHERE id = ?", (staff_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy nhân sự TTBYT")
+    
+    staff = dict(row)
+    
+    # Lấy lịch sử công việc và bảo trì do nhân sự thực hiện
+    name_like = f"%{staff['full_name'].replace('KS. ', '').replace('CN. ', '').strip()}%"
+    logs = db.execute("""
+        SELECT l.*, d.device_name, d.model, 'BVQ7-TTB-' || substr('00000' || d.id, -5) AS asset_tag
+        FROM maintenance_logs l
+        JOIN devices d ON l.device_id = d.id
+        WHERE l.performed_by LIKE ?
+        ORDER BY l.maintenance_date DESC LIMIT 10
+    """, (name_like,)).fetchall()
+    
+    staff["recent_tasks"] = [dict(log) for log in logs]
+    staff["total_tasks_completed"] = len(logs)
+    
+    return staff
+
+@router.post("/api/staff")
+async def create_bme_staff(staff: BMEStaffCreate, db = Depends(get_db)):
+    """Thêm nhân sự / kỹ sư mới vào Phòng Trang Thiết Bị Y Tế"""
+    cur = db.cursor()
+    
+    # Kiểm tra mã nhân sự trùng
+    existing = cur.execute("SELECT id FROM bme_staff WHERE staff_code = ?", (staff.staff_code.strip(),)).fetchone()
+    if existing:
+        raise HTTPException(status_code=400, detail=f"Mã nhân sự {staff.staff_code} đã tồn tại!")
+        
+    cur.execute("""
+        INSERT INTO bme_staff (staff_code, full_name, title, role_level, specialty, phone, email, assigned_departments, certificates, duty_shift, status, avatar_color)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        staff.staff_code.strip().upper(),
+        staff.full_name.strip(),
+        staff.title.strip(),
+        staff.role_level or "Kỹ Sư Chính",
+        staff.specialty.strip(),
+        staff.phone,
+        staff.email,
+        staff.assigned_departments,
+        staff.certificates,
+        staff.duty_shift or "Hành chính (07:30 - 16:30)",
+        staff.status or "ACTIVE",
+        staff.avatar_color or "#0284c7"
+    ))
+    db.commit()
+    new_id = cur.lastrowid
+    return {"status": "success", "id": new_id, "message": f"Đã thêm nhân sự {staff.full_name} ({staff.staff_code}) thành công!"}
+
+@router.put("/api/staff/{staff_id}")
+async def update_bme_staff(staff_id: int, req: BMEStaffUpdate, db = Depends(get_db)):
+    """Cập nhật thông tin nhân sự, ca trực hoặc phân công chuyên môn"""
+    cur = db.cursor()
+    row = cur.execute("SELECT * FROM bme_staff WHERE id = ?", (staff_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy nhân sự TTBYT")
+        
+    fields = []
+    params = []
+    
+    for k, v in req.dict(exclude_unset=True).items():
+        if v is not None:
+            fields.append(f"{k} = ?")
+            params.append(v)
+            
+    if not fields:
+        return {"status": "no_change", "message": "Không có thay đổi nào"}
+        
+    fields.append("updated_at = CURRENT_TIMESTAMP")
+    params.append(staff_id)
+    
+    sql = f"UPDATE bme_staff SET {', '.join(fields)} WHERE id = ?"
+    cur.execute(sql, params)
+    db.commit()
+    
+    return {"status": "success", "message": "Đã cập nhật thông tin nhân sự thành công!"}
+
+@router.delete("/api/staff/{staff_id}")
+async def delete_bme_staff(staff_id: int, db = Depends(get_db)):
+    """Xóa hoặc chuyển trạng thái nhân sự"""
+    cur = db.cursor()
+    row = cur.execute("SELECT full_name FROM bme_staff WHERE id = ?", (staff_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy nhân sự")
+        
+    cur.execute("DELETE FROM bme_staff WHERE id = ?", (staff_id,))
+    db.commit()
+    return {"status": "success", "message": f"Đã xóa hồ sơ nhân sự {row['full_name']} khỏi hệ thống"}

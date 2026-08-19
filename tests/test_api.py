@@ -117,3 +117,22 @@ def test_checkout_checkin_roundtrip():
             },
         )
         assert restore.status_code == 200, restore.text
+
+
+
+def test_bme_staff_endpoints():
+    # 1. Test GET /api/staff
+    res = client.get("/api/staff")
+    assert res.status_code == 200
+    data = res.json()
+    assert isinstance(data, list)
+    assert len(data) >= 6
+    assert any(s["staff_code"] == "BME-001" for s in data)
+
+    # 2. Test GET /api/staff/1
+    res_single = client.get("/api/staff/1")
+    assert res_single.status_code == 200
+    staff = res_single.json()
+    assert staff["staff_code"] == "BME-001"
+    assert "Trần Văn Hùng" in staff["full_name"]
+    assert "recent_tasks" in staff
