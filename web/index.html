@@ -54,14 +54,25 @@
             </div>
 
             <!-- 8 Full Feature Navigation Items -->
+                        <!-- 4 Organized Functional Groups (Taste-Skill Precision) -->
             <ul class="nav flex-column sidebar-nav" id="sidebarMenu" role="tablist">
+                
+                <!-- GROUP 1: ĐIỀU HÀNH & TỔNG QUAN -->
+                <div class="sidebar-section-header">
+                    <span>ĐIỀU HÀNH TỔNG THỂ</span>
+                </div>
                 <li class="nav-item">
                     <button class="nav-link active" id="btn-tab-overview" data-bs-toggle="pill" data-bs-target="#tab-overview" type="button">
-                        <i class="bi bi-speedometer2 text-primary"></i>
-                        <span>Dashboard Tổng Quan</span>
+                        <i class="bi bi-speedometer2 text-info"></i>
+                        <span>Dashboard & Kanban</span>
                         <span class="badge bg-primary-subtle text-primary rounded-pill ms-auto font-mono">Live</span>
                     </button>
                 </li>
+
+                <!-- GROUP 2: QUẢN LÝ TÀI SẢN & ĐỐI TÁC -->
+                <div class="sidebar-section-header">
+                    <span>DANH MỤC & ĐỐI TÁC</span>
+                </div>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
                         <i class="bi bi-grid-fill"></i>
@@ -70,25 +81,49 @@
                     </button>
                 </li>
                 <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-suppliers" data-bs-toggle="pill" data-bs-target="#tab-suppliers" type="button">
+                        <i class="bi bi-building text-warning"></i>
+                        <span>Nhà Cung Cấp & HĐ</span>
+                        <span class="badge bg-warning-subtle text-dark rounded-pill ms-auto font-mono">24 NCC</span>
+                    </button>
+                </li>
+
+                <!-- GROUP 3: VẬN HÀNH & BẢO DƯỠNG LÂM SÀNG -->
+                <div class="sidebar-section-header">
+                    <span>QUY TRÌNH LÂM SÀNG</span>
+                </div>
+                <li class="nav-item">
                     <button class="nav-link" id="btn-tab-inspections" data-bs-toggle="pill" data-bs-target="#tab-inspections" type="button">
-                        <i class="bi bi-shield-check"></i>
+                        <i class="bi bi-shield-check text-success"></i>
                         <span>Kiểm Tra Đầu Ngày</span>
                         <span class="badge bg-success rounded-pill ms-auto font-mono">Pre-use</span>
                     </button>
                 </li>
                 <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-schedule" data-bs-toggle="pill" data-bs-target="#tab-schedule" type="button">
+                        <i class="bi bi-calendar-event text-info"></i>
+                        <span>Lịch Bảo Trì & Kiểm Định</span>
+                        <span class="badge bg-danger rounded-pill ms-auto font-mono">30 Ngày</span>
+                    </button>
+                </li>
+                <li class="nav-item">
                     <button class="nav-link" id="btn-tab-transfers" data-bs-toggle="pill" data-bs-target="#tab-transfers" type="button">
-                        <i class="bi bi-arrow-left-right"></i>
+                        <i class="bi bi-arrow-left-right text-primary"></i>
                         <span>Điều Chuyển Máy (QT.08)</span>
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="btn-tab-ecarts" data-bs-toggle="pill" data-bs-target="#tab-ecarts" type="button">
+                    <button class="nav-link" id="btn-tab-ecart" data-bs-toggle="pill" data-bs-target="#tab-ecart" type="button">
                         <i class="bi bi-truck-front-fill text-danger"></i>
                         <span>Xe Cấp Cứu E-Cart</span>
                         <span class="badge bg-danger rounded-pill ms-auto font-mono">8 Xe</span>
                     </button>
                 </li>
+
+                <!-- GROUP 4: CMMS & ĐỒ THỊ TRI THỨC -->
+                <div class="sidebar-section-header">
+                    <span>CMMS & TRÍ TUỆ NHÂN TẠO</span>
+                </div>
                 <li class="nav-item">
                     <button class="nav-link" id="btn-tab-diagrams" data-bs-toggle="pill" data-bs-target="#tab-diagrams" type="button">
                         <i class="bi bi-diagram-3-fill text-info"></i>
@@ -96,10 +131,10 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="btn-tab-workorders" data-bs-toggle="pill" data-bs-target="#tab-workorders" type="button">
-                        <i class="bi bi-tools"></i>
+                    <button class="nav-link" id="btn-tab-speedmaint" data-bs-toggle="pill" data-bs-target="#tab-speedmaint" type="button">
+                        <i class="bi bi-tools text-warning"></i>
                         <span>Bảo Trì SpeedMaint</span>
-                        <span class="badge bg-secondary rounded-pill ms-auto font-mono" id="nav-badge-wo">6</span>
+                        <span class="badge bg-secondary rounded-pill ms-auto font-mono" id="nav-badge-wo">7</span>
                     </button>
                 </li>
                 <li class="nav-item">
@@ -199,6 +234,185 @@
                                     </div>
                                     <div class="kpi-icon bg-danger-subtle text-danger pulse-emergency">
                                         <i class="bi bi-truck-front-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <!-- ==================== KANBAN WORKFLOW BOARD ==================== -->
+                        <div class="clinical-card p-3 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1"><i class="bi bi-kanban-fill text-primary me-2"></i>Bảng Kanban Tiến Độ Công Việc & Bảo Trì Lâm Sàng</h6>
+                                    <p class="text-muted small mb-0">Theo dõi thời gian thực các tác vụ Báo hỏng, Bảo trì phòng ngừa (PM), Kiểm định định kỳ và Điều chuyển máy</p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">
+                                        <i class="bi bi-plus-lg me-1"></i> Tạo Tác Vụ Mới
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="kanban-board">
+                                <!-- COLUMN 1: TO DO / CHỜ XỬ LÝ -->
+                                <div class="kanban-column">
+                                    <div class="kanban-column-header">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-secondary font-mono" id="kanban-count-todo">3</span>
+                                            <strong class="small text-dark text-uppercase">1. Chờ Tiếp Nhận</strong>
+                                        </div>
+                                        <i class="bi bi-inbox text-secondary"></i>
+                                    </div>
+                                    <div class="kanban-cards-container" id="kanban-col-todo">
+                                        <!-- Card 1 -->
+                                        <div class="kanban-card border-start border-4 border-danger">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-danger text-white font-mono" style="font-size: 0.7rem;">Khẩn cấp</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">Báo hỏng</span>
+                                            </div>
+                                            <div class="kanban-card-title">Máy thở xâm lấn Vela</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-geo-alt me-1 text-danger"></i>Khoa Cấp Cứu • S/N: VEL8829</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-person me-1"></i>BS. Nguyễn Tuấn</span>
+                                                <span class="text-danger fw-bold">Hạn: Hôm nay</span>
+                                            </div>
+                                        </div>
+                                        <!-- Card 2 -->
+                                        <div class="kanban-card border-start border-4 border-warning">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-warning text-dark font-mono" style="font-size: 0.7rem;">Cao</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">Kiểm định</span>
+                                            </div>
+                                            <div class="kanban-card-title">Máy Chụp X-Quang Kỹ Thuật Số</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-geo-alt me-1 text-primary"></i>Khoa CĐHA • S/N: XR2024-91</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-building me-1"></i>Viện Trang Thiết Bị</span>
+                                                <span class="text-warning fw-bold">15 ngày tới</span>
+                                            </div>
+                                        </div>
+                                        <!-- Card 3 -->
+                                        <div class="kanban-card border-start border-4 border-primary">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-primary text-white font-mono" style="font-size: 0.7rem;">Bình thường</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">QT.08</span>
+                                            </div>
+                                            <div class="kanban-card-title">Điều chuyển Monitor Bionet</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-arrow-left-right me-1 text-info"></i>Khoa Cấp Cứu → Khoa Khám Bệnh</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-person me-1"></i>ĐD. Trưởng Khoa</span>
+                                                <span class="text-primary">Chờ ký BM03</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- COLUMN 2: IN PROGRESS / ĐANG THỰC HIỆN -->
+                                <div class="kanban-column">
+                                    <div class="kanban-column-header">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-primary font-mono" id="kanban-count-inprog">2</span>
+                                            <strong class="small text-dark text-uppercase">2. Đang Xử Lý</strong>
+                                        </div>
+                                        <i class="bi bi-gear-wide-connected text-primary"></i>
+                                    </div>
+                                    <div class="kanban-cards-container" id="kanban-col-inprog">
+                                        <!-- Card 1 -->
+                                        <div class="kanban-card border-start border-4 border-info">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-info text-dark font-mono" style="font-size: 0.7rem;">PM Định kỳ</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">SpeedMaint</span>
+                                            </div>
+                                            <div class="kanban-card-title">Hệ Thống Lọc Nước RO Thận #01</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-geo-alt me-1 text-primary"></i>Khu Thận Nhân Tạo • QT.01</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-person-gear me-1"></i>KS. Trần Văn Hùng</span>
+                                                <span class="text-info fw-bold">Tiến độ 60%</span>
+                                            </div>
+                                        </div>
+                                        <!-- Card 2 -->
+                                        <div class="kanban-card border-start border-4 border-warning">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-warning text-dark font-mono" style="font-size: 0.7rem;">Sửa chữa</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">SpeedMaint</span>
+                                            </div>
+                                            <div class="kanban-card-title">Máy Siêu Âm Voluson E10</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-geo-alt me-1 text-primary"></i>Khoa CĐHA • Thay cáp đầu dò</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-building me-1"></i>Hãng GE Healthcare</span>
+                                                <span class="text-warning fw-bold">Đang test</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- COLUMN 3: REVIEW / CHỜ DUYỆT & NGHIỆM THU -->
+                                <div class="kanban-column">
+                                    <div class="kanban-column-header">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-warning text-dark font-mono" id="kanban-count-review">2</span>
+                                            <strong class="small text-dark text-uppercase">3. Chờ Nghiệm Thu</strong>
+                                        </div>
+                                        <i class="bi bi-clipboard-check text-warning"></i>
+                                    </div>
+                                    <div class="kanban-cards-container" id="kanban-col-review">
+                                        <!-- Card 1 -->
+                                        <div class="kanban-card border-start border-4 border-warning">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-success-subtle text-success font-mono" style="font-size: 0.7rem;">Đã xong KT</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">BM04</span>
+                                            </div>
+                                            <div class="kanban-card-title">Máy Sốc Tim E-Cart Số 01</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-truck-front me-1 text-danger"></i>Khu Cấp Cứu Tầng Trệt</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-person-check me-1"></i>ĐD. Trưởng trực</span>
+                                                <span class="text-success fw-bold">Chờ ký BM04</span>
+                                            </div>
+                                        </div>
+                                        <!-- Card 2 -->
+                                        <div class="kanban-card border-start border-4 border-success">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-success font-mono" style="font-size: 0.7rem;">GCN Mới</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">TT 05</span>
+                                            </div>
+                                            <div class="kanban-card-title">Máy Đo Điện Tim 6 Cần ECG</div>
+                                            <div class="kanban-card-meta mb-1"><i class="bi bi-geo-alt me-1 text-primary"></i>Phòng Khám Nội • GCN #2026-881</div>
+                                            <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2 font-mono" style="font-size: 0.72rem;">
+                                                <span class="text-muted"><i class="bi bi-check2-circle me-1"></i>Trung Tâm Kiểm Định 3</span>
+                                                <span class="text-success fw-bold">Dán tem ĐẠT</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- COLUMN 4: COMPLETED / HOÀN TẤT ĐƯA VÀO DÙNG -->
+                                <div class="kanban-column">
+                                    <div class="kanban-column-header">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-success font-mono" id="kanban-count-done">4</span>
+                                            <strong class="small text-dark text-uppercase">4. Đã Hoàn Tất</strong>
+                                        </div>
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                    </div>
+                                    <div class="kanban-cards-container" id="kanban-col-done">
+                                        <!-- Card 1 -->
+                                        <div class="kanban-card border-start border-4 border-success opacity-75">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-success text-white font-mono" style="font-size: 0.7rem;">Hoàn tất</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">Hôm nay</span>
+                                            </div>
+                                            <div class="kanban-card-title text-decoration-line-through text-muted">Máy Siêu Âm 4D HERA W10</div>
+                                            <div class="kanban-card-meta"><i class="bi bi-building me-1"></i>Cty An Việt • Bàn giao 5 đầu dò</div>
+                                        </div>
+                                        <!-- Card 2 -->
+                                        <div class="kanban-card border-start border-4 border-success opacity-75">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <span class="badge bg-success text-white font-mono" style="font-size: 0.7rem;">Hoàn tất</span>
+                                                <span class="text-muted font-mono" style="font-size: 0.7rem;">Hôm qua</span>
+                                            </div>
+                                            <div class="kanban-card-title text-decoration-line-through text-muted">Bảo dưỡng Khí Y Tế Trung Tâm</div>
+                                            <div class="kanban-card-meta"><i class="bi bi-shield-check me-1"></i>Áp suất Oxy & N2O đạt chuẩn QT.03</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -492,6 +706,150 @@
                     </div>
 
                     <!-- TAB 2: PRE-USE SAFETY CHECKLIST -->
+                    
+                    <!-- ==================== TAB: NHÀ CUNG CẤP & HỢP ĐỒNG ==================== -->
+                    <div class="tab-pane fade" id="tab-suppliers" role="tabpanel">
+                        <div class="clinical-card p-3 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1"><i class="bi bi-building text-warning me-2"></i>Danh Mục Nhà Cung Cấp & Hợp Đồng Mua Sắm TTBYT</h6>
+                                    <p class="text-muted small mb-0">Quản lý 24 nhà thầu, hợp đồng ủy quyền bảo hành và danh mục thiết bị cung cấp</p>
+                                </div>
+                                <span class="badge bg-primary font-mono">24 Nhà Cung Cấp</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>NHÀ THẦU / NHÀ CUNG CẤP</th>
+                                            <th>SỐ HỢP ĐỒNG CHÍNH</th>
+                                            <th>HÃNG ĐẠI DIỆN</th>
+                                            <th>SỐ THIẾT BỊ</th>
+                                            <th>THIẾT BỊ TIÊU BIỂU</th>
+                                            <th>HOTLINE BẢO HÀNH</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw-bold text-dark"><i class="bi bi-building text-primary me-2"></i>Công Ty TNHH Thiết Bị Y Tế An Việt</td>
+                                            <td class="font-mono text-primary">HĐ 20.2024HĐ/TAQ7-ANVIET</td>
+                                            <td><span class="badge bg-secondary font-mono">Samsung Medison</span></td>
+                                            <td class="font-mono fw-bold">12 máy</td>
+                                            <td>Máy Siêu Âm Màu 4D Hera W10, 5 Đầu Dò Phụ Kiện</td>
+                                            <td class="font-mono text-muted">028.3822.XXXX</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold text-dark"><i class="bi bi-building text-info me-2"></i>Công Ty TNHH GE Healthcare Việt Nam</td>
+                                            <td class="font-mono text-primary">HĐ 14.2024HĐ/TAQ7-GE</td>
+                                            <td><span class="badge bg-secondary font-mono">GE Healthcare</span></td>
+                                            <td class="font-mono fw-bold">45 máy</td>
+                                            <td>Voluson E10, Voluson P8, Voluson S8t, Máy Chụp CT 128 lát</td>
+                                            <td class="font-mono text-muted">1800.XXXX</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold text-dark"><i class="bi bi-building text-success me-2"></i>Công Ty CP Công Nghệ Y Tế Viet Can</td>
+                                            <td class="font-mono text-primary">HĐ 08.2024HĐ/TAQ7-VIETCAN</td>
+                                            <td><span class="badge bg-secondary font-mono">Olympus / Pentax</span></td>
+                                            <td class="font-mono fw-bold">28 máy</td>
+                                            <td>Hệ Thống Nội Soi Tiêu Hóa NBI, Đèn Mổ LED</td>
+                                            <td class="font-mono text-muted">028.3910.XXXX</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold text-dark"><i class="bi bi-building text-warning me-2"></i>Công Ty TNHH BTL Industries Việt Nam</td>
+                                            <td class="font-mono text-primary">HĐ 05.2024HĐ/TAQ7-BTL</td>
+                                            <td><span class="badge bg-secondary font-mono">BTL Industries</span></td>
+                                            <td class="font-mono fw-bold">18 máy</td>
+                                            <td>Máy Sóng Ngắn, Laser Điều Trị, Kéo Giãn Cột Sống</td>
+                                            <td class="font-mono text-muted">024.3783.XXXX</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold text-dark"><i class="bi bi-building text-secondary me-2"></i>Công Ty Cổ Phần Dược Phẩm Thiết Bị Y Tế Hà Nội (Hapharco)</td>
+                                            <td class="font-mono text-primary">HĐ 02.2024HĐ/TAQ7-HAP</td>
+                                            <td><span class="badge bg-secondary font-mono">Nihon Kohden</span></td>
+                                            <td class="font-mono fw-bold">64 máy</td>
+                                            <td>Máy Sốc Tim Biphasic, Monitor Theo Dõi Bệnh Nhân 5 Thông Số</td>
+                                            <td class="font-mono text-muted">024.3825.XXXX</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== TAB: LỊCH BẢO TRÌ & KIỂM ĐỊNH ==================== -->
+                    <div class="tab-pane fade" id="tab-schedule" role="tabpanel">
+                        <div class="clinical-card p-3 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1"><i class="bi bi-calendar-event text-danger me-2"></i>Kế Hoạch & Lịch Tái Kiểm Định / Bảo Trì PM Định Kỳ (30 Ngày Tới)</h6>
+                                    <p class="text-muted small mb-0">Theo dõi hạn kiểm định Thông tư 05/2022/TT-BYT và lịch bảo trì phòng ngừa định kỳ</p>
+                                </div>
+                                <span class="badge bg-danger font-mono">8 Máy Cần Tái Kiểm</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>MÃ ASSET TAG</th>
+                                            <th>TÊN THIẾT BỊ / MODEL</th>
+                                            <th>KHOA QUẢN LÝ</th>
+                                            <th>LOẠI CÔNG TÁC</th>
+                                            <th>HẠN KIỂM ĐỊNH / BẢO TRÌ</th>
+                                            <th>ĐƠN VỊ THỰC HIỆN</th>
+                                            <th class="text-center">HÀNH ĐỘNG</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-warning">
+                                            <td class="font-mono fw-bold text-primary">BVQ7-TTB-00109</td>
+                                            <td class="fw-bold text-dark">Máy Thở Chuyên Dụng Vela • Vyaire</td>
+                                            <td><span class="badge bg-danger text-white">Khoa Cấp Cứu</span></td>
+                                            <td><span class="badge bg-danger font-mono">Kiểm định bắt buộc</span></td>
+                                            <td class="font-mono fw-bold text-danger">28/08/2026 (Còn 9 ngày)</td>
+                                            <td>Viện Trang Thiết Bị Y Tế</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">Lập Phiếu PM</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-mono fw-bold text-primary">BVQ7-TTB-00012</td>
+                                            <td class="fw-bold text-dark">Hệ Thống Lọc Nước RO Thận #01</td>
+                                            <td><span class="badge bg-primary text-white">Thận Nhân Tạo</span></td>
+                                            <td><span class="badge bg-warning text-dark font-mono">Bảo dưỡng màng RO</span></td>
+                                            <td class="font-mono fw-bold text-warning">05/09/2026 (Còn 17 ngày)</td>
+                                            <td>P.TTBYT & Nhà Cung Cấp</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">Lập Phiếu PM</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-mono fw-bold text-primary">BVQ7-TTB-00342</td>
+                                            <td class="fw-bold text-dark">Máy Chụp X-Quang Di Động MobileArt</td>
+                                            <td><span class="badge bg-primary text-white">Khoa CĐHA</span></td>
+                                            <td><span class="badge bg-danger font-mono">Kiểm định An Toàn Bức Xạ</span></td>
+                                            <td class="font-mono fw-bold text-warning">12/09/2026 (Còn 24 ngày)</td>
+                                            <td>Sở KH&CN TP.HCM</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">Lập Phiếu PM</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-mono fw-bold text-primary">BVQ7-TTB-01125</td>
+                                            <td class="fw-bold text-dark">Máy Siêu Âm Màu 4D Samsung HERA W10</td>
+                                            <td><span class="badge bg-primary text-white">Khoa CĐHA</span></td>
+                                            <td><span class="badge bg-info text-dark font-mono">Bảo trì định kỳ PM 6 tháng</span></td>
+                                            <td class="font-mono fw-bold text-dark">18/09/2026 (Còn 30 ngày)</td>
+                                            <td>Cty TTB Y Tế An Việt</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-primary btn-clinical" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">Lập Phiếu PM</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="tab-pane fade" id="tab-inspections" role="tabpanel">
                         <div class="row g-3">
                             <div class="col-md-4">
