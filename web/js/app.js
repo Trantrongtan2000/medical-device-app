@@ -205,13 +205,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 cardEl.draggable = true;
                 cardEl.id = task.id;
 
+                cardEl.style.cursor = 'pointer';
+                cardEl.title = 'Nhấp để chỉnh sửa thông tin thẻ này';
+                cardEl.addEventListener('click', (e) => {
+                    if (e.target.closest('.kanban-card-actions')) return;
+                    app.openEditKanbanModal(task.id);
+                });
+
                 cardEl.innerHTML = `
                     <div class="d-flex justify-content-between align-items-start mb-1">
-                        <span class="badge ${pBadgeClass} font-mono" style="font-size: 0.7rem;">${this.escapeHtml(task.priority)}</span>
+                        <span class="badge ${pBadgeClass} font-mono" style="font-size: 0.7rem;" onclick="event.stopPropagation(); app.openEditKanbanModal('${task.id}')" title="Nhấp để đổi ưu tiên">${this.escapeHtml(task.priority)}</span>
                         <div class="d-flex align-items-center gap-1">
-                            <span class="text-muted font-mono" style="font-size: 0.7rem;">${this.escapeHtml(task.type)}</span>
-                            <button class="btn btn-sm btn-link p-0 text-muted kanban-card-actions" onclick="event.stopPropagation(); app.deleteKanbanTask('${task.id}')" title="Xóa thẻ">
-                                <i class="bi bi-x"></i>
+                            <span class="badge bg-light text-dark border font-mono" style="font-size: 0.68rem;" onclick="event.stopPropagation(); app.openEditKanbanModal('${task.id}')" title="Nhấp để đổi loại thẻ">${this.escapeHtml(task.type)}</span>
+                            <button class="btn btn-sm btn-link p-0 text-primary kanban-card-actions" onclick="event.stopPropagation(); app.openEditKanbanModal('${task.id}')" title="Chỉnh sửa thông tin">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-link p-0 text-danger kanban-card-actions" onclick="event.stopPropagation(); app.deleteKanbanTask('${task.id}')" title="Xóa thẻ">
+                                <i class="bi bi-x fs-6"></i>
                             </button>
                         </div>
                     </div>
@@ -305,6 +315,52 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.kanbanTasks = this.kanbanTasks.filter(t => t.id !== taskId);
                 this.saveKanbanState();
                 this.renderKanban();
+            }
+        },
+
+        
+        openEditKanbanModal(taskId) {
+            const task = this.kanbanTasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            document.getElementById('edit-kanban-id').value = task.id;
+            document.getElementById('edit-kanban-title').value = task.title || '';
+            document.getElementById('edit-kanban-type').value = task.type || 'Báo hỏng';
+            document.getElementById('edit-kanban-priority').value = task.priority || 'Bình thường';
+            document.getElementById('edit-kanban-meta').value = task.meta || '';
+            document.getElementById('edit-kanban-assignee').value = task.assignee || '';
+            document.getElementById('edit-kanban-col').value = task.col || 'todo';
+            document.getElementById('edit-kanban-deadline').value = task.deadline || '';
+
+            const modal = new bootstrap.Modal(document.getElementById('editKanbanTaskModal'));
+            modal.show();
+        },
+
+        submitEditKanbanTask() {
+            const taskId = document.getElementById('edit-kanban-id').value;
+            const task = this.kanbanTasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.title = document.getElementById('edit-kanban-title').value.trim() || 'Tác vụ';
+            task.type = document.getElementById('edit-kanban-type').value.trim() || 'Công tác';
+            task.priority = document.getElementById('edit-kanban-priority').value;
+            task.meta = document.getElementById('edit-kanban-meta').value.trim();
+            task.assignee = document.getElementById('edit-kanban-assignee').value.trim() || 'P.TTBYT';
+            task.col = document.getElementById('edit-kanban-col').value;
+            task.deadline = document.getElementById('edit-kanban-deadline').value.trim();
+
+            this.saveKanbanState();
+            this.renderKanban();
+
+            bootstrap.Modal.getInstance(document.getElementById('editKanbanTaskModal'))?.hide();
+        },
+
+        deleteCurrentEditingKanbanTask() {
+            const taskId = document.getElementById('edit-kanban-id').value;
+            if (!taskId) return;
+            if (confirm('Bạn có chắc chắn muốn xóa tác vụ Kanban này?')) {
+                this.deleteKanbanTask(taskId);
+                bootstrap.Modal.getInstance(document.getElementById('editKanbanTaskModal'))?.hide();
             }
         },
 

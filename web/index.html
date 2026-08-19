@@ -2349,5 +2349,94 @@
         </div>
     </div>
 
+
+    <!-- ==================== MODAL: CHỈNH SỬA THÔNG TIN TÁC VỤ KANBAN ==================== -->
+    <div class="modal fade" id="editKanbanTaskModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square text-warning me-2"></i>Chỉnh Sửa Tác Vụ & Thẻ Kanban</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editKanbanTaskForm" onsubmit="event.preventDefault(); app.submitEditKanbanTask();">
+                        <input type="hidden" id="edit-kanban-id">
+                        
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">TIÊU ĐỀ TÁC VỤ / TÊN THIẾT BỊ (*)</label>
+                            <input type="text" id="edit-kanban-title" class="form-control form-control-sm fw-bold" required>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">THẺ CÔNG TÁC / QUY TRÌNH</label>
+                                <input type="text" id="edit-kanban-type" class="form-control form-control-sm font-mono" placeholder="VD: Báo hỏng, PM Định kỳ, QT.08, BM04..." required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">MỨC ĐỘ ƯU TIÊN</label>
+                                <select id="edit-kanban-priority" class="form-select form-select-sm">
+                                    <option value="Khẩn cấp">🔴 Khẩn cấp (Ưu tiên số 1)</option>
+                                    <option value="Cao">🟠 Cao (Trong 24-48h)</option>
+                                    <option value="Bình thường">🔵 Bình thường</option>
+                                    <option value="Thấp">⚪ Thấp</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">VỊ TRÍ / SERIAL / THÔNG TIN BỔ SUNG</label>
+                            <input type="text" id="edit-kanban-meta" class="form-control form-control-sm" placeholder="VD: Khoa Cấp Cứu • S/N: VEL8829">
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">NGƯỜI PHỤ TRÁCH / KỸ SƯ</label>
+                                <input type="text" id="edit-kanban-assignee" class="form-control form-control-sm" placeholder="VD: KS. Trần Trọng Tấn" list="kanban-staff-suggestions">
+                                <datalist id="kanban-staff-suggestions">
+                                    <option value="KS. Trần Trọng Tấn">
+                                    <option value="KS. Lê Minh Thiện">
+                                    <option value="KS. Trần Đăng Hiếu">
+                                    <option value="KS. Nguyễn Quốc Việt">
+                                    <option value="KS. Nguyễn Tấn Lợi">
+                                    <option value="CN. Trần Thị Ngọc Châu">
+                                    <option value="BS. Nguyễn Tuấn">
+                                    <option value="ĐD. Trưởng trực">
+                                    <option value="Hãng GE Healthcare">
+                                    <option value="P.TTBYT">
+                                </datalist>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">GIAI ĐOẠN / CỘT TIẾN ĐỘ</label>
+                                <select id="edit-kanban-col" class="form-select form-select-sm">
+                                    <option value="todo">1. Chờ Tiếp Nhận (To Do)</option>
+                                    <option value="inprog">2. Đang Xử Lý (In Progress)</option>
+                                    <option value="review">3. Chờ Nghiệm Thu (Review)</option>
+                                    <option value="done">4. Đã Hoàn Tất (Done)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-dark">HẠN CHÓT / TIẾN ĐỘ THỰC HIỆN</label>
+                            <input type="text" id="edit-kanban-deadline" class="form-control form-control-sm" placeholder="VD: Hạn: Hôm nay, Tiến độ 60%, Chờ ký BM04...">
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                            <button type="button" class="btn btn-sm btn-outline-danger btn-clinical" onclick="app.deleteCurrentEditingKanbanTask()">
+                                <i class="bi bi-trash me-1"></i> Xóa Tác Vụ
+                            </button>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-sm btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-sm btn-primary btn-clinical fw-bold shadow-sm">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Lưu Thay Đổi
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
