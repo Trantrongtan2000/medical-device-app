@@ -151,6 +151,39 @@ class SemanticaMedicalGraph:
             }))
             self.add_edge(GraphEdge(dev_id, cert_id, "CERTIFIED_BY"))
 
+        # 6. Load Complete Hospital Contracts & Suppliers Catalog from Master Data.xltm
+        xltm_path = Path(r"G:\BV QUẬN 7_OCR_WORK_20260712\Master Data.xltm")
+        if xltm_path.exists():
+            try:
+                import openpyxl
+                wb = openpyxl.load_workbook(xltm_path, data_only=True)
+                ws1 = wb['1. Hop dong mua sam']
+                for r in range(2, ws1.max_row + 1):
+                    c_no = ws1.cell(r, 2).value
+                    sup = ws1.cell(r, 4).value
+                    if c_no:
+                        c_str = str(c_no).strip()
+                        sup_str = str(sup or '').strip()
+                        c_id = f"CTR-{c_str.replace('/', '_').replace(' ', '_')}"
+                        if c_id not in self.nodes:
+                            self.add_node(GraphNode(c_id, "Contract", c_str, {"contract_no": c_str, "supplier": sup_str}))
+                        if sup_str:
+                            sup_id = f"SUP-{sup_str[:25].replace(' ', '_').replace('/', '_')}"
+                            if sup_id not in self.nodes:
+                                self.add_node(GraphNode(sup_id, "Supplier", sup_str))
+                            self.add_edge(GraphEdge(c_id, sup_id, "SUPPLIED_BY"))
+
+                ws4 = wb['Dropdown']
+                for r in range(2, ws4.max_row + 1):
+                    sup_dd = ws4.cell(r, 2).value
+                    if sup_dd:
+                        sup_str = str(sup_dd).strip()
+                        sup_id = f"SUP-{sup_str[:25].replace(' ', '_').replace('/', '_')}"
+                        if sup_id not in self.nodes:
+                            self.add_node(GraphNode(sup_id, "Supplier", sup_str))
+            except Exception:
+                pass
+
         conn.close()
 
     def add_node(self, node: GraphNode):
