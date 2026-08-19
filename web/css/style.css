@@ -533,3 +533,89 @@ body {
     border: 1px solid #7dd3fc !important;
     font-weight: 800;
 }
+
+
+
+/* ==================== COLLAPSIBLE SIDEBAR & VIEW MODES ==================== */
+.sidebar-left {
+    transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-collapsed .sidebar-left {
+    margin-left: -255px !important;
+}
+
+.sidebar-collapsed .main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.btn-toggle-sidebar {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.btn-toggle-sidebar:hover {
+    background-color: var(--color-primary-subtle);
+    color: var(--color-primary);
+}
+
+/* Device View Modes */
+.device-view-btn-group .btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+}
+
+.device-view-btn-group .btn.active {
+    background-color: var(--color-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--color-primary) !important;
+}
+
+/* Department Group Accordion Card */
+.dept-group-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+.dept-group-header {
+    background: #f8fafc;
+    padding: 0.85rem 1.2rem;
+    border-bottom: 1px solid var(--border-light);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background 0.15s ease;
+}
+
+.dept-group-header:hover {
+    background: #f1f5f9;
+}
+
+/* Risk Group Card */
+.risk-group-card {
+    border-radius: var(--radius-md);
+    margin-bottom: 1.25rem;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.risk-group-header-a { border-left: 5px solid #16a34a; background: #f0fdf4; }
+.risk-group-header-b { border-left: 5px solid #2563eb; background: #eff6ff; }
+.risk-group-header-c { border-left: 5px solid #d97706; background: #fffbeb; }
+.risk-group-header-d { border-left: 5px solid #dc2626; background: #fef2f2; }

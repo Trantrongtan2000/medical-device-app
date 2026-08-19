@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         async init() {
+            this.initSidebarState();
             this.initKanban();
             this.initOverviewCharts();
             this.setupNavigation();
@@ -691,6 +692,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (trDeviceSelect) trDeviceSelect.innerHTML = devOptions;
                 if (woDeviceSelect) woDeviceSelect.innerHTML = devOptions;
 
+                this.renderCurrentDeviceView(); return;
                 tbody.innerHTML = this.devices.map(d => {
                     const riskMap = {
                         'A': { bg: '#059669', text: '#ffffff' },
@@ -2192,6 +2194,294 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (err) {
                 console.error(err);
             }
+        },
+
+        
+        // ==================== COLLAPSIBLE SIDEBAR & MULTI-VIEW DEVICE ENGINE ====================
+        currentDeviceViewMode: 'table', // 'table' | 'grid' | 'department' | 'risk'
+
+        toggleSidebar() {
+            document.body.classList.toggle('sidebar-collapsed');
+            const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+            localStorage.setItem('sidebar_collapsed', isCollapsed ? 'true' : 'false');
+            
+            // Adjust icon
+            const btn = document.getElementById('btn-toggle-sidebar');
+            if (btn) {
+                btn.innerHTML = isCollapsed 
+                    ? '<i class="bi bi-layout-sidebar text-primary fs-6"></i>' 
+                    : '<i class="bi bi-layout-sidebar-inset text-primary fs-6"></i>';
+            }
+        },
+
+        initSidebarState() {
+            if (localStorage.getItem('sidebar_collapsed') === 'true') {
+                document.body.classList.add('sidebar-collapsed');
+                const btn = document.getElementById('btn-toggle-sidebar');
+                if (btn) btn.innerHTML = '<i class="bi bi-layout-sidebar text-primary fs-6"></i>';
+            }
+
+            // Keyboard shortcut Ctrl+B or Cmd+B
+            window.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+                    e.preventDefault();
+                    this.toggleSidebar();
+                }
+            });
+        },
+
+        setDeviceViewMode(mode) {
+            this.currentDeviceViewMode = mode;
+
+            // Update toolbar buttons
+            ['table', 'grid', 'department', 'risk'].forEach(m => {
+                const btn = document.getElementById(`btn-view-${m}`);
+                const container = document.getElementById(`device-view-container-${m}`);
+                if (btn) {
+                    if (m === mode) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                }
+                if (container) {
+                    if (m === mode) container.classList.remove('d-none');
+                    else container.classList.add('d-none');
+                }
+            });
+
+            this.renderCurrentDeviceView();
+        },
+
+        filterByQuickRisk(risk) {
+            const riskSelect = document.getElementById('filter-risk');
+            if (riskSelect) {
+                riskSelect.value = risk;
+                this.currentFilters.risk_level = risk;
+                this.loadDevices();
+            }
+        },
+
+        renderCurrentDeviceView() {
+            if (!this.devices) return;
+
+            if (this.currentDeviceViewMode === 'table') {
+                this.renderDeviceTableView(this.devices);
+            } else if (this.currentDeviceViewMode === 'grid') {
+                this.renderDeviceGridView(this.devices);
+            } else if (this.currentDeviceViewMode === 'department') {
+                this.renderDeviceDepartmentView(this.devices);
+            } else if (this.currentDeviceViewMode === 'risk') {
+                this.renderDeviceRiskView(this.devices);
+            }
+        },
+
+        renderDeviceTableView(list) {
+            const tbody = document.getElementById('device-table-body');
+            if (!tbody) return;
+
+            if (!list || list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">Không tìm thấy thiết bị nào phù hợp.</td></tr>';
+                return;
+            }
+
+            const riskMap = {
+                'A': { bg: '#059669', label: 'Loại A' },
+                'B': { bg: '#0284c7', label: 'Loại B' },
+                'C': { bg: '#d97706', label: 'Loại C' },
+                'D': { bg: '#dc2626', label: 'Loại D' }
+            };
+
+            tbody.innerHTML = list.map(d => {
+                const rStyle = riskMap[d.risk_level] || { bg: '#64748b', label: 'Chưa rõ' };
+                const riskBadge = `<span class="badge" style="background-color: ${rStyle.bg}; color: #fff; font-weight: 700; font-size: 0.75rem;">${d.risk_level || 'A'}</span>`;
+                const facName = d.facility || d.facility_name || 'Chưa phân khoa';
+                const supplierName = d.supplier_name || (d.manufacturer ? `Hãng ${d.manufacturer}` : 'N/A');
+
+                return `
+                    <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
+                        <td class="ps-3 font-mono fw-semibold text-primary">
+                            <div>${d.asset_tag}</div>
+                            <div class="text-muted" style="font-size: 0.72rem;">${d.speedmaint_code || ''}</div>
+                        </td>
+                        <td>
+                            <div class="fw-bold text-dark text-hover-primary mb-1">${d.device_name}</div>
+                            <div class="d-flex flex-wrap align-items-center gap-1">
+                                <span class="badge bg-secondary-subtle text-dark font-mono" style="font-size: 0.72rem;">Model: ${d.model || 'N/A'}</span>
+                                <span class="badge bg-light text-dark border font-mono" style="font-size: 0.72rem;"><i class="bi bi-building text-primary me-1"></i>${supplierName}</span>
+                            </div>
+                        </td>
+                        <td class="font-mono fw-semibold text-dark">${d.serial_no || '<span class="text-muted">-</span>'}</td>
+                        <td><span class="badge bg-light text-dark border"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${facName}</span></td>
+                        <td class="text-center">${riskBadge}</td>
+                        <td class="text-center">
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span>
+                        </td>
+                        <td class="pe-3 text-end" onclick="event.stopPropagation()">
+                            <div class="d-flex justify-content-end gap-1">
+                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ máy">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.openEditDeviceModal(${d.id})" title="Chỉnh sửa">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success btn-clinical" onclick="app.openCheckoutModal(${d.id})" title="Bàn giao">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        },
+
+        renderDeviceGridView(list) {
+            const container = document.getElementById('device-cards-grid');
+            if (!container) return;
+
+            if (!list || list.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center py-5 text-muted">Không tìm thấy thiết bị nào.</div>';
+                return;
+            }
+
+            const riskColors = { 'A': '#16a34a', 'B': '#2563eb', 'C': '#d97706', 'D': '#dc2626' };
+
+            container.innerHTML = list.slice(0, 150).map(d => {
+                const borderCol = riskColors[d.risk_level] || '#0284c7';
+                const facName = d.facility || d.facility_name || 'Khoa phòng chung';
+
+                return `
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="clinical-card h-100 p-3 d-flex flex-column justify-content-between shadow-sm" style="border-top: 4px solid ${borderCol};">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <span class="badge font-mono" style="background-color: ${borderCol}; color: white;">Loại ${d.risk_level || 'A'}</span>
+                                    <span class="badge bg-dark font-mono text-white">${d.asset_tag}</span>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1 text-truncate" title="${d.device_name}">${d.device_name}</h6>
+                                <div class="text-muted small font-mono mb-2">
+                                    Model: <strong>${d.model || 'N/A'}</strong> • S/N: <strong>${d.serial_no || 'N/A'}</strong>
+                                </div>
+                                <div class="p-2 rounded bg-light border small mb-2">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Vị trí:</span>
+                                        <strong class="text-dark">📍 ${facName}</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">Nhà cung cấp:</span>
+                                        <span class="text-truncate" style="max-width: 140px;">${d.supplier_name || d.manufacturer || 'N/A'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-top d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success-subtle text-success">${d.status || 'Hoạt động'}</span>
+                                <div class="d-flex gap-1">
+                                    <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.openEditDeviceModal(${d.id})" title="Sửa thông tin">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary btn-clinical fw-semibold" onclick="app.showDeviceDetails(${d.id})">
+                                        <i class="bi bi-journal-text me-1"></i> Hồ Sơ Máy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        renderDeviceDepartmentView(list) {
+            const container = document.getElementById('device-department-groups-container');
+            if (!container) return;
+
+            // Group devices by facility
+            const groups = {};
+            list.forEach(d => {
+                const fac = d.facility || d.facility_name || 'Kho Lưu Trữ / Chưa Gán';
+                if (!groups[fac]) groups[fac] = [];
+                groups[fac].push(d);
+            });
+
+            const sortedFacs = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+
+            container.innerHTML = sortedFacs.map((facName, idx) => {
+                const devs = groups[facName];
+                const collapseId = `dept-collapse-${idx}`;
+
+                return `
+                    <div class="dept-group-card">
+                        <div class="dept-group-header" data-bs-toggle="collapse" data-bs-target="#${collapseId}">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-hospital-fill text-primary fs-5"></i>
+                                <div>
+                                    <strong class="text-dark fs-6">${facName}</strong>
+                                    <span class="text-muted small ms-2">(${devs.length} thiết bị)</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary font-mono">${devs.length} máy</span>
+                                <i class="bi bi-chevron-down text-muted"></i>
+                            </div>
+                        </div>
+                        <div class="collapse ${idx < 3 ? 'show' : ''}" id="${collapseId}">
+                            <div class="p-3">
+                                <div class="row g-2">
+                                    ${devs.map(d => `
+                                        <div class="col-12 col-md-6 col-lg-4">
+                                            <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center" style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})">
+                                                <div>
+                                                    <strong class="d-block text-dark small text-truncate" style="max-width: 200px;">${d.device_name}</strong>
+                                                    <span class="font-mono text-muted" style="font-size: 0.72rem;">${d.asset_tag} • Model: ${d.model || 'N/A'}</span>
+                                                </div>
+                                                <span class="badge bg-secondary font-mono">${d.risk_level || 'A'}</span>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        renderDeviceRiskView(list) {
+            const container = document.getElementById('device-risk-groups-container');
+            if (!container) return;
+
+            const risks = [
+                { key: 'D', name: '🔴 MỨC ĐỘ RỦI RO D — RẤT CAO / DUY TRÌ SỰ SỐNG (Máy thở, Máy sốc tim, RO Thận)', headerClass: 'risk-group-header-d', badgeClass: 'bg-danger' },
+                { key: 'C', name: '🟠 MỨC ĐỘ RỦI RO C — TRUNG BÌNH CAO (X-Quang, Siêu âm, Nội soi, Dao mổ điện)', headerClass: 'risk-group-header-c', badgeClass: 'bg-warning text-dark' },
+                { key: 'B', name: '🔵 MỨC ĐỘ RỦI RO B — TRUNG BÌNH THẤP (Monitor theo dõi, ECG, Bơm tiêm điện)', headerClass: 'risk-group-header-b', badgeClass: 'bg-primary' },
+                { key: 'A', name: '🟢 MỨC ĐỘ RỦI RO A — THẤP (Dụng cụ đo lường, Bàn khám, Đèn mổ)', headerClass: 'risk-group-header-a', badgeClass: 'bg-success' }
+            ];
+
+            container.innerHTML = risks.map(r => {
+                const devs = list.filter(d => (d.risk_level || 'A').toUpperCase() === r.key);
+                return `
+                    <div class="risk-group-card mb-4">
+                        <div class="p-3 ${r.headerClass} d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong class="fs-6">${r.name}</strong>
+                            </div>
+                            <span class="badge ${r.badgeClass} font-mono px-3 py-1 fs-6">${devs.length} Thiết Bị</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="row g-2">
+                                ${devs.slice(0, 60).map(d => `
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="p-2 border rounded bg-white shadow-sm d-flex justify-content-between align-items-center" style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})">
+                                            <div>
+                                                <strong class="d-block text-dark small text-truncate" style="max-width: 190px;">${d.device_name}</strong>
+                                                <span class="font-mono text-muted" style="font-size: 0.72rem;">${d.asset_tag} • S/N: ${d.serial_no || 'N/A'}</span>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary btn-clinical py-0 px-2" style="font-size: 0.72rem;">Hồ sơ</button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${devs.length > 60 ? `<div class="text-center pt-2 text-muted small">Và còn ${devs.length - 60} thiết bị khác...</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         },
 
         setupFormSubmissions() {
