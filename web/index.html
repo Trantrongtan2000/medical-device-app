@@ -162,6 +162,10 @@
                     <i class="bi bi-grid-fill text-primary me-2"></i>Danh Mục Thiết Bị Y Tế & Cấu Kiện Phụ Kiện
                 </h5>
                 <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm btn-outline-secondary btn-clinical d-none d-md-inline-flex align-items-center gap-1 font-mono" onclick="document.getElementById('search-input')?.focus();" title="Phím tắt tìm kiếm toàn viện">
+                        <i class="bi bi-search"></i>
+                        <span style="font-size: 0.75rem;">Ctrl+K</span>
+                    </button>
                     <button class="btn btn-sm btn-primary btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
                         <i class="bi bi-plus-circle-fill me-1"></i> Nhập Thêm Thiết Bị
                     </button>
@@ -1539,6 +1543,51 @@
                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
                             <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
                                 <i class="bi bi-plus-lg me-1"></i> Tạo Thẻ Kanban
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL: BÀN GIAO THIẾT BỊ (SNIPE-IT CHECKOUT) ==================== -->
+    <div class="modal fade" id="checkoutDeviceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-box-arrow-up-right me-2"></i>Bàn Giao Thiết Bị (Checkout)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="checkoutDeviceForm">
+                        <input type="hidden" id="checkout-dev-id">
+                        <div class="mb-3 p-2 bg-light rounded border">
+                            <span class="small text-muted d-block">Thiết bị bàn giao:</span>
+                            <strong class="text-dark" id="checkout-dev-name">Thiết bị y tế</strong>
+                            <div class="font-mono small text-primary" id="checkout-dev-tag">BVQ7-TTB-XXXXX</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">KHOA / PHÒNG BAN TIẾP NHẬN (*)</label>
+                            <select id="checkout-target-facility" class="form-select form-select-sm" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">NGƯỜI TIẾP NHẬN / BÁC SĨ / ĐIỀU DƯỠNG</label>
+                            <input type="text" id="checkout-assigned-to" class="form-control form-control-sm" placeholder="VD: BS. Nguyễn Văn A">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">NGÀY BÀN GIAO</label>
+                            <input type="date" id="checkout-date" class="form-control form-control-sm font-mono">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">GHI CHÚ BÀN GIAO</label>
+                            <textarea id="checkout-note" class="form-control form-control-sm" rows="2" placeholder="Ghi chú tình trạng, phụ kiện kèm theo..."></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+                                <i class="bi bi-check-lg me-1"></i> Xác Nhận Bàn Giao
                             </button>
                         </div>
                     </form>

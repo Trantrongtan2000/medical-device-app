@@ -406,6 +406,95 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        
+        // ==================== SNIPE-IT CHECKOUT & CHECKIN METHODS ====================
+        openCheckoutModal(deviceId) {
+            const dev = this.devices.find(d => d.id === deviceId);
+            if (!dev) return;
+
+            document.getElementById('checkout-dev-id').value = dev.id;
+            document.getElementById('checkout-dev-name').textContent = dev.device_name;
+            document.getElementById('checkout-dev-tag').textContent = dev.asset_tag;
+            document.getElementById('checkout-date').value = new Date().toISOString().split('T')[0];
+
+            const facSelect = document.getElementById('checkout-target-facility');
+            if (facSelect) {
+                facSelect.innerHTML = this.facilities.map(f => `<option value="${f.id}" ${f.id === dev.facility_id ? 'selected' : ''}>${f.name}</option>`).join('');
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('checkoutDeviceModal'));
+            modal.show();
+        },
+
+        async checkinDevice(deviceId) {
+            const dev = this.devices.find(d => d.id === deviceId);
+            const devName = dev ? dev.device_name : `Thiết bị #${deviceId}`;
+
+            if (!confirm(`Bạn có chắc muốn thu hồi "${devName}" về Kho dự phòng trung tâm?`)) return;
+
+            try {
+                const res = await fetch(`/api/devices/${deviceId}/checkin`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ note: "Thu hồi hoàn trả về kho trung tâm" })
+                });
+                const result = await res.json();
+                if (!res.ok) throw new Error(result.detail || 'Lỗi khi thu hồi thiết bị');
+
+                alert('✅ ' + result.message);
+                this.loadDevices();
+            } catch (err) {
+                alert('❌ Lỗi thu hồi: ' + err.message);
+            }
+        },
+
+        setupCheckoutForm() {
+            const form = document.getElementById('checkoutDeviceForm');
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const devId = parseInt(document.getElementById('checkout-dev-id').value);
+                const payload = {
+                    facility_id: parseInt(document.getElementById('checkout-target-facility').value),
+                    assigned_to_name: document.getElementById('checkout-assigned-to').value,
+                    checkout_date: document.getElementById('checkout-date').value,
+                    note: document.getElementById('checkout-note').value
+                };
+
+                try {
+                    const res = await fetch(`/api/devices/${devId}/checkout`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi khi bàn giao');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('checkoutDeviceModal'))?.hide();
+                    this.loadDevices();
+                } catch (err) {
+                    alert('❌ Lỗi bàn giao: ' + err.message);
+                }
+            });
+        },
+
+        setupGlobalShortcuts() {
+            window.addEventListener('keydown', (e) => {
+                // Ctrl+K or Cmd+K to jump to search
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) {
+                        document.getElementById('btn-tab-devices')?.click();
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                }
+            });
+        },
+
         setupNavigation() {
             const navButtons = document.querySelectorAll('.sidebar-nav .nav-link');
             const pageHeading = document.getElementById('page-heading');
@@ -977,6 +1066,8 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         setupFormSubmissions() {
+            this.setupCheckoutForm();
+            this.setupGlobalShortcuts();
             // Pre-use inspection submit
             const insForm = document.getElementById('preUseChecklistForm');
             if (insForm) {

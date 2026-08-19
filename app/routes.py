@@ -32,6 +32,49 @@ PDF_ROOT_DIRS = [
 ]
 
 
+def apply_snipe_status_type(conditions, status_type: Optional[str]):
+    if not status_type:
+        return
+    st = status_type.strip().lower()
+    if st in ("rtd", "ready", "ready_to_deploy"):
+        conditions.append("status IN ('IN_SERVICE', 'STANDBY') AND (facility IS NULL OR facility = '' OR facility LIKE '%Kho%' OR facility LIKE '%Chưa%')")
+    elif st in ("deployed", "assigned"):
+        conditions.append("status = 'IN_SERVICE' AND (facility IS NOT NULL AND facility != '' AND facility NOT LIKE '%Kho%' AND facility NOT LIKE '%Chưa%')")
+    elif st in ("pending", "in_service"):
+        conditions.append("status = 'IN_SERVICE'")
+    elif st in ("undeployable", "repair", "broken"):
+        conditions.append("status IN ('MAINTENANCE', 'REPAIRING')")
+    elif st in ("archived", "disposed"):
+        conditions.append("status = 'DISPOSED'")
+    elif st in ("overdue", "due", "calibration_overdue"):
+        conditions.append("alert_status IN ('OVERDUE', 'WARNING')")
+
+class DeviceCheckoutRequest(BaseModel):
+    target_type: str = "facility"  # "facility" or "user"
+    facility_id: Optional[int] = None
+    assigned_to_name: Optional[str] = None
+    checkout_date: Optional[str] = None
+    note: Optional[str] = None
+
+class DeviceCheckinRequest(BaseModel):
+    target_facility_id: Optional[int] = None  # None = central depot / unassigned
+    checkin_date: Optional[str] = None
+    note: Optional[str] = None
+
+class BulkCheckoutRequest(BaseModel):
+    device_ids: List[int]
+    target_type: str = "facility"
+    facility_id: Optional[int] = None
+    assigned_to_name: Optional[str] = None
+    checkout_date: Optional[str] = None
+    note: Optional[str] = None
+
+class BulkCheckinRequest(BaseModel):
+    device_ids: List[int]
+    target_facility_id: Optional[int] = None
+    checkin_date: Optional[str] = None
+    note: Optional[str] = None
+
 # ==================== DEVICE ENDPOINTS (SNIPE-IT ASSET API) ====================
 
 @router.get("/api/devices")
@@ -40,6 +83,7 @@ async def get_devices(
     category_id: Optional[int] = Query(None, description="Lọc theo loại thiết bị"),
     alert_status: Optional[str] = Query(None, description="Lọc trạng thái cảnh báo (OVERDUE, WARNING, OK, NO_DATA)"),
     status: Optional[str] = Query(None, description="Lọc trạng thái hoạt động"),
+    status_type: Optional[str] = Query(None, description="Lọc nhóm trạng thái Snipe-IT (rtd, deployed, pending, undeployable, archived, overdue)"),
     risk_level: Optional[str] = Query(None, description="Lọc mức độ rủi ro (A, B, C, D)"),
     search: Optional[str] = Query(None, description="Tìm kiếm theo tên, model, serial, hãng sản xuất"),
     limit: int = Query(300, ge=1, le=1000),
@@ -66,6 +110,8 @@ async def get_devices(
     if status:
         conditions.append("status = ?")
         params.append(status.upper())
+
+    apply_snipe_status_type(conditions, status_type)
 
     if risk_level:
         conditions.append("risk_level = ?")
@@ -926,3 +972,203 @@ async def get_emergency_carts(db = Depends(get_db)):
     cur.execute("SELECT * FROM emergency_carts ORDER BY id ASC")
     rows = [dict(r) for r in cur.fetchall()]
     return rows
+
+
+@router.post("/api/devices/{device_id}/checkout")
+async def checkout_single_device(device_id: int, req: DeviceCheckoutRequest, db = Depends(get_db)):
+    """Bàn giao thiết bị cho Bác sĩ / Điều dưỡng / Khoa phòng (Snipe-IT Checkout Pattern)"""
+    dev = db.execute("SELECT * FROM devices WHERE id = ?", (device_id,)).fetchone()
+    if not dev:
+        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+
+    checkout_date = req.checkout_date or date.today().isoformat()
+    dest_facility_id = req.facility_id if req.facility_id is not None else dev["facility_id"]
+    actor = (req.assigned_to_name or "").strip() or "Bàn giao lâm sàng"
+
+    db.execute(
+        "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE', updated_at = ? WHERE id = ?",
+        (dest_facility_id, datetime.now(), device_id),
+    )
+
+    fac_row = db.execute("SELECT name FROM facilities WHERE id = ?", (dest_facility_id,)).fetchone() if dest_facility_id else None
+    fac_name = fac_row["name"] if fac_row else "Kho trung tâm"
+
+    db.execute(
+        """
+        INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
+        VALUES (?, 'CHECKOUT', ?, ?, ?)
+        """,
+        (device_id, checkout_date, actor, f"Bàn giao tới: {fac_name}. Ghi chú: {req.note or 'Sử dụng tại khoa'}")
+    )
+    db.commit()
+
+    return {"status": "success", "message": f"Đã bàn giao {dev['device_name']} thành công tới {fac_name}"}
+
+
+@router.post("/api/devices/{device_id}/checkin")
+async def checkin_single_device(device_id: int, req: DeviceCheckinRequest, db = Depends(get_db)):
+    """Thu hồi thiết bị về Kho thiết bị trung tâm (Snipe-IT Checkin Pattern)"""
+    dev = db.execute("SELECT * FROM devices WHERE id = ?", (device_id,)).fetchone()
+    if not dev:
+        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+
+    checkin_date = req.checkin_date or date.today().isoformat()
+    dest_fac = req.target_facility_id
+
+    db.execute(
+        "UPDATE devices SET facility_id = ?, status = 'STANDBY', updated_at = ? WHERE id = ?",
+        (dest_fac, datetime.now(), device_id),
+    )
+
+    db.execute(
+        """
+        INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
+        VALUES (?, 'CHECKIN', ?, 'Phòng TTBYT', ?)
+        """,
+        (device_id, checkin_date, f"Thu hồi về kho / Hoàn trả. Ghi chú: {req.note or 'Nhập kho dự phòng'}")
+    )
+    db.commit()
+
+    return {"status": "success", "message": f"Đã thu hồi {dev['device_name']} về kho dự phòng thành công"}
+
+
+@router.post("/api/devices/bulk-checkout")
+async def bulk_checkout_devices(req: BulkCheckoutRequest, db = Depends(get_db)):
+    """Bàn giao hàng loạt thiết bị (Snipe-IT Bulk Checkout)"""
+    if not req.device_ids:
+        raise HTTPException(status_code=400, detail="Danh sách thiết bị trống")
+
+    count = 0
+    checkout_date = req.checkout_date or date.today().isoformat()
+    actor = (req.assigned_to_name or "").strip() or "Bàn giao hàng loạt"
+
+    for did in req.device_ids:
+        db.execute(
+            "UPDATE devices SET facility_id = ?, status = 'IN_SERVICE', updated_at = ? WHERE id = ?",
+            (req.facility_id, datetime.now(), did),
+        )
+        db.execute(
+            """
+            INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
+            VALUES (?, 'CHECKOUT', ?, ?, ?)
+            """,
+            (did, checkout_date, actor, f"Bàn giao hàng loạt. Ghi chú: {req.note or 'Phân bổ theo kế hoạch'}")
+        )
+        count += 1
+
+    db.commit()
+    return {"status": "success", "updated_count": count, "message": f"Đã bàn giao {count} thiết bị thành công"}
+
+
+@router.post("/api/devices/bulk-checkin")
+async def bulk_checkin_devices(req: BulkCheckinRequest, db = Depends(get_db)):
+    """Thu hồi hàng loạt thiết bị về kho (Snipe-IT Bulk Checkin)"""
+    if not req.device_ids:
+        raise HTTPException(status_code=400, detail="Danh sách thiết bị trống")
+
+    count = 0
+    checkin_date = req.checkin_date or date.today().isoformat()
+
+    for did in req.device_ids:
+        db.execute(
+            "UPDATE devices SET facility_id = ?, status = 'STANDBY', updated_at = ? WHERE id = ?",
+            (req.target_facility_id, datetime.now(), did),
+        )
+        db.execute(
+            """
+            INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
+            VALUES (?, 'CHECKIN', ?, 'Phòng TTBYT', ?)
+            """,
+            (did, checkin_date, f"Thu hồi hàng loạt về kho. Ghi chú: {req.note or 'Nhập kho'}")
+        )
+        count += 1
+
+    db.commit()
+    return {"status": "success", "updated_count": count, "message": f"Đã thu hồi {count} thiết bị về kho thành công"}
+
+
+@router.get("/api/dashboard/activity")
+async def get_dashboard_activity(limit: int = Query(20, ge=1, le=100), db = Depends(get_db)):
+    """Bảng Feed hoạt động thời gian thực (Snipe-IT Activity Feed: Checkout, Checkin, Pre-use, PM)"""
+    events = []
+
+    def tag(device_id):
+        return f"BVQ7-TTB-{int(device_id):05d}"
+
+    try:
+        rows = db.execute(
+            """
+            SELECT t.id, t.transfer_date AS occurred_at, t.giver_name AS actor, t.transfer_reason AS detail,
+                   t.device_id, d.device_name, f1.name AS from_name, f2.name AS to_name
+            FROM device_transfers t
+            JOIN devices d ON t.device_id = d.id
+            LEFT JOIN facilities f1 ON t.from_facility_id = f1.id
+            LEFT JOIN facilities f2 ON t.to_facility_id = f2.id
+            ORDER BY t.id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        for r in rows:
+            events.append({
+                "type": "checkout",
+                "title": f"Điều chuyển: {r['device_name']}",
+                "detail": f"{r['from_name'] or 'Kho'} → {r['to_name'] or 'Phòng ban'}",
+                "actor": r["actor"] or "P.TTBYT",
+                "occurred_at": r["occurred_at"],
+                "device_id": r["device_id"],
+                "asset_tag": tag(r["device_id"]),
+            })
+    except Exception:
+        pass
+
+    try:
+        rows = db.execute(
+            """
+            SELECT p.id, p.inspection_time AS occurred_at, p.inspector_name AS actor,
+                   p.overall_status AS detail, p.device_id, d.device_name
+            FROM pre_use_inspections p
+            JOIN devices d ON p.device_id = d.id
+            ORDER BY p.id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        for r in rows:
+            events.append({
+                "type": "inspection",
+                "title": f"Kiểm tra đầu ngày: {r['device_name']}",
+                "detail": r["detail"] or "PASSED",
+                "actor": r["actor"] or "Điều dưỡng ca trực",
+                "occurred_at": r["occurred_at"],
+                "device_id": r["device_id"],
+                "asset_tag": tag(r["device_id"]),
+            })
+    except Exception:
+        pass
+
+    try:
+        rows = db.execute(
+            """
+            SELECT l.id, l.maintenance_date AS occurred_at, l.performed_by AS actor,
+                   l.maintenance_type AS work_type, l.description AS detail,
+                   l.device_id, d.device_name
+            FROM maintenance_logs l
+            JOIN devices d ON l.device_id = d.id
+            ORDER BY l.id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        for r in rows:
+            events.append({
+                "type": (r["work_type"] or "maintenance").lower(),
+                "title": f"{r['work_type'] or 'Bảo trì'} · {r['device_name']}",
+                "detail": (r["detail"] or "")[:140],
+                "actor": r["actor"] or "KS. Kỹ thuật",
+                "occurred_at": r["occurred_at"],
+                "device_id": r["device_id"],
+                "asset_tag": tag(r["device_id"]),
+            })
+    except Exception:
+        pass
+
+    events.sort(key=lambda e: str(e.get("occurred_at") or ""), reverse=True)
+    return events[:limit]
