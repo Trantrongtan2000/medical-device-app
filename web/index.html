@@ -1721,31 +1721,31 @@
                 </div>
 
                 <!-- Nav Tabs Inside Modal -->
-                <div class="bg-light border-bottom px-4 pt-2">
-                    <ul class="nav nav-tabs border-0" id="deviceModalTabs" role="tablist">
+                <div class="bg-light border-bottom px-3 py-2">
+                    <ul class="nav nav-pills nav-fill bg-white p-1 rounded-3 border shadow-sm" id="deviceModalTabs" role="tablist" style="font-size: 0.82rem;">
                         <li class="nav-item">
-                            <button class="nav-link active fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
-                                <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+                            <button class="nav-link active fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+                                <i class="bi bi-info-circle-fill me-1"></i> 1. Thông Tin Chung
                             </button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
-                                <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+                                <i class="bi bi-diagram-2 me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
                             </button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
-                                <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+                                <i class="bi bi-patch-check-fill me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
                             </button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
-                                <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+                                <i class="bi bi-clock-history me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
                             </button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
-                                <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+                                <i class="bi bi-share-fill me-1"></i> 5. Truy Vết Semantica W3C
                             </button>
                         </li>
                     </ul>
@@ -1758,20 +1758,25 @@
                         <!-- TAB 1: THÔNG TIN CHUNG -->
                         <div class="tab-pane fade show active" id="tab-modal-general">
                             <div class="row g-3">
+                                <!-- Card 1: Vị Trí Phân Bổ Lâm Sàng -->
                                 <div class="col-md-6">
-                                    <div class="p-3 bg-light rounded border h-100">
-                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>Vị Trí Phân Bổ Lâm Sàng</h6>
+                                    <div class="p-3 bg-light rounded border h-100 shadow-sm">
+                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>1. Vị Trí Phân Bổ Lâm Sàng</h6>
                                         <table class="table table-sm table-borderless mb-0 small">
                                             <tr>
                                                 <td class="text-muted" style="width: 140px;">Khoa / Phòng:</td>
                                                 <td><strong class="text-dark fs-6" id="modal-dev-facility">-</strong></td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Nhóm Danh Mục:</td>
-                                                <td id="modal-dev-category">-</td>
+                                                <td class="text-muted">Vị Trí / Phòng:</td>
+                                                <td><span class="text-secondary fw-semibold font-mono" id="modal-dev-location">Chưa chỉ định</span></td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Ngày Lắp Đặt:</td>
+                                                <td class="text-muted">Nhóm Danh Mục:</td>
+                                                <td><span class="badge bg-light text-dark border" id="modal-dev-category">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Ngày Bàn Giao:</td>
                                                 <td class="font-mono" id="modal-dev-install-date">-</td>
                                             </tr>
                                             <tr>
@@ -1781,13 +1786,19 @@
                                         </table>
                                     </div>
                                 </div>
+
+                                <!-- Card 2: Thông Số Kỹ Thuật Gốc -->
                                 <div class="col-md-6">
-                                    <div class="p-3 bg-light rounded border h-100">
-                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-cpu-fill me-2"></i>Thông Số Kỹ Thuật Gốc</h6>
+                                    <div class="p-3 bg-light rounded border h-100 shadow-sm">
+                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-cpu-fill me-2"></i>2. Thông Số Kỹ Thuật Gốc</h6>
                                         <table class="table table-sm table-borderless mb-0 small">
                                             <tr>
-                                                <td class="text-muted" style="width: 140px;">Model:</td>
+                                                <td class="text-muted" style="width: 140px;">Ký Hiệu / Model:</td>
                                                 <td><strong class="font-mono text-dark" id="modal-dev-model">-</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Số Serial (S/N):</td>
+                                                <td><strong class="font-mono text-primary" id="modal-dev-sn-body">-</strong></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Hãng Sản Xuất:</td>
@@ -1798,20 +1809,47 @@
                                                 <td id="modal-dev-country">-</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Năm Sản Xuất:</td>
-                                                <td class="font-mono" id="modal-dev-year">-</td>
-                                            </tr>
-                                            <tr>
                                                 <td class="text-muted">Phân Loại Rủi Ro:</td>
-                                                <td><span class="badge badge-risk-C" id="modal-dev-risk-tag">C</span></td>
+                                                <td><span class="badge badge-risk-C" id="modal-dev-risk-tag">Mức C</span></td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
+
+                                <!-- Card 3: Hồ Sơ Mua Sắm & Nhà Cung Cấp -->
+                                <div class="col-md-12">
+                                    <div class="p-3 bg-light rounded border shadow-sm">
+                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-file-earmark-text-fill me-2"></i>3. Hồ Sơ Mua Sắm & Nhà Thầu Cung Cấp</h6>
+                                        <div class="row g-3 small">
+                                            <div class="col-md-6">
+                                                <div class="mb-2">
+                                                    <span class="text-muted d-block">Số Hợp Đồng / Gói Thầu:</span>
+                                                    <strong class="font-mono text-primary fs-6" id="modal-dev-contract">Chưa gắn hợp đồng</strong>
+                                                </div>
+                                                <div>
+                                                    <span class="text-muted d-block">Nhà Cung Cấp / Đại Diện Hãng:</span>
+                                                    <strong class="text-dark" id="modal-dev-supplier">Chưa có thông tin</strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-2">
+                                                    <span class="text-muted d-block">Thời Lượng Bảo Hành:</span>
+                                                    <span class="font-mono fw-bold text-success" id="modal-dev-warranty">24 tháng</span>
+                                                </div>
+                                                <div>
+                                                    <span class="text-muted d-block">Chính Sách Bảo Trì:</span>
+                                                    <span class="badge bg-secondary-subtle text-secondary border font-mono" id="modal-dev-maintenance-policy">Định kỳ 6 tháng / lần</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 4: Ghi Chú & Hồ Sơ Scan Gốc -->
                                 <div class="col-12">
-                                    <div class="p-3 bg-light rounded border">
-                                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-card-text me-2"></i>Ghi Chú & Đặc Điểm Cấu Hình</h6>
-                                        <div class="small text-muted" id="modal-dev-notes">Không có ghi chú bổ sung.</div>
+                                    <div class="p-3 bg-light rounded border shadow-sm">
+                                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-card-text me-2"></i>4. Ghi Chú & Đặc Điểm Cấu Hình / Hồ Sơ Gốc</h6>
+                                        <div class="small text-muted font-mono" id="modal-dev-notes">Hồ sơ bàn giao BM04/BM02 đầy đủ.</div>
                                     </div>
                                 </div>
                             </div>
@@ -1820,10 +1858,10 @@
                         <!-- TAB 2: CẤU KIỆN & PHỤ KIỆN -->
                         <div class="tab-pane fade" id="tab-modal-accessories">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h6 class="fw-bold text-dark mb-0">Cây Cấu Kiện / Đầu Dò / Phụ Kiện Đi Kèm (Parent-Child)</h6>
-                                <span class="badge bg-primary font-mono" id="modal-acc-badge">0 phụ kiện</span>
+                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-diagram-2-fill text-info me-2"></i>Cây Cấu Kiện / Đầu Dò / Phụ Kiện Đi Kèm (Parent-Child)</h6>
+                                <span class="badge bg-primary font-mono" id="modal-acc-badge">0 cấu kiện</span>
                             </div>
-                            <div class="table-responsive border rounded">
+                            <div class="table-responsive border rounded shadow-sm">
                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
                                     <thead class="table-light">
                                         <tr>
@@ -1831,11 +1869,11 @@
                                             <th>TÊN CẤU KIỆN / MODEL</th>
                                             <th>SỐ SERIAL (S/N)</th>
                                             <th>TRẠNG THÁI</th>
-                                            <th>GHI CHÚ / PHÒNG</th>
+                                            <th>GHI CHÚ / VỊ TRÍ</th>
                                         </tr>
                                     </thead>
                                     <tbody id="modal-accessories-table-body">
-                                        <tr><td colspan="5" class="text-center py-4 text-muted">Không có phụ kiện rời đi kèm.</td></tr>
+                                        <tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có cấu kiện phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1843,14 +1881,17 @@
 
                         <!-- TAB 3: KIỂM ĐỊNH & HIỆU CHUẨN -->
                         <div class="tab-pane fade" id="tab-modal-calibration">
-                            <h6 class="fw-bold text-dark mb-3">Hồ Sơ Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn (Thông tư 05/2022/TT-BYT)</h6>
-                            <div class="table-responsive border rounded">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-patch-check-fill text-success me-2"></i>Hồ Sơ Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn (TT 05/2022/TT-BYT)</h6>
+                                <span class="badge bg-success-subtle text-success border border-success" id="modal-cal-summary-badge">🟢 ĐẠT CHUẨN KIỂM ĐỊNH</span>
+                            </div>
+                            <div class="table-responsive border rounded shadow-sm">
                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
                                     <thead class="table-light">
                                         <tr>
                                             <th>SỐ GCN KIỂM ĐỊNH</th>
                                             <th>NGÀY THỰC HIỆN</th>
-                                            <th>HẠN KIỂM ĐỊNH KẾ TIẾP</th>
+                                            <th>HẠN KĐ KẾ TIẾP</th>
                                             <th>SỐ TEM KIỂM ĐỊNH</th>
                                             <th>ĐƠN VỊ KIỂM ĐỊNH</th>
                                             <th class="text-center">KẾT LUẬN</th>
@@ -1865,19 +1906,22 @@
 
                         <!-- TAB 4: SỔ LÝ LỊCH & BẢO TRÌ -->
                         <div class="tab-pane fade" id="tab-modal-maintenance">
-                            <h6 class="fw-bold text-dark mb-3">Sổ Lý Lịch Máy Điện Tử & Nhật Ký Công Tác (BM05_TA5.TTBYT.QT.04)</h6>
-                            <div class="table-responsive border rounded">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-journal-medical text-primary me-2"></i>Sổ Lý Lịch Máy Điện Tử & Nhật Ký Công Tác (BM05_TA5.TTBYT.QT.04)</h6>
+                                <span class="badge bg-secondary font-mono">Quy trình QT.06 PM</span>
+                            </div>
+                            <div class="table-responsive border rounded shadow-sm">
                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
                                     <thead class="table-light">
                                         <tr>
                                             <th>NGÀY THỰC HIỆN</th>
                                             <th>LOẠI CÔNG TÁC</th>
                                             <th>NGƯỜI THỰC HIỆN</th>
-                                            <th>NỘI DUNG CHI TIẾT</th>
+                                            <th>NỘI DUNG CHI TIẾT & KẾT QUẢ</th>
                                         </tr>
                                     </thead>
                                     <tbody id="modal-maintenance-table-body">
-                                        <tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo dưỡng nào.</td></tr>
+                                        <tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo trì / sự cố nào ghi nhận.</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1885,9 +1929,9 @@
 
                         <!-- TAB 5: TRUY VẾT SEMANTICA -->
                         <div class="tab-pane fade" id="tab-modal-provenance">
-                            <h6 class="fw-bold text-dark mb-2">Chuỗi Giải Trình Ngữ Nghĩa Semantica Context Graph (W3C PROV-O)</h6>
-                            <p class="text-muted small mb-3">Liên kết xác thực từ Hợp đồng mua sắm, Nhà thầu, Khoa phòng đến Giấy kiểm định scan gốc.</p>
-                            <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small">
+                            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-share-fill text-warning me-2"></i>Chuỗi Giải Trình Ngữ Nghĩa Semantica Context Graph (W3C PROV-O)</h6>
+                            <p class="text-muted small mb-3">Liên kết xác thực 6 bước từ Hợp đồng mua sắm, Nhà thầu, Khoa phòng đến Giấy kiểm định scan gốc.</p>
+                            <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small shadow-sm">
                                 Đang tải chuỗi giải trình...
                             </div>
                         </div>

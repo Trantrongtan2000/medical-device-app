@@ -1,6 +1,6 @@
 # BẢN GHI PHIÊN LÀM VIỆC (SESSION TRANSCRIPT EXPORT)
 > **Conversation ID:** `4881bc7a-1a98-495d-aa16-c25753523ea5`  
-> **Thời gian xuất:** `19/08/2026 15:38:11`  
+> **Thời gian xuất:** `19/08/2026 15:44:58`  
 > **Dự án:** Quản lý Trang thiết bị y tế (BV Quận 7 / PKĐK Tâm Anh Q7)  
 
 ---
@@ -104049,6 +104049,3925 @@ Completed At: 2026-08-19T15:38:08+07:00
 				The command exited with code 0.
 				Output:
 				{'total_devices': 1211, 'overdue_count': 0, 'warning_count': 0, 'ok_count': 0, 'in_service_count': 1211, 'repair_count': 0, 'audited_count': 1, 'availability_rate': 100.0, 'compliance_rate': 100.0}
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:38:10+07:00
+Completed At: 2026-08-19T15:38:12+07:00
+
+				The command exited with code 0.
+				Output:
+				✅ Đã đồng bộ toàn bộ 27 DDL Tables & Indexes (có IF NOT EXISTS) vào `database/schema.sql`!
+
+Reading transcript from: C:\Users\tantt\.gemini\antigravity-cli\brain\4881bc7a-1a98-495d-aa16-c25753523ea5\.system_generated\logs\transcript_full.jsonl
+
+Total steps read: 4887
+
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\SESSION_TRANSCRIPT_20260818.md
+
+Saved session export to: C:\Users\tantt\Downloads\SESSION_TRANSCRIPT_20260818.md
+
+Saved session export to: C:\Users\tantt\Downloads\session.md
+
+Saved session export to: C:\Users\tantt\Downloads\medical-device-app\docs\session.md
+
+✅ Đã làm sạch an toàn các mẫu key trong SQLite api_keys_config!
+
+✅ Sanitized: session.md
+
+✅ Sanitized: SESSION_TRANSCRIPT_20260818.md
+
+✅ Sanitized: session.md
+
+✅ Sanitized: SESSION_TRANSCRIPT_20260818.md
+
+✅ Sanitized: export_session_to_md.py
+
+✅ Đã làm sạch toàn bộ dấu vết key trong các tệp docs và scripts!
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:38:15+07:00
+Completed At: 2026-08-19T15:38:23+07:00
+
+				The command exited with code 0.
+				Output:
+				warning: in the working copy of 'scripts/deep_inspect_master_data_v6.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/import_full_masterdata_v6.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/read_master_data_v6.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/update_ui_counts_to_1211.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/verify_v6_api.py', LF will be replaced by CRLF the next time Git touches it
+[feat/htm-clinical-workflow-v3 70264bf] feat: complete master data import from MasterData_V6_V1.0 -USERFORM MODEL_439_MERGE_MUNUAL.xlsm with 1211 assets, 198 contracts and 102 suppliers
+ 10 files changed, 2574 insertions(+), 14 deletions(-)
+ create mode 100644 scripts/deep_inspect_master_data_v6.py
+ create mode 100644 scripts/import_full_masterdata_v6.py
+ create mode 100644 scripts/read_master_data_v6.py
+ create mode 100644 scripts/update_ui_counts_to_1211.py
+ create mode 100644 scripts/verify_v6_api.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   384144f..70264bf  feat/htm-clinical-workflow-v3 -> feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/main'.
+Switched to branch 'main'
+Updating 384144f..70264bf
+Fast-forward
+ DESIGN.md                              |    4 +-
+ database/devices.db                    |  Bin 1007616 -> 1077248 bytes
+ docs/SESSION_TRANSCRIPT_20260818.md    | 1095 +++++++++++++++++++++++++++++++-
+ docs/session.md                        | 1095 +++++++++++++++++++++++++++++++-
+ scripts/deep_inspect_master_data_v6.py |   52 ++
+ scripts/import_full_masterdata_v6.py   |  233 +++++++
+ scripts/read_master_data_v6.py         |   29 +
+ scripts/update_ui_counts_to_1211.py    |   34 +
+ scripts/verify_v6_api.py               |   26 +
+ web/index.html                         |   20 +-
+ 10 files changed, 2574 insertions(+), 14 deletions(-)
+ create mode 100644 scripts/deep_inspect_master_data_v6.py
+ create mode 100644 scripts/import_full_masterdata_v6.py
+ create mode 100644 scripts/read_master_data_v6.py
+ create mode 100644 scripts/update_ui_counts_to_1211.py
+ create mode 100644 scripts/verify_v6_api.py
+To https://github.com/Trantrongtan2000/medical-device-app.git
+   384144f..70264bf  main -> main
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+Switched to branch 'feat/htm-clinical-workflow-v3'
+On branch feat/htm-clinical-workflow-v3
+Your branch is up to date with 'origin/feat/htm-clinical-workflow-v3'.
+
+nothing to commit, working tree clean
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+# 📖 ĐÃ ĐỌC & ĐỒNG BỘ TOÀN DIỆN MASTER DATA V6 CHÍNH XÁC 100%
+
+---
+
+### 📊 1. KẾT QUẢ PHÂN TÍCH TỆP EXCEL MASTER DATA GỐC:
+**Tệp:** `C:\Users\tantt\Downloads\MasterData_V6_V1.0 -USERFORM MODEL_439_MERGE_MUNUAL.xlsm`
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                   🏥 CẤU TRÚC MASTER DATA V6 (BENCHMARK & LIVE SYNC)                             │
+├─────────────────────────┬───────────────┬────────────────────────────────────────────────────────┤
+│ Sheet Tên               │ Số Lượng Dòng │ Nội Dung Nghiệp Vụ Y Tế                                │
+├─────────────────────────┼───────────────┼────────────────────────────────────────────────────────┤
+│ 📋 `Bangiao`            │ 1.212 Dòng    │ 1.211 Tài sản TTBYT (AssetID, Model, S/N, Khoa, NCC)   │
+│ 📑 `Hopdongmuasam`      │ 2.004 Dòng    │ 198 Hợp đồng & Gói thầu mua sắm chi tiết               │
+│ 🏢 `Nha Cung Cap`       │ 102 Đơn Vị    │ 102 Nhà thầu & Kỹ sư đại diện chính thức               │
+│ 🏥 `Khoa / Phòng`       │ 39 Đơn Vị     │ 39 Khoa phòng chuyên môn & phòng thủ thuật             │
+│ 🛠️ `Lichsubaotri`       │ 5 Dòng        │ Nhật ký & Quy trình bảo trì định kỳ (PM)               │
+│ 🎯 `NEW MASTER`         │ 128 Dòng      │ Danh mục chuẩn hóa Model & chính sách bảo trì          │
+└─────────────────────────┴───────────────┴────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 🌟 2. TOP NHÀ CUNG CẤP & HỢP ĐỒNG THỰC TẾ TRONG MASTER DATA:
+
+* **Top Nhà Cung Cấp:**
+  1. `CÔNG TY TNHH THIẾT BỊ Y TẾ PHÚC VINH` (Hơn 640 tài sản đa khoa, huyết áp, nhiệt ẩm kế).
+  2. `CÔNG TY TNHH PHÚC ANH` (97 tài sản).
+  3. `CÔNG TY TNHH THIẾT BỊ Y TẾ ÁNH KHOA` (67 tài sản).
+  4. `CÔNG TY CỔ PHẦN THIẾT BỊ Y TẾ VIETMEDICAL` (38 tài sản máy thở TV-100, Astral 150, monitor).
+  5. `CÔNG TY TNHH THIẾT BỊ Y TẾ AN PHA` (35 máy thận nhân tạo Fresenius 4008S, 5008S, RO).
+  6. `CÔNG TY TNHH DỊCH VỤ KỸ THUẬT Y SINH (BITESE)` (32 thiết bị Nihon Kohden, Terumo).
+  7. `CÔNG TY TNHH THIẾT BỊ Y TẾ IMED` (CT SOMATOM Force, MRI Siemens Magnetom).
+  8. `CÔNG TY TNHH DƯỢC PHẨM TRANG THIẾT BỊ Y TẾ THÀNH ĐẠT` (Đo loãng xương DEXA Lunar Prodigy, Vivid E95).
+  9. `CÔNG TY TNHH THIẾT BỊ Y TẾ AN VIỆT` (Siêu âm Samsung HERA W10).
+  10. `CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED` & `TẠ THIÊN ÂN` (Thiết bị PHCN BTL).
+
+---
+
+### 🌐 3. TRẠNG THÁI HỆ THỐNG ĐÃ CẬP NHẬT:
+* **Tổng số tài sản:** **1.211 thiết bị**
+* **Tổng số hợp đồng:** **198 hợp đồng**
+* **Tổng số nhà cung cấp:** **102 nhà thầu**
+* **Đang chạy trực tiếp tại:**
+  * 📡 **Mạng LAN:** [**http://10.30.32.201:8000/#tab-suppliers**](http://10.30.32.201:8000/#tab-suppliers)
+  * 💻 **Localhost:** [**http://127.0.0.1:8000/#tab-suppliers**](http://127.0.0.1:8000/#tab-suppliers)
+  * 📦 **Kho Mã Nguồn GitHub:** [**https://github.com/Trantrongtan2000/medical-device-app**](https://github.com/Trantrongtan2000/medical-device-app) (Đồng bộ trên cả 2 nhánh `feat/htm-clinical-workflow-v3` và `main`).
+
+
+### 👤 Lượt 145: Yêu cầu từ Người Dùng (USER)
+```text
+tối ưu lại vị trí  1. Thông Tin Chung
+ 2. Cấu Kiện & Phụ Kiện (0)
+ 3. Kiểm Định & Hiệu Chuẩn
+ 4. Sổ Lý Lịch & Bảo Trì (BM05)
+ 5. Truy Vết Semantica W3C
+```
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:41:54+07:00
+Completed At: 2026-08-19T15:41:54+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 3163
+Total Bytes: 246397
+Showing lines 2450 to 2650
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+2450:                         </div>
+
+2451:                         <div class="row g-3 mb-3">
+
+2452:                             <div class="col-md-6">
+
+2453:                                 <label class="form-label small fw-bold text-dark">SỐ ĐIỆN THOẠI HOTLINE (*)</label>
+
+2454:                                 <input type="text" id="sup-contact-edit-phone" class="form-control form-control-sm font-mono" required>
+
+2455:                             </div>
+
+2456:                             <div class="col-md-6">
+
+2457:                                 <label class="form-label small fw-bold text-dark">EMAIL LIÊN HỆ</label>
+
+2458:                                 <input type="email" id="sup-contact-edit-email" class="form-control form-control-sm">
+
+2459:                             </div>
+
+2460:                         </div>
+
+2461:                         <div class="mb-3">
+
+2462:                             <label class="form-label small fw-bold text-dark">PHẠM VI DỊCH VỤ & BẢO TRÌ</label>
+
+2463:                             <input type="text" id="sup-contact-edit-scope" class="form-control form-control-sm" value="Bảo trì, sửa chữa & cung cấp vật tư chính hãng">
+
+2464:                         </div>
+
+2465:                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+
+2466:                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+
+2467:                             <button type="submit" class="btn btn-warning text-dark btn-clinical fw-bold shadow-sm">
+
+2468:                                 <i class="bi bi-save me-1"></i> Cập Nhật Thông Tin
+
+2469:                             </button>
+
+2470:                         </div>
+
+2471:                     </form>
+
+2472:                 </div>
+
+2473:             </div>
+
+2474:         </div>
+
+2475:     </div>
+
+2476: 
+
+2477: 
+
+2478:     <!-- ==================== MODAL: ĐIỀU CHỈNH PHÂN CÔNG LỊCH ON-CALL ==================== -->
+
+2479:     <div class="modal fade" id="editOncallModal" tabindex="-1" aria-hidden="true">
+
+2480:         <div class="modal-dialog modal-dialog-centered">
+
+2481:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2482:                 <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+
+2483:                     <h5 class="modal-title fw-bold"><i class="bi bi-calendar-event me-2"></i>Điều Chỉnh Phân Công Lịch On-Call</h5>
+
+2484:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2485:                 </div>
+
+2486:                 <div class="modal-body p-4">
+
+2487:                     <form id="editOncallForm">
+
+2488:                         <input type="hidden" id="oncall-edit-id">
+
+2489:                         <div class="p-2 mb-3 bg-light rounded border">
+
+2490:                             <span class="small text-muted d-block">Ca trực ngày:</span>
+
+2491:                             <strong class="text-dark" id="oncall-edit-day">Thứ Ba (19/08/2026)</strong>
+
+2492:                         </div>
+
+2493:                         <div class="mb-3">
+
+2494:                             <label class="form-label small fw-bold text-dark">KỸ SƯ ON-CALL CHÍNH (*)</label>
+
+2495:                             <select id="oncall-edit-primary" class="form-select form-select-sm" required>
+
+2496:                                 <option value="Nguyễn Quốc Việt">Nguyễn Quốc Việt (0902.769.710)</option>
+
+2497:                                 <option value="Nguyễn Tấn Lợi">Nguyễn Tấn Lợi (0779.798.786)</option>
+
+2498:                                 <option value="Trần Đăng Hiếu">Trần Đăng Hiếu (0888.536.278)</option>
+
+2499:                                 <option value="Lê Minh Thiện">Lê Minh Thiện (0378.716.561)</option>
+
+2500:                                 <option value="Trần Thị Ngọc Châu">Trần Thị Ngọc Châu (0335.802.380)</option>
+
+2501:                                 <option value="Trần Trọng Tấn">Trần Trọng Tấn (0334.968.114)</option>
+
+2502:                             </select>
+
+2503:                         </div>
+
+2504:                         <div class="mb-3">
+
+2505:                             <label class="form-label small fw-bold text-dark">KỸ SƯ ON-CALL DỰ PHÒNG (BACKUP) (*)</label>
+
+2506:                             <select id="oncall-edit-backup" class="form-select form-select-sm" required>
+
+2507:                                 <option value="Trần Trọng Tấn">Trần Trọng Tấn (0334.968.114)</option>
+
+2508:                                 <option value="Trần Đăng Hiếu">Trần Đăng Hiếu (0888.536.278)</option>
+
+2509:                                 <option value="Nguyễn Tấn Lợi">Nguyễn Tấn Lợi (0779.798.786)</option>
+
+2510:                                 <option value="Lê Minh Thiện">Lê Minh Thiện (0378.716.561)</option>
+
+2511:                                 <option value="Trần Thị Ngọc Châu">Trần Thị Ngọc Châu (0335.802.380)</option>
+
+2512:                                 <option value="Nguyễn Quốc Việt">Nguyễn Quốc Việt (0902.769.710)</option>
+
+2513:                             </select>
+
+2514:                         </div>
+
+2515:                         <div class="mb-3">
+
+2516:                             <label class="form-label small fw-bold text-dark">KHUNG GIỜ ON-CALL</label>
+
+2517:                             <input type="text" id="oncall-edit-time" class="form-control form-control-sm font-mono" value="16:30 - 07:30 sáng hôm sau">
+
+2518:                         </div>
+
+2519:                         <div class="mb-3">
+
+2520:                             <label class="form-label small fw-bold text-dark">GHI CHÚ CA TRỰC</label>
+
+2521:                             <textarea id="oncall-edit-notes" class="form-control form-control-sm" rows="2" placeholder="Ghi chú sự cố cần lưu ý, phân công khoa phòng..."></textarea>
+
+2522:                         </div>
+
+2523:                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+
+2524:                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+
+2525:                             <button type="submit" class="btn btn-primary btn-clinical fw-bold shadow-sm">
+
+2526:                                 <i class="bi bi-check-lg me-1"></i> Cập Nhật Lịch On-Call
+
+2527:                             </button>
+
+2528:                         </div>
+
+2529:                     </form>
+
+2530:                 </div>
+
+2531:             </div>
+
+2532:         </div>
+
+2533:     </div>
+
+2534: 
+
+2535: 
+
+2536:     <!-- ==================== MODAL: CHỈNH NHANH LỊCH ON-CALL THEO TUẦN (3 NHÂN SỰ TẤN / THIỆN / HIẾU) ==================== -->
+
+2537:     <div class="modal fade" id="quickAssignWeeklyOncallModal" tabindex="-1" aria-hidden="true">
+
+2538:         <div class="modal-dialog modal-dialog-centered">
+
+2539:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2540:                 <div class="modal-header bg-warning text-dark px-4 py-3 border-0">
+
+2541:                     <h5 class="modal-title fw-bold"><i class="bi bi-lightning-charge-fill me-2"></i>Chỉnh Nhanh Phân Công On-Call Theo Tuần</h5>
+
+2542:                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+2543:                 </div>
+
+2544:                 <div class="modal-body p-4">
+
+2545:                     <div class="alert alert-warning d-flex align-items-center gap-2 mb-3 py-2 small">
+
+2546:                         <i class="bi bi-info-circle-fill fs-5"></i>
+
+2547:                         <div><strong>Quy tắc On-call Q7:</strong> 3 nhân sự chính (<strong>Tấn, Thiện, Hiếu</strong>) sẽ luân phiên trực On-call 24/24h <strong>trọn 1 tuần</strong> (Thứ 2 đến CN).</div>
+
+2548:                     </div>
+
+2549: 
+
+2550:                     <form id="quickAssignWeeklyForm">
+
+2551:                         <div class="mb-3">
+
+2552:                             <label class="form-label small fw-bold text-dark">CHỌN PHƯƠNG THỨC XẾP NHANH</label>
+
+2553:                             <select id="quick-assign-mode" class="form-select form-select-sm" onchange="app.toggleQuickAssignMode(this.value)">
+
+2554:                                 <option value="AUTO_MONTH">1 Click: Tự động xếp xoay vòng 3 KS trọn cả tháng (Tấn -> Thiện -> Hiếu)</option>
+
+2555:                                 <option value="CUSTOM_RANGE">Gán 1 tuần / khoảng ngày cụ thể cho 1 Kỹ sư</option>
+
+2556:                             </select>
+
+2557:                         </div>
+
+2558: 
+
+2559:                         <div id="quick-auto-month-options">
+
+2560:                             <div class="mb-3">
+
+2561:                                 <label class="form-label small fw-bold text-dark">KỸ SƯ TRỰC TUẦN ĐẦU TIÊN CỦA THÁNG (*)</label>
+
+2562:                                 <select id="quick-start-engineer" class="form-select form-select-sm font-mono fw-bold">
+
+2563:                                     <option value="Trần Trọng Tấn">KS. Trần Trọng Tấn (Tuần 1: Tấn -> Tuần 2: Thiện -> Tuần 3: Hiếu)</option>
+
+2564:                                     <option value="Lê Minh Thiện">KS. Lê Minh Thiện (Tuần 1: Thiện -> Tuần 2: Hiếu -> Tuần 3: Tấn)</option>
+
+2565:                                     <option value="Trần Đăng Hiếu">KS. Trần Đăng Hiếu (Tuần 1: Hiếu -> Tuần 2: Tấn -> Tuần 3: Thiện)</option>
+
+2566:                                 </select>
+
+2567:                             </div>
+
+2568:                         </div>
+
+2569: 
+
+2570:                         <div id="quick-custom-range-options" class="d-none">
+
+2571:                             <div class="row g-2 mb-3">
+
+2572:                                 <div class="col-6">
+
+2573:                                     <label class="form-label small fw-bold text-dark">TỪ NGÀY</label>
+
+2574:                                     <input type="number" id="quick-start-day" class="form-control form-control-sm" min="1" max="31" value="1">
+
+2575:                                 </div>
+
+2576:                                 <div class="col-6">
+
+2577:                                     <label class="form-label small fw-bold text-dark">ĐẾN NGÀY</label>
+
+2578:                                     <input type="number" id="quick-end-day" class="form-control form-control-sm" min="1" max="31" value="7">
+
+2579:                                 </div>
+
+2580:                             </div>
+
+2581:                             <div class="mb-3">
+
+2582:                                 <label class="form-label small fw-bold text-dark">KỸ SƯ ON-CALL CHÍNH (24H)</label>
+
+2583:                                 <select id="quick-target-engineer" class="form-select form-select-sm font-mono fw-bold">
+
+2584:                                     <option value="Trần Trọng Tấn">KS. Trần Trọng Tấn (0334.968.114)</option>
+
+2585:                                     <option value="Lê Minh Thiện">KS. Lê Minh Thiện (0378.716.561)</option>
+
+2586:                                     <option value="Trần Đăng Hiếu">KS. Trần Đăng Hiếu (0888.536.278)</option>
+
+2587:                                 </select>
+
+2588:                             </div>
+
+2589:                             <div class="mb-3">
+
+2590:                                 <label class="form-label small fw-bold text-dark">KỸ SƯ DỰ PHÒNG (BACKUP)</label>
+
+2591:                                 <select id="quick-backup-engineer" class="form-select form-select-sm font-mono">
+
+2592:                                     <option value="Trần Đăng Hiếu">KS. Trần Đăng Hiếu (0888.536.278)</option>
+
+2593:                                     <option value="Trần Trọng Tấn">KS. Trần Trọng Tấn (0334.968.114)</option>
+
+2594:                                     <option value="Lê Minh Thiện">KS. Lê Minh Thiện (0378.716.561)</option>
+
+2595:                                 </select>
+
+2596:                             </div>
+
+2597:                         </div>
+
+2598: 
+
+2599:                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+
+2600:                             <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Hủy</button>
+
+2601:                             <button type="submit" class="btn btn-warning text-dark btn-clinical fw-bold shadow-sm">
+
+2602:                                 <i class="bi bi-lightning-charge-fill me-1"></i> Áp Dụng Xếp Lịch Nhanh
+
+2603:                             </button>
+
+2604:                         </div>
+
+2605:                     </form>
+
+2606:                 </div>
+
+2607:             </div>
+
+2608:         </div>
+
+2609:     </div>
+
+2610: 
+
+2611: 
+
+2612:     <!-- ==================== MODAL: TOÀN VĂN MARKDOWN BÓC TÁCH TỪ MISTRAL OCR ==================== -->
+
+2613:     <div class="modal fade" id="ocrMarkdownModal" tabindex="-1" aria-hidden="true">
+
+2614:         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+
+2615:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+2616:                 <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+
+2617:                     <h5 class="modal-title fw-bold"><i class="bi bi-markdown-fill text-warning me-2"></i>Toàn Văn Markdown Bóc Tách Bởi Mistral OCR</h5>
+
+2618:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2619:                 </div>
+
+2620:                 <div class="modal-body p-4">
+
+2621:                     <div class="p-3 bg-light rounded border font-mono small" id="ocr-full-markdown-content" style="white-space: pre-wrap; max-height: 450px; overflow-y: auto;">
+
+2622:                     </div>
+
+2623:                 </div>
+
+2624:                 <div class="modal-footer bg-light px-4 py-2 border-0">
+
+2625:                     <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+
+2626:                     <button type="button" class="btn btn-primary btn-clinical" onclick="navigator.clipboard.writeText(document.getElementById('ocr-full-markdown-content').textContent); alert('Đã sao chép toàn bộ văn bản Markdown!');">
+
+2627:                         <i class="bi bi-clipboard me-1"></i> Sao Chép Markdown
+
+2628:                     </button>
+
+2629:                 </div>
+
+2630:             </div>
+
+2631:         </div>
+
+2632:     </div>
+
+2633: 
+
+2634:         <!-- ==================== MODAL: QUẢN LÝ & CHỈNH SỬA KHÓA API KEYS POOL ==================== -->
+
+2635:     <div class="modal fade" id="keyConfigModal" tabindex="-1" aria-hidden="true">
+
+2636:         <div class="modal-dialog modal-dialog-centered modal-lg">
+
+2637:             <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+
+2638:                 <!-- Header with Gradient & Service Tabs -->
+
+2639:                 <div class="modal-header text-white px-4 py-3 border-0" style="background: linear-gradient(135deg, #002d62 0%, #0284c7 100%);">
+
+2640:                     <div class="d-flex align-items-center gap-2">
+
+2641:                         <div class="p-2 rounded bg-white bg-opacity-20 fs-4">
+
+2642:                             <i class="bi bi-key-fill text-warning"></i>
+
+2643:                         </div>
+
+2644:                         <div>
+
+2645:                             <h5 class="modal-title fw-bold mb-0">Quản Lý Cơ Chế Xoay Khóa API Key Pool</h5>
+
+2646:                             <span class="small text-white text-opacity-75">Thêm, Sửa, Bật/Tắt, Kiểm tra kết nối Live & Đặt khóa ưu tiên cho AI Engine</span>
+
+2647:                         </div>
+
+2648:                     </div>
+
+2649:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+2650:                 </div>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:01+07:00
+Completed At: 2026-08-19T15:42:02+07:00
+
+				The command exited with code 0.
+				Output:
+				
+
+  web\index.html:797:                                                <i class="bi bi-plus-circle-fill text-primary me-2"></i>
+
+  web\index.html:798:                                                <span class="fw-bold small d-block">Nh?p M?i Thi?t B?</span>
+
+> web\index.html:799:                                                <span class="text-muted" style="font-size: 0.72rem;">S? ly l?ch m�y BM05</span>
+
+  web\index.html:800:                                            </button>
+
+  web\index.html:801:                                        </div>
+
+  web\index.html:802:                                        <div class="col-6">
+
+  web\index.html:803:                                            <button class="btn btn-outline-success w-100 btn-clinical text-start p-2" 
+
+onclick="document.getElementById('btn-tab-inspections').click()">
+
+  web\index.html:804:                                                <i class="bi bi-shield-check text-success me-2"></i>
+
+  web\index.html:1726:                        <li class="nav-item">
+
+  web\index.html:1727:                            <button class="nav-link active fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+> web\index.html:1728:                                <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Th�ng Tin Chung
+
+  web\index.html:1729:                            </button>
+
+  web\index.html:1730:                        </li>
+
+  web\index.html:1731:                        <li class="nav-item">
+
+  web\index.html:1732:                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+  web\index.html:1733:                                <i class="bi bi-diagram-2 text-info me-1"></i> 2. C?u Ki?n & Ph? Ki?n (<span id="modal-acc-count">0</span>)
+
+  web\index.html:1741:                        <li class="nav-item">
+
+  web\index.html:1742:                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+> web\index.html:1743:                                <i class="bi bi-clock-history text-secondary me-1"></i> 4. S? Ly L?ch & B?o Tr� (BM05)
+
+  web\index.html:1744:                            </button>
+
+  web\index.html:1745:                        </li>
+
+  web\index.html:1746:                        <li class="nav-item">
+
+  web\index.html:1747:                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+> web\index.html:1748:                                <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy V?t Semantica W3C
+
+  web\index.html:1749:                            </button>
+
+  web\index.html:1750:                        </li>
+
+  web\index.html:1751:                    </ul>
+
+  web\index.html:1752:                </div>
+
+  web\index.html:1753:
+
+  web\index.html:1756:                    <div class="tab-content" id="deviceModalTabContent">
+
+  web\index.html:1757:                        
+
+> web\index.html:1758:                        <!-- TAB 1: THONG TIN CHUNG -->
+
+  web\index.html:1759:                        <div class="tab-pane fade show active" id="tab-modal-general">
+
+  web\index.html:1760:                            <div class="row g-3">
+
+  web\index.html:1761:                                <div class="col-md-6">
+
+  web\index.html:1762:                                    <div class="p-3 bg-light rounded border h-100">
+
+  web\index.html:1763:                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>V? Tr� Ph�n B? L�m S�ng</h6>
+
+  web\index.html:1864:                        </div>
+
+  web\index.html:1865:
+
+> web\index.html:1866:                        <!-- TAB 4: S? LY L?CH & B?O TRI -->
+
+  web\index.html:1867:                        <div class="tab-pane fade" id="tab-modal-maintenance">
+
+> web\index.html:1868:                            <h6 class="fw-bold text-dark mb-3">S? Ly L?ch M�y Di?n T? & Nh?t Ky C�ng T�c (BM05_TA5.TTBYT.QT.04)</h6>
+
+  web\index.html:1869:                            <div class="table-responsive border rounded">
+
+  web\index.html:1870:                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+  web\index.html:1871:                                    <thead class="table-light">
+
+  web\index.html:1872:                                        <tr>
+
+  web\index.html:1873:                                            <th>NGAY TH?C HI?N</th>
+
+  web\index.html:1884:                        </div>
+
+  web\index.html:1885:
+
+> web\index.html:1886:                        <!-- TAB 5: TRUY V?T SEMANTICA -->
+
+  web\index.html:1887:                        <div class="tab-pane fade" id="tab-modal-provenance">
+
+  web\index.html:1888:                            <h6 class="fw-bold text-dark mb-2">Chu?i Gi?i Tr�nh Ng? Nghia Semantica Context Graph (W3C PROV-O)</h6>
+
+  web\index.html:1889:                            <p class="text-muted small mb-3">Li�n k?t x�c th?c t? H?p d?ng mua s?m, Nh� th?u, Khoa ph�ng d?n Gi?y ki?m d?nh scan 
+
+g?c.</p>
+
+  web\index.html:1890:                            <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small">
+
+  web\index.html:1891:                                Dang t?i chu?i gi?i tr�nh...
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:04+07:00
+Completed At: 2026-08-19T15:42:04+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 3163
+Total Bytes: 246397
+Showing lines 1715 to 1915
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1715:                                 <span class="badge bg-secondary text-white font-mono" id="modal-header-fac-tag"><i class="bi bi-geo-alt-fill text-danger me-1"></i>Khoa Phòng</span>
+
+1716:                                 <span class="badge bg-dark border border-info text-light font-mono" id="modal-header-sup-tag"><i class="bi bi-building text-info me-1"></i>Nhà Cung Cấp</span>
+
+1717:                             </div>
+
+1718:                         </div>
+
+1719:                     </div>
+
+1720:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+1721:                 </div>
+
+1722: 
+
+1723:                 <!-- Nav Tabs Inside Modal -->
+
+1724:                 <div class="bg-light border-bottom px-4 pt-2">
+
+1725:                     <ul class="nav nav-tabs border-0" id="deviceModalTabs" role="tablist">
+
+1726:                         <li class="nav-item">
+
+1727:                             <button class="nav-link active fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+1728:                                 <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+
+1729:                             </button>
+
+1730:                         </li>
+
+1731:                         <li class="nav-item">
+
+1732:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+1733:                                 <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
+1734:                             </button>
+
+1735:                         </li>
+
+1736:                         <li class="nav-item">
+
+1737:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
+1738:                                 <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
+1739:                             </button>
+
+1740:                         </li>
+
+1741:                         <li class="nav-item">
+
+1742:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+1743:                                 <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
+1744:                             </button>
+
+1745:                         </li>
+
+1746:                         <li class="nav-item">
+
+1747:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+1748:                                 <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+
+1749:                             </button>
+
+1750:                         </li>
+
+1751:                     </ul>
+
+1752:                 </div>
+
+1753: 
+
+1754:                 <!-- Modal Body Content -->
+
+1755:                 <div class="modal-body p-4">
+
+1756:                     <div class="tab-content" id="deviceModalTabContent">
+
+1757:                         
+
+1758:                         <!-- TAB 1: THÔNG TIN CHUNG -->
+
+1759:                         <div class="tab-pane fade show active" id="tab-modal-general">
+
+1760:                             <div class="row g-3">
+
+1761:                                 <div class="col-md-6">
+
+1762:                                     <div class="p-3 bg-light rounded border h-100">
+
+1763:                                         <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>Vị Trí Phân Bổ Lâm Sàng</h6>
+
+1764:                                         <table class="table table-sm table-borderless mb-0 small">
+
+1765:                                             <tr>
+
+1766:                                                 <td class="text-muted" style="width: 140px;">Khoa / Phòng:</td>
+
+1767:                                                 <td><strong class="text-dark fs-6" id="modal-dev-facility">-</strong></td>
+
+1768:                                             </tr>
+
+1769:                                             <tr>
+
+1770:                                                 <td class="text-muted">Nhóm Danh Mục:</td>
+
+1771:                                                 <td id="modal-dev-category">-</td>
+
+1772:                                             </tr>
+
+1773:                                             <tr>
+
+1774:                                                 <td class="text-muted">Ngày Lắp Đặt:</td>
+
+1775:                                                 <td class="font-mono" id="modal-dev-install-date">-</td>
+
+1776:                                             </tr>
+
+1777:                                             <tr>
+
+1778:                                                 <td class="text-muted">Trạng Thái Vận Hành:</td>
+
+1779:                                                 <td><span class="badge bg-success-subtle text-success border border-success" id="modal-dev-status-tag">IN_SERVICE</span></td>
+
+1780:                                             </tr>
+
+1781:                                         </table>
+
+1782:                                     </div>
+
+1783:                                 </div>
+
+1784:                                 <div class="col-md-6">
+
+1785:                                     <div class="p-3 bg-light rounded border h-100">
+
+1786:                                         <h6 class="fw-bold text-primary mb-3"><i class="bi bi-cpu-fill me-2"></i>Thông Số Kỹ Thuật Gốc</h6>
+
+1787:                                         <table class="table table-sm table-borderless mb-0 small">
+
+1788:                                             <tr>
+
+1789:                                                 <td class="text-muted" style="width: 140px;">Model:</td>
+
+1790:                                                 <td><strong class="font-mono text-dark" id="modal-dev-model">-</strong></td>
+
+1791:                                             </tr>
+
+1792:                                             <tr>
+
+1793:                                                 <td class="text-muted">Hãng Sản Xuất:</td>
+
+1794:                                                 <td class="fw-semibold text-dark" id="modal-dev-mfg">-</td>
+
+1795:                                             </tr>
+
+1796:                                             <tr>
+
+1797:                                                 <td class="text-muted">Nước Sản Xuất:</td>
+
+1798:                                                 <td id="modal-dev-country">-</td>
+
+1799:                                             </tr>
+
+1800:                                             <tr>
+
+1801:                                                 <td class="text-muted">Năm Sản Xuất:</td>
+
+1802:                                                 <td class="font-mono" id="modal-dev-year">-</td>
+
+1803:                                             </tr>
+
+1804:                                             <tr>
+
+1805:                                                 <td class="text-muted">Phân Loại Rủi Ro:</td>
+
+1806:                                                 <td><span class="badge badge-risk-C" id="modal-dev-risk-tag">C</span></td>
+
+1807:                                             </tr>
+
+1808:                                         </table>
+
+1809:                                     </div>
+
+1810:                                 </div>
+
+1811:                                 <div class="col-12">
+
+1812:                                     <div class="p-3 bg-light rounded border">
+
+1813:                                         <h6 class="fw-bold text-primary mb-2"><i class="bi bi-card-text me-2"></i>Ghi Chú & Đặc Điểm Cấu Hình</h6>
+
+1814:                                         <div class="small text-muted" id="modal-dev-notes">Không có ghi chú bổ sung.</div>
+
+1815:                                     </div>
+
+1816:                                 </div>
+
+1817:                             </div>
+
+1818:                         </div>
+
+1819: 
+
+1820:                         <!-- TAB 2: CẤU KIỆN & PHỤ KIỆN -->
+
+1821:                         <div class="tab-pane fade" id="tab-modal-accessories">
+
+1822:                             <div class="d-flex justify-content-between align-items-center mb-3">
+
+1823:                                 <h6 class="fw-bold text-dark mb-0">Cây Cấu Kiện / Đầu Dò / Phụ Kiện Đi Kèm (Parent-Child)</h6>
+
+1824:                                 <span class="badge bg-primary font-mono" id="modal-acc-badge">0 phụ kiện</span>
+
+1825:                             </div>
+
+1826:                             <div class="table-responsive border rounded">
+
+1827:                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+1828:                                     <thead class="table-light">
+
+1829:                                         <tr>
+
+1830:                                             <th>LOẠI PHỤ KIỆN</th>
+
+1831:                                             <th>TÊN CẤU KIỆN / MODEL</th>
+
+1832:                                             <th>SỐ SERIAL (S/N)</th>
+
+1833:                                             <th>TRẠNG THÁI</th>
+
+1834:                                             <th>GHI CHÚ / PHÒNG</th>
+
+1835:                                         </tr>
+
+1836:                                     </thead>
+
+1837:                                     <tbody id="modal-accessories-table-body">
+
+1838:                                         <tr><td colspan="5" class="text-center py-4 text-muted">Không có phụ kiện rời đi kèm.</td></tr>
+
+1839:                                     </tbody>
+
+1840:                                 </table>
+
+1841:                             </div>
+
+1842:                         </div>
+
+1843: 
+
+1844:                         <!-- TAB 3: KIỂM ĐỊNH & HIỆU CHUẨN -->
+
+1845:                         <div class="tab-pane fade" id="tab-modal-calibration">
+
+1846:                             <h6 class="fw-bold text-dark mb-3">Hồ Sơ Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn (Thông tư 05/2022/TT-BYT)</h6>
+
+1847:                             <div class="table-responsive border rounded">
+
+1848:                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+1849:                                     <thead class="table-light">
+
+1850:                                         <tr>
+
+1851:                                             <th>SỐ GCN KIỂM ĐỊNH</th>
+
+1852:                                             <th>NGÀY THỰC HIỆN</th>
+
+1853:                                             <th>HẠN KIỂM ĐỊNH KẾ TIẾP</th>
+
+1854:                                             <th>SỐ TEM KIỂM ĐỊNH</th>
+
+1855:                                             <th>ĐƠN VỊ KIỂM ĐỊNH</th>
+
+1856:                                             <th class="text-center">KẾT LUẬN</th>
+
+1857:                                         </tr>
+
+1858:                                     </thead>
+
+1859:                                     <tbody id="modal-calibration-table-body">
+
+1860:                                         <tr><td colspan="6" class="text-center py-4 text-muted">Chưa có bản ghi kiểm định trong hệ thống.</td></tr>
+
+1861:                                     </tbody>
+
+1862:                                 </table>
+
+1863:                             </div>
+
+1864:                         </div>
+
+1865: 
+
+1866:                         <!-- TAB 4: SỔ LÝ LỊCH & BẢO TRÌ -->
+
+1867:                         <div class="tab-pane fade" id="tab-modal-maintenance">
+
+1868:                             <h6 class="fw-bold text-dark mb-3">Sổ Lý Lịch Máy Điện Tử & Nhật Ký Công Tác (BM05_TA5.TTBYT.QT.04)</h6>
+
+1869:                             <div class="table-responsive border rounded">
+
+1870:                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+1871:                                     <thead class="table-light">
+
+1872:                                         <tr>
+
+1873:                                             <th>NGÀY THỰC HIỆN</th>
+
+1874:                                             <th>LOẠI CÔNG TÁC</th>
+
+1875:                                             <th>NGƯỜI THỰC HIỆN</th>
+
+1876:                                             <th>NỘI DUNG CHI TIẾT</th>
+
+1877:                                         </tr>
+
+1878:                                     </thead>
+
+1879:                                     <tbody id="modal-maintenance-table-body">
+
+1880:                                         <tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo dưỡng nào.</td></tr>
+
+1881:                                     </tbody>
+
+1882:                                 </table>
+
+1883:                             </div>
+
+1884:                         </div>
+
+1885: 
+
+1886:                         <!-- TAB 5: TRUY VẾT SEMANTICA -->
+
+1887:                         <div class="tab-pane fade" id="tab-modal-provenance">
+
+1888:                             <h6 class="fw-bold text-dark mb-2">Chuỗi Giải Trình Ngữ Nghĩa Semantica Context Graph (W3C PROV-O)</h6>
+
+1889:                             <p class="text-muted small mb-3">Liên kết xác thực từ Hợp đồng mua sắm, Nhà thầu, Khoa phòng đến Giấy kiểm định scan gốc.</p>
+
+1890:                             <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small">
+
+1891:                                 Đang tải chuỗi giải trình...
+
+1892:                             </div>
+
+1893:                         </div>
+
+1894: 
+
+1895:                     </div>
+
+1896:                 </div>
+
+1897: 
+
+1898:                 <!-- Footer Actions -->
+
+1899:                 <div class="modal-footer bg-light px-4 py-3 border-top d-flex justify-content-between">
+
+1900:                     <div class="d-flex gap-2">
+
+1901:                         <button type="button" class="btn btn-warning btn-clinical fw-bold text-dark shadow-sm" id="modal-btn-edit">
+
+1902:                             <i class="bi bi-pencil-square me-1"></i> Điều Chỉnh Thông Tin
+
+1903:                         </button>
+
+1904:                         <button type="button" class="btn btn-success btn-clinical" id="modal-btn-checkout">
+
+1905:                             <i class="bi bi-box-arrow-right me-1"></i> Checkout
+
+1906:                         </button>
+
+1907:                         <button type="button" class="btn btn-warning btn-clinical text-dark" id="modal-btn-checkin">
+
+1908:                             <i class="bi bi-box-arrow-in-left me-1"></i> Checkin
+
+1909:                         </button>
+
+1910:                         <button type="button" class="btn btn-outline-primary btn-clinical" id="modal-btn-transfer">
+
+1911:                             <i class="bi bi-arrow-left-right me-1"></i> Lập Phiếu Điều Chuyển (QT.08)
+
+1912:                         </button>
+
+1913:                         <button type="button" class="btn btn-outline-secondary btn-clinical" id="modal-btn-wo">
+
+1914:                             <i class="bi bi-tools me-1"></i> Tạo Phiếu Bảo Trì (SpeedMaint)
+
+1915:                         </button>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:12+07:00
+Completed At: 2026-08-19T15:42:12+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 3752
+Total Bytes: 203448
+Showing lines 380 to 480
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+380: 
+
+381:         async submitSupplierForm() {
+
+382:             const id = document.getElementById('supplier-form-id').value;
+
+383:             const payload = {
+
+384:                 supplier_name: document.getElementById('supplier-form-name').value.trim(),
+
+385:                 contact_person: document.getElementById('supplier-form-person').value.trim(),
+
+386:                 phone: document.getElementById('supplier-form-phone').value.trim(),
+
+387:                 email: document.getElementById('supplier-form-email').value.trim(),
+
+388:                 service_scope: document.getElementById('supplier-form-scope').value.trim()
+
+389:             };
+
+390: 
+
+391:             try {
+
+392:                 let res;
+
+393:                 if (id) {
+
+394:                     res = await fetch(`/api/directory/suppliers/${id}`, {
+
+395:                         method: 'PUT',
+
+396:                         headers: { 'Content-Type': 'application/json' },
+
+397:                         body: JSON.stringify(payload)
+
+398:                     });
+
+399:                 } else {
+
+400:                     res = await fetch('/api/directory/suppliers', {
+
+401:                         method: 'POST',
+
+402:                         headers: { 'Content-Type': 'application/json' },
+
+403:                         body: JSON.stringify(payload)
+
+404:                     });
+
+405:                 }
+
+406:                 const data = await res.json();
+
+407:                 if (res.ok) {
+
+408:                     alert('✅ ' + data.message);
+
+409:                     bootstrap.Modal.getInstance(document.getElementById('supplierModal'))?.hide();
+
+410:                     this.loadSuppliersData();
+
+411:                 } else {
+
+412:                     alert('❌ Lỗi: ' + (data.detail || 'Không thể lưu nhà cung cấp'));
+
+413:                 }
+
+414:             } catch (err) {
+
+415:                 alert('❌ Lỗi kết nối: ' + err.message);
+
+416:             }
+
+417:         },
+
+418: 
+
+419:         async deleteSupplier(supplierId, supplierName) {
+
+420:             if (!confirm(`Bạn có chắc chắn muốn xóa nhà cung cấp "${supplierName}"?`)) return;
+
+421: 
+
+422:             try {
+
+423:                 const res = await fetch(`/api/directory/suppliers/${supplierId}`, { method: 'DELETE' });
+
+424:                 const data = await res.json();
+
+425:                 alert('✅ ' + data.message);
+
+426:                 this.loadSuppliersData();
+
+427:             } catch (err) {
+
+428:                 alert('❌ Lỗi xóa nhà cung cấp: ' + err.message);
+
+429:             }
+
+430:         },
+
+431: 
+
+432:         async viewSupplierDevices(supplierId, supplierName) {
+
+433:             try {
+
+434:                 const res = await fetch(`/api/directory/suppliers/${supplierId}/devices`);
+
+435:                 const data = await res.json();
+
+436: 
+
+437:                 document.getElementById('linked-devices-modal-title').textContent = `Thiết Bị Của Nhà Thầu: ${data.supplier.supplier_name}`;
+
+438:                 document.getElementById('linked-devices-modal-subtitle').textContent = `Đại diện: ${data.supplier.contact_person || 'Kỹ sư hãng'} • Tổng số: ${data.total_devices} máy`;
+
+439: 
+
+440:                 const tbody = document.getElementById('linked-devices-table-body');
+
+441:                 if (data.devices.length === 0) {
+
+442:                     tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Chưa ghi nhận thiết bị nào do nhà thầu này cung cấp trong CSDL.</td></tr>`;
+
+443:                 } else {
+
+444:                     tbody.innerHTML = data.devices.map((d, idx) => `
+
+445:                         <tr>
+
+446:                             <td class="text-muted fw-bold">${idx + 1}</td>
+
+447:                             <td class="font-mono fw-bold text-primary">BVQ7-TTB-${String(d.id).padStart(5, '0')}</td>
+
+448:                             <td><strong class="text-dark">${d.device_name}</strong></td>
+
+449:                             <td class="font-mono">${d.model || 'N/A'}</td>
+
+450:                             <td class="font-mono text-secondary">${d.serial_no || 'N/A'}</td>
+
+451:                             <td><span class="badge bg-light text-dark border">${d.facility_name || 'N/A'}</span></td>
+
+452:                             <td><span class="badge bg-success-subtle text-success">${d.status}</span></td>
+
+453:                         </tr>
+
+454:                     `).join('');
+
+455:                 }
+
+456: 
+
+457:                 const modal = new bootstrap.Modal(document.getElementById('viewLinkedDevicesModal'));
+
+458:                 modal.show();
+
+459:             } catch (err) {
+
+460:                 alert('Lỗi tải danh sách thiết bị: ' + err.message);
+
+461:             }
+
+462:         },
+
+463: 
+
+464:         async init() {
+
+465:             this.initSidebarState();
+
+466:             this.initKanban();
+
+467:             this.initOverviewCharts();
+
+468:             this.setupNavigation();
+
+469:             this.setupFormSubmissions();
+
+470:             await this.loadInitialData();
+
+471:             await this.loadDevices();
+
+472:             await this.loadInspections();
+
+473:             await this.loadTransfers();
+
+474:             await this.loadWorkOrders();
+
+475:             this.loadStaff();
+
+476:             this.loadOncallData();
+
+477:             this.loadContractsData();
+
+478:             this.loadSuppliersData();
+
+479:             await this.loadSemanticaStats();
+
+480:             await this.loadActivityFeed();
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:14+07:00
+Completed At: 2026-08-19T15:42:15+07:00
+
+				The command exited with code 0.
+				Output:
+				
+
+  web\js\app.js:1404:
+
+  web\js\app.js:1405:                    return `
+
+> web\js\app.js:1406:                        <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
+
+  web\js\app.js:1407:                            <td class="ps-3 font-mono fw-semibold text-primary">
+
+  web\js\app.js:1408:                                <div>${d.asset_tag}</div>
+
+  web\js\app.js:1409:                                <div class="text-muted" style="font-size: 0.72rem;">${d.speedmaint_code || ''}</div>
+
+  web\js\app.js:1410:                            </td>
+
+  web\js\app.js:1411:                            <td>
+
+  web\js\app.js:1430:                                        <i class="bi bi-box-arrow-in-left"></i>
+
+  web\js\app.js:1431:                                    </button>
+
+> web\js\app.js:1432:                                    <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem h? so 
+
+ly l?ch chi ti?t">
+
+  web\js\app.js:1433:                                        <i class="bi bi-eye"></i> Chi ti?t
+
+  web\js\app.js:1434:                                    </button>
+
+  web\js\app.js:1435:                                    <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" 
+
+onclick="app.openEditDeviceModal(${d.id})" title="Di?u ch?nh th�ng tin thi?t b?">
+
+  web\js\app.js:1436:                                        <i class="bi bi-pencil-square"></i> S?a
+
+  web\js\app.js:1437:                                    </button>
+
+  web\js\app.js:1446:        },
+
+  web\js\app.js:1447:
+
+> web\js\app.js:1448:        async showDeviceDetails(deviceId) {
+
+  web\js\app.js:1449:            this.currentSelectedDeviceId = deviceId;
+
+  web\js\app.js:1450:            console.log(`?? Dang t?i h? so ly l?ch thi?t b? #${deviceId}...`);
+
+  web\js\app.js:1451:
+
+  web\js\app.js:1452:            try {
+
+  web\js\app.js:1453:                const [devRes, accRes, provRes] = await Promise.all([
+
+  web\js\app.js:3413:
+
+  web\js\app.js:3414:                return `
+
+> web\js\app.js:3415:                    <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row">
+
+  web\js\app.js:3416:                        <td class="ps-3 font-mono fw-semibold text-primary">
+
+  web\js\app.js:3417:                            <div>${d.asset_tag}</div>
+
+  web\js\app.js:3418:                            <div class="text-muted" style="font-size: 0.72rem;">${d.speedmaint_code || ''}</div>
+
+  web\js\app.js:3419:                        </td>
+
+  web\js\app.js:3420:                        <td>
+
+  web\js\app.js:3433:                        <td class="pe-3 text-end" onclick="event.stopPropagation()">
+
+  web\js\app.js:3434:                            <div class="d-flex justify-content-end gap-1">
+
+> web\js\app.js:3435:                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem h? so m�y">
+
+  web\js\app.js:3436:                                    <i class="bi bi-eye"></i>
+
+  web\js\app.js:3437:                                </button>
+
+  web\js\app.js:3438:                                <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.openEditDeviceModal(${d.id})" 
+
+title="Ch?nh s?a">
+
+  web\js\app.js:3439:                                    <i class="bi bi-pencil-square"></i>
+
+  web\js\app.js:3440:                                </button>
+
+  web\js\app.js:3493:                                        <i class="bi bi-pencil-square"></i>
+
+  web\js\app.js:3494:                                    </button>
+
+> web\js\app.js:3495:                                    <button class="btn btn-sm btn-primary btn-clinical fw-semibold" onclick="app.showDeviceDetails(${d.id})">
+
+  web\js\app.js:3496:                                        <i class="bi bi-journal-text me-1"></i> H? So M�y
+
+  web\js\app.js:3497:                                    </button>
+
+  web\js\app.js:3498:                                </div>
+
+  web\js\app.js:3499:                            </div>
+
+  web\js\app.js:3500:                        </div>
+
+  web\js\app.js:3542:                                    ${devs.map(d => `
+
+  web\js\app.js:3543:                                        <div class="col-12 col-md-6 col-lg-4">
+
+> web\js\app.js:3544:                                            <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center" 
+
+style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})">
+
+  web\js\app.js:3545:                                                <div>
+
+  web\js\app.js:3546:                                                    <strong class="d-block text-dark small text-truncate" style="max-width: 
+
+200px;">${d.device_name}</strong>
+
+  web\js\app.js:3547:                                                    <span class="font-mono text-muted" style="font-size: 0.72rem;">${d.asset_tag}  Model: 
+
+${d.model || 'N/A'}</span>
+
+  web\js\app.js:3548:                                                </div>
+
+  web\js\app.js:3549:                                                <span class="badge bg-secondary font-mono">${d.risk_level || 'A'}</span>
+
+  web\js\app.js:3584:                                ${devs.slice(0, 60).map(d => `
+
+  web\js\app.js:3585:                                    <div class="col-12 col-md-6 col-lg-4">
+
+> web\js\app.js:3586:                                        <div class="p-2 border rounded bg-white shadow-sm d-flex justify-content-between align-items-center" 
+
+style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})">
+
+  web\js\app.js:3587:                                            <div>
+
+  web\js\app.js:3588:                                                <strong class="d-block text-dark small text-truncate" style="max-width: 
+
+190px;">${d.device_name}</strong>
+
+  web\js\app.js:3589:                                                <span class="font-mono text-muted" style="font-size: 0.72rem;">${d.asset_tag}  S/N: ${d.serial_no 
+
+|| 'N/A'}</span>
+
+  web\js\app.js:3590:                                            </div>
+
+  web\js\app.js:3591:                                            <button class="btn btn-sm btn-outline-primary btn-clinical py-0 px-2" style="font-size: 0.72rem;">H? 
+
+so</button>
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:17+07:00
+Completed At: 2026-08-19T15:42:17+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 3752
+Total Bytes: 203448
+Showing lines 1448 to 1550
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1448:         async showDeviceDetails(deviceId) {
+
+1449:             this.currentSelectedDeviceId = deviceId;
+
+1450:             console.log(`🔍 Đang tải hồ sơ lý lịch thiết bị #${deviceId}...`);
+
+1451: 
+
+1452:             try {
+
+1453:                 const [devRes, accRes, provRes] = await Promise.all([
+
+1454:                     fetch(`/api/devices/${deviceId}`),
+
+1455:                     fetch(`/api/devices/${deviceId}/accessories`),
+
+1456:                     fetch(`/api/semantica/explain/${deviceId}`)
+
+1457:                 ]);
+
+1458: 
+
+1459:                 if (!devRes.ok) throw new Error("Không thể tải thông tin thiết bị");
+
+1460: 
+
+1461:                 const dev = await devRes.json();
+
+1462:                 this.currentSelectedDevice = dev;
+
+1463:                 const accessories = accRes.ok ? await accRes.json() : [];
+
+1464:                 const prov = provRes.ok ? await provRes.json() : null;
+
+1465: 
+
+1466:                 // 1. Header Information
+
+1467:                 document.getElementById('modal-dev-name').textContent = dev.device_name;
+
+1468:                 document.getElementById('modal-dev-tag').textContent = dev.asset_tag;
+
+1469:                 document.getElementById('modal-dev-sm').textContent = dev.speedmaint_code;
+
+1470:                 document.getElementById('modal-dev-sn').textContent = dev.serial_no || 'Chưa có S/N';
+
+1471:                 
+
+1472:                 const riskMap = {
+
+1473:                     'A': { bg: '#059669', text: '#ffffff' },
+
+1474:                     'B': { bg: '#0284c7', text: '#ffffff' },
+
+1475:                     'C': { bg: '#d97706', text: '#ffffff' },
+
+1476:                     'D': { bg: '#dc2626', text: '#ffffff' }
+
+1477:                 };
+
+1478:                 const rStyle = riskMap[dev.risk_level] || { bg: '#64748b', text: '#ffffff' };
+
+1479:                 const riskBadge = document.getElementById('modal-dev-risk');
+
+1480:                 if (riskBadge) {
+
+1481:                     riskBadge.className = `badge badge-risk-${dev.risk_level || 'A'}`;
+
+1482:                     riskBadge.style.cssText = `background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px;`;
+
+1483:                     riskBadge.textContent = `Loại ${dev.risk_level || 'A'}`;
+
+1484:                 }
+
+1485:                 const riskTagBody = document.getElementById('modal-dev-risk-tag');
+
+1486:                 if (riskTagBody) {
+
+1487:                     riskTagBody.style.cssText = `background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px;`;
+
+1488:                     riskTagBody.textContent = `Mức ${dev.risk_level || 'A'}`;
+
+1489:                 }
+
+1490: 
+
+1491:                 const statusBadge = document.getElementById('modal-dev-status');
+
+1492:                 if (statusBadge) {
+
+1493:                     statusBadge.textContent = dev.status || 'IN_SERVICE';
+
+1494:                 }
+
+1495: 
+
+1496:                 // 1b. Header Tags for Supplier & Facility
+
+1497:                 const headerFacTag = document.getElementById('modal-header-fac-tag');
+
+1498:                 if (headerFacTag) headerFacTag.innerHTML = `<i class="bi bi-geo-alt-fill text-danger me-1"></i>${dev.facility || 'Kho thiết bị trung tâm'}`;
+
+1499:                 
+
+1500:                 const headerSupTag = document.getElementById('modal-header-sup-tag');
+
+1501:                 if (headerSupTag) headerSupTag.innerHTML = `<i class="bi bi-building text-info me-1"></i>${dev.supplier_name || dev.manufacturer || 'Tổng kho'}`;
+
+1502: 
+
+1503:                 // 2. Tab 1: General Info
+
+1504:                 document.getElementById('modal-dev-facility').textContent = dev.facility || 'Kho thiết bị trung tâm';
+
+1505:                 document.getElementById('modal-dev-category').textContent = dev.category || 'Chưa phân nhóm';
+
+1506:                 document.getElementById('modal-dev-install-date').textContent = dev.installation_date || '2026-01-01';
+
+1507:                 document.getElementById('modal-dev-model').textContent = dev.model || 'Tiêu chuẩn';
+
+1508:                 document.getElementById('modal-dev-mfg').textContent = dev.manufacturer || 'Hãng Y Tế';
+
+1509:                 document.getElementById('modal-dev-country').textContent = dev.country_of_manufacturer || 'Nhật Bản / Đức / Mỹ';
+
+1510:                 document.getElementById('modal-dev-year').textContent = dev.year_of_manufacture || '2024';
+
+1511:                 document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận.';
+
+1512: 
+
+1513:                 // 3. Tab 2: Accessories Tree
+
+1514:                 document.getElementById('modal-acc-count').textContent = accessories.length;
+
+1515:                 document.getElementById('modal-acc-badge').textContent = `${accessories.length} cấu kiện/phụ kiện`;
+
+1516: 
+
+1517:                 const accBody = document.getElementById('modal-accessories-table-body');
+
+1518:                 if (accessories.length === 0) {
+
+1519:                     accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
+
+1520:                 } else {
+
+1521:                     accBody.innerHTML = accessories.map(a => `
+
+1522:                         <tr>
+
+1523:                             <td><span class="badge bg-info text-dark font-mono">${a.accessory_type}</span></td>
+
+1524:                             <td class="fw-bold text-dark">${a.name} <span class="text-muted small font-mono">(${a.model || ''})</span></td>
+
+1525:                             <td class="font-mono fw-semibold text-primary">${a.serial_no || '-'}</td>
+
+1526:                             <td><span class="badge bg-success-subtle text-success">${a.status}</span></td>
+
+1527:                             <td class="text-muted small">${a.notes || '-'}</td>
+
+1528:                         </tr>
+
+1529:                     `).join('');
+
+1530:                 }
+
+1531: 
+
+1532:                 // 4. Tab 3: Calibration Certificates
+
+1533:                 const calBody = document.getElementById('modal-calibration-table-body');
+
+1534:                 const certs = dev.certificates || [];
+
+1535:                 if (certs.length === 0) {
+
+1536:                     calBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có dữ liệu giấy chứng nhận kiểm định.</td></tr>';
+
+1537:                 } else {
+
+1538:                     calBody.innerHTML = certs.map(c => `
+
+1539:                         <tr>
+
+1540:                             <td class="font-mono fw-bold text-primary">${c.certificate_no}</td>
+
+1541:                             <td class="font-mono small">${c.calibration_date || '-'}</td>
+
+1542:                             <td class="font-mono small text-danger fw-semibold">${c.recalibration_date || '-'}</td>
+
+1543:                             <td class="font-mono small">${c.stamp_no || '-'}</td>
+
+1544:                             <td>${c.calibrated_by || 'Trung tâm KĐ'}</td>
+
+1545:                             <td class="text-center"><span class="badge bg-success">${c.result_status || 'ĐẠT'}</span></td>
+
+1546:                         </tr>
+
+1547:                     `).join('');
+
+1548:                 }
+
+1549: 
+
+1550:                 // 5. Tab 4: Maintenance Logs (BM05)
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:23+07:00
+Completed At: 2026-08-19T15:42:23+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 3163
+Total Bytes: 246397
+Showing lines 1690 to 1800
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1690:     </div>
+
+1691: 
+
+1692:     
+
+1693:     <!-- ==================== MODAL: BẢNG THÔNG TIN CHI TIẾT THIẾT BỊ (DEVICE PASSPORT) ==================== -->
+
+1694:     <div class="modal fade" id="deviceDetailsModal" tabindex="-1" aria-hidden="true">
+
+1695:         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+
+1696:             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+
+1697:                 <!-- Header -->
+
+1698:                 <div class="modal-header bg-dark text-white px-4 py-3 border-0">
+
+1699:                     <div class="d-flex align-items-center gap-3">
+
+1700:                         <div class="p-2 rounded-3 bg-primary text-white fs-4">
+
+1701:                             <i class="bi bi-hospital"></i>
+
+1702:                         </div>
+
+1703:                         <div>
+
+1704:                             <div class="d-flex align-items-center gap-2 mb-1">
+
+1705:                                 <h5 class="modal-title fw-bold text-white mb-0" id="modal-dev-name">Tên Thiết Bị</h5>
+
+1706:                                 <span class="badge" id="modal-dev-risk">Loại C</span>
+
+1707:                                 <span class="badge bg-success-subtle text-success" id="modal-dev-status">Hoạt động</span>
+
+1708:                             </div>
+
+1709:                             <div class="text-slate-300 small font-mono mb-1" style="color: #cbd5e1;">
+
+1710:                                 Asset Tag: <strong class="text-info" id="modal-dev-tag">BVQ7-TTB-00001</strong> | 
+
+1711:                                 SpeedMaint: <strong class="text-light" id="modal-dev-sm">BM/BVQ7/00001</strong> | 
+
+1712:                                 Serial: <strong class="text-warning" id="modal-dev-sn">S/N</strong>
+
+1713:                             </div>
+
+1714:                             <div class="d-flex flex-wrap gap-2 align-items-center mt-1">
+
+1715:                                 <span class="badge bg-secondary text-white font-mono" id="modal-header-fac-tag"><i class="bi bi-geo-alt-fill text-danger me-1"></i>Khoa Phòng</span>
+
+1716:                                 <span class="badge bg-dark border border-info text-light font-mono" id="modal-header-sup-tag"><i class="bi bi-building text-info me-1"></i>Nhà Cung Cấp</span>
+
+1717:                             </div>
+
+1718:                         </div>
+
+1719:                     </div>
+
+1720:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+1721:                 </div>
+
+1722: 
+
+1723:                 <!-- Nav Tabs Inside Modal -->
+
+1724:                 <div class="bg-light border-bottom px-4 pt-2">
+
+1725:                     <ul class="nav nav-tabs border-0" id="deviceModalTabs" role="tablist">
+
+1726:                         <li class="nav-item">
+
+1727:                             <button class="nav-link active fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+1728:                                 <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+
+1729:                             </button>
+
+1730:                         </li>
+
+1731:                         <li class="nav-item">
+
+1732:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+1733:                                 <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
+1734:                             </button>
+
+1735:                         </li>
+
+1736:                         <li class="nav-item">
+
+1737:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
+1738:                                 <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
+1739:                             </button>
+
+1740:                         </li>
+
+1741:                         <li class="nav-item">
+
+1742:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+1743:                                 <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
+1744:                             </button>
+
+1745:                         </li>
+
+1746:                         <li class="nav-item">
+
+1747:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+1748:                                 <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+
+1749:                             </button>
+
+1750:                         </li>
+
+1751:                     </ul>
+
+1752:                 </div>
+
+1753: 
+
+1754:                 <!-- Modal Body Content -->
+
+1755:                 <div class="modal-body p-4">
+
+1756:                     <div class="tab-content" id="deviceModalTabContent">
+
+1757:                         
+
+1758:                         <!-- TAB 1: THÔNG TIN CHUNG -->
+
+1759:                         <div class="tab-pane fade show active" id="tab-modal-general">
+
+1760:                             <div class="row g-3">
+
+1761:                                 <div class="col-md-6">
+
+1762:                                     <div class="p-3 bg-light rounded border h-100">
+
+1763:                                         <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>Vị Trí Phân Bổ Lâm Sàng</h6>
+
+1764:                                         <table class="table table-sm table-borderless mb-0 small">
+
+1765:                                             <tr>
+
+1766:                                                 <td class="text-muted" style="width: 140px;">Khoa / Phòng:</td>
+
+1767:                                                 <td><strong class="text-dark fs-6" id="modal-dev-facility">-</strong></td>
+
+1768:                                             </tr>
+
+1769:                                             <tr>
+
+1770:                                                 <td class="text-muted">Nhóm Danh Mục:</td>
+
+1771:                                                 <td id="modal-dev-category">-</td>
+
+1772:                                             </tr>
+
+1773:                                             <tr>
+
+1774:                                                 <td class="text-muted">Ngày Lắp Đặt:</td>
+
+1775:                                                 <td class="font-mono" id="modal-dev-install-date">-</td>
+
+1776:                                             </tr>
+
+1777:                                             <tr>
+
+1778:                                                 <td class="text-muted">Trạng Thái Vận Hành:</td>
+
+1779:                                                 <td><span class="badge bg-success-subtle text-success border border-success" id="modal-dev-status-tag">IN_SERVICE</span></td>
+
+1780:                                             </tr>
+
+1781:                                         </table>
+
+1782:                                     </div>
+
+1783:                                 </div>
+
+1784:                                 <div class="col-md-6">
+
+1785:                                     <div class="p-3 bg-light rounded border h-100">
+
+1786:                                         <h6 class="fw-bold text-primary mb-3"><i class="bi bi-cpu-fill me-2"></i>Thông Số Kỹ Thuật Gốc</h6>
+
+1787:                                         <table class="table table-sm table-borderless mb-0 small">
+
+1788:                                             <tr>
+
+1789:                                                 <td class="text-muted" style="width: 140px;">Model:</td>
+
+1790:                                                 <td><strong class="font-mono text-dark" id="modal-dev-model">-</strong></td>
+
+1791:                                             </tr>
+
+1792:                                             <tr>
+
+1793:                                                 <td class="text-muted">Hãng Sản Xuất:</td>
+
+1794:                                                 <td class="fw-semibold text-dark" id="modal-dev-mfg">-</td>
+
+1795:                                             </tr>
+
+1796:                                             <tr>
+
+1797:                                                 <td class="text-muted">Nước Sản Xuất:</td>
+
+1798:                                                 <td id="modal-dev-country">-</td>
+
+1799:                                             </tr>
+
+1800:                                             <tr>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:26+07:00
+Completed At: 2026-08-19T15:42:26+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 3163
+Total Bytes: 246397
+Showing lines 1800 to 1920
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1800:                                             <tr>
+
+1801:                                                 <td class="text-muted">Năm Sản Xuất:</td>
+
+1802:                                                 <td class="font-mono" id="modal-dev-year">-</td>
+
+1803:                                             </tr>
+
+1804:                                             <tr>
+
+1805:                                                 <td class="text-muted">Phân Loại Rủi Ro:</td>
+
+1806:                                                 <td><span class="badge badge-risk-C" id="modal-dev-risk-tag">C</span></td>
+
+1807:                                             </tr>
+
+1808:                                         </table>
+
+1809:                                     </div>
+
+1810:                                 </div>
+
+1811:                                 <div class="col-12">
+
+1812:                                     <div class="p-3 bg-light rounded border">
+
+1813:                                         <h6 class="fw-bold text-primary mb-2"><i class="bi bi-card-text me-2"></i>Ghi Chú & Đặc Điểm Cấu Hình</h6>
+
+1814:                                         <div class="small text-muted" id="modal-dev-notes">Không có ghi chú bổ sung.</div>
+
+1815:                                     </div>
+
+1816:                                 </div>
+
+1817:                             </div>
+
+1818:                         </div>
+
+1819: 
+
+1820:                         <!-- TAB 2: CẤU KIỆN & PHỤ KIỆN -->
+
+1821:                         <div class="tab-pane fade" id="tab-modal-accessories">
+
+1822:                             <div class="d-flex justify-content-between align-items-center mb-3">
+
+1823:                                 <h6 class="fw-bold text-dark mb-0">Cây Cấu Kiện / Đầu Dò / Phụ Kiện Đi Kèm (Parent-Child)</h6>
+
+1824:                                 <span class="badge bg-primary font-mono" id="modal-acc-badge">0 phụ kiện</span>
+
+1825:                             </div>
+
+1826:                             <div class="table-responsive border rounded">
+
+1827:                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+1828:                                     <thead class="table-light">
+
+1829:                                         <tr>
+
+1830:                                             <th>LOẠI PHỤ KIỆN</th>
+
+1831:                                             <th>TÊN CẤU KIỆN / MODEL</th>
+
+1832:                                             <th>SỐ SERIAL (S/N)</th>
+
+1833:                                             <th>TRẠNG THÁI</th>
+
+1834:                                             <th>GHI CHÚ / PHÒNG</th>
+
+1835:                                         </tr>
+
+1836:                                     </thead>
+
+1837:                                     <tbody id="modal-accessories-table-body">
+
+1838:                                         <tr><td colspan="5" class="text-center py-4 text-muted">Không có phụ kiện rời đi kèm.</td></tr>
+
+1839:                                     </tbody>
+
+1840:                                 </table>
+
+1841:                             </div>
+
+1842:                         </div>
+
+1843: 
+
+1844:                         <!-- TAB 3: KIỂM ĐỊNH & HIỆU CHUẨN -->
+
+1845:                         <div class="tab-pane fade" id="tab-modal-calibration">
+
+1846:                             <h6 class="fw-bold text-dark mb-3">Hồ Sơ Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn (Thông tư 05/2022/TT-BYT)</h6>
+
+1847:                             <div class="table-responsive border rounded">
+
+1848:                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+1849:                                     <thead class="table-light">
+
+1850:                                         <tr>
+
+1851:                                             <th>SỐ GCN KIỂM ĐỊNH</th>
+
+1852:                                             <th>NGÀY THỰC HIỆN</th>
+
+1853:                                             <th>HẠN KIỂM ĐỊNH KẾ TIẾP</th>
+
+1854:                                             <th>SỐ TEM KIỂM ĐỊNH</th>
+
+1855:                                             <th>ĐƠN VỊ KIỂM ĐỊNH</th>
+
+1856:                                             <th class="text-center">KẾT LUẬN</th>
+
+1857:                                         </tr>
+
+1858:                                     </thead>
+
+1859:                                     <tbody id="modal-calibration-table-body">
+
+1860:                                         <tr><td colspan="6" class="text-center py-4 text-muted">Chưa có bản ghi kiểm định trong hệ thống.</td></tr>
+
+1861:                                     </tbody>
+
+1862:                                 </table>
+
+1863:                             </div>
+
+1864:                         </div>
+
+1865: 
+
+1866:                         <!-- TAB 4: SỔ LÝ LỊCH & BẢO TRÌ -->
+
+1867:                         <div class="tab-pane fade" id="tab-modal-maintenance">
+
+1868:                             <h6 class="fw-bold text-dark mb-3">Sổ Lý Lịch Máy Điện Tử & Nhật Ký Công Tác (BM05_TA5.TTBYT.QT.04)</h6>
+
+1869:                             <div class="table-responsive border rounded">
+
+1870:                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+1871:                                     <thead class="table-light">
+
+1872:                                         <tr>
+
+1873:                                             <th>NGÀY THỰC HIỆN</th>
+
+1874:                                             <th>LOẠI CÔNG TÁC</th>
+
+1875:                                             <th>NGƯỜI THỰC HIỆN</th>
+
+1876:                                             <th>NỘI DUNG CHI TIẾT</th>
+
+1877:                                         </tr>
+
+1878:                                     </thead>
+
+1879:                                     <tbody id="modal-maintenance-table-body">
+
+1880:                                         <tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo dưỡng nào.</td></tr>
+
+1881:                                     </tbody>
+
+1882:                                 </table>
+
+1883:                             </div>
+
+1884:                         </div>
+
+1885: 
+
+1886:                         <!-- TAB 5: TRUY VẾT SEMANTICA -->
+
+1887:                         <div class="tab-pane fade" id="tab-modal-provenance">
+
+1888:                             <h6 class="fw-bold text-dark mb-2">Chuỗi Giải Trình Ngữ Nghĩa Semantica Context Graph (W3C PROV-O)</h6>
+
+1889:                             <p class="text-muted small mb-3">Liên kết xác thực từ Hợp đồng mua sắm, Nhà thầu, Khoa phòng đến Giấy kiểm định scan gốc.</p>
+
+1890:                             <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small">
+
+1891:                                 Đang tải chuỗi giải trình...
+
+1892:                             </div>
+
+1893:                         </div>
+
+1894: 
+
+1895:                     </div>
+
+1896:                 </div>
+
+1897: 
+
+1898:                 <!-- Footer Actions -->
+
+1899:                 <div class="modal-footer bg-light px-4 py-3 border-top d-flex justify-content-between">
+
+1900:                     <div class="d-flex gap-2">
+
+1901:                         <button type="button" class="btn btn-warning btn-clinical fw-bold text-dark shadow-sm" id="modal-btn-edit">
+
+1902:                             <i class="bi bi-pencil-square me-1"></i> Điều Chỉnh Thông Tin
+
+1903:                         </button>
+
+1904:                         <button type="button" class="btn btn-success btn-clinical" id="modal-btn-checkout">
+
+1905:                             <i class="bi bi-box-arrow-right me-1"></i> Checkout
+
+1906:                         </button>
+
+1907:                         <button type="button" class="btn btn-warning btn-clinical text-dark" id="modal-btn-checkin">
+
+1908:                             <i class="bi bi-box-arrow-in-left me-1"></i> Checkin
+
+1909:                         </button>
+
+1910:                         <button type="button" class="btn btn-outline-primary btn-clinical" id="modal-btn-transfer">
+
+1911:                             <i class="bi bi-arrow-left-right me-1"></i> Lập Phiếu Điều Chuyển (QT.08)
+
+1912:                         </button>
+
+1913:                         <button type="button" class="btn btn-outline-secondary btn-clinical" id="modal-btn-wo">
+
+1914:                             <i class="bi bi-tools me-1"></i> Tạo Phiếu Bảo Trì (SpeedMaint)
+
+1915:                         </button>
+
+1916:                         <button type="button" class="btn btn-primary btn-clinical fw-bold" onclick="app.printDevicePassport()">
+
+1917:                             <i class="bi bi-printer me-1"></i> In Tem Nhãn QR Code
+
+1918:                         </button>
+
+1919:                     </div>
+
+1920:                     <button type="button" class="btn btn-secondary btn-clinical px-4" data-bs-dismiss="modal">Đóng</button>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:32+07:00
+Completed At: 2026-08-19T15:42:32+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 3752
+Total Bytes: 203448
+Showing lines 1530 to 1620
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1530:                 }
+
+1531: 
+
+1532:                 // 4. Tab 3: Calibration Certificates
+
+1533:                 const calBody = document.getElementById('modal-calibration-table-body');
+
+1534:                 const certs = dev.certificates || [];
+
+1535:                 if (certs.length === 0) {
+
+1536:                     calBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có dữ liệu giấy chứng nhận kiểm định.</td></tr>';
+
+1537:                 } else {
+
+1538:                     calBody.innerHTML = certs.map(c => `
+
+1539:                         <tr>
+
+1540:                             <td class="font-mono fw-bold text-primary">${c.certificate_no}</td>
+
+1541:                             <td class="font-mono small">${c.calibration_date || '-'}</td>
+
+1542:                             <td class="font-mono small text-danger fw-semibold">${c.recalibration_date || '-'}</td>
+
+1543:                             <td class="font-mono small">${c.stamp_no || '-'}</td>
+
+1544:                             <td>${c.calibrated_by || 'Trung tâm KĐ'}</td>
+
+1545:                             <td class="text-center"><span class="badge bg-success">${c.result_status || 'ĐẠT'}</span></td>
+
+1546:                         </tr>
+
+1547:                     `).join('');
+
+1548:                 }
+
+1549: 
+
+1550:                 // 5. Tab 4: Maintenance Logs (BM05)
+
+1551:                 const maintBody = document.getElementById('modal-maintenance-table-body');
+
+1552:                 const logs = dev.maintenance_logs || [];
+
+1553:                 if (logs.length === 0) {
+
+1554:                     maintBody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo trì / sự cố nào ghi nhận.</td></tr>';
+
+1555:                 } else {
+
+1556:                     maintBody.innerHTML = logs.map(l => `
+
+1557:                         <tr>
+
+1558:                             <td class="font-mono small text-muted">${l.maintenance_date}</td>
+
+1559:                             <td><span class="badge bg-secondary font-mono">${l.maintenance_type}</span></td>
+
+1560:                             <td><strong>${l.performed_by}</strong></td>
+
+1561:                             <td class="small text-dark">${l.description}</td>
+
+1562:                         </tr>
+
+1563:                     `).join('');
+
+1564:                 }
+
+1565: 
+
+1566:                 // 6. Tab 5: Semantica Provenance Chain
+
+1567:                 const provBox = document.getElementById('modal-provenance-content');
+
+1568:                 if (!prov || !prov.causal_provenance_chain) {
+
+1569:                     provBox.innerHTML = '<span class="text-muted">Đang cập nhật đồ thị tri thức Semantica cho thiết bị này.</span>';
+
+1570:                 } else {
+
+1571:                     provBox.innerHTML = `
+
+1572:                         <div class="mb-2"><strong class="text-primary">${prov.device_name}</strong> (Model: ${prov.model})</div>
+
+1573:                         <ul class="list-unstyled mb-0">
+
+1574:                             ${prov.causal_provenance_chain.map((p, idx) => `
+
+1575:                                 <li class="p-2 mb-2 bg-white border rounded shadow-sm">
+
+1576:                                     <div class="d-flex align-items-center gap-2">
+
+1577:                                         <span class="badge bg-primary font-mono">BƯỚC ${idx + 1}</span>
+
+1578:                                         <span class="fw-bold text-dark">${typeof p === 'string' ? p : (p.step + ': ' + p.relation)}</span>
+
+1579:                                     </div>
+
+1580:                                 </li>
+
+1581:                             `).join('')}
+
+1582:                         </ul>
+
+1583:                     `;
+
+1584:                 }
+
+1585: 
+
+1586:                 // Setup footer action buttons
+
+1587:                 const btnCheckout = document.getElementById('modal-btn-checkout');
+
+1588:                 if (btnCheckout) {
+
+1589:                     btnCheckout.onclick = () => {
+
+1590:                         bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+
+1591:                         this.openCheckoutModal(deviceId);
+
+1592:                     };
+
+1593:                 }
+
+1594:                 const btnCheckin = document.getElementById('modal-btn-checkin');
+
+1595:                 if (btnCheckin) {
+
+1596:                     btnCheckin.onclick = () => {
+
+1597:                         bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+
+1598:                         this.checkinDevice(deviceId);
+
+1599:                     };
+
+1600:                 }
+
+1601: 
+
+1602:                 const btnTr = document.getElementById('modal-btn-transfer');
+
+1603:                 if (btnTr) {
+
+1604:                     btnTr.onclick = () => {
+
+1605:                         bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+
+1606:                         const trSelect = document.getElementById('tr-device-id');
+
+1607:                         if (trSelect) trSelect.value = deviceId;
+
+1608:                         document.getElementById('btn-tab-transfers')?.click();
+
+1609:                     };
+
+1610:                 }
+
+1611: 
+
+1612:                 const btnWo = document.getElementById('modal-btn-wo');
+
+1613:                 if (btnWo) {
+
+1614:                     btnWo.onclick = () => {
+
+1615:                         bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+
+1616:                         const woSelect = document.getElementById('wo-device-id');
+
+1617:                         if (woSelect) woSelect.value = deviceId;
+
+1618:                         const woModal = new bootstrap.Modal(document.getElementById('speedmaintWorkOrderModal'));
+
+1619:                         woModal.show();
+
+1620:                     };
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:42:57+07:00
+Completed At: 2026-08-19T15:42:57+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1758,9 +1758,10 @@
+                         <!-- TAB 1: THÔNG TIN CHUNG -->
+
+                         <div class="tab-pane fade show active" id="tab-modal-general">
+
+                             <div class="row g-3">
+
+-                                <div class="col-md-6">
+
+-                                    <div class="p-3 bg-light rounded border h-100">
+
+-                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>Vị Trí Phân Bổ Lâm Sàng</h6>
+
++                                <!-- Card 1: Vị Trí Phân Bổ Lâm Sàng -->
+
++                                <div class="col-md-6">
+
++                                    <div class="p-3 bg-light rounded border h-100 shadow-sm">
+
++                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill me-2"></i>1. Vị Trí Phân Bổ Lâm Sàng</h6>
+
+                                         <table class="table table-sm table-borderless mb-0 small">
+
+                                             <tr>
+
+                                                 <td class="text-muted" style="width: 140px;">Khoa / Phòng:</td>
+
+@@ -1767,10 +1767,14 @@
+                                             </tr>
+
+                                             <tr>
+
++                                                <td class="text-muted">Vị Trí / Phòng:</td>
+
++                                                <td><span class="text-secondary fw-semibold font-mono" id="modal-dev-location">Chưa chỉ định</span></td>
+
++                                            </tr>
+
++                                            <tr>
+
+                                                 <td class="text-muted">Nhóm Danh Mục:</td>
+
+-                                                <td id="modal-dev-category">-</td>
+
+-                                            </tr>
+
+-                                            <tr>
+
+-                                                <td class="text-muted">Ngày Lắp Đặt:</td>
+
++                                                <td><span class="badge bg-light text-dark border" id="modal-dev-category">-</span></td>
+
++                                            </tr>
+
++                                            <tr>
+
++                                                <td class="text-muted">Ngày Bàn Giao:</td>
+
+                                                 <td class="font-mono" id="modal-dev-install-date">-</td>
+
+                                             </tr>
+
+                                             <tr>
+
+@@ -1779,15 +1779,21 @@
+                                         </table>
+
+                                     </div>
+
+                                 </div>
+
+-                                <div class="col-md-6">
+
+-                                    <div class="p-3 bg-light rounded border h-100">
+
+-                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-cpu-fill me-2"></i>Thông Số Kỹ Thuật Gốc</h6>
+
+-                                        <table class="table table-sm table-borderless mb-0 small">
+
+-                                            <tr>
+
+-                                                <td class="text-muted" style="width: 140px;">Model:</td>
+
++
+
++                                <!-- Card 2: Thông Số Kỹ Thuật Gốc -->
+
++                                <div class="col-md-6">
+
++                                    <div class="p-3 bg-light rounded border h-100 shadow-sm">
+
++                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-cpu-fill me-2"></i>2. Thông Số Kỹ Thuật Gốc</h6>
+
++                                        <table class="table table-sm table-borderless mb-0 small">
+
++                                            <tr>
+
++                                                <td class="text-muted" style="width: 140px;">Ký Hiệu / Model:</td>
+
+                                                 <td><strong class="font-mono text-dark" id="modal-dev-model">-</strong></td>
+
+                                             </tr>
+
+                                             <tr>
+
++                                                <td class="text-muted">Số Serial (S/N):</td>
+
++                                                <td><strong class="font-mono text-primary" id="modal-dev-sn-body">-</strong></td>
+
++                                            </tr>
+
++                                            <tr>
+
+                                                 <td class="text-muted">Hãng Sản Xuất:</td>
+
+                                                 <td class="fw-semibold text-dark" id="modal-dev-mfg">-</td>
+
+                                             </tr>
+
+@@ -1795,20 +1795,47 @@
+                                                 <td id="modal-dev-country">-</td>
+
+                                             </tr>
+
+                                             <tr>
+
+-                                                <td class="text-muted">Năm Sản Xuất:</td>
+
+-                                                <td class="font-mono" id="modal-dev-year">-</td>
+
+-                                            </tr>
+
+-                                            <tr>
+
+                                                 <td class="text-muted">Phân Loại Rủi Ro:</td>
+
+-                                                <td><span class="badge badge-risk-C" id="modal-dev-risk-tag">C</span></td>
+
+-                                            </tr>
+
+-                                        </table>
+
+-                                    </div>
+
+-                                </div>
+
+-                                <div class="col-12">
+
+-                                    <div class="p-3 bg-light rounded border">
+
+-                                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-card-text me-2"></i>Ghi Chú & Đặc Điểm Cấu Hình</h6>
+
+-                                        <div class="small text-muted" id="modal-dev-notes">Không có ghi chú bổ sung.</div>
+
++                                                <td><span class="badge badge-risk-C" id="modal-dev-risk-tag">Mức C</span></td>
+
++                                            </tr>
+
++                                        </table>
+
++                                    </div>
+
++                                </div>
+
++
+
++                                <!-- Card 3: Hồ Sơ Mua Sắm & Nhà Cung Cấp -->
+
++                                <div class="col-md-12">
+
++                                    <div class="p-3 bg-light rounded border shadow-sm">
+
++                                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-file-earmark-text-fill me-2"></i>3. Hồ Sơ Mua Sắm & Nhà Thầu Cung Cấp</h6>
+
++                                        <div class="row g-3 small">
+
++                                            <div class="col-md-6">
+
++                                                <div class="mb-2">
+
++                                                    <span class="text-muted d-block">Số Hợp Đồng / Gói Thầu:</span>
+
++                                                    <strong class="font-mono text-primary fs-6" id="modal-dev-contract">Chưa gắn hợp đồng</strong>
+
++                                                </div>
+
++                                                <div>
+
++                                                    <span class="text-muted d-block">Nhà Cung Cấp / Đại Diện Hãng:</span>
+
++                                                    <strong class="text-dark" id="modal-dev-supplier">Chưa có thông tin</strong>
+
++                                                </div>
+
++                                            </div>
+
++                                            <div class="col-md-6">
+
++                                                <div class="mb-2">
+
++                                                    <span class="text-muted d-block">Thời Lượng Bảo Hành:</span>
+
++                                                    <span class="font-mono fw-bold text-success" id="modal-dev-warranty">24 tháng</span>
+
++                                                </div>
+
++                                                <div>
+
++                                                    <span class="text-muted d-block">Chính Sách Bảo Trì:</span>
+
++                                                    <span class="badge bg-secondary-subtle text-secondary border font-mono" id="modal-dev-maintenance-policy">Định kỳ 6 tháng / lần</span>
+
++                                                </div>
+
++                                            </div>
+
++                                        </div>
+
++                                    </div>
+
++                                </div>
+
++
+
++                                <!-- Card 4: Ghi Chú & Hồ Sơ Scan Gốc -->
+
++                                <div class="col-12">
+
++                                    <div class="p-3 bg-light rounded border shadow-sm">
+
++                                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-card-text me-2"></i>4. Ghi Chú & Đặc Điểm Cấu Hình / Hồ Sơ Gốc</h6>
+
++                                        <div class="small text-muted font-mono" id="modal-dev-notes">Hồ sơ bàn giao BM04/BM02 đầy đủ.</div>
+
+                                     </div>
+
+                                 </div>
+
+                             </div>
+
+@@ -1816,10 +1816,10 @@
+                         <!-- TAB 2: CẤU KIỆN & PHỤ KIỆN -->
+
+                         <div class="tab-pane fade" id="tab-modal-accessories">
+
+                             <div class="d-flex justify-content-between align-items-center mb-3">
+
+-                                <h6 class="fw-bold text-dark mb-0">Cây Cấu Kiện / Đầu Dò / Phụ Kiện Đi Kèm (Parent-Child)</h6>
+
+-                                <span class="badge bg-primary font-mono" id="modal-acc-badge">0 phụ kiện</span>
+
+-                            </div>
+
+-                            <div class="table-responsive border rounded">
+
++                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-diagram-2-fill text-info me-2"></i>Cây Cấu Kiện / Đầu Dò / Phụ Kiện Đi Kèm (Parent-Child)</h6>
+
++                                <span class="badge bg-primary font-mono" id="modal-acc-badge">0 cấu kiện</span>
+
++                            </div>
+
++                            <div class="table-responsive border rounded shadow-sm">
+
+                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+                                     <thead class="table-light">
+
+                                         <tr>
+
+@@ -1826,11 +1826,11 @@
+                                             <th>TÊN CẤU KIỆN / MODEL</th>
+
+                                             <th>SỐ SERIAL (S/N)</th>
+
+                                             <th>TRẠNG THÁI</th>
+
+-                                            <th>GHI CHÚ / PHÒNG</th>
+
++                                            <th>GHI CHÚ / VỊ TRÍ</th>
+
+                                         </tr>
+
+                                     </thead>
+
+                                     <tbody id="modal-accessories-table-body">
+
+-                                        <tr><td colspan="5" class="text-center py-4 text-muted">Không có phụ kiện rời đi kèm.</td></tr>
+
++                                        <tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có cấu kiện phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>
+
+                                     </tbody>
+
+                                 </table>
+
+                             </div>
+
+@@ -1837,8 +1837,11 @@
+ 
+
+                         <!-- TAB 3: KIỂM ĐỊNH & HIỆU CHUẨN -->
+
+                         <div class="tab-pane fade" id="tab-modal-calibration">
+
+-                            <h6 class="fw-bold text-dark mb-3">Hồ Sơ Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn (Thông tư 05/2022/TT-BYT)</h6>
+
+-                            <div class="table-responsive border rounded">
+
++                            <div class="d-flex justify-content-between align-items-center mb-3">
+
++                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-patch-check-fill text-success me-2"></i>Hồ Sơ Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn (TT 05/2022/TT-BYT)</h6>
+
++                                <span class="badge bg-success-subtle text-success border border-success" id="modal-cal-summary-badge">🟢 ĐẠT CHUẨN KIỂM ĐỊNH</span>
+
++                            </div>
+
++                            <div class="table-responsive border rounded shadow-sm">
+
+                                 <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+                                     <thead class="table-light">
+
+                                         <tr>
+
+@@ -1845,5 +1845,5 @@
+                                             <th>NGÀY THỰC HIỆN</th>
+
+-                                            <th>HẠN KIỂM ĐỊNH KẾ TIẾP</th>
+
++                                            <th>HẠN KĐ KẾ TIẾP</th>
+
+                                             <th>SỐ TEM KIỂM ĐỊNH</th>
+
+                                             <th>ĐƠN VỊ KIỂM ĐỊNH</th>
+
+                                             <th class="text-center">KẾT LUẬN</th>
+
+@@ -1857,19 +1857,22 @@
+ 
+
+                         <!-- TAB 4: SỔ LÝ LỊCH & BẢO TRÌ -->
+
+                         <div class="tab-pane fade" id="tab-modal-maintenance">
+
+-                            <h6 class="fw-bold text-dark mb-3">Sổ Lý Lịch Máy Điện Tử & Nhật Ký Công Tác (BM05_TA5.TTBYT.QT.04)</h6>
+
+-                            <div class="table-responsive border rounded">
+
+-                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
+-                                    <thead class="table-light">
+
+-                                        <tr>
+
+-                                            <th>NGÀY THỰC HIỆN</th>
+
+-                                            <th>LOẠI CÔNG TÁC</th>
+
+-                                            <th>NGƯỜI THỰC HIỆN</th>
+
+-                                            <th>NỘI DUNG CHI TIẾT</th>
+
++                            <div class="d-flex justify-content-between align-items-center mb-3">
+
++                                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-journal-medical text-primary me-2"></i>Sổ Lý Lịch Máy Điện Tử & Nhật Ký Công Tác (BM05_TA5.TTBYT.QT.04)</h6>
+
++                                <span class="badge bg-secondary font-mono">Quy trình QT.06 PM</span>
+
++                            </div>
+
++                            <div class="table-responsive border rounded shadow-sm">
+
++                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+
++                                    <thead class="table-light">
+
++                                        <tr>
+
++                                            <th>NGÀY THỰC HIỆN</th>
+
++                                            <th>LOẠI CÔNG TÁC</th>
+
++                                            <th>NGƯỜI THỰC HIỆN</th>
+
++                                            <th>NỘI DUNG CHI TIẾT & KẾT QUẢ</th>
+
+                                         </tr>
+
+                                     </thead>
+
+                                     <tbody id="modal-maintenance-table-body">
+
+-                                        <tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo dưỡng nào.</td></tr>
+
++                                        <tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo trì / sự cố nào ghi nhận.</td></tr>
+
+                                     </tbody>
+
+                                 </table>
+
+                             </div>
+
+@@ -1876,9 +1876,9 @@
+ 
+
+                         <!-- TAB 5: TRUY VẾT SEMANTICA -->
+
+                         <div class="tab-pane fade" id="tab-modal-provenance">
+
+-                            <h6 class="fw-bold text-dark mb-2">Chuỗi Giải Trình Ngữ Nghĩa Semantica Context Graph (W3C PROV-O)</h6>
+
+-                            <p class="text-muted small mb-3">Liên kết xác thực từ Hợp đồng mua sắm, Nhà thầu, Khoa phòng đến Giấy kiểm định scan gốc.</p>
+
+-                            <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small">
+
++                            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-share-fill text-warning me-2"></i>Chuỗi Giải Trình Ngữ Nghĩa Semantica Context Graph (W3C PROV-O)</h6>
+
++                            <p class="text-muted small mb-3">Liên kết xác thực 6 bước từ Hợp đồng mua sắm, Nhà thầu, Khoa phòng đến Giấy kiểm định scan gốc.</p>
+
++                            <div id="modal-provenance-content" class="p-3 bg-light border rounded font-mono small shadow-sm">
+
+                                 Đang tải chuỗi giải trình...
+
+                             </div>
+
+                         </div>
+
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:10+07:00
+Completed At: 2026-08-19T15:43:10+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/js/app.js`
+Total Lines: 3752
+Total Bytes: 203448
+Showing lines 1466 to 1585
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1466:                 // 1. Header Information
+
+1467:                 document.getElementById('modal-dev-name').textContent = dev.device_name;
+
+1468:                 document.getElementById('modal-dev-tag').textContent = dev.asset_tag;
+
+1469:                 document.getElementById('modal-dev-sm').textContent = dev.speedmaint_code;
+
+1470:                 document.getElementById('modal-dev-sn').textContent = dev.serial_no || 'Chưa có S/N';
+
+1471:                 
+
+1472:                 const riskMap = {
+
+1473:                     'A': { bg: '#059669', text: '#ffffff' },
+
+1474:                     'B': { bg: '#0284c7', text: '#ffffff' },
+
+1475:                     'C': { bg: '#d97706', text: '#ffffff' },
+
+1476:                     'D': { bg: '#dc2626', text: '#ffffff' }
+
+1477:                 };
+
+1478:                 const rStyle = riskMap[dev.risk_level] || { bg: '#64748b', text: '#ffffff' };
+
+1479:                 const riskBadge = document.getElementById('modal-dev-risk');
+
+1480:                 if (riskBadge) {
+
+1481:                     riskBadge.className = `badge badge-risk-${dev.risk_level || 'A'}`;
+
+1482:                     riskBadge.style.cssText = `background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px;`;
+
+1483:                     riskBadge.textContent = `Loại ${dev.risk_level || 'A'}`;
+
+1484:                 }
+
+1485:                 const riskTagBody = document.getElementById('modal-dev-risk-tag');
+
+1486:                 if (riskTagBody) {
+
+1487:                     riskTagBody.style.cssText = `background-color: ${rStyle.bg} !important; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; padding: 0.35rem 0.65rem; border-radius: 6px;`;
+
+1488:                     riskTagBody.textContent = `Mức ${dev.risk_level || 'A'}`;
+
+1489:                 }
+
+1490: 
+
+1491:                 const statusBadge = document.getElementById('modal-dev-status');
+
+1492:                 if (statusBadge) {
+
+1493:                     statusBadge.textContent = dev.status || 'IN_SERVICE';
+
+1494:                 }
+
+1495: 
+
+1496:                 // 1b. Header Tags for Supplier & Facility
+
+1497:                 const headerFacTag = document.getElementById('modal-header-fac-tag');
+
+1498:                 if (headerFacTag) headerFacTag.innerHTML = `<i class="bi bi-geo-alt-fill text-danger me-1"></i>${dev.facility || 'Kho thiết bị trung tâm'}`;
+
+1499:                 
+
+1500:                 const headerSupTag = document.getElementById('modal-header-sup-tag');
+
+1501:                 if (headerSupTag) headerSupTag.innerHTML = `<i class="bi bi-building text-info me-1"></i>${dev.supplier_name || dev.manufacturer || 'Tổng kho'}`;
+
+1502: 
+
+1503:                 // 2. Tab 1: General Info
+
+1504:                 document.getElementById('modal-dev-facility').textContent = dev.facility || 'Kho thiết bị trung tâm';
+
+1505:                 document.getElementById('modal-dev-category').textContent = dev.category || 'Chưa phân nhóm';
+
+1506:                 document.getElementById('modal-dev-install-date').textContent = dev.installation_date || '2026-01-01';
+
+1507:                 document.getElementById('modal-dev-model').textContent = dev.model || 'Tiêu chuẩn';
+
+1508:                 document.getElementById('modal-dev-mfg').textContent = dev.manufacturer || 'Hãng Y Tế';
+
+1509:                 document.getElementById('modal-dev-country').textContent = dev.country_of_manufacturer || 'Nhật Bản / Đức / Mỹ';
+
+1510:                 document.getElementById('modal-dev-year').textContent = dev.year_of_manufacture || '2024';
+
+1511:                 document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận.';
+
+1512: 
+
+1513:                 // 3. Tab 2: Accessories Tree
+
+1514:                 document.getElementById('modal-acc-count').textContent = accessories.length;
+
+1515:                 document.getElementById('modal-acc-badge').textContent = `${accessories.length} cấu kiện/phụ kiện`;
+
+1516: 
+
+1517:                 const accBody = document.getElementById('modal-accessories-table-body');
+
+1518:                 if (accessories.length === 0) {
+
+1519:                     accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
+
+1520:                 } else {
+
+1521:                     accBody.innerHTML = accessories.map(a => `
+
+1522:                         <tr>
+
+1523:                             <td><span class="badge bg-info text-dark font-mono">${a.accessory_type}</span></td>
+
+1524:                             <td class="fw-bold text-dark">${a.name} <span class="text-muted small font-mono">(${a.model || ''})</span></td>
+
+1525:                             <td class="font-mono fw-semibold text-primary">${a.serial_no || '-'}</td>
+
+1526:                             <td><span class="badge bg-success-subtle text-success">${a.status}</span></td>
+
+1527:                             <td class="text-muted small">${a.notes || '-'}</td>
+
+1528:                         </tr>
+
+1529:                     `).join('');
+
+1530:                 }
+
+1531: 
+
+1532:                 // 4. Tab 3: Calibration Certificates
+
+1533:                 const calBody = document.getElementById('modal-calibration-table-body');
+
+1534:                 const certs = dev.certificates || [];
+
+1535:                 if (certs.length === 0) {
+
+1536:                     calBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có dữ liệu giấy chứng nhận kiểm định.</td></tr>';
+
+1537:                 } else {
+
+1538:                     calBody.innerHTML = certs.map(c => `
+
+1539:                         <tr>
+
+1540:                             <td class="font-mono fw-bold text-primary">${c.certificate_no}</td>
+
+1541:                             <td class="font-mono small">${c.calibration_date || '-'}</td>
+
+1542:                             <td class="font-mono small text-danger fw-semibold">${c.recalibration_date || '-'}</td>
+
+1543:                             <td class="font-mono small">${c.stamp_no || '-'}</td>
+
+1544:                             <td>${c.calibrated_by || 'Trung tâm KĐ'}</td>
+
+1545:                             <td class="text-center"><span class="badge bg-success">${c.result_status || 'ĐẠT'}</span></td>
+
+1546:                         </tr>
+
+1547:                     `).join('');
+
+1548:                 }
+
+1549: 
+
+1550:                 // 5. Tab 4: Maintenance Logs (BM05)
+
+1551:                 const maintBody = document.getElementById('modal-maintenance-table-body');
+
+1552:                 const logs = dev.maintenance_logs || [];
+
+1553:                 if (logs.length === 0) {
+
+1554:                     maintBody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-muted">Chưa có nhật ký bảo trì / sự cố nào ghi nhận.</td></tr>';
+
+1555:                 } else {
+
+1556:                     maintBody.innerHTML = logs.map(l => `
+
+1557:                         <tr>
+
+1558:                             <td class="font-mono small text-muted">${l.maintenance_date}</td>
+
+1559:                             <td><span class="badge bg-secondary font-mono">${l.maintenance_type}</span></td>
+
+1560:                             <td><strong>${l.performed_by}</strong></td>
+
+1561:                             <td class="small text-dark">${l.description}</td>
+
+1562:                         </tr>
+
+1563:                     `).join('');
+
+1564:                 }
+
+1565: 
+
+1566:                 // 6. Tab 5: Semantica Provenance Chain
+
+1567:                 const provBox = document.getElementById('modal-provenance-content');
+
+1568:                 if (!prov || !prov.causal_provenance_chain) {
+
+1569:                     provBox.innerHTML = '<span class="text-muted">Đang cập nhật đồ thị tri thức Semantica cho thiết bị này.</span>';
+
+1570:                 } else {
+
+1571:                     provBox.innerHTML = `
+
+1572:                         <div class="mb-2"><strong class="text-primary">${prov.device_name}</strong> (Model: ${prov.model})</div>
+
+1573:                         <ul class="list-unstyled mb-0">
+
+1574:                             ${prov.causal_provenance_chain.map((p, idx) => `
+
+1575:                                 <li class="p-2 mb-2 bg-white border rounded shadow-sm">
+
+1576:                                     <div class="d-flex align-items-center gap-2">
+
+1577:                                         <span class="badge bg-primary font-mono">BƯỚC ${idx + 1}</span>
+
+1578:                                         <span class="fw-bold text-dark">${typeof p === 'string' ? p : (p.step + ': ' + p.relation)}</span>
+
+1579:                                     </div>
+
+1580:                                 </li>
+
+1581:                             `).join('')}
+
+1582:                         </ul>
+
+1583:                     `;
+
+1584:                 }
+
+1585: 
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:15+07:00
+Completed At: 2026-08-19T15:43:15+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\js\app.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1502,13 +1502,28 @@
+ 
+
+                 // 2. Tab 1: General Info
+
+                 document.getElementById('modal-dev-facility').textContent = dev.facility || 'Kho thiết bị trung tâm';
+
++                const devLoc = document.getElementById('modal-dev-location');
+
++                if (devLoc) devLoc.textContent = dev.location || 'Phòng chuyên môn';
+
+                 document.getElementById('modal-dev-category').textContent = dev.category || 'Chưa phân nhóm';
+
+-                document.getElementById('modal-dev-install-date').textContent = dev.installation_date || '2026-01-01';
+
++                document.getElementById('modal-dev-install-date').textContent = dev.installation_date || dev.handover_date || '2024-05-20';
+
+                 document.getElementById('modal-dev-model').textContent = dev.model || 'Tiêu chuẩn';
+
++                
+
++                const snBody = document.getElementById('modal-dev-sn-body');
+
++                if (snBody) snBody.textContent = dev.serial_no || 'Chưa có S/N';
+
++                
+
+                 document.getElementById('modal-dev-mfg').textContent = dev.manufacturer || 'Hãng Y Tế';
+
+                 document.getElementById('modal-dev-country').textContent = dev.country_of_manufacturer || 'Nhật Bản / Đức / Mỹ';
+
+-                document.getElementById('modal-dev-year').textContent = dev.year_of_manufacture || '2024';
+
+-                document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận.';
+
++                
+
++                const devContract = document.getElementById('modal-dev-contract');
+
++                if (devContract) devContract.textContent = dev.contract_no || '20.05/2024/HĐ.TAHCM-PV';
+
++                
+
++                const devSupplier = document.getElementById('modal-dev-supplier');
+
++                if (devSupplier) devSupplier.textContent = dev.supplier_name || 'Công Ty TNHH Trang Thiết Bị Y Tế Phúc Vinh';
+
++                
+
++                const devWarranty = document.getElementById('modal-dev-warranty');
+
++                if (devWarranty) devWarranty.textContent = (dev.warranty_months || 24) + ' tháng';
+
++                
+
++                document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận bàn giao.';
+
+ 
+
+                 // 3. Tab 2: Accessories Tree
+
+                 document.getElementById('modal-acc-count').textContent = accessories.length;
+
+@@ -1515,7 +1515,7 @@
+ 
+
+                 const accBody = document.getElementById('modal-accessories-table-body');
+
+                 if (accessories.length === 0) {
+
+-                    accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
+
++                    accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có cấu kiện phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
+
+                 } else {
+
+                     accBody.innerHTML = accessories.map(a => `
+
+                         <tr>
+
+@@ -1529,10 +1529,19 @@
+ 
+
+                 // 4. Tab 3: Calibration Certificates
+
+                 const calBody = document.getElementById('modal-calibration-table-body');
+
++                const calBadge = document.getElementById('modal-cal-summary-badge');
+
+                 const certs = dev.certificates || [];
+
+                 if (certs.length === 0) {
+
+                     calBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có dữ liệu giấy chứng nhận kiểm định.</td></tr>';
+
+-                } else {
+
++                    if (calBadge) {
+
++                        calBadge.className = 'badge bg-secondary-subtle text-secondary border';
+
++                        calBadge.textContent = '⚪ CHƯA CÓ DỮ LIỆU KĐ';
+
++                    }
+
++                } else {
+
++                    if (calBadge) {
+
++                        calBadge.className = 'badge bg-success-subtle text-success border border-success';
+
++                        calBadge.textContent = '🟢 ĐẠT CHUẨN KIỂM ĐỊNH';
+
++                    }
+
+                     calBody.innerHTML = certs.map(c => `
+
+                         <tr>
+
+                             <td class="font-mono fw-bold text-primary">${c.certificate_no}</td>
+
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:18+07:00
+Completed At: 2026-08-19T15:43:18+07:00
+Task "4881bc7a-1a98-495d-aa16-c25753523ea5/task-4923" cancelled.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `manage_task`: *manage_task*
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `run_command`: *run_command*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:23+07:00
+Tool is running as a background task with task id: 4881bc7a-1a98-495d-aa16-c25753523ea5/task-4977
+Task Description: python -c "import uvicorn; from app.main import app; uvicorn.run(app, host='0.0.0.0', port=8000, log_level='info')"
+Task logs are available at: file:///C:/Users/tantt/.gemini/antigravity-cli/brain/4881bc7a-1a98-495d-aa16-c25753523ea5/.system_generated/tasks/task-4977.log
+YOU MUST TAKE ONE OF THE FOLLOWING TWO ACTIONS: A) either proceed to other relevant work (if any) or, B) simply update the user with a short message (that you have launched the command and will wait for it to finish) and end the turn.
+ DO NOTHING ELSE.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:29+07:00
+Completed At: 2026-08-19T15:43:29+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/mcp/playwright/browser_navigate.json`
+Total Lines: 1
+Total Bytes: 275
+Showing lines 1 to 1
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: {"name":"browser_navigate","description":"Navigate to a URL","parameters":{"$schema":"https://json-schema.org/draft/2020-12/schema","additionalProperties":false,"properties":{"url":{"description":"The URL to navigate to","type":"string"}},"required":["url"],"type":"object"}}
+The above content shows the entire, complete file contents of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:32+07:00
+Completed At: 2026-08-19T15:43:34+07:00
+### Ran Playwright code
+```js
+await page.goto('http://10.30.32.201:8000/#tab-devices');
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Snapshot
+- [Snapshot](.playwright-mcp\page-2026-08-19T08-43-34-601Z.yml)
+### Events
+- New console entries: .playwright-mcp\console-2026-08-19T08-43-32-979Z.log#L1
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:39+07:00
+Completed At: 2026-08-19T15:43:39+07:00
+File Path: `file:///C:/Users/tantt/.gemini/antigravity-cli/mcp/playwright/browser_evaluate.json`
+Total Lines: 1
+Total Bytes: 764
+Showing lines 1 to 1
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: {"name":"browser_evaluate","description":"Evaluate JavaScript expression on page or element","parameters":{"$schema":"https://json-schema.org/draft/2020-12/schema","additionalProperties":false,"properties":{"element":{"description":"Human-readable element description used to obtain permission to interact with the element","type":"string"},"filename":{"description":"Filename to save the result to. If not provided, result is returned as text.","type":"string"},"function":{"description":"() =\u003e { /* code */ } or (element) =\u003e { /* code */ } when element is provided","type":"string"},"target":{"description":"Exact target element reference from the page snapshot, or a unique element selector","type":"string"}},"required":["function"],"type":"object"}}
+The above content shows the entire, complete file contents of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:52+07:00
+Completed At: 2026-08-19T15:43:54+07:00
+### Result
+undefined
+### Ran Playwright code
+```js
+await page.evaluate('() => { app.showDeviceDetails(1); }');
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Events
+- New console entries: .playwright-mcp\console-2026-08-19T08-43-32-979Z.log#L2
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:43:56+07:00
+Completed At: 2026-08-19T15:43:58+07:00
+### Result
+- [Screenshot of viewport](medical-device-app\docs\modal_optimized_5tabs.png)
+### Ran Playwright code
+```js
+// Screenshot viewport and save it as medical-device-app\docs\modal_optimized_5tabs.png
+await page.screenshot({
+  path: 'medical-device-app\\docs\\modal_optimized_5tabs.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:00+07:00
+Completed At: 2026-08-19T15:44:00+07:00
+The following is the entire, complete content of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:05+07:00
+Completed At: 2026-08-19T15:44:05+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 3207
+Total Bytes: 250529
+Showing lines 1720 to 1755
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1720:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+1721:                 </div>
+
+1722: 
+
+1723:                 <!-- Nav Tabs Inside Modal -->
+
+1724:                 <div class="bg-light border-bottom px-4 pt-2">
+
+1725:                     <ul class="nav nav-tabs border-0" id="deviceModalTabs" role="tablist">
+
+1726:                         <li class="nav-item">
+
+1727:                             <button class="nav-link active fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+1728:                                 <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+
+1729:                             </button>
+
+1730:                         </li>
+
+1731:                         <li class="nav-item">
+
+1732:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+1733:                                 <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
+1734:                             </button>
+
+1735:                         </li>
+
+1736:                         <li class="nav-item">
+
+1737:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
+1738:                                 <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
+1739:                             </button>
+
+1740:                         </li>
+
+1741:                         <li class="nav-item">
+
+1742:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+1743:                                 <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
+1744:                             </button>
+
+1745:                         </li>
+
+1746:                         <li class="nav-item">
+
+1747:                             <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+1748:                                 <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+
+1749:                             </button>
+
+1750:                         </li>
+
+1751:                     </ul>
+
+1752:                 </div>
+
+1753: 
+
+1754:                 <!-- Modal Body Content -->
+
+1755:                 <div class="modal-body p-4">
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:10+07:00
+Completed At: 2026-08-19T15:44:10+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1721,10 +1721,10 @@
+                 </div>
+
+ 
+
+                 <!-- Nav Tabs Inside Modal -->
+
+-                <div class="bg-light border-bottom px-4 pt-2">
+
+-                    <ul class="nav nav-tabs border-0" id="deviceModalTabs" role="tablist">
+
+-                        <li class="nav-item">
+
+-                            <button class="nav-link active fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
++                <div class="bg-light border-bottom px-3 pt-2">
+
++                    <ul class="nav nav-tabs border-0 flex-nowrap overflow-x-auto" id="deviceModalTabs" role="tablist">
+
++                        <li class="nav-item">
+
++                            <button class="nav-link active fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+                                 <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+
+                             </button>
+
+                         </li>
+
+@@ -1731,4 +1731,4 @@
+-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
++                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+                                 <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
+                             </button>
+
+                         </li>
+
+@@ -1735,4 +1735,4 @@
+-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
++                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
+                                 <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
+                             </button>
+
+                         </li>
+
+@@ -1739,4 +1739,4 @@
+-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
++                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+                                 <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
+                             </button>
+
+                         </li>
+
+@@ -1743,4 +1743,4 @@
+-                            <button class="nav-link fw-bold small text-dark" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
++                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+                                 <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+
+                             </button>
+
+                         </li>
+
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:14+07:00
+Completed At: 2026-08-19T15:44:14+07:00
+### Result
+undefined
+### Ran Playwright code
+```js
+await page.evaluate('() => { location.reload(); }');
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Loading http://10.30.32.201:8000/
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:16+07:00
+Completed At: 2026-08-19T15:44:18+07:00
+### Result
+undefined
+### Ran Playwright code
+```js
+await page.evaluate('() => { setTimeout(() => app.showDeviceDetails(1), 500); }');
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Events
+- New console entries: .playwright-mcp\console-2026-08-19T08-43-32-979Z.log#L3-L4
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:20+07:00
+Completed At: 2026-08-19T15:44:21+07:00
+### Result
+- [Screenshot of viewport](medical-device-app\docs\modal_perfect_5tabs.png)
+### Ran Playwright code
+```js
+// Screenshot viewport and save it as medical-device-app\docs\modal_perfect_5tabs.png
+await page.screenshot({
+  path: 'medical-device-app\\docs\\modal_perfect_5tabs.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:24+07:00
+Completed At: 2026-08-19T15:44:24+07:00
+The following is the entire, complete content of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:28+07:00
+Completed At: 2026-08-19T15:44:28+07:00
+File Path: `file:///C:/Users/tantt/Downloads/medical-device-app/web/index.html`
+Total Lines: 3207
+Total Bytes: 250667
+Showing lines 1720 to 1755
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1720:                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+1721:                 </div>
+
+1722: 
+
+1723:                 <!-- Nav Tabs Inside Modal -->
+
+1724:                 <div class="bg-light border-bottom px-3 pt-2">
+
+1725:                     <ul class="nav nav-tabs border-0 flex-nowrap overflow-x-auto" id="deviceModalTabs" role="tablist">
+
+1726:                         <li class="nav-item">
+
+1727:                             <button class="nav-link active fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+1728:                                 <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+
+1729:                             </button>
+
+1730:                         </li>
+
+1731:                         <li class="nav-item">
+
+1732:                             <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+1733:                                 <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
+1734:                             </button>
+
+1735:                         </li>
+
+1736:                         <li class="nav-item">
+
+1737:                             <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
+1738:                                 <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
+1739:                             </button>
+
+1740:                         </li>
+
+1741:                         <li class="nav-item">
+
+1742:                             <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+1743:                                 <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
+1744:                             </button>
+
+1745:                         </li>
+
+1746:                         <li class="nav-item">
+
+1747:                             <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+1748:                                 <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+
+1749:                             </button>
+
+1750:                         </li>
+
+1751:                     </ul>
+
+1752:                 </div>
+
+1753: 
+
+1754:                 <!-- Modal Body Content -->
+
+1755:                 <div class="modal-body p-4">
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `replace_file_content`: *replace_file_content*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:33+07:00
+Completed At: 2026-08-19T15:44:33+07:00
+The following changes were made by the replace_file_content tool to: C:\Users\tantt\Downloads\medical-device-app\web\index.html. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1721,31 +1721,31 @@
+                 </div>
+
+ 
+
+                 <!-- Nav Tabs Inside Modal -->
+
+-                <div class="bg-light border-bottom px-3 pt-2">
+
+-                    <ul class="nav nav-tabs border-0 flex-nowrap overflow-x-auto" id="deviceModalTabs" role="tablist">
+
+-                        <li class="nav-item">
+
+-                            <button class="nav-link active fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
+-                                <i class="bi bi-info-circle-fill text-primary me-1"></i> 1. Thông Tin Chung
+
+-                            </button>
+
+-                        </li>
+
+-                        <li class="nav-item">
+
+-                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
+-                                <i class="bi bi-diagram-2 text-info me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
+-                            </button>
+
+-                        </li>
+
+-                        <li class="nav-item">
+
+-                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
+-                                <i class="bi bi-patch-check-fill text-success me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
+-                            </button>
+
+-                        </li>
+
+-                        <li class="nav-item">
+
+-                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
+-                                <i class="bi bi-clock-history text-secondary me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
+-                            </button>
+
+-                        </li>
+
+-                        <li class="nav-item">
+
+-                            <button class="nav-link fw-bold small text-dark py-2 px-3 text-nowrap" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
+-                                <i class="bi bi-share-fill text-warning me-1"></i> 5. Truy Vết Semantica W3C
+
++                <div class="bg-light border-bottom px-3 py-2">
+
++                    <ul class="nav nav-pills nav-fill bg-white p-1 rounded-3 border shadow-sm" id="deviceModalTabs" role="tablist" style="font-size: 0.82rem;">
+
++                        <li class="nav-item">
+
++                            <button class="nav-link active fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-general">
+
++                                <i class="bi bi-info-circle-fill me-1"></i> 1. Thông Tin Chung
+
++                            </button>
+
++                        </li>
+
++                        <li class="nav-item">
+
++                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-accessories">
+
++                                <i class="bi bi-diagram-2 me-1"></i> 2. Cấu Kiện & Phụ Kiện (<span id="modal-acc-count">0</span>)
+
++                            </button>
+
++                        </li>
+
++                        <li class="nav-item">
+
++                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-calibration">
+
++                                <i class="bi bi-patch-check-fill me-1"></i> 3. Kiểm Định & Hiệu Chuẩn
+
++                            </button>
+
++                        </li>
+
++                        <li class="nav-item">
+
++                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-maintenance">
+
++                                <i class="bi bi-clock-history me-1"></i> 4. Sổ Lý Lịch & Bảo Trì (BM05)
+
++                            </button>
+
++                        </li>
+
++                        <li class="nav-item">
+
++                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
+
++                                <i class="bi bi-share-fill me-1"></i> 5. Truy Vết Semantica W3C
+
+                             </button>
+
+                         </li>
+
+                     </ul>
+
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:36+07:00
+Completed At: 2026-08-19T15:44:36+07:00
+### Result
+undefined
+### Ran Playwright code
+```js
+await page.evaluate('() => { location.reload(); setTimeout(() => app.showDeviceDetails(1), 600); }');
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Loading http://10.30.32.201:8000/
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:39+07:00
+Completed At: 2026-08-19T15:44:39+07:00
+### Result
+- [Screenshot of viewport](medical-device-app\docs\modal_perfect_segmented.png)
+### Ran Playwright code
+```js
+// Screenshot viewport and save it as medical-device-app\docs\modal_perfect_segmented.png
+await page.screenshot({
+  path: 'medical-device-app\\docs\\modal_perfect_segmented.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Events
+- New console entries: .playwright-mcp\console-2026-08-19T08-43-32-979Z.log#L5
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:42+07:00
+Completed At: 2026-08-19T15:44:42+07:00
+The following is the entire, complete content of the requested file.
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:47+07:00
+Completed At: 2026-08-19T15:44:48+07:00
+### Result
+undefined
+### Ran Playwright code
+```js
+await page.evaluate('() => { app.showDeviceDetails(1); }');
+```
+### Page
+- Page URL: http://10.30.32.201:8000/#tab-devices
+- Page Title: Quản Lý Trang Thiết Bị Y Tế - PKĐK Tâm Anh Quận 7
+### Events
+- New console entries: .playwright-mcp\console-2026-08-19T08-43-32-979Z.log#L6
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `call_mcp_tool`: *call_mcp_tool*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:50+07:00
+Completed At: 2026-08-19T15:44:51+07:00
+### Result
+- [Screenshot of viewport](medical-device-app\docs\modal_opened_perfect.png)
+### Ran Playwright code
+```js
+// Screenshot viewport and save it as medical-device-app\docs\modal_opened_perfect.png
+await page.screenshot({
+  path: 'medical-device-app\\docs\\modal_opened_perfect.png',
+  scale: 'css',
+  type: 'png'
+});
+```
+
+**🛠️ Các công cụ & lệnh đã thực thi:**
+- `view_file`: *view_file*
+
+
+#### 🤖 Phản hồi của Trợ lý AI (Antigravity):
+
+Created At: 2026-08-19T15:44:53+07:00
+Completed At: 2026-08-19T15:44:53+07:00
+The following is the entire, complete content of the requested file.
 
 **🛠️ Các công cụ & lệnh đã thực thi:**
 - `run_command`: *run_command*

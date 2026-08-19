@@ -1502,13 +1502,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // 2. Tab 1: General Info
                 document.getElementById('modal-dev-facility').textContent = dev.facility || 'Kho thiết bị trung tâm';
+                const devLoc = document.getElementById('modal-dev-location');
+                if (devLoc) devLoc.textContent = dev.location || 'Phòng chuyên môn';
                 document.getElementById('modal-dev-category').textContent = dev.category || 'Chưa phân nhóm';
-                document.getElementById('modal-dev-install-date').textContent = dev.installation_date || '2026-01-01';
+                document.getElementById('modal-dev-install-date').textContent = dev.installation_date || dev.handover_date || '2024-05-20';
                 document.getElementById('modal-dev-model').textContent = dev.model || 'Tiêu chuẩn';
+                
+                const snBody = document.getElementById('modal-dev-sn-body');
+                if (snBody) snBody.textContent = dev.serial_no || 'Chưa có S/N';
+                
                 document.getElementById('modal-dev-mfg').textContent = dev.manufacturer || 'Hãng Y Tế';
                 document.getElementById('modal-dev-country').textContent = dev.country_of_manufacturer || 'Nhật Bản / Đức / Mỹ';
-                document.getElementById('modal-dev-year').textContent = dev.year_of_manufacture || '2024';
-                document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận.';
+                
+                const devContract = document.getElementById('modal-dev-contract');
+                if (devContract) devContract.textContent = dev.contract_no || '20.05/2024/HĐ.TAHCM-PV';
+                
+                const devSupplier = document.getElementById('modal-dev-supplier');
+                if (devSupplier) devSupplier.textContent = dev.supplier_name || 'Công Ty TNHH Trang Thiết Bị Y Tế Phúc Vinh';
+                
+                const devWarranty = document.getElementById('modal-dev-warranty');
+                if (devWarranty) devWarranty.textContent = (dev.warranty_months || 24) + ' tháng';
+                
+                document.getElementById('modal-dev-notes').textContent = dev.notes || 'Hồ sơ lý lịch máy hợp lệ, đầy đủ CO/CQ và biên bản giao nhận bàn giao.';
 
                 // 3. Tab 2: Accessories Tree
                 document.getElementById('modal-acc-count').textContent = accessories.length;
@@ -1516,7 +1531,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const accBody = document.getElementById('modal-accessories-table-body');
                 if (accessories.length === 0) {
-                    accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
+                    accBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Thiết bị không có cấu kiện phụ kiện rời hoặc sử dụng cấu hình liền khối.</td></tr>';
                 } else {
                     accBody.innerHTML = accessories.map(a => `
                         <tr>
@@ -1531,10 +1546,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // 4. Tab 3: Calibration Certificates
                 const calBody = document.getElementById('modal-calibration-table-body');
+                const calBadge = document.getElementById('modal-cal-summary-badge');
                 const certs = dev.certificates || [];
                 if (certs.length === 0) {
                     calBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Chưa có dữ liệu giấy chứng nhận kiểm định.</td></tr>';
+                    if (calBadge) {
+                        calBadge.className = 'badge bg-secondary-subtle text-secondary border';
+                        calBadge.textContent = '⚪ CHƯA CÓ DỮ LIỆU KĐ';
+                    }
                 } else {
+                    if (calBadge) {
+                        calBadge.className = 'badge bg-success-subtle text-success border border-success';
+                        calBadge.textContent = '🟢 ĐẠT CHUẨN KIỂM ĐỊNH';
+                    }
                     calBody.innerHTML = certs.map(c => `
                         <tr>
                             <td class="font-mono fw-bold text-primary">${c.certificate_no}</td>
