@@ -1,27 +1,32 @@
-# Medical Device Management System (BV Quận 7) Constitution
+# Constitution of Medical Device Management System (BV Quận 7 / PKĐK Tâm Anh Q7)
 
-## 1. Project Identity & Purpose
-- **Mission:** Hệ thống Quản lý Trang Thiết Bị Y Tế cho Bệnh viện Quận 7 số hóa toàn diện 1.049 thiết bị y tế thực tế, kết hợp kiến trúc quản lý tài sản chuẩn **Snipe-IT** và quy trình CMMS **SpeedMaint Cloud (Hoàn Mỹ Sài Gòn)**, trợ lý **Gemini AI**, và công cụ **Mistral OCR-4**.
-- **Target Organization:** Bệnh viện Quận 7, TP. Hồ Chí Minh.
-- **Compliance Standards:**
-  - Nghị định số 98/2021/NĐ-CP của Chính phủ về quản lý trang thiết bị y tế.
-  - Thông tư số 05/2022/TT-BYT của Bộ Y Tế.
-  - Cổng thông tin Công khai Phân loại TTBYT (IMDA MOH) - 4 mức rủi ro A, B, C, D.
-  - Tài liệu hướng dẫn sử dụng phần mềm quản lý TTBYT BV Quận 7 (`TLHD_QLTTBYT_V1.2`).
+## 1. Mục Đích & Phạm Vi
+Hệ thống Quản Lý Trang Thiết Bị Y Tế phục vụ công tác quản lý tài sản, kiểm soát an toàn người bệnh, điều chuyển lâm sàng, bảo trì phòng ngừa (PM), và tuân thủ các quy định y tế nghiêm ngặt của Bộ Y Tế Việt Nam.
 
-## 2. Core Architectural Principles
-- **Design Philosophy:** "Less, but better" - Tinh gọn, loại bỏ thông tin rườm rà, tập trung vào dữ liệu lâm sàng cốt lõi, độ tương phản cao đạt chuẩn WCAG 2.1 AAA.
-- **Data Integrity & Dual Codes:**
-  - Mã định danh tài sản Snipe-IT: `BVQ7-TTB-XXXXX`
-  - Mã công việc CMMS SpeedMaint: `BM/BVQ7/XXXXX`
-  - Số Serial (S/N) là duy nhất và bắt buộc chống trùng lặp trên toàn viện.
-- **Multi-Key Rotation Pool:**
-  - Toàn bộ các dịch vụ AI bên ngoài (Google Gemini, Mistral AI) bắt buộc phải đi qua lớp quản lý `KeyPool`.
-  - Tự động luân chuyển Round-Robin và tự động chuyển tiếp (Failover) khi gặp lỗi Rate-Limit / Quota Exhaustion.
-- **Offline & Fallback Safety:**
-  - Hệ thống phải luôn luôn phản hồi và duy trì hoạt động thông qua Built-in Rule Engine ngay cả khi không có kết nối Internet hoặc chưa có API Key.
+## 2. Bộ Quy Chuẩn & Tiêu Chuẩn Y Tế Áp Dụng
+1. **Nghị định 98/2021/NĐ-CP & Nghị định 07/2023/NĐ-CP:**
+   - 4 mức phân loại rủi ro bắt buộc: **Loại A (Rủi ro rất thấp)**, **Loại B (Rủi ro thấp)**, **Loại C (Rủi ro trung bình cao)**, **Loại D (Rủi ro đặc biệt cao)**.
+2. **Thông tư 05/2022/TT-BYT & Quyết định 2429/QĐ-BYT:**
+   - Quy định bắt buộc về kiểm định, hiệu chuẩn định kỳ thiết bị y tế và cảnh báo hạn kiểm định trước 30 ngày.
+3. **Quy trình Sổ Tay 10 SOPs Chuẩn (36. TRANG THIET BI Y TE):**
+   - `QT.01` & `QT.02`: Vận hành, bảo dưỡng & hoàn nguyên hệ thống RO Thận nhân tạo.
+   - `QT.03`: Vận hành & kiểm tra an toàn hệ thống Khí y tế trung tâm.
+   - `QT.04`: Bàn giao, nghiệm thu đưa vào sử dụng (`BM04`) & Sổ lý lịch máy (`BM05`).
+   - `QT.05`: Vận hành, sử dụng & bảo quản thiết bị y tế.
+   - `QT.06`: Bảo trì định kỳ (PM) & Sửa chữa đột xuất (SpeedMaint CMMS).
+   - `QT.07`: Quy trình đề xuất & hội đồng thanh lý thiết bị.
+   - `QT.08`: Quy trình & biên bản điều chuyển thiết bị giữa các khoa phòng (`BM03`).
+   - `QT.09`: Quy trình giao nhận, kiểm đếm bình khí y tế di động.
+   - `CS.TTBYT.04`: Quy trình kiểm tra, hiệu chuẩn & kiểm định thiết bị y tế.
 
-## 3. Technology Stack
-- **Backend:** Python 3.14/3.12, FastAPI, SQLite (WAL mode, Foreign Keys ON), Uvicorn.
-- **Frontend:** Vanilla HTML5 / CSS3 Design System, Bootstrap 5, Bootstrap Icons, Native JS (Fetch API).
-- **AI / OCR Libraries:** `google-genai` (Gemini Interactions API), `mistralai` (Mistral-OCR-4).
+## 3. Kiến Trúc Dữ Liệu & Quy Tắc Định Danh
+- **Mã Định Danh Kép Bắt Buộc:**
+  - Asset Tag chuẩn Snipe-IT: `BVQ7-TTB-XXXXX` (5 chữ số)
+  - SpeedMaint Code: `BM/BVQ7/XXXXX` (5 chữ số)
+- **Tính Duy Nhất Của Số Serial (S/N):** Khóa `UNIQUE` trên toàn hệ thống viện; không cho phép 2 thiết bị khác nhau trùng số Serial.
+- **Cấu Trúc Phụ Kiện / Cấu Kiện Rời (Parent-Child Hierarchy):** Đầu dò siêu âm (CV1-8A, CA1-7S, LA2-9A...), UPS dự phòng, sensor SPO2... được quản lý gắn liền với thiết bị chính.
+
+## 4. Quy Chuẩn Thiết Kế Giao Diện (Taste-Skill & Google Stitch)
+- **Anti-AI Slop:** Loại bỏ các gradient sặc sỡ, đổ bóng dày; tuân thủ sự tiết chế, thẩm mỹ xuất bản (Editorial Design).
+- **Typography:** Plus Jakarta Sans cho giao diện chính, JetBrains Mono với `tabular-nums` cho các bảng số liệu, mã định danh và số Serial.
+- **Accessibility:** Khóa cứng độ tương phản cao (WCAG AAA) cho huy hiệu rủi ro A, B, C, D (Solid Colors, chữ trắng `#ffffff`).
