@@ -644,3 +644,44 @@ html, body {
     transform: scale(1.08) rotate(45deg);
     box-shadow: 0 8px 20px rgba(11, 79, 216, 0.5);
 }
+
+
+
+/* ==================== FLUID RESPONSIVE STRETCH ARCHITECTURE ==================== */
+.main-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--bg-body);
+}
+
+.main-content > .p-3 {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(280px, 1fr)) !important;
+    gap: 1rem;
+    min-height: 520px;
+    width: 100%;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.oncall-banner-clinical {
+    background: #FFFFFF !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-card) !important;
+    color: #1E293B !important;
+}
