@@ -24,6 +24,7 @@
         .sidebar-kpi-value-white { color: #ffffff !important; font-weight: 700 !important; }
         .sidebar-kpi-value-green { color: #4ade80 !important; font-weight: 800 !important; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -55,10 +56,17 @@
             <!-- 8 Full Feature Navigation Items -->
             <ul class="nav flex-column sidebar-nav" id="sidebarMenu" role="tablist">
                 <li class="nav-item">
-                    <button class="nav-link active" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
+                    <button class="nav-link active" id="btn-tab-overview" data-bs-toggle="pill" data-bs-target="#tab-overview" type="button">
+                        <i class="bi bi-speedometer2 text-primary"></i>
+                        <span>Dashboard Tổng Quan</span>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill ms-auto font-mono">Live</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btn-tab-devices" data-bs-toggle="pill" data-bs-target="#tab-devices" type="button">
                         <i class="bi bi-grid-fill"></i>
                         <span>Thiết Bị & Phụ Kiện</span>
-                        <span class="badge bg-primary rounded-pill ms-auto font-mono" id="nav-badge-total">1.072</span>
+                        <span class="badge bg-secondary rounded-pill ms-auto font-mono" id="nav-badge-total">1.073</span>
                     </button>
                 </li>
                 <li class="nav-item">
@@ -141,7 +149,237 @@
                 <div class="tab-content" id="mainTabContent">
 
                     <!-- TAB 1: MASTER ASSET CATALOG & ACCESSORIES -->
-                    <div class="tab-pane fade show active" id="tab-devices" role="tabpanel">
+                                        <!-- ==================== TAB 0: EXECUTIVE OVERVIEW DASHBOARD ==================== -->
+                    <div class="tab-pane fade show active" id="tab-overview" role="tabpanel">
+                        
+                        <!-- Top KPI Row (Taste-Skill Precision) -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="kpi-card h-100 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-bold text-uppercase mb-1">Tổng Tài Sản TTBYT</div>
+                                        <div class="fs-3 fw-bold text-dark font-mono" id="dash-total-assets">1.073</div>
+                                        <div class="small text-muted mt-1"><i class="bi bi-diagram-2 text-info me-1"></i>94 Đầu dò & Cấu kiện rời</div>
+                                    </div>
+                                    <div class="kpi-icon bg-primary-subtle text-primary">
+                                        <i class="bi bi-hospital"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="kpi-card h-100 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-bold text-uppercase mb-1">Tỷ Lệ Sẵn Sàng Lâm Sàng</div>
+                                        <div class="fs-3 fw-bold text-success font-mono" id="dash-avail-rate">98.6%</div>
+                                        <div class="small text-success mt-1"><i class="bi bi-check2-circle me-1"></i>1.058 máy đang hoạt động</div>
+                                    </div>
+                                    <div class="kpi-icon bg-success-subtle text-success">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="kpi-card h-100 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-bold text-uppercase mb-1">Kiểm Định Đúng Hạn</div>
+                                        <div class="fs-3 fw-bold text-primary font-mono" id="dash-calib-ok">94.2%</div>
+                                        <div class="small text-warning mt-1"><i class="bi bi-clock-history me-1"></i>8 máy cần tái kiểm (30 ngày)</div>
+                                    </div>
+                                    <div class="kpi-icon bg-warning-subtle text-warning">
+                                        <i class="bi bi-patch-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="kpi-card h-100 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-bold text-uppercase mb-1">Mạng Lưới Xe Cấp Cứu E-Cart</div>
+                                        <div class="fs-3 fw-bold text-danger font-mono">8/8 XE</div>
+                                        <div class="small text-danger fw-bold mt-1"><i class="bi bi-broadcast me-1"></i>Trực chiến 24/7 các tầng</div>
+                                    </div>
+                                    <div class="kpi-icon bg-danger-subtle text-danger pulse-emergency">
+                                        <i class="bi bi-truck-front-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Dashboard Analytics Grid -->
+                        <div class="row g-3 mb-4">
+                            <!-- Left: Department Asset Distribution Chart -->
+                            <div class="col-lg-8">
+                                <div class="clinical-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <h6 class="fw-bold text-dark mb-1"><i class="bi bi-bar-chart-fill text-primary me-2"></i>Phân Bổ Thiết Bị Theo Khoa / Phòng Ban</h6>
+                                            <p class="text-muted small mb-0">Thống kê số lượng trang thiết bị y tế tại 21 đơn vị lâm sàng & cận lâm sàng</p>
+                                        </div>
+                                        <span class="badge bg-light text-dark border font-mono">21 Khoa/Phòng</span>
+                                    </div>
+                                    <div style="height: 280px; position: relative;">
+                                        <canvas id="chartDepartmentAssets"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Risk Classification & Regulatory Breakdown -->
+                            <div class="col-lg-4">
+                                <div class="clinical-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <h6 class="fw-bold text-dark mb-1"><i class="bi bi-pie-chart-fill text-warning me-2"></i>Cơ Cấu Mức Độ Rủi Ro</h6>
+                                            <p class="text-muted small mb-0">Theo Nghị định 98/2021/NĐ-CP</p>
+                                        </div>
+                                    </div>
+                                    <div style="height: 200px; position: relative;" class="mb-3">
+                                        <canvas id="chartRiskBreakdown"></canvas>
+                                    </div>
+                                    <div class="row g-2 text-center" style="font-size: 0.76rem;">
+                                        <div class="col-3">
+                                            <div class="p-1 rounded bg-success-subtle border border-success-subtle">
+                                                <strong class="text-success d-block">Loại A</strong>
+                                                <span class="font-mono text-dark fw-bold">375 máy</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="p-1 rounded bg-primary-subtle border border-primary-subtle">
+                                                <strong class="text-primary d-block">Loại B</strong>
+                                                <span class="font-mono text-dark fw-bold">268 máy</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="p-1 rounded bg-warning-subtle border border-warning-subtle">
+                                                <strong class="text-warning d-block">Loại C</strong>
+                                                <span class="font-mono text-dark fw-bold">322 máy</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="p-1 rounded bg-danger-subtle border border-danger-subtle">
+                                                <strong class="text-danger d-block">Loại D</strong>
+                                                <span class="font-mono text-dark fw-bold">108 máy</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Split: Live Activity Feed & Quick Actions -->
+                        <div class="row g-3">
+                            <!-- Live Workflow Activity Log -->
+                            <div class="col-lg-7">
+                                <div class="clinical-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold text-dark mb-0"><i class="bi bi-clock-history text-primary me-2"></i>Nhật Ký Nghiệp Vụ Lâm Sàng Mới Nhất</h6>
+                                        <span class="badge bg-success-subtle text-success font-mono">Live Audit Trail</span>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0" style="font-size: 0.82rem;">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>THỜI GIAN</th>
+                                                    <th>QUY TRÌNH</th>
+                                                    <th>THIẾT BỊ / MÃ TÀI SẢN</th>
+                                                    <th>ĐƠN VỊ THỰC HIỆN</th>
+                                                    <th class="text-center">KẾT QUẢ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="overview-activity-tbody">
+                                                <tr>
+                                                    <td class="font-mono text-muted">Hôm nay 08:30</td>
+                                                    <td><span class="badge bg-primary font-mono">Pre-use</span></td>
+                                                    <td><strong>Máy thở chuyên dụng</strong> <span class="text-muted font-mono">(BVQ7-TTB-00109)</span></td>
+                                                    <td>ĐD. Lê Thị Mai (Khoa Cấp Cứu)</td>
+                                                    <td class="text-center"><span class="badge bg-success">PASSED</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-mono text-muted">Hôm nay 08:15</td>
+                                                    <td><span class="badge bg-info text-dark font-mono">QT.08</span></td>
+                                                    <td><strong>Máy siêu âm HERA W10</strong> <span class="text-muted font-mono">(BVQ7-TTB-01125)</span></td>
+                                                    <td>Khoa CĐHA → Phòng Cấp Cứu</td>
+                                                    <td class="text-center"><span class="badge bg-primary">HOÀN TẤT</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-mono text-muted">Hôm qua 16:45</td>
+                                                    <td><span class="badge bg-warning text-dark font-mono">SpeedMaint</span></td>
+                                                    <td><strong>Hệ thống lọc RO #01</strong> <span class="text-muted font-mono">(BVQ7-TTB-00012)</span></td>
+                                                    <td>KS. Trần Văn Hùng (P.TTBYT)</td>
+                                                    <td class="text-center"><span class="badge bg-success">ĐẠT CHUẨN</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-mono text-muted">Hôm qua 14:20</td>
+                                                    <td><span class="badge bg-secondary font-mono">QT.04</span></td>
+                                                    <td><strong>Máy sốc tim E-Cart 01</strong> <span class="text-muted font-mono">(ECART-Q7-01)</span></td>
+                                                    <td>Nghiệm thu bàn giao BM04</td>
+                                                    <td class="text-center"><span class="badge bg-success">SẴN SÀNG</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Executive Quick Actions & Key Contacts -->
+                            <div class="col-lg-5">
+                                <div class="clinical-card p-3 h-100">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-lightning-charge-fill text-warning me-2"></i>Thao Tác Nhanh & Danh Bạ Khẩn Cấp</h6>
+                                    
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-primary w-100 btn-clinical text-start p-2" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
+                                                <i class="bi bi-plus-circle-fill text-primary me-2"></i>
+                                                <span class="fw-bold small d-block">Nhập Mới Thiết Bị</span>
+                                                <span class="text-muted" style="font-size: 0.72rem;">Sổ lý lịch máy BM05</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-success w-100 btn-clinical text-start p-2" onclick="document.getElementById('btn-tab-inspections').click()">
+                                                <i class="bi bi-shield-check text-success me-2"></i>
+                                                <span class="fw-bold small d-block">Bảng Kiểm Đầu Ngày</span>
+                                                <span class="text-muted" style="font-size: 0.72rem;">Pre-use Checklist</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-info text-dark w-100 btn-clinical text-start p-2" onclick="document.getElementById('btn-tab-transfers').click()">
+                                                <i class="bi bi-arrow-left-right text-info me-2"></i>
+                                                <span class="fw-bold small d-block">Điều Chuyển Máy</span>
+                                                <span class="text-muted" style="font-size: 0.72rem;">Quy trình QT.08</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-warning text-dark w-100 btn-clinical text-start p-2" data-bs-toggle="modal" data-bs-target="#speedmaintWorkOrderModal">
+                                                <i class="bi bi-tools text-warning me-2"></i>
+                                                <span class="fw-bold small d-block">Tạo Phiếu CMMS</span>
+                                                <span class="text-muted" style="font-size: 0.72rem;">Bảo trì & Sửa chữa</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-3 bg-light rounded border">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <strong class="text-dark small"><i class="bi bi-telephone-fill text-danger me-2"></i>Hotline Trực Kỹ Thuật TTBYT</strong>
+                                            <span class="badge bg-danger">24/7</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between small text-muted mb-1">
+                                            <span>Phòng TTBYT (Hotline):</span>
+                                            <strong class="font-mono text-dark">0961.545.654</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between small text-muted mb-1">
+                                            <span>Kỹ thuật bảo trì SpeedMaint:</span>
+                                            <strong class="font-mono text-dark">0362.697.070</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between small text-muted">
+                                            <span>Xe cấp cứu di động (E-Cart):</span>
+                                            <strong class="font-mono text-danger">0961.614.462</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="tab-devices" role="tabpanel">
                         
                         <!-- 📊 KPI METRIC BANNER (GOOGLE STITCH CLINICAL DASHBOARD) -->
                         <div class="row g-3 mb-3">

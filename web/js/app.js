@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         async init() {
+            this.initOverviewCharts();
             this.setupNavigation();
             this.setupFormSubmissions();
             await this.loadInitialData();
@@ -38,6 +39,88 @@ document.addEventListener('DOMContentLoaded', function () {
             // Render default diagram
             if (window.DiagramEngine) {
                 DiagramEngine.render('diagram-container', 'qt04');
+            }
+        },
+
+        
+        initOverviewCharts() {
+            if (!window.Chart) return;
+
+            // 1. Department Distribution Chart
+            const deptCtx = document.getElementById('chartDepartmentAssets')?.getContext('2d');
+            if (deptCtx) {
+                if (this.deptChart) this.deptChart.destroy();
+
+                const topDepts = [
+                    { name: 'CĐHA (Siêu âm/MRI/CT)', count: 245 },
+                    { name: 'Khám Bệnh', count: 185 },
+                    { name: 'Cấp Cứu', count: 142 },
+                    { name: 'Xét Nghiệm', count: 120 },
+                    { name: 'Gây Mê Hồi Sức', count: 98 },
+                    { name: 'Nội Tổng Hợp', count: 85 },
+                    { name: 'Phụ Sản', count: 72 },
+                    { name: 'Nhi Khoa', count: 68 },
+                    { name: 'Khác (13 Khoa)', count: 58 }
+                ];
+
+                this.deptChart = new Chart(deptCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: topDepts.map(d => d.name),
+                        datasets: [{
+                            label: 'Số lượng thiết bị',
+                            data: topDepts.map(d => d.count),
+                            backgroundColor: '#0284c7',
+                            borderRadius: 4,
+                            barThickness: 18
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { family: 'Plus Jakarta Sans', size: 10 } }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: '#f1f5f9' },
+                                ticks: { font: { family: 'JetBrains Mono', size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 2. Risk Breakdown Donut Chart
+            const riskCtx = document.getElementById('chartRiskBreakdown')?.getContext('2d');
+            if (riskCtx) {
+                if (this.riskChart) this.riskChart.destroy();
+
+                this.riskChart = new Chart(riskCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Loại A (Rất thấp)', 'Loại B (Thấp)', 'Loại C (Trung bình cao)', 'Loại D (Đặc biệt cao)'],
+                        datasets: [{
+                            data: [375, 268, 322, 108],
+                            backgroundColor: ['#059669', '#0284c7', '#d97706', '#dc2626'],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
             }
         },
 
