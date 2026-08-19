@@ -519,3 +519,128 @@ html, body {
     color: #FFFFFF !important;
     border-color: var(--color-primary) !important;
 }
+
+
+
+/* ==================== TÂM ANH CLINICAL HUB MODULE GRID (app.tahospital.vn) ==================== */
+.ta-domain-row {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow-card);
+    transition: all 0.2s ease;
+}
+
+.ta-domain-row:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: #CBD5E1;
+}
+
+.ta-domain-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.ta-domain-icon-lg {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+}
+
+.ta-module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.85rem;
+}
+
+.ta-module-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    background: #FAFAFA;
+    text-decoration: none;
+    color: #1E293B;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.ta-module-card:hover {
+    background: #FFFFFF;
+    border-color: var(--color-primary-border);
+    box-shadow: 0 4px 10px rgba(11, 79, 216, 0.08);
+    transform: translateY(-1px);
+    color: var(--color-primary);
+}
+
+.ta-module-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+}
+
+.ta-module-card:hover .ta-module-icon {
+    transform: scale(1.1);
+}
+
+.ta-module-title {
+    font-weight: 700;
+    font-size: 0.84rem;
+    line-height: 1.25;
+    margin-bottom: 2px;
+}
+
+.ta-module-desc {
+    font-size: 0.72rem;
+    color: #64748B;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 170px;
+}
+
+/* Floating Action Speed Dial (Bottom Right) */
+.ta-fab-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border: none;
+    box-shadow: 0 6px 16px rgba(11, 79, 216, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    z-index: 999;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ta-fab-btn:hover {
+    background: var(--color-primary-hover);
+    transform: scale(1.08) rotate(45deg);
+    box-shadow: 0 8px 20px rgba(11, 79, 216, 0.5);
+}
