@@ -180,6 +180,10 @@
                     <a href="/sops" target="_blank" class="btn btn-sm btn-outline-info text-dark btn-clinical fw-semibold" title="Mở Sổ tay Quy trình Chuẩn & Biểu mẫu TTBYT">
                         <i class="bi bi-journal-medical text-primary me-1"></i> Sổ Tay Quy Trình (SOPs)
                     </a>
+                                        <button class="btn btn-sm btn-warning text-dark btn-clinical fw-bold shadow-sm d-flex align-items-center gap-1" onclick="app.openFeedbackModal()" title="Gửi góp ý, báo lỗi hoặc đề xuất chỉnh sửa hoàn thiện hệ thống">
+                        <i class="bi bi-chat-square-dots-fill text-danger"></i>
+                        <span>Góp Ý Chỉnh Sửa</span>
+                    </button>
                     <button id="btn-export-csv" class="btn btn-sm btn-outline-secondary btn-clinical" title="Xuất file Excel CSV">
                         <i class="bi bi-download me-1"></i> Xuất Excel
                     </button>
@@ -3021,6 +3025,135 @@
                 </div>
                 <div class="modal-footer bg-light px-4 py-2 border-top">
                     <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Floating Feedback Trigger Button on Bottom-Right -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1040; margin-bottom: 75px;">
+        <button class="btn btn-warning text-dark fw-bold rounded-pill shadow-lg d-flex align-items-center gap-2 px-3 py-2 border border-2 border-white" onclick="app.openFeedbackModal()" style="transition: transform 0.2s; font-size: 0.85rem;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <i class="bi bi-chat-right-text-fill text-danger fs-6"></i>
+            <span>Góp Ý Chỉnh Sửa</span>
+            <span class="badge bg-danger rounded-pill font-mono" id="floating-feedback-badge">New</span>
+        </button>
+    </div>
+
+    <!-- ==================== MODAL: GÓP Ý & ĐỀ XUẤT CHỈNH SỬA ==================== -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header text-white px-4 py-3 border-0" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2 rounded bg-warning text-dark fs-5">
+                            <i class="bi bi-chat-square-quote-fill"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title fw-bold text-white mb-0">Hộp Thư Góp Ý & Đề Xuất Chỉnh Sửa Hệ Thống</h5>
+                            <span class="small text-white text-opacity-75">Thu thập ý kiến đóng góp để hoàn thiện dữ liệu thiết bị, hợp đồng, quy trình SOPs và giao diện</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <!-- Nav Tabs for Submit vs History -->
+                    <ul class="nav nav-pills nav-fill bg-white p-1 rounded-3 border mb-3 shadow-sm" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active fw-bold py-2" id="pill-tab-new-feedback" data-bs-toggle="pill" data-bs-target="#tab-new-feedback" type="button">
+                                <i class="bi bi-pencil-square me-2 text-primary"></i>Gửi Góp Ý / Báo Lỗi Mới
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link fw-bold py-2 text-dark" id="pill-tab-feedback-list" data-bs-toggle="pill" data-bs-target="#tab-feedback-list" type="button" onclick="app.loadFeedbackHistory()">
+                                <i class="bi bi-clock-history me-2 text-warning"></i>Lịch Sử Góp Ý Đã Gửi
+                                <span class="badge bg-secondary ms-2 font-mono" id="feedback-history-count">0</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- TAB 1: FORM GỬI GÓP Ý -->
+                        <div class="tab-pane fade show active" id="tab-new-feedback" role="tabpanel">
+                            <div class="bg-white p-3 rounded-3 border shadow-sm">
+                                <form id="feedbackForm" onsubmit="event.preventDefault(); app.submitFeedbackForm();">
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold text-dark">PHÂN LOẠI NỘI DUNG GÓP Ý (*)</label>
+                                            <select id="fb-category" class="form-select form-select-sm" required>
+                                                <option value="Đính chính dữ liệu thiết bị" selected>🩺 Đính chính dữ liệu thiết bị (Tên, Model, S/N, Khoa)</option>
+                                                <option value="Bổ sung hợp đồng & nhà thầu">📑 Bổ sung / Chỉnh sửa Hợp đồng & Nhà cung cấp</option>
+                                                <option value="Quy trình lâm sàng SOPs">📖 Quy trình vận hành & Sổ tay SOPs (QT.01 - QT.09)</option>
+                                                <option value="Giao diện UI/UX & Tính năng">🎨 Giao diện UI/UX & Tính năng tiện ích</option>
+                                                <option value="Trợ lý AI & Mistral OCR">🤖 Trợ lý AI (Gemini 3.7) & Bóc tách OCR</option>
+                                                <option value="Khác">💡 Đề xuất cải tiến khác</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold text-dark">MỨC ĐỘ ƯU TIÊN</label>
+                                            <select id="fb-priority" class="form-select form-select-sm">
+                                                <option value="NORMAL" selected>🟢 Bình thường (Cải tiến dần)</option>
+                                                <option value="IMPORTANT">🟡 Quan trọng (Cần chỉnh sửa sớm)</option>
+                                                <option value="URGENT">🔴 Khẩn cấp (Sai sót dữ liệu ảnh hưởng vận hành)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold text-dark">HỌ TÊN NGƯỜI GÓP Ý (TÙY CHỌN)</label>
+                                            <input type="text" id="fb-sender-name" class="form-control form-control-sm" placeholder="VD: KS. Trần Trọng Tấn / BS. Khoa CĐHA">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold text-dark">KHOA PHÒNG / ĐƠN VỊ</label>
+                                            <input type="text" id="fb-sender-dept" class="form-control form-control-sm" placeholder="VD: Phòng Trang Thiết Bị Y Tế">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold text-dark">NỘI DUNG CHI TIẾT GÓP Ý / ĐỀ XUẤT CHỈNH SỬA (*)</label>
+                                        <textarea id="fb-content" class="form-control form-control-sm" rows="4" placeholder="Mô tả cụ thể thông tin cần cập nhật, ví dụ: 'Máy siêu âm Voluson E10 phòng 102 cần cập nhật thêm phụ kiện đầu dò tim mạch' hoặc 'Chỉnh sửa lại số điện thoại hotline nhà thầu GE'..." required></textarea>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                        <span class="small text-muted"><i class="bi bi-shield-check text-success me-1"></i>Thông tin được lưu trữ bảo mật và phục vụ trực tiếp công tác hoàn thiện hệ thống.</span>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-secondary btn-clinical" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-warning text-dark btn-clinical fw-bold shadow-sm">
+                                                <i class="bi bi-send-fill me-1 text-danger"></i> Gửi Góp Ý Ngay
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2: LỊCH SỬ GÓP Ý -->
+                        <div class="tab-pane fade" id="tab-feedback-list" role="tabpanel">
+                            <div class="bg-white p-3 rounded-3 border shadow-sm" style="max-height: 400px; overflow-y: auto;">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                        <thead class="table-light sticky-top">
+                                            <tr>
+                                                <th style="width: 45px;">#</th>
+                                                <th>PHÂN LOẠI</th>
+                                                <th>NỘI DUNG ĐỀ XUẤT</th>
+                                                <th>NGƯỜI GỬI</th>
+                                                <th>THỜI GIAN</th>
+                                                <th>TRẠNG THÁI</th>
+                                                <th class="text-end" style="width: 80px;">XÓA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="feedback-history-tbody">
+                                            <tr>
+                                                <td colspan="7" class="text-center py-4 text-muted">Chưa có góp ý nào.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

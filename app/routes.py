@@ -1958,3 +1958,59 @@ async def get_supplier_devices(sup_id: int, db = Depends(get_db)):
         "total_devices": len(devs),
         "devices": [dict(d) for d in devs]
     }
+
+
+
+# ==================== SYSTEM FEEDBACK & IMPROVEMENTS ====================
+
+class FeedbackCreate(BaseModel):
+    category: str
+    sender_name: Optional[str] = "Cán bộ y tế / Kỹ sư"
+    sender_dept: Optional[str] = "Phòng TTBYT / Lâm sàng"
+    priority: Optional[str] = "NORMAL"
+    content: str
+
+class FeedbackStatusUpdate(BaseModel):
+    status: str
+    resolution_notes: Optional[str] = None
+
+@router.get("/api/feedback")
+async def list_feedback(db = Depends(get_db)):
+    """Danh sách các phiếu góp ý, đề xuất chỉnh sửa hoàn thiện hệ thống"""
+    rows = db.execute("SELECT * FROM system_feedback ORDER BY id DESC").fetchall()
+    return [dict(r) for r in rows]
+
+@router.post("/api/feedback")
+async def create_feedback(req: FeedbackCreate, db = Depends(get_db)):
+    """Gửi góp ý hoặc báo lỗi / đề xuất hoàn thiện mới"""
+    if not req.content or not req.content.strip():
+        raise HTTPException(status_code=400, detail="Nội dung góp ý không được để trống")
+    
+    cur = db.execute("""
+        INSERT INTO system_feedback (category, sender_name, sender_dept, priority, content, status)
+        VALUES (?, ?, ?, ?, ?, 'PENDING')
+    """, (req.category, req.sender_name, req.sender_dept, req.priority, req.content.strip()))
+    db.commit()
+    return {"status": "success", "id": cur.lastrowid, "message": "Cảm ơn bạn! Đã ghi nhận góp ý chỉnh sửa thành công!"}
+
+@router.put("/api/feedback/{feedback_id}/status")
+async def update_feedback_status(feedback_id: int, req: FeedbackStatusUpdate, db = Depends(get_db)):
+    """Cập nhật trạng thái xử lý góp ý"""
+    row = db.execute("SELECT * FROM system_feedback WHERE id = ?", (feedback_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy bản ghi góp ý")
+    
+    db.execute("""
+        UPDATE system_feedback
+        SET status = ?, resolution_notes = ?
+        WHERE id = ?
+    """, (req.status, req.resolution_notes, feedback_id))
+    db.commit()
+    return {"status": "success", "message": "Đã cập nhật trạng thái xử lý góp ý thành công!"}
+
+@router.delete("/api/feedback/{feedback_id}")
+async def delete_feedback(feedback_id: int, db = Depends(get_db)):
+    """Xóa bản ghi góp ý"""
+    db.execute("DELETE FROM system_feedback WHERE id = ?", (feedback_id,))
+    db.commit()
+    return {"status": "success", "message": "Đã xóa bản ghi góp ý!"}

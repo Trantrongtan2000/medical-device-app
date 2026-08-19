@@ -1040,7 +1040,131 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (err) {
                 console.error('Activity feed failed', err);
             }
-        },        activateTab(targetId, updateHash = true) {
+        },
+        // ==================== SYSTEM FEEDBACK CONTROLLER ====================
+        openFeedbackModal() {
+            document.getElementById('feedbackForm')?.reset();
+            document.getElementById('pill-tab-new-feedback')?.click();
+            const modalEl = document.getElementById('feedbackModal');
+            let modal = bootstrap.Modal.getInstance(modalEl);
+            if (!modal) modal = new bootstrap.Modal(modalEl);
+            modal.show();
+            this.loadFeedbackHistory();
+        },
+
+        async submitFeedbackForm() {
+            const payload = {
+                category: document.getElementById('fb-category')?.value || 'Khác',
+                sender_name: document.getElementById('fb-sender-name')?.value.trim() || 'Cán bộ y tế / Kỹ sư',
+                sender_dept: document.getElementById('fb-sender-dept')?.value.trim() || 'Phòng TTBYT',
+                priority: document.getElementById('fb-priority')?.value || 'NORMAL',
+                content: document.getElementById('fb-content')?.value.trim()
+            };
+
+            if (!payload.content) {
+                alert('Vui lòng nhập nội dung góp ý!');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('✅ ' + data.message);
+                    document.getElementById('feedbackForm')?.reset();
+                    // Switch to history tab to see the newly submitted feedback
+                    document.getElementById('pill-tab-feedback-list')?.click();
+                    this.loadFeedbackHistory();
+                } else {
+                    alert('❌ Lỗi: ' + (data.detail || 'Không thể gửi góp ý'));
+                }
+            } catch (err) {
+                alert('❌ Lỗi kết nối: ' + err.message);
+            }
+        },
+
+        async loadFeedbackHistory() {
+            try {
+                const res = await fetch('/api/feedback');
+                const list = await res.json();
+                
+                const badge = document.getElementById('feedback-history-count');
+                const floatingBadge = document.getElementById('floating-feedback-badge');
+                if (badge) badge.textContent = list.length;
+                if (floatingBadge) floatingBadge.textContent = list.length > 0 ? list.length : 'New';
+
+                const tbody = document.getElementById('feedback-history-tbody');
+                if (!tbody) return;
+
+                if (list.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Chưa có góp ý nào được ghi nhận. Bạn có thể là người đầu tiên đóng góp ý kiến!</td></tr>`;
+                    return;
+                }
+
+                let html = '';
+                list.forEach((fb, idx) => {
+                    const timeStr = fb.created_at ? new Date(fb.created_at).toLocaleString('vi-VN') : 'Vừa xong';
+                    let statusBadge = '<span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split me-1"></i>Đang chờ tiếp nhận</span>';
+                    if (fb.status === 'IN_PROGRESS') {
+                        statusBadge = '<span class="badge bg-info text-dark"><i class="bi bi-gear-fill me-1"></i>Đang hoàn thiện</span>';
+                    } else if (fb.status === 'RESOLVED' || fb.status === 'COMPLETED') {
+                        statusBadge = '<span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i>Đã cập nhật xong</span>';
+                    }
+
+                    let priorityBadge = '';
+                    if (fb.priority === 'URGENT') {
+                        priorityBadge = '<span class="badge bg-danger ms-1">Khẩn cấp</span>';
+                    } else if (fb.priority === 'IMPORTANT') {
+                        priorityBadge = '<span class="badge bg-warning text-dark ms-1">Quan trọng</span>';
+                    }
+
+                    html += `
+                        <tr>
+                            <td class="fw-bold text-muted">${idx + 1}</td>
+                            <td>
+                                <strong class="text-dark d-block">${fb.category}</strong>
+                                ${priorityBadge}
+                            </td>
+                            <td>
+                                <div class="text-dark" style="max-width: 320px; word-break: break-word;">${fb.content}</div>
+                            </td>
+                            <td>
+                                <strong class="text-dark d-block">${fb.sender_name}</strong>
+                                <small class="text-muted">${fb.sender_dept}</small>
+                            </td>
+                            <td class="font-mono text-muted small">${timeStr}</td>
+                            <td>${statusBadge}</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-danger" onclick="app.deleteFeedbackItem(${fb.id})" title="Xóa góp ý này">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            } catch (err) {
+                console.error('Lỗi tải lịch sử góp ý:', err);
+            }
+        },
+
+        async deleteFeedbackItem(feedbackId) {
+            if (!confirm('Bạn có chắc chắn muốn xóa mục góp ý này?')) return;
+            try {
+                const res = await fetch(`/api/feedback/${feedbackId}`, { method: 'DELETE' });
+                const data = await res.json();
+                alert('✅ ' + data.message);
+                this.loadFeedbackHistory();
+            } catch (err) {
+                alert('Lỗi xóa góp ý: ' + err.message);
+            }
+        },
+
+        activateTab(targetId, updateHash = true) {
             if (!targetId) return;
             if (!targetId.startsWith('#')) targetId = '#' + targetId;
 
@@ -1055,8 +1179,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.sidebar-nav .nav-link').forEach(b => b.classList.remove('active'));
             if (matchingBtn) matchingBtn.classList.add('active');
 
-            // Update tab panes
-            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+            // Update tab panes (only main workspace tabs)
+            document.querySelectorAll('#mainTabContent > .tab-pane').forEach(p => p.classList.remove('show', 'active'));
             targetPane.classList.add('show', 'active');
 
             // Update page heading
