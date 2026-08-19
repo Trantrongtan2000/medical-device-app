@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             await this.loadECarts();
             await this.loadWorkOrders();
             this.loadStaff();
+            this.loadOncallData();
             await this.loadSemanticaStats();
             await this.loadActivityFeed();
 
@@ -1182,8 +1183,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const btnBme = document.getElementById('btn-view-bme-staff');
             const btnLeaders = document.getElementById('btn-view-leaders');
             const btnSuppliers = document.getElementById('btn-view-suppliers-contacts');
+            const btnOncall = document.getElementById('btn-view-oncall');
 
-            [btnBme, btnLeaders, btnSuppliers].forEach(btn => {
+            [btnBme, btnOncall, btnLeaders, btnSuppliers].forEach(btn => {
                 if (btn) {
                     btn.className = 'btn btn-outline-secondary fw-semibold btn-clinical';
                 }
@@ -1192,8 +1194,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (viewType === 'bme' && btnBme) btnBme.className = 'btn btn-primary fw-bold btn-clinical';
             if (viewType === 'leaders' && btnLeaders) btnLeaders.className = 'btn btn-primary fw-bold btn-clinical';
             if (viewType === 'suppliers' && btnSuppliers) btnSuppliers.className = 'btn btn-primary fw-bold btn-clinical';
+            if (viewType === 'oncall' && btnOncall) btnOncall.className = 'btn btn-primary fw-bold btn-clinical';
 
-            if (viewType === 'bme') {
+            if (viewType === 'oncall') {
+                this.renderOncallSchedule();
+            } else if (viewType === 'bme') {
                 this.renderStaff(this.staffList);
             } else if (viewType === 'leaders') {
                 await this.loadAndRenderLeaders();
@@ -1431,6 +1436,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     bootstrap.Modal.getInstance(document.getElementById('createStaffModal'))?.hide();
                     createForm.reset();
                     this.loadStaff();
+            this.loadOncallData();
                 } catch (err) {
                     alert('❌ Lỗi: ' + err.message);
                 }
@@ -1463,6 +1469,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('✅ ' + result.message);
                     bootstrap.Modal.getInstance(document.getElementById('viewStaffModal'))?.hide();
                     this.loadStaff();
+            this.loadOncallData();
                 } catch (err) {
                     alert('❌ Lỗi: ' + err.message);
                 }
@@ -1482,6 +1489,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('✅ ' + result.message);
                     bootstrap.Modal.getInstance(document.getElementById('viewStaffModal'))?.hide();
                     this.loadStaff();
+            this.loadOncallData();
                 } catch (err) {
                     alert('❌ Lỗi: ' + err.message);
                 }
@@ -1615,13 +1623,185 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         },
 
+        
+        oncallScheduleList: [],
+
+        async loadOncallData() {
+            try {
+                // 1. Load Today Oncall
+                const resToday = await fetch('/api/oncall/today');
+                if (resToday.ok) {
+                    const today = await resToday.json();
+                    if (today.primary_engineer) {
+                        const elName = document.getElementById('oncall-today-name');
+                        const elBtn = document.getElementById('oncall-today-btn');
+                        const elBackup = document.getElementById('oncall-backup-name');
+                        const elBackupPhone = document.getElementById('oncall-backup-phone');
+
+                        if (elName) elName.textContent = today.primary_engineer;
+                        if (elBtn) {
+                            elBtn.href = `tel:${today.primary_phone}`;
+                            elBtn.innerHTML = `<i class="bi bi-telephone-fill me-1"></i> ${today.primary_phone}`;
+                        }
+                        if (elBackup) elBackup.textContent = today.backup_engineer;
+                        if (elBackupPhone) elBackupPhone.innerHTML = `<i class="bi bi-telephone me-1"></i>${today.backup_phone}`;
+                    }
+                }
+
+                // 2. Load Weekly Schedule
+                const resSched = await fetch('/api/oncall/schedule');
+                if (resSched.ok) {
+                    this.oncallScheduleList = await resSched.json();
+                }
+            } catch (err) {
+                console.error('Error loading oncall data:', err);
+            }
+        },
+
+        renderOncallSchedule() {
+            const container = document.getElementById('staff-grid-container');
+            const countLabel = document.getElementById('staff-count-label');
+            if (countLabel) countLabel.textContent = `Bảng Lịch On-Call 7 Ngày Trong Tuần`;
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="clinical-card p-0 overflow-hidden shadow-sm">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-3">THỨ / NGÀY</th>
+                                        <th>KỸ SƯ ON-CALL CHÍNH</th>
+                                        <th>KỸ SƯ DỰ PHÒNG (BACKUP)</th>
+                                        <th>LÃNH ĐẠO TRỰC</th>
+                                        <th>KHUNG GIỜ</th>
+                                        <th>TRẠNG THÁI</th>
+                                        <th class="text-end pe-3">THAO TÁC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${this.oncallScheduleList.map(s => {
+                                        const isToday = s.status === 'TODAY';
+                                        const rowClass = isToday ? 'table-warning bg-opacity-25' : '';
+                                        const statusBadge = isToday 
+                                            ? '<span class="badge bg-danger"><i class="bi bi-broadcast-pin me-1"></i>ĐANG TRỰC HÔM NAY</span>'
+                                            : (s.status === 'COMPLETED' ? '<span class="badge bg-secondary">Đã xong</span>' : '<span class="badge bg-light text-dark border">Theo kế hoạch</span>');
+
+                                        return `
+                                            <tr class="${rowClass}">
+                                                <td class="ps-3">
+                                                    <strong class="text-dark">${s.day_name}</strong>
+                                                    <div class="small font-mono text-muted">${s.date_str}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.85rem; background: #0284c7;">
+                                                            ${s.primary_engineer.charAt(0)}
+                                                        </div>
+                                                        <div>
+                                                            <strong class="text-dark">${s.primary_engineer}</strong>
+                                                            <a href="tel:${s.primary_phone}" class="small font-mono text-primary d-block">${s.primary_phone}</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong class="text-dark">${s.backup_engineer}</strong>
+                                                    <a href="tel:${s.backup_phone}" class="small font-mono text-muted d-block">${s.backup_phone}</a>
+                                                </td>
+                                                <td>
+                                                    <span class="text-dark small">${s.leader_oncall}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-light text-dark border font-mono">${s.time_window}</span>
+                                                </td>
+                                                <td>${statusBadge}</td>
+                                                <td class="text-end pe-3">
+                                                    <button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.openEditOncallModal(${s.id})">
+                                                        <i class="bi bi-pencil-square me-1"></i> Đổi Ca
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+
+        openEditOncallModal(id) {
+            const sched = this.oncallScheduleList.find(s => s.id === id);
+            if (!sched) return;
+
+            document.getElementById('oncall-edit-id').value = sched.id;
+            document.getElementById('oncall-edit-day').textContent = `${sched.day_name} (${sched.date_str})`;
+            document.getElementById('oncall-edit-primary').value = sched.primary_engineer;
+            document.getElementById('oncall-edit-backup').value = sched.backup_engineer;
+            document.getElementById('oncall-edit-time').value = sched.time_window || '16:30 - 07:30 sáng hôm sau';
+            document.getElementById('oncall-edit-notes').value = sched.notes || '';
+
+            const modal = new bootstrap.Modal(document.getElementById('editOncallModal'));
+            modal.show();
+        },
+
+        setupOncallEditForm() {
+            const form = document.getElementById('editOncallForm');
+            form?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('oncall-edit-id').value;
+                const primary = document.getElementById('oncall-edit-primary').value;
+                const backup = document.getElementById('oncall-edit-backup').value;
+
+                // Map phone numbers
+                const phoneMap = {
+                    "Nguyễn Quốc Việt": "0902769710",
+                    "Nguyễn Tấn Lợi": "0779798786",
+                    "Trần Đăng Hiếu": "0888536278",
+                    "Lê Minh Thiện": "0378716561",
+                    "Trần Thị Ngọc Châu": "0335802380",
+                    "Trần Trọng Tấn": "0334968114"
+                };
+
+                const payload = {
+                    primary_engineer: primary,
+                    primary_phone: phoneMap[primary] || "",
+                    backup_engineer: backup,
+                    backup_phone: phoneMap[backup] || "",
+                    time_window: document.getElementById('oncall-edit-time').value.trim(),
+                    notes: document.getElementById('oncall-edit-notes').value.trim()
+                };
+
+                try {
+                    const res = await fetch(`/api/oncall/schedule/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await res.json();
+                    if (!res.ok) throw new Error(result.detail || 'Lỗi cập nhật lịch On-call');
+
+                    alert('✅ ' + result.message);
+                    bootstrap.Modal.getInstance(document.getElementById('editOncallModal'))?.hide();
+                    await this.loadOncallData();
+                    this.renderOncallSchedule();
+                } catch (err) {
+                    alert('❌ Lỗi: ' + err.message);
+                }
+            });
+        },
+
         setupFormSubmissions() {
             this.setupCheckoutForm();
             this.setupStaffEventListeners();
             this.setupDirectoryEditForms();
+            this.setupOncallEditForm();
 
             document.getElementById('btn-tab-staff')?.addEventListener('click', () => {
                 this.loadStaff();
+            this.loadOncallData();
             });
     
             this.setupGlobalShortcuts();
@@ -1748,6 +1928,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         woForm.reset();
                         this.loadWorkOrders();
             this.loadStaff();
+            this.loadOncallData();
                     }
                 });
             }

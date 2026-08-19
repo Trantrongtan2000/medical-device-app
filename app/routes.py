@@ -1431,3 +1431,49 @@ async def update_supplier_contact(sup_id: int, req: SupplierContactUpdate, db = 
         db.execute(f"UPDATE supplier_contacts SET {', '.join(fields)} WHERE id = ?", params)
         db.commit()
     return {"status": "success", "message": "Đã cập nhật thông tin đối tác NCC thành công!"}
+
+
+
+# ==================== ON-CALL SCHEDULE MANAGEMENT ====================
+
+class OncallScheduleUpdate(BaseModel):
+    primary_engineer: Optional[str] = None
+    primary_phone: Optional[str] = None
+    backup_engineer: Optional[str] = None
+    backup_phone: Optional[str] = None
+    leader_oncall: Optional[str] = None
+    time_window: Optional[str] = None
+    status: Optional[str] = None
+    notes: Optional[str] = None
+
+@router.get("/api/oncall/schedule")
+async def get_oncall_schedule(db = Depends(get_db)):
+    """Danh sách Lịch On-call TTBYT theo tuần (Thứ Hai -> Chủ Nhật)"""
+    rows = db.execute("SELECT * FROM oncall_schedule ORDER BY id ASC").fetchall()
+    return [dict(r) for r in rows]
+
+@router.get("/api/oncall/today")
+async def get_today_oncall(db = Depends(get_db)):
+    """Kỹ sư và Lãnh đạo On-call trực chính hôm nay"""
+    row = db.execute("SELECT * FROM oncall_schedule WHERE status = 'TODAY' LIMIT 1").fetchone()
+    if not row:
+        row = db.execute("SELECT * FROM oncall_schedule ORDER BY id ASC LIMIT 1").fetchone()
+    return dict(row) if row else {}
+
+@router.put("/api/oncall/schedule/{sched_id}")
+async def update_oncall_schedule(sched_id: int, req: OncallScheduleUpdate, db = Depends(get_db)):
+    """Chỉnh sửa phân công ca trực On-call TTBYT"""
+    row = db.execute("SELECT * FROM oncall_schedule WHERE id = ?", (sched_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy lịch on-call")
+    fields = []
+    params = []
+    for k, v in req.dict(exclude_unset=True).items():
+        if v is not None:
+            fields.append(f"{k} = ?")
+            params.append(v)
+    if fields:
+        params.append(sched_id)
+        db.execute(f"UPDATE oncall_schedule SET {', '.join(fields)} WHERE id = ?", params)
+        db.commit()
+    return {"status": "success", "message": f"Đã cập nhật lịch On-call cho {row['day_name']} thành công!"}

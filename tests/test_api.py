@@ -146,3 +146,20 @@ def test_bme_staff_endpoints():
     res_suppliers = client.get("/api/directory/suppliers")
     assert res_suppliers.status_code == 200
     assert len(res_suppliers.json()) >= 10
+
+
+
+def test_oncall_schedule_endpoints():
+    # 1. Test GET /api/oncall/schedule
+    res = client.get("/api/oncall/schedule")
+    assert res.status_code == 200
+    sched = res.json()
+    assert isinstance(sched, list)
+    assert len(sched) == 7
+    assert any(s["primary_engineer"] == "Trần Đăng Hiếu" for s in sched)
+
+    # 2. Test GET /api/oncall/today
+    res_today = client.get("/api/oncall/today")
+    assert res_today.status_code == 200
+    today = res_today.json()
+    assert "primary_engineer" in today
