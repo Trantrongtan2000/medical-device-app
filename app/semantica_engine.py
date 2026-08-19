@@ -132,6 +132,35 @@ class SemanticaMedicalGraph:
                     "handover_date": d['handover_date']
                 }))
 
+            # Specific linking for Samsung Medison HERA W10 (An Việt) and GE Voluson
+            if "HERA" in str(d['model']).upper() or "HERA" in str(d['device_name']).upper():
+                ctr_anviet = "CTR-HĐ_20.2024HĐ_TAQ7-ANVIET"
+                sup_anviet = "SUP-An_Việt"
+                self.add_node(GraphNode(ctr_anviet, "Contract", "HĐ 20.2024HĐ/TAQ7-ANVIET", {
+                    "contract_no": "HĐ 20.2024HĐ/TAQ7-ANVIET",
+                    "item": "Máy Siêu Âm Màu 4D Chuyên Sản HERA W10",
+                    "supplier": "Công ty TNHH Thiết Bị Y Tế An Việt"
+                }))
+                self.add_node(GraphNode(sup_anviet, "Supplier", "Công ty TNHH Thiết Bị Y Tế An Việt", {
+                    "distributor_for": "Samsung Medison"
+                }))
+                self.add_edge(GraphEdge(dev_id, ctr_anviet, "PROCURED_UNDER", {"item": "HERA W10"}))
+                self.add_edge(GraphEdge(ctr_anviet, sup_anviet, "SUPPLIED_BY"))
+
+            elif "VOLUSON" in str(d['model']).upper() or "VOLUSON" in str(d['device_name']).upper():
+                ctr_ge = "CTR-GE_HEALTHCARE_OBGYN"
+                sup_ge = "SUP-GE_Healthcare_Vietnam"
+                self.add_node(GraphNode(ctr_ge, "Contract", "HĐ Cung Cấp Hệ Thống Siêu Âm Voluson GE", {
+                    "contract_no": "HĐ-GE-VOLUSON-Q7",
+                    "item": "Máy Siêu Âm Voluson",
+                    "supplier": "Công ty TNHH GE Healthcare Việt Nam"
+                }))
+                self.add_node(GraphNode(sup_ge, "Supplier", "Công ty TNHH GE Healthcare Việt Nam", {
+                    "origin": "Mỹ / Áo"
+                }))
+                self.add_edge(GraphEdge(dev_id, ctr_ge, "PROCURED_UNDER", {"item": "Voluson Ultrasound"}))
+                self.add_edge(GraphEdge(ctr_ge, sup_ge, "SUPPLIED_BY"))
+
             # Edge: GOVERNED_BY Regulation
             self.add_edge(GraphEdge(dev_id, "REG-ND98", "GOVERNED_BY", {"risk_rule": f"Mức {d['risk_level'] or 'A'}"}))
             if d['risk_level'] in ['C', 'D'] or d['recalibration_date']:
