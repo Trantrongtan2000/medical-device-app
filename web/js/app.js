@@ -207,9 +207,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span>
                             </td>
                             <td class="pe-3 text-end" onclick="event.stopPropagation()">
-                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
-                                    <i class="bi bi-eye"></i> Chi tiết
-                                </button>
+                                <div class="d-flex justify-content-end gap-1">
+                                    <button class="btn btn-sm btn-primary btn-clinical" onclick="app.showDeviceDetails(${d.id})" title="Xem hồ sơ lý lịch chi tiết">
+                                        <i class="bi bi-eye"></i> Chi tiết
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.openEditDeviceModal(${d.id})" title="Điều chỉnh thông tin thiết bị">
+                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     `;
@@ -355,6 +360,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (woSelect) woSelect.value = deviceId;
                         const woModal = new bootstrap.Modal(document.getElementById('speedmaintWorkOrderModal'));
                         woModal.show();
+                    };
+                }
+
+                const btnEdit = document.getElementById('modal-btn-edit');
+                if (btnEdit) {
+                    btnEdit.onclick = () => {
+                        bootstrap.Modal.getInstance(document.getElementById('deviceDetailsModal'))?.hide();
+                        this.openEditDeviceModal(deviceId);
                     };
                 }
 
@@ -613,6 +626,46 @@ document.addEventListener('DOMContentLoaded', function () {
                         trForm.reset();
                         this.loadTransfers();
                         this.loadDevices();
+                    }
+                });
+            }
+
+            // Edit Device Form Submit
+            const editForm = document.getElementById('editDeviceForm');
+            if (editForm) {
+                editForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const devId = parseInt(document.getElementById('edit-dev-id').value);
+                    const payload = {
+                        device_name: document.getElementById('edit-dev-name').value,
+                        model: document.getElementById('edit-dev-model').value,
+                        serial_no: document.getElementById('edit-dev-serial').value,
+                        facility_id: parseInt(document.getElementById('edit-dev-facility').value),
+                        category_id: parseInt(document.getElementById('edit-dev-category').value),
+                        manufacturer: document.getElementById('edit-dev-mfg').value,
+                        country_of_manufacturer: document.getElementById('edit-dev-country').value,
+                        year_of_manufacture: document.getElementById('edit-dev-year').value,
+                        risk_level: document.getElementById('edit-dev-risk').value,
+                        status: document.getElementById('edit-dev-status').value,
+                        installation_date: document.getElementById('edit-dev-install-date').value || null,
+                        notes: document.getElementById('edit-dev-notes').value
+                    };
+
+                    try {
+                        const res = await fetch(`/api/devices/${devId}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await res.json();
+                        if (!res.ok) throw new Error(result.detail || 'Lỗi khi cập nhật thiết bị');
+
+                        alert('✅ ' + result.message);
+                        bootstrap.Modal.getInstance(document.getElementById('editDeviceModal'))?.hide();
+                        this.loadDevices();
+                    } catch (err) {
+                        alert('❌ Lỗi cập nhật: ' + err.message);
                     }
                 });
             }

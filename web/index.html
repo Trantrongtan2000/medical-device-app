@@ -679,6 +679,9 @@
                 <!-- Footer Actions -->
                 <div class="modal-footer bg-light px-4 py-3 border-top d-flex justify-content-between">
                     <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-warning btn-clinical fw-bold text-dark shadow-sm" id="modal-btn-edit">
+                            <i class="bi bi-pencil-square me-1"></i> Điều Chỉnh Thông Tin
+                        </button>
                         <button type="button" class="btn btn-outline-primary btn-clinical" id="modal-btn-transfer">
                             <i class="bi bi-arrow-left-right me-1"></i> Lập Phiếu Điều Chuyển (QT.08)
                         </button>
@@ -690,6 +693,104 @@
                         </button>
                     </div>
                     <button type="button" class="btn btn-secondary btn-clinical px-4" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- ==================== MODAL: ĐIỀU CHỈNH / CHỈNH SỬA THÔNG TIN THIẾT BỊ ==================== -->
+    <div class="modal fade" id="editDeviceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-primary text-white px-4 py-3 border-0">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-pencil-square fs-4"></i>
+                        <div>
+                            <h5 class="modal-title fw-bold text-white mb-0">Điều Chỉnh Thông Tin Thiết Bị</h5>
+                            <span class="small font-mono text-light" id="edit-modal-tag-sn">BVQ7-TTB-XXXXX</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editDeviceForm">
+                        <input type="hidden" id="edit-dev-id">
+                        
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label small fw-bold text-dark">TÊN THIẾT BỊ (*)</label>
+                                <input type="text" id="edit-dev-name" class="form-control form-control-sm fw-semibold" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark">MODEL (*)</label>
+                                <input type="text" id="edit-dev-model" class="form-control form-control-sm font-mono" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">SỐ SERIAL (S/N)</label>
+                                <input type="text" id="edit-dev-serial" class="form-control form-control-sm font-mono text-primary fw-bold">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">KHOA / PHÒNG BAN QUẢN LÝ (*)</label>
+                                <select id="edit-dev-facility" class="form-select form-select-sm" required></select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">NHÓM DANH MỤC (*)</label>
+                                <select id="edit-dev-category" class="form-select form-select-sm" required></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">HÃNG SẢN XUẤT</label>
+                                <input type="text" id="edit-dev-mfg" class="form-control form-control-sm">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark">NƯỚC SẢN XUẤT</label>
+                                <input type="text" id="edit-dev-country" class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark">NĂM SẢN XUẤT</label>
+                                <input type="text" id="edit-dev-year" class="form-control form-control-sm font-mono">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark">PHÂN LOẠI RỦI RO (*)</label>
+                                <select id="edit-dev-risk" class="form-select form-select-sm fw-bold">
+                                    <option value="A">Loại A (Rủi ro rất thấp)</option>
+                                    <option value="B">Loại B (Rủi ro thấp)</option>
+                                    <option value="C">Loại C (Rủi ro trung bình cao)</option>
+                                    <option value="D">Loại D (Rủi ro đặc biệt cao)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">TRẠNG THÁI VẬN HÀNH</label>
+                                <select id="edit-dev-status" class="form-select form-select-sm fw-bold">
+                                    <option value="IN_SERVICE">IN_SERVICE (Đang hoạt động)</option>
+                                    <option value="MAINTENANCE">MAINTENANCE (Đang bảo trì)</option>
+                                    <option value="STANDBY">STANDBY (Dự phòng)</option>
+                                    <option value="REPAIRING">REPAIRING (Đang sửa chữa)</option>
+                                    <option value="DISPOSED">DISPOSED (Đã thanh lý)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">NGÀY LẮP ĐẶT</label>
+                                <input type="date" id="edit-dev-install-date" class="form-control form-control-sm font-mono">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-dark">GHI CHÚ & HỢP ĐỒNG / NHÀ THẦU</label>
+                                <textarea id="edit-dev-notes" class="form-control form-control-sm" rows="2" placeholder="Ghi chú hồ sơ kỹ thuật, thông tin nhà thầu..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                            <button type="button" class="btn btn-secondary btn-clinical px-4" data-bs-dismiss="modal">Hủy bỏ</button>
+                            <button type="submit" class="btn btn-primary btn-clinical px-4 fw-bold shadow-sm">
+                                <i class="bi bi-check-lg me-1"></i> Lưu Thay Đổi
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
