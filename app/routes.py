@@ -25,6 +25,7 @@ router = APIRouter()
 
 
 PDF_ROOT_DIRS = [
+    Path(r"G:\BV QUẬN 7"),
     Path(r"G:\BV QUẬN 7_OCR_WORK_20260712"),
     Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818"),
     Path(r"C:\Users\tantt\Downloads\asset-management-tools\36. TRANG THIẾT BỊ Y TẾ")
