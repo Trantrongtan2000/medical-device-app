@@ -12,6 +12,9 @@ from datetime import date, timedelta
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List
+import qrcode
+import base64
+from io import BytesIO
 
 from .database import get_db
 
@@ -374,3 +377,35 @@ async def mark_notification_read(notif_id: int, db = Depends(get_db)):
     db.execute("UPDATE notifications SET is_read = 1 WHERE id = ?", (notif_id,))
     db.commit()
     return {"id": notif_id, "status": "read"}
+
+
+@router.get("/api/devices/{device_id}/qr-code")
+async def generate_qr_code(device_id: int, db = Depends(get_db)):
+    """Tạo QR code cho thiết bị — trả về base64 image + payload cho mobile scanning"""
+    dev = db.execute("SELECT device_name, serial_no, certification_no FROM devices WHERE id = ?", (device_id,)).fetchone()
+    if not dev:
+        raise HTTPException(404, "Thiết bị không tồn tại")
+    
+    payload = f"TTBYT-BV7|{device_id}|{dev['device_name']}|{dev['serial_no'] or 'N/A'}"
+    if dev['certification_no']:
+        payload += f"|CN:{dev['certification_no']}"
+    
+    try:
+        qr = qrcode.QRCode(version=1, box_size=8, border=2)
+        qr.add_data(payload)
+        qr.make(fit=True)
+        img = qr.make_image(fill='black', back_color='white')
+        buffer = BytesIO()
+        img.save(buffer, format='PNG')
+        b64 = base64.b64encode(buffer.getvalue()).decode()
+    except Exception as e:
+        return {"device_id": device_id, "payload": payload, "error": str(e)}
+    
+    return {
+        "device_id": device_id,
+        "device_name": dev['device_name'],
+        "serial_no": dev['serial_no'],
+        "payload": payload,
+        "qr_base64": b64,
+        "format": "PNG 8-bit"
+    }
