@@ -472,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
             await this.loadInspections();
             await this.loadTransfers();
             await this.loadWorkOrders();
+            await this.loadInspections();
             this.loadStaff();
             this.loadOncallData();
             this.loadContractsData();
@@ -1754,6 +1755,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 `).join('');
             } catch (err) {
                 console.error('Error loading work orders:', err);
+            }
+        },
+
+        async loadInspections() {
+            try {
+                const res = await fetch('/api/inspections/pre-use?limit=50');
+                const inspections = await res.json();
+                const tbody = document.getElementById('inspections-table-body');
+                if (!inspections || inspections.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Chưa có lịch sử kiểm tra nào.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = inspections.map(i => `
+                    <tr>
+                        <td class="font-mono small">${i.inspection_time ? i.inspection_time.substring(0,10) : '-'}</td>
+                        <td class="fw-bold text-dark">${i.device_name || i.device_id}</td>
+                        <td class="font-mono small">${i.inspector_name || '-'}</td>
+                        <td class="text-center">
+                            ${i.overall_status === 'PASSED' ? '<span class="badge bg-success">✅ PASSED</span>' : '<span class="badge bg-danger">❌ FAILED</span>'}
+                        </td>
+                        <td class="text-muted small">${i.notes || '-'}</td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error('Error loading inspections:', err);
+                const tbody = document.getElementById('inspections-table-body');
+                if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-danger">Lỗi tải dữ liệu</td></tr>';
             }
         },
 
@@ -3693,11 +3721,18 @@ ${data.message}`);
                     if (res.ok) {
                         alert('✅ Đã thực hiện điều chuyển thiết bị thành công theo Quy trình QT.08!');
                         trForm.reset();
+                        // Set default date to today after reset
+                        const trDateInput = document.getElementById('tr-date');
+                        if (trDateInput) trDateInput.value = new Date().toISOString().split('T')[0];
                         this.loadTransfers();
                         this.loadDevices();
                     }
                 });
             }
+
+            // Set default date for transfer form when page loads
+            const trDateInput = document.getElementById('tr-date');
+            if (trDateInput) trDateInput.value = new Date().toISOString().split('T')[0];
 
             // Edit Device Form Submit
             const editForm = document.getElementById('editDeviceForm');
