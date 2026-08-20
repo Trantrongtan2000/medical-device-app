@@ -1,0 +1,2 @@
+const el = document.querySelector('textarea') || document.querySelector('#prompt-textarea') || document.querySelector('[contenteditable="true"]');
+return 'val_len=' + (el.value ? el.value.length : (el.innerText ? el.innerText.length : 0)) + ' tag=' + el.tagName + ' ce=' + el.isContentEditable;
