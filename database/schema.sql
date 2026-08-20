@@ -191,9 +191,29 @@ CREATE TABLE IF NOT EXISTS maintenance_schedules (
     due_date DATE NOT NULL,
     status TEXT DEFAULT 'PENDING' CHECK(status IN ('PENDING', 'IN_PROGRESS', 'COMPLETED', 'OVERDUE')),
     notes TEXT,
+    maintenance_type TEXT DEFAULT 'PREVENTIVE' CHECK(maintenance_type IN ('PREVENTIVE', 'CALIBRATION', 'REPAIR', 'INSPECTION', 'HANDOVER')),
+    frequency_days INTEGER,
+    last_completed_at DATE,
+    next_due_at DATE,
+    assigned_staff_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS notifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ref_type TEXT NOT NULL CHECK(ref_type IN ('CALIBRATION', 'MAINTENANCE', 'TRANSFER', 'DEVICE', 'FEEDBACK')),
+    ref_id INTEGER NOT NULL,
+    message TEXT NOT NULL,
+    level TEXT NOT NULL DEFAULT 'WARNING' CHECK(level IN ('INFO', 'WARNING', 'CRITICAL')),
+    days_left INTEGER,
+    is_read INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_read ON notifications(is_read, created_at);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_ref ON notifications(ref_type, ref_id);
 
 CREATE TABLE IF NOT EXISTS oncall_schedule (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
