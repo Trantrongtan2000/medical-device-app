@@ -21,6 +21,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 from .routes import router
+from .routes_schedules import router as schedules_router
+from .routes_inspections import router as inspections_router
 from .database import init_database
 
 app = FastAPI(
@@ -42,6 +44,8 @@ app.add_middleware(
 
 # Include API routes
 app.include_router(router)
+app.include_router(schedules_router)
+app.include_router(inspections_router)
 
 # Mount static directories
 web_dir = Path(__file__).parent.parent / "web"

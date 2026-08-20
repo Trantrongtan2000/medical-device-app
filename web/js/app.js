@@ -3763,11 +3763,55 @@ ${data.message}`);
                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
                         woForm.reset();
                         this.loadWorkOrders();
+            await this.loadSchedules();
+            await this.loadAlertsSummary();
             this.loadStaff();
             this.loadOncallData();
                     }
                 });
             }
+
+        loadSchedules() {
+            const tbody = document.querySelector('#tab-schedule tbody');
+            if (!tbody) return;
+            return fetch('/api/schedules/list?limit=100')
+                .then(r => r.json())
+                .then(data => {
+                    if (!data || !data.length) {
+                        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">Chưa có lịch bảo trì nào.</td></tr>';
+                        return;
+                    }
+                    const rows = data.map(s => {
+                        const dueDays = s.days_left !== undefined ? s.days_left : null;
+                        const dueStyle = dueDays !== null && dueDays < 0 ? 'text-danger' : (dueDays !== null && dueDays <= 30 ? 'text-warning' : 'text-dark');
+                        const statusCls = s.status === 'COMPLETED' ? 'table-success' : (s.status === 'OVERDUE' ? 'table-danger' : 'table-warning');
+                        return '<tr class="table-' + statusCls + '"><td class="font-mono fw-bold text-primary">' + s.device_id + '</td><td class="fw-bold text-dark">' + s.device_name + ' — ' + s.model + '</td><td class="font-mono">' + (s.facility || 'N/A') + '</td><td><span class="badge ' + (s.maintenance_type === 'PREVENTIVE' ? 'bg-info' : 'bg-warning') + '">' + (s.maintenance_type || 'PREVENTIVE') + '</span></td><td class="' + dueStyle + ' font-mono fw-bold">' + (s.due_date ? s.due_date.split('T')[0].replace(/-/g,'/') : '-') + ' (' + (dueDays !== null ? dueDays : '—') + ' ngày)</td><td class="font-mono">' + (s.assigned_staff_name || s.assigned_staff_id || '-') + '</td><td class="text-end"><button class="btn btn-sm btn-outline-primary btn-clinical" onclick="app.showScheduleDetail(' + s.id + ')">Chi tiết</button></td></tr>';
+                    }).join('');
+                    tbody.innerHTML = rows;
+                })
+                .catch(err => {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-danger">Lỗi: ' + err.message + '</td></tr>';
+                });
+        },
+
+        async loadAlertsSummary() {
+            const badges = document.querySelector('#alert-badges');
+            if (!badges) return;
+            try {
+                const s = await fetch('/api/alerts/summary').then(r => r.json());
+                badges.innerHTML = '<span class="badge bg-danger me-2">' + (s.certs_overdue || 0) + ' Hết kiểm định</span> <span class="badge bg-warning text-dark me-2">' + (s.certs_expiring_90d || 0) + ' Sắp hết 90d</span> <span class="badge bg-info text-dark">' + (s.maintenance_overdue || 0) + ' Bảo trì quá hạn</span>';
+            } catch(e) {}
+        },
+
+        showScheduleDetail(id) {
+            fetch('/api/schedules/list/' + id).then(r => r.json()).then(s => {
+                alert('Lịch ID: ' + s.id + ' - Thiết bị: ' + s.device_name + ' - Hạn: ' + s.due_date);
+            }).catch(() => alert('Không tìm thấy lịch ID: ' + id));
+        },
+
+        async loadOncallData(month = null, year = null) {
+            // stub — đã có implementation ở đâu đó
+            console.log('loadOncallData stub');
         }
     };
 

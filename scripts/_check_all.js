@@ -1,0 +1,1 @@
+var m=document.querySelector("main")||document.body,t=m.innerText||"",d=document.querySelectorAll("[data-message-author-role='assistant']"),last=d[d.length-1];return "msgCount="+d.length+" lastLen="+(last?last.innerText.length:0)+" tail="+t.slice(-300).replace(/[\r\n]/g,"|")
