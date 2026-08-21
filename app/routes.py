@@ -771,6 +771,49 @@ async def ai_chat(req: AIChatRequest, db = Depends(get_db)):
     }
 
 
+# ==================== CACTUS NEEDLE 2 HYBRID AGENT ENDPOINTS ====================
+
+from .needle_agent import needle_agent, TOOLS_REGISTRY
+
+class AgentQueryRequest(BaseModel):
+    query: str
+    force_cloud: bool = False
+
+@router.get("/api/agent/tools")
+async def list_agent_tools():
+    """Danh sách 5 tool cục bộ của Cactus Needle Edge Agent"""
+    return {
+        "engine": "Cactus Needle 2 (45M Edge Model)",
+        "tools_count": len(TOOLS_REGISTRY),
+        "tools": [tool.model_dump() for tool in TOOLS_REGISTRY.values()]
+    }
+
+@router.post("/api/agent/query")
+async def agent_query(req: AgentQueryRequest, db = Depends(get_db)):
+    """Phân luồng thông minh Cactus Hybrid (Needle Local Edge ↔ Gemini Cloud Frontier)"""
+    async def cloud_fallback(prompt: str) -> str:
+        rows = db.execute("SELECT * FROM device_status_summary ORDER BY alert_status ASC LIMIT 10").fetchall()
+        return await gemini_service.chat(user_message=prompt, context_devices=[dict(r) for r in rows])
+
+    if req.force_cloud:
+        cloud_reply = await cloud_fallback(req.query)
+        return {
+            "status": "SUCCESS",
+            "route_taken": "CLOUD_FRONTIER",
+            "confidence": 1.0,
+            "tool_name": None,
+            "response_text": cloud_reply,
+            "engine": "Google Gemini 3.7 Flash (Forced Cloud)"
+        }
+
+    res = await needle_agent.process_query(
+        query=req.query,
+        db=db,
+        cloud_fallback_func=cloud_fallback
+    )
+    return res.model_dump()
+
+
 class OCRProcessRequest(BaseModel):
     filename: Optional[str] = None
     file_path: Optional[str] = None
