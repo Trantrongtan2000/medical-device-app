@@ -62,18 +62,27 @@ async def create_transfer(req: DeviceTransferCreate, db = Depends(get_db)):
 
 @router.put("/api/transfers/{transfer_id}/confirm")
 async def confirm_transfer(transfer_id: int, db = Depends(get_db)):
-    """Xác nhận transfer — update device.facility_id transaction-safe"""
+    """Xác nhận transfer — update device.facility_id transaction-safe with rollback"""
     row = db.execute("SELECT * FROM device_transfers WHERE id = ?", (transfer_id,)).fetchone()
     if not row:
         raise HTTPException(404, f"Transfer {transfer_id} không tồn tại")
     if row["status"] == "CONFIRMED":
         return {"id": transfer_id, "status": "already_confirmed"}
     
-    db.execute("BEGIN")
-    db.execute("UPDATE devices SET facility_id = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
-               (row["to_facility_id"], row["device_id"]))
-    db.execute("UPDATE device_transfers SET status = 'CONFIRMED' WHERE id = ?", (transfer_id,))
-    db.commit()
+    try:
+        with db:
+            db.execute("UPDATE devices SET facility_id = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+                       (row["to_facility_id"], row["device_id"]))
+            db.execute("UPDATE device_transfers SET status = 'CONFIRMED' WHERE id = ?", (transfer_id,))
+            
+            # Ghi nhận notification audit
+            db.execute("""
+                INSERT INTO notifications (ref_type, ref_id, message, level, is_read)
+                VALUES ('TRANSFER', ?, ?, 'INFO', 0)
+            """, (transfer_id, f"Thiết bị #{row['device_id']} đã được bàn giao sang Khoa/Phòng ID #{row['to_facility_id']}"))
+    except Exception as e:
+        raise HTTPException(500, f"Lỗi giao dịch điều chuyển: {str(e)}")
+        
     return {"id": transfer_id, "status": "CONFIRMED"}
 
 @router.delete("/api/transfers/{transfer_id}")

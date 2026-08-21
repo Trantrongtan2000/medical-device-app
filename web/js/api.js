@@ -174,7 +174,17 @@ const apiClient = {
         return `/api/export/csv?${params.toString()}`;
     },
 
-    // Utility formatting
+    // Utility formatting & XSS Security
+    escapeHTML(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    },
+
     formatDate(dateStr) {
         if (!dateStr) return '-';
         try {
@@ -192,4 +202,5 @@ const apiClient = {
     }
 };
 
+window.escapeHTML = apiClient.escapeHTML;
 window.apiClient = apiClient;
