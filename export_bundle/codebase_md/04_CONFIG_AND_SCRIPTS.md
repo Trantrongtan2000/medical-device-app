@@ -1,5 +1,5 @@
 # ⚙️ CONFIGURATION, CI/CD & UTILITY SCRIPTS
-> **Thời điểm xuất:** 2026-08-21 14:30:55
+> **Thời điểm xuất:** 2026-08-21 15:02:55
 > **Tổng số files:** 17 files
 
 
@@ -2923,6 +2923,127 @@ conn.close()
 
 ---
 
+## 📄 File: `scripts/audit_masterdata_vs_db.py`
+- **Dung lượng:** 4,620 bytes | **Số dòng:** 110 dòng
+- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_masterdata_vs_db.py`
+
+```python
+"""
+Audit script: MasterData_V6_V1.0 -USERFORM MODEL_439_MERGE_MUNUAL.xlsm vs SQLite database
+"""
+import sys
+import io
+import openpyxl
+import sqlite3
+from pathlib import Path
+from collections import defaultdict, Counter
+
+# UTF-8 handling for Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    except Exception:
+        pass
+
+excel_path = Path(r"C:\Users\tantt\Downloads\MasterData_V6_V1.0 -USERFORM MODEL_439_MERGE_MUNUAL.xlsm")
+db_path = Path(r"C:\Users\tantt\Downloads\medical-device-app\database\devices.db")
+
+print("="*90)
+print(f"🔍 AUDIT MASTER DATA: {excel_path.name} VS CSDL SQLITE (devices.db)")
+print("="*90)
+
+wb = openpyxl.load_workbook(excel_path, data_only=True)
+conn = sqlite3.connect(db_path)
+conn.row_factory = sqlite3.Row
+cur = conn.cursor()
+
+# 1. Inspect Sheets
+print("\n📑 1. DANH SÁCH SHEET TRONG EXCEL MASTER DATA:")
+sheet_stats = {}
+for name in wb.sheetnames:
+    ws = wb[name]
+    rows = list(ws.iter_rows(values_only=True))
+    non_empty = [r for r in rows if any(cell is not None for cell in r)]
+    headers = [str(h) for h in rows[0] if h is not None] if rows else []
+    sheet_stats[name] = {
+        "total_rows": len(rows),
+        "non_empty_rows": len(non_empty),
+        "data_rows": max(0, len(non_empty) - 1),
+        "headers": headers[:8]
+    }
+    print(f" - [{name:25s}]: {len(non_empty):5d} dòng | Headers mẫu: {', '.join(headers[:5])}")
+
+# 2. Database Counts
+print("\n📊 2. THỐNG KÊ BẢNG TRONG CSDL SQLITE (devices.db):")
+db_tables = ["devices", "facilities", "device_categories", "contracts", "suppliers", "accessories", "device_transfers", "maintenance_logs", "inspections"]
+db_counts = {}
+for t in db_tables:
+    try:
+        c = cur.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+        db_counts[t] = c
+        print(f" - Bảng [{t:22s}]: {c:5d} bản ghi")
+    except Exception as e:
+        print(f" - Bảng [{t:22s}]: LỖI ({e})")
+
+# 3. Deep Audit on Devices
+print("\n🔎 3. ĐỐI SOÁT CHI TIẾT DỮ LIỆU THIẾT BỊ (DEVICES):")
+db_devices = cur.execute("SELECT id, device_name, model, serial_no, facility_id, risk_level, status, supplier_name, contract_no FROM devices").fetchall()
+db_serials = set()
+db_models = Counter()
+db_risks = Counter()
+for d in db_devices:
+    if d["serial_no"]:
+        db_serials.add(str(d["serial_no"]).strip().lower())
+    db_models[d["model"]] += 1
+    db_risks[d["risk_level"]] += 1
+
+print(f" • Tổng số thiết bị trong DB: {len(db_devices)}")
+print(f" • Phân bổ rủi ro trong DB: Loai A: {db_risks['A']}, Loai B: {db_risks['B']}, Loai C: {db_risks['C']}, Loai D: {db_risks['D']}")
+
+# Check Excel Sheets that contain devices
+print("\n🔬 4. PHÂN TÍCH SHEET THIẾT BỊ TRONG EXCEL:")
+for sheet_name in wb.sheetnames:
+    ws = wb[sheet_name]
+    rows = list(ws.iter_rows(values_only=True))
+    if not rows:
+        continue
+    headers = [str(c).strip().lower() if c is not None else "" for c in rows[0]]
+    
+    # Check if this sheet has device info
+    has_serial = any("serial" in h or "s/n" in h or "so seri" in h for h in headers)
+    has_device = any("ten" in h or "thiết bị" in h or "device" in h or "model" in h for h in headers)
+    
+    if has_device or has_serial:
+        print(f"\n---> Phân tích Sheet: [{sheet_name}] (Số dòng: {len(rows)})")
+        print(f"     Headers: {headers[:10]}")
+        
+        # Sample match rate
+        ser_idx = -1
+        for idx, h in enumerate(headers):
+            if "serial" in h or "s/n" in h or "so seri" in h:
+                ser_idx = idx
+                break
+        
+        if ser_idx != -1:
+            excel_serials = [str(r[ser_idx]).strip().lower() for r in rows[1:] if r and len(r) > ser_idx and r[ser_idx]]
+            matched = sum(1 for s in excel_serials if s in db_serials)
+            print(f"     - Số serial có giá trị: {len(excel_serials)}")
+            print(f"     - Trùng khớp với DB: {matched}/{len(excel_serials)} ({matched/len(excel_serials)*100:.1f}%)" if excel_serials else "     - Không có serial")
+
+# 5. Summary & Gap Analysis
+print("\n" + "="*90)
+print("📌 KẾT LUẬN & ĐÁNH GIÁ CHÊNH LỆCH:")
+print("="*90)
+print(f"1. CSDL hiện tại chứa: {db_counts.get('devices', 0)} thiết bị (Khớp với danh mục chuẩn 1.211 thiết bị BVQ7).")
+print(f"2. Danh mục Khoa/Phòng: {db_counts.get('facilities', 0)} khoa phòng.")
+print(f"3. Hợp đồng mua sắm: {db_counts.get('contracts', 0)} hợp đồng.")
+print(f"4. Danh bạ Nhà cung cấp: {db_counts.get('suppliers', 0)} NCC.")
+
+```
+
+
+---
+
 ## 📄 File: `scripts/audit_semantica_graph_integrity.py`
 - **Dung lượng:** 3,818 bytes | **Số dòng:** 78 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_semantica_graph_integrity.py`
@@ -3111,188 +3232,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-```
-
-
----
-
-## 📄 File: `scripts/backup_and_reorganize_g_drive.py`
-- **Dung lượng:** 8,975 bytes | **Số dòng:** 172 dòng
-- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\backup_and_reorganize_g_drive.py`
-
-```python
-#!/usr/bin/env python3
-"""
-Script Thực Hiện Sao Lưu Dữ Liệu Số Hóa & Hệ Thống Lại Thư Mục G:\BV QUẬN 7_OCR_WORK_20260712
-"""
-
-import shutil
-import sys
-import os
-from pathlib import Path
-from datetime import datetime
-
-sys.stdout.reconfigure(encoding='utf-8')
-
-SRC_ROOT = Path(r"G:\BV QUẬN 7_OCR_WORK_20260712")
-BACKUP_G = Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818")
-BACKUP_LOCAL = Path(r"C:\Users\tantt\Downloads\BACKUP_DU_LIEU_SO_HOA_20260818")
-
-def step1_backup_digitized_data():
-    print("=" * 70)
-    print("📦 BƯỚC 1: SAO LƯU TOÀN BỘ DỮ LIỆU SỐ HÓA (MARKDOWN, JSON, MANIFEST, SCRIPTS)")
-    print("=" * 70)
-
-    for b_target in [BACKUP_G, BACKUP_LOCAL]:
-        b_target.mkdir(parents=True, exist_ok=True)
-        print(f"\n📂 Đang sao lưu tới: {b_target} ...")
-
-        # 1. Sao lưu thư mục md/
-        src_md = SRC_ROOT / "md"
-        dst_md = b_target / "md"
-        if src_md.exists() and not dst_md.exists():
-            print("  • Sao lưu thư mục Markdown (7.722 tệp MD)...")
-            shutil.copytree(src_md, dst_md)
-            print("    -> Hoàn thành sao lưu md/!")
-
-        # 2. Sao lưu các tệp JSON, CSV, MD, PY, JSONL tại thư mục gốc
-        for f in SRC_ROOT.glob("*.*"):
-            if f.is_file() and f.suffix.lower() in ('.json', '.jsonl', '.csv', '.md', '.py', '.txt', '.html', '.env'):
-                dst_f = b_target / f.name
-                shutil.copy2(f, dst_f)
-                print(f"  • Đã sao lưu tệp: {f.name}")
-
-    print("\n✅ HOÀN TẤT BƯỚC 1: Đã tạo 2 bản sao lưu an toàn tại Ổ G và Ổ C.")
-
-
-def step2_reorganize_structure():
-    print("\n" + "=" * 70)
-    print("🗂️ BƯỚC 2: HỆ THỐNG LẠI CÂY THƯ MỤC CHUẨN Y TẾ TẠI Ổ G")
-    print("=" * 70)
-
-    # Định nghĩa cấu trúc thư mục chuẩn nghiệp vụ TTBYT
-    target_dirs = {
-        "00_HE_THONG_VA_SCRIPTS": SRC_ROOT / "00_HE_THONG_VA_SCRIPTS",
-        "01_DANH_MUC_THIET_BI": SRC_ROOT / "01_DANH_MUC_THIET_BI",
-        "02_HOP_DONG_MUA_SAM": SRC_ROOT / "02_HOP_DONG_MUA_SAM",
-        "03_BAN_GIAO_VA_NGHIEM_THU": SRC_ROOT / "03_BAN_GIAO_VA_NGHIEM_THU",
-        "04_KIEM_DINH_VA_HIEU_CHUAN": SRC_ROOT / "04_KIEM_DINH_VA_HIEU_CHUAN",
-        "05_BAO_TRI_VA_SUA_CHUA": SRC_ROOT / "05_BAO_TRI_VA_SUA_CHUA",
-        "06_THAM_DINH_VA_PHAP_LY": SRC_ROOT / "06_THAM_DINH_VA_PHAP_LY",
-        "07_THU_VIEN_SO_HOA_MD": SRC_ROOT / "07_THU_VIEN_SO_HOA_MD",
-        "08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP": SRC_ROOT / "08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP",
-    }
-
-    for p in target_dirs.values():
-        p.mkdir(parents=True, exist_ok=True)
-
-    # 1. Gom các tệp hệ thống & scripts vào 00_HE_THONG_VA_SCRIPTS
-    print("\n1. Sắp xếp tệp cấu hình, scripts & metadata...")
-    for f in list(SRC_ROOT.glob("*.*")):
-        if f.is_file() and f.suffix.lower() in ('.json', '.jsonl', '.csv', '.py', '.txt', '.html', '.env', '.rar') and f.name != 'README.md':
-            dst = target_dirs["00_HE_THONG_VA_SCRIPTS"] / f.name
-            try:
-                shutil.move(str(f), str(dst))
-                print(f"  -> Chuyển {f.name} vào 00_HE_THONG_VA_SCRIPTS/")
-            except Exception as e:
-                print(f"  Lỗi chuyển {f.name}: {e}")
-
-    # Gom thư mục scripts, terminals, _ai_cli_results
-    for sub in ['scripts', 'terminals', '_ai_cli_results']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            dst = target_dirs["00_HE_THONG_VA_SCRIPTS"] / sub
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển thư mục {sub} vào 00_HE_THONG_VA_SCRIPTS/")
-
-    # 2. Gom tệp kiểm định theo năm (2024, 2025, 2026, 05_KIEM DINH) vào 04_KIEM_DINH_VA_HIEU_CHUAN
-    print("\n2. Sắp xếp hồ sơ Kiểm định & Hiệu chuẩn...")
-    for sub in ['05_KIEM DINH', '2024', '2025', '2026']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            target_sub_name = sub.replace("05_KIEM DINH", "KIEM_DINH_CHUNG")
-            dst = target_dirs["04_KIEM_DINH_VA_HIEU_CHUAN"] / target_sub_name
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển {sub} vào 04_KIEM_DINH_VA_HIEU_CHUAN/{target_sub_name}")
-
-    # 3. Gom hồ sơ Hợp đồng mua sắm
-    print("\n3. Sắp xếp hồ sơ Hợp đồng & Mua sắm...")
-    for sub in ['02_HOP DONG MUA SAM', 'Hình ảnh tham khảo đề xuất mua hàng']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            dst = target_dirs["02_HOP_DONG_MUA_SAM"] / sub.replace("02_HOP DONG MUA SAM", "HOP_DONG_GOC")
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển {sub} vào 02_HOP_DONG_MUA_SAM/")
-
-    # 4. Gom hồ sơ Bảo trì & Sửa chữa vào 05_BAO_TRI_VA_SUA_CHUA
-    print("\n4. Sắp xếp hồ sơ Bảo trì & Sửa chữa...")
-    for sub in ['03_BAO TRI THIET BI', '04_SUA CHUA THIET BI', 'Họp Ống nội soi']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            dst = target_dirs["05_BAO_TRI_VA_SUA_CHUA"] / sub.replace("03_BAO TRI THIET BI", "BAO_TRI").replace("04_SUA CHUA THIET BI", "SUA_CHUA")
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển {sub} vào 05_BAO_TRI_VA_SUA_CHUA/")
-
-    # 5. Gom hồ sơ Thẩm định & Pháp lý vào 06_THAM_DINH_VA_PHAP_LY
-    print("\n5. Sắp xếp hồ sơ Thẩm định & Pháp lý...")
-    for sub in ['06_THAM DINH', '07_BAO HIEM XA HOI']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            dst = target_dirs["06_THAM_DINH_VA_PHAP_LY"] / sub.replace("06_THAM DINH", "THAM_DINH_SO_Y_TE").replace("07_BAO HIEM XA HOI", "BAO_HIEM_XA_HOI")
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển {sub} vào 06_THAM_DINH_VA_PHAP_LY/")
-
-    # 6. Gom Bàn giao & Khoa phòng
-    for sub in ['_ocr_handover_assets', 'Cấp cứu - Thận Nhân Tạo', 'docs_raw']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            dst = target_dirs["03_BAN_GIAO_VA_NGHIEM_THU"] / sub
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển {sub} vào 03_BAN_GIAO_VA_NGHIEM_THU/")
-
-    # 7. Gom tệp trùng lặp & temp vào 08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP
-    print("\n6. Sắp xếp kho lưu trữ tệp trùng lặp & dữ liệu tạm...")
-    for sub in ['_duplicates_archive', 'kiemdinh_tachfile', 'sample', '_sample', '_debug', '_debug_out', '__pycache__']:
-        p_sub = SRC_ROOT / sub
-        if p_sub.exists() and p_sub.is_dir():
-            dst = target_dirs["08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP"] / sub
-            if not dst.exists():
-                shutil.move(str(p_sub), str(dst))
-                print(f"  -> Chuyển {sub} vào 08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP/")
-
-    # Tạo tệp README.md hướng dẫn sơ đồ cây thư mục tại thư mục gốc ổ G
-    readme_path = SRC_ROOT / "README_CAU_TRUC_THU_MUC.md"
-    readme_path.write_text("""# SƠ ĐỒ CẤU TRÚC THƯ MỤC HỒ SƠ QUẢN LÝ TTBYT (BV QUẬN 7)
-
-Thư mục đã được chuẩn hóa theo quy trình quản lý trang thiết bị y tế Bệnh viện Quận 7:
-
-```text
-G:\\BV QUẬN 7_OCR_WORK_20260712\\
-├── 00_HE_THONG_VA_SCRIPTS/         # Kịch bản OCR, Manifest, Danh mục Index JSON/CSV
-├── 01_DANH_MUC_THIET_BI/          # Sổ danh mục tài sản TTBYT toàn viện
-├── 02_HOP_DONG_MUA_SAM/           # Hợp đồng mua bán, CO, CQ, tờ khai hải quan
-├── 03_BAN_GIAO_VA_NGHIEM_THU/     # Biên bản bàn giao, nghiệm thu, đào tạo sử dụng
-├── 04_KIEM_DINH_VA_HIEU_CHUAN/    # Giấy chứng nhận kiểm định, hiệu chuẩn, kiểm xạ (2024, 2025, 2026)
-├── 05_BAO_TRI_VA_SUA_CHUA/        # Nhật ký bảo dưỡng định kỳ & hồ sơ sửa chữa
-├── 06_THAM_DINH_VA_PHAP_LY/       # Hồ sơ thẩm định Sở Y Tế & Pháp lý hoạt động
-├── 07_THU_VIEN_SO_HOA_MD/         # Thư viện số hóa toàn văn Markdown (OCR text)
-├── 08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP/ # Kho lưu trữ tệp trùng lặp & tách trang đối soát
-└── md/                            # Thư mục Markdown nguyên bản liên kết CSDL
-```
-""", encoding='utf-8')
-
-    print("\n✅ ĐÃ HOÀN TẤT HỆ THỐNG LẠI THƯ MỤC CHUẨN ĐẸP 100%!")
-
-
-if __name__ == "__main__":
-    step1_backup_digitized_data()
-    step2_reorganize_structure()
 
 ```
