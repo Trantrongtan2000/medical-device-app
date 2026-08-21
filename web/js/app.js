@@ -3823,13 +3823,10 @@ ${data.message}`);
                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
                         woForm.reset();
                         this.loadWorkOrders();
-            await this.loadSchedules();
-            await this.loadAlertsSummary();
-            this.loadStaff();
-            this.loadOncallData();
                     }
                 });
             }
+        },
 
         loadSchedules() {
             const tbody = document.querySelector('#tab-schedule tbody');

@@ -1,5 +1,5 @@
 # 🌐 CODEBASE FRONTEND: HTML / JS / CSS (`web/`)
-> **Thời điểm xuất:** 2026-08-21 14:15:12
+> **Thời điểm xuất:** 2026-08-21 14:30:55
 > **Tổng số files:** 9 files
 
 
@@ -704,7 +704,7 @@ html, body {
 ---
 
 ## 📄 File: `web/index.html`
-- **Dung lượng:** 251,138 bytes | **Số dòng:** 3,216 dòng
+- **Dung lượng:** 251,134 bytes | **Số dòng:** 3,215 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\web\index.html`
 
 ```html
@@ -2863,12 +2863,6 @@ html, body {
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/diagrams.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/app.js?v=20260819_SIDEBAR_PERFECT_V3"></script>
-
     <!-- ==================== MODAL: THÊM TÁC VỤ KANBAN MỚI ==================== -->
     <div class="modal fade" id="createKanbanTaskModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -3922,6 +3916,11 @@ html, body {
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/diagrams.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js?v=20260821_REPAIR_SYNTAX_OK"></script>
 </body>
 </html>
 ```
@@ -4146,7 +4145,7 @@ window.apiClient = apiClient;
 ---
 
 ## 📄 File: `web/js/app.js`
-- **Dung lượng:** 210,467 bytes | **Số dòng:** 3,855 dòng
+- **Dung lượng:** 212,306 bytes | **Số dòng:** 3,877 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\web\js\app.js`
 
 ```javascript
@@ -4614,27 +4613,28 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         async init() {
-            this.initSidebarState();
-            this.initKanban();
-            this.initOverviewCharts();
-            this.setupNavigation();
-            this.setupFormSubmissions();
-            await this.loadInitialData();
-            await this.loadDevices();
-            await this.loadInspections();
-            await this.loadTransfers();
-            await this.loadWorkOrders();
-            await this.loadInspections();
-            this.loadStaff();
-            this.loadOncallData();
-            this.loadContractsData();
-            this.loadSuppliersData();
-            await this.loadSemanticaStats();
-            await this.loadActivityFeed();
+            try { this.initSidebarState(); } catch (e) { console.error(e); }
+            try { this.initKanban(); } catch (e) { console.error(e); }
+            try { this.initOverviewCharts(); } catch (e) { console.error(e); }
+            try { this.setupNavigation(); } catch (e) { console.error(e); }
+            try { this.setupFormSubmissions(); } catch (e) { console.error(e); }
+            
+            try { await this.loadDashboardSummary(); } catch (e) { console.error(e); }
+            try { await this.loadInitialData(); } catch (e) { console.error(e); }
+            try { await this.loadDevices(); } catch (e) { console.error(e); }
+            try { await this.loadInspections(); } catch (e) { console.error(e); }
+            try { await this.loadTransfers(); } catch (e) { console.error(e); }
+            try { await this.loadWorkOrders(); } catch (e) { console.error(e); }
+            try { this.loadStaff(); } catch (e) { console.error(e); }
+            try { this.loadOncallData(); } catch (e) { console.error(e); }
+            try { this.loadContractsData(); } catch (e) { console.error(e); }
+            try { this.loadSuppliersData(); } catch (e) { console.error(e); }
+            try { await this.loadSemanticaStats(); } catch (e) { console.error(e); }
+            try { await this.loadActivityFeed(); } catch (e) { console.error(e); }
 
             // Render default diagram
             if (window.DiagramEngine) {
-                DiagramEngine.render('diagram-container', 'qt04');
+                try { DiagramEngine.render('diagram-container', 'qt04'); } catch (e) { console.error(e); }
             }
         },
 
@@ -5354,7 +5354,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Trigger specific tab data loaders
-            if (targetId === '#tab-suppliers') {
+            if (targetId === '#tab-overview') {
+                this.loadDashboardSummary();
+                this.loadDevices();
+            } else if (targetId === '#tab-suppliers') {
                 this.switchSupplierSubTab(this.currentSupplierSubTab || 'contracts');
             } else if (targetId === '#tab-staff') {
                 this.loadStaff();
@@ -5371,6 +5374,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.loadTransfers();
             } else if (targetId === '#tab-speedmaint') {
                 this.loadWorkOrders();
+            }
+        },
+
+        async loadDashboardSummary() {
+            try {
+                const res = await fetch('/api/dashboard/summary');
+                if (!res.ok) return;
+                const data = await res.json();
+                
+                const elDashTotal = document.getElementById('dash-total-assets');
+                const elSideTotal = document.getElementById('side-kpi-total');
+                const elNavTotal = document.getElementById('nav-badge-total');
+                const elSideAvail = document.getElementById('side-kpi-avail');
+
+                const totalFormatted = (data.total_devices || 1211).toLocaleString('vi-VN');
+                if (elDashTotal) elDashTotal.textContent = totalFormatted;
+                if (elSideTotal) elSideTotal.textContent = totalFormatted;
+                if (elNavTotal) elNavTotal.textContent = totalFormatted;
+                if (elSideAvail) elSideAvail.textContent = `${data.availability_rate || 98.6}%`;
+            } catch (err) {
+                console.error('Lỗi tải dashboard summary:', err);
             }
         },
 
@@ -5401,7 +5425,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ? currentHash 
                 : (savedTab && document.querySelector(savedTab)) 
                     ? savedTab 
-                    : '#tab-dashboard';
+                    : '#tab-overview';
 
             this.activateTab(initialTab, false);
 
@@ -7950,13 +7974,10 @@ ${data.message}`);
                         bootstrap.Modal.getInstance(document.getElementById('speedmaintWorkOrderModal'))?.hide();
                         woForm.reset();
                         this.loadWorkOrders();
-            await this.loadSchedules();
-            await this.loadAlertsSummary();
-            this.loadStaff();
-            this.loadOncallData();
                     }
                 });
             }
+        },
 
         loadSchedules() {
             const tbody = document.querySelector('#tab-schedule tbody');
