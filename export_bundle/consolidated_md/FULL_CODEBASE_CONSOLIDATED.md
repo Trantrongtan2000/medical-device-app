@@ -1,6 +1,6 @@
 # 🏥 TOÀN BỘ CODEBASE & TÀI LIỆU HỆ THỐNG QUẢN LÝ TRANG THIẾT BỊ Y TẾ (BV QUẬN 7)
 > **Phiên bản:** HTM Clinical Workflow V3 (SpeedMaint Cloud / Snipe-IT / Semantica)
-> **Thời điểm đóng gói:** 2026-08-21 15:37:06
+> **Thời điểm đóng gói:** 2026-08-21 15:44:00
 > **Quy mô CSDL:** 1.211 thiết bị y tế | 21 khoa phòng lâm sàng
 
 ## MỤC LỤC TỔNG QUAN
