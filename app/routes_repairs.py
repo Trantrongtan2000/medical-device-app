@@ -101,12 +101,13 @@ async def create_repair(req: RepairCreate, db = Depends(get_db)):
         raise HTTPException(404, f"Device {req.device_id} not found")
     if req.repair_type not in VALID_REPAIR_TYPES:
         raise HTTPException(422, f"repair_type phải thuộc {VALID_REPAIR_TYPES}")
-    now = datetime.now().isoformat()
+    
+    start_date = req.start_date or date.today().isoformat()
     cur = db.execute("""INSERT INTO repairs
-        (device_id, repair_type, description, actual_cost, parts_used, technician_name, reported_by, status, start_date, notes, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 'REPORTED', ?, ?, ?)""",
-        (req.device_id, req.repair_type, req.description, req.actual_cost, req.parts_used,
-         req.technician_name, req.reported_by, req.start_date or now, req.notes, now))
+        (device_id, repair_type, description, actual_cost, parts_used, technician_name, reported_by, status, start_date, notes, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'REPORTED', ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)""",
+        (req.device_id, req.repair_type, req.description, req.actual_cost or 0, req.parts_used,
+         req.technician_name, req.reported_by, start_date, req.notes))
     db.commit()
     return {"id": cur.lastrowid, "status": "created"}
 
@@ -122,13 +123,14 @@ async def update_repair(repair_id: int, req: RepairUpdate, db = Depends(get_db))
     for f in ("repair_type", "description", "actual_cost", "parts_used", "technician_name", "reported_by", "status", "end_date", "notes"):
         v = getattr(req, f, None)
         if v is not None:
-            if f in ('actual_cost',) and v is None: continue
             if f == 'status' and v not in VALID_STATUSES:
                 raise HTTPException(422, f"status phải thuộc {VALID_STATUSES}")
             fields.append(f"{f} = ?")
             vals.append(v)
     if not fields:
         raise HTTPException(422, "No update fields")
+    
+    fields.append("updated_at = CURRENT_TIMESTAMP")
     vals.append(repair_id)
     db.execute("UPDATE repairs SET " + ", ".join(fields) + " WHERE id = ?", vals)
     db.commit()

@@ -276,6 +276,13 @@ class KeyPool:
         self.current_idx = (self.current_idx + 1) % len(active_keys)
         return chosen["key"]
 
+    @staticmethod
+    def mask_key(raw: str) -> str:
+        """Định dạng che giấu API key chuẩn bảo mật (VD: AIzaSy...9aXy)"""
+        if not raw:
+            return "******"
+        return raw[:6] + "..." + raw[-4:] if len(raw) > 10 else "******"
+
     def mark_rate_limited(self, api_key: str):
         """Đánh dấu key bị quá tải (HTTP 429) để tạm ngưng 60 giây và xoay sang key khác"""
         for k in self.keys:
@@ -283,7 +290,7 @@ class KeyPool:
                 k["status"] = "RATE_LIMITED"
                 k["last_used"] = time.time()
                 k["fail_count"] += 1
-                print(f"[KEY ROTATOR] Đã xoay key {self.service_name} do Rate-Limited: {api_key[:8]}...****")
+                print(f"[KEY ROTATOR] Đã xoay key {self.service_name} do Rate-Limited: {self.mask_key(api_key)}")
 
     def mark_invalid(self, api_key: str):
         """Đánh dấu key không hợp lệ (HTTP 401/403)"""
@@ -291,13 +298,14 @@ class KeyPool:
             if k["key"] == api_key:
                 k["status"] = "INVALID"
                 k["last_used"] = time.time()
+                print(f"[KEY ROTATOR] Đã vô hiệu hóa key {self.service_name} không hợp lệ: {self.mask_key(api_key)}")
 
     def get_detailed_list(self) -> List[Dict[str, Any]]:
         """Trả về danh sách đầy đủ thông tin để người dùng quản lý & chỉnh sửa"""
         res = []
         for i, k in enumerate(self.keys):
             raw = k["key"]
-            masked = raw[:6] + "..." + raw[-4:] if len(raw) > 10 else "******"
+            masked = self.mask_key(raw)
             res.append({
                 "id": i + 1,
                 "service": self.service_name,

@@ -27,6 +27,14 @@ def init_database(force: bool = False):
             schema_sql = f.read()
             cursor.executescript(schema_sql)
     
+    # Safe column migrations if tables were created in earlier revisions
+    tables = [r[0] for r in cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+    if "repairs" in tables:
+        repair_cols = [r[1] for r in cursor.execute("PRAGMA table_info(repairs)").fetchall()]
+        if "updated_at" not in repair_cols:
+            cursor.execute("ALTER TABLE repairs ADD COLUMN updated_at TIMESTAMP")
+            cursor.execute("UPDATE repairs SET updated_at = CURRENT_TIMESTAMP WHERE updated_at IS NULL")
+    
     conn.commit()
     conn.close()
 

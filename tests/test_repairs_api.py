@@ -44,6 +44,14 @@ def test_create_repair_valid(client):
     assert up_res.status_code == 200
     assert up_res.json()["status"] == "updated"
 
+    # Verify updated record
+    rep_list = client.get("/api/repairs").json()
+    matched = [r for r in rep_list if r["id"] == repair_id]
+    assert len(matched) == 1
+    assert matched[0]["status"] == "COMPLETED"
+    assert matched[0]["updated_at"] is not None
+    assert matched[0]["start_date"] == "2026-08-21"
+
 def test_create_repair_invalid_device(client):
     payload = {
         "device_id": 999999,
