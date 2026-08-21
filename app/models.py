@@ -3,7 +3,7 @@ Models và Schemas cho Medical Device Management System
 """
 from enum import Enum
 from datetime import date, datetime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List
 
 
@@ -88,8 +88,7 @@ class Device(DeviceBase):
     facility: Optional[str] = None
     category: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Schema cho giấy chứng nhận
@@ -116,8 +115,7 @@ class CalibrationCertificate(CalibrationCertificateBase):
     device_id: int
     created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Schema cho dashboard
@@ -149,3 +147,15 @@ class DeviceStatus(BaseModel):
     alert_status: str  # OVERDUE, WARNING, OK, NO_DATA
     source_pdf: Optional[str] = None
     pdf_path: Optional[str] = None
+
+
+# Schema cho điều chuyển thiết bị (QT.08)
+class DeviceTransferCreate(BaseModel):
+    device_id: int
+    to_facility_id: int
+    from_facility_id: Optional[int] = None
+    giver_name: Optional[str] = ""
+    receiver_name: Optional[str] = ""
+    transfer_reason: Optional[str] = ""
+    transfer_date: Optional[str] = None
+    form_code: Optional[str] = "BM08_TA5.TTBYT.QT.08"

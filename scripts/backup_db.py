@@ -1,36 +1,48 @@
+"""
+Database Backup & Integrity Verification Script
+Tạo bản sao lưu SQLite an toàn kèm kiểm tra toàn vẹn dữ liệu.
+"""
 import sqlite3
 import shutil
-import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
-sys.stdout.reconfigure(encoding='utf-8')
+BASE_DIR = Path(__file__).parent.parent
+DB_PATH = BASE_DIR / "database" / "devices.db"
+BACKUP_DIR = BASE_DIR / "database" / "backups"
 
-app_dir = Path(__file__).parent.parent
-db_path = app_dir / "database" / "devices.db"
-backup_dir = app_dir / "database" / "backups"
-backup_dir.mkdir(parents=True, exist_ok=True)
+def backup_database() -> Path:
+    BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_file = BACKUP_DIR / f"devices_baseline_{timestamp}.db"
 
-if not db_path.exists():
-    print(f"❌ Không tìm thấy database tại: {db_path}")
-    sys.exit(1)
+    # SQLite native online backup API
+    src = sqlite3.connect(DB_PATH)
+    dst = sqlite3.connect(backup_file)
+    with dst:
+        src.backup(dst)
+    dst.close()
+    src.close()
 
-# Perform SQLite VACUUM INTO for consistent online backup (WAL safe)
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-target_backup = backup_dir / f"devices_backup_{timestamp}.db"
-
-try:
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    # Checkpoint WAL first
-    cur.execute("PRAGMA wal_checkpoint(TRUNCATE);")
-    # Safe online backup
-    cur.execute(f"VACUUM INTO '{target_backup.as_posix()}';")
+    # Integrity verification on backup file
+    conn = sqlite3.connect(backup_file)
+    integrity = conn.execute("PRAGMA integrity_check;").fetchone()[0]
+    dev_count = conn.execute("SELECT COUNT(*) FROM devices;").fetchone()[0]
+    tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table';").fetchall()]
     conn.close()
-    
-    file_size_mb = target_backup.stat().st_size / (1024 * 1024)
-    print(f"✅ Đã sao lưu Database thành công: {target_backup.name} ({file_size_mb:.2f} MB)")
-except Exception as e:
-    # Fallback to copy
-    shutil.copy2(db_path, target_backup)
-    print(f"⚠️ Đã sao lưu dạng copy: {target_backup.name}")
+
+    if integrity != "ok":
+        raise RuntimeError(f"Integrity check failed: {integrity}")
+
+    print("========================================")
+    print(f"BACKUP SUCCESSFUL: {backup_file.name}")
+    print(f"Path: {backup_file}")
+    print(f"Size: {backup_file.stat().st_size:,} bytes")
+    print(f"Integrity Check: {integrity}")
+    print(f"Devices Count: {dev_count}")
+    print(f"Total Tables: {len(tables)} ({', '.join(tables[:5])}...)")
+    print("========================================")
+    return backup_file
+
+if __name__ == "__main__":
+    backup_database()

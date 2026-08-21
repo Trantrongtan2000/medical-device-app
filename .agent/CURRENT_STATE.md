@@ -33,8 +33,8 @@
 ## 3. Frontend (Vanilla JS + Bootstrap 5)
 
 - **Giao diện:** `web/index.html` (Tâm Anh Clinical Light theme, 7 tabs chính: Thiết bị, Lịch bảo trì, Điều chuyển QT.08, Kiểm tra an toàn, Sơ đồ quy trình, Phiếu SpeedMaint, Cấu hình AI).
-- **JavaScript App:** `web/js/app.js` (~3.800 dòng, quản lý AJAX fetch, modal chi tiết thiết bị, rendering table).
-- **Tình trạng:** Tab Transfers đã có form tạo nhưng chưa đồng bộ nút xác nhận chuyển và chưa escape HTML chống XSS.
+- **JavaScript App:** `web/js/app.js` (~3.850 dòng, quản lý AJAX fetch, modal chi tiết thiết bị, rendering table).
+- **Tình trạng:** Tab Transfers ✅ **ĐÃ HOÀN THÀNH** - form submit đã hoạt động, ngày mặc định đã thiết lập. Còn kiểm chứng XSS trong `loadTransfers()` và `escapeHtml()` cần xem xét.
 
 ---
 

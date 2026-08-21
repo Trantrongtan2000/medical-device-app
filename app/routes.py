@@ -25,12 +25,20 @@ router = APIRouter()
 
 
 
+import os
+
+DOCS_DIR = Path(__file__).parent.parent / "docs"
+CUSTOM_PDF_ROOT = os.getenv("MEDICAL_DEVICE_PDF_ROOT")
+
 PDF_ROOT_DIRS = [
+    Path(CUSTOM_PDF_ROOT) if CUSTOM_PDF_ROOT else None,
+    DOCS_DIR,
     Path(r"G:\BV QUẬN 7"),
     Path(r"G:\BV QUẬN 7_OCR_WORK_20260712"),
     Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818"),
-    Path(r"C:\Users\tantt\Downloads\asset-management-tools\36. TRANG THIẾT BỊ Y TẾ")
 ]
+PDF_ROOT_DIRS = [p for p in PDF_ROOT_DIRS if p is not None]
+
 
 
 WAREHOUSE_SQL = (
@@ -985,21 +993,6 @@ async def list_standard_sops():
     ]
 
 
-# ==================== SEMANTICA AGI KNOWLEDGE GRAPH & PROVENANCE ====================
-
-from .semantica_engine import semantica_engine
-
-@router.get("/api/semantica/stats")
-async def get_semantica_stats():
-    """Lấy số liệu thống kê Context Graph của Semantica Engine"""
-    return semantica_engine.get_graph_stats()
-
-@router.get("/api/semantica/explain/{device_id}")
-async def explain_device_with_semantica(device_id: int):
-    """Giải trình chuỗi nguyên nhân và nguồn gốc (Causal Provenance & Zero-Hallucination Reasoning)"""
-    return semantica_engine.explain_device(device_id)
-
-
 # ==================== HTM CLINICAL WORKFLOWS (V3 LIFECYCLE EXTENSIONS) ====================
 
 class AccessoryCreateRequest(BaseModel):
@@ -1085,47 +1078,6 @@ async def create_pre_use_inspection(req: PreUseInspectionRequest, db = Depends(g
     db.commit()
     ins_id = cur.lastrowid
     return {"status": "success", "id": ins_id, "overall_status": overall, "message": "Đã lưu bảng kiểm tra an toàn đầu ngày"}
-
-@router.get("/api/transfers")
-async def get_device_transfers(limit: int = 50, db = Depends(get_db)):
-    """Lấy danh sách biên bản điều chuyển thiết bị (QT.08)"""
-    cur = db.cursor()
-    cur.execute("""
-        SELECT t.*, d.device_name, d.model, d.serial_no,
-               'BVQ7-TTB-' || substr('00000' || d.id, -5) AS asset_tag,
-               f1.name AS from_facility_name, f2.name AS to_facility_name
-        FROM device_transfers t
-        JOIN devices d ON t.device_id = d.id
-        LEFT JOIN facilities f1 ON t.from_facility_id = f1.id
-        LEFT JOIN facilities f2 ON t.to_facility_id = f2.id
-        ORDER BY t.transfer_date DESC
-        LIMIT ?
-    """, (limit,))
-    rows = [dict(r) for r in cur.fetchall()]
-    return rows
-
-@router.post("/api/transfers")
-async def create_device_transfer(req: DeviceTransferRequest, db = Depends(get_db)):
-    """Thực hiện điều chuyển thiết bị giữa các khoa phòng (QT.08)"""
-    cur = db.cursor()
-    
-    # 1. Cập nhật vị trí khoa phòng mới của thiết bị
-    cur.execute("UPDATE devices SET facility_id = ? WHERE id = ?", (req.to_facility_id, req.device_id))
-    
-    # 2. Ghi nhận biên bản điều chuyển
-    cur.execute("""
-        INSERT INTO device_transfers (device_id, from_facility_id, to_facility_id, giver_name, receiver_name, transfer_reason, transfer_date, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 'COMPLETED')
-    """, (req.device_id, req.from_facility_id, req.to_facility_id, req.giver_name, req.receiver_name, req.transfer_reason, req.transfer_date))
-    
-    trans_id = cur.lastrowid
-    db.commit()
-    return {
-        "status": "success",
-        "transfer_id": trans_id,
-        "message": f"Đã thực hiện điều chuyển thiết bị thành công theo Quy trình QT.08"
-    }
-
 
 
 @router.post("/api/devices/{device_id}/checkout")

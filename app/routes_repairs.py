@@ -5,7 +5,7 @@ Endpoint: /api/repairs (CRUD), /api/repairs/stats/today
 """
 from datetime import date, datetime
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional, List
 from app.database import get_db
 
@@ -53,8 +53,8 @@ class Repair(BaseModel):
     device_name: Optional[str] = None
     serial_no: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+
 
 VALID_STATUSES = ('REPORTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED')
 VALID_REPAIR_TYPES = ('CALIBRATION', 'REPAIR', 'REPLACEMENT', 'PREVENTIVE', 'INSPECTION', 'HANDOVER')

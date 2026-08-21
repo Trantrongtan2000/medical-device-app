@@ -22,15 +22,32 @@ import uvicorn
 
 from .routes import router
 from .routes_schedules import router as schedules_router
+from contextlib import asynccontextmanager
 from .routes_inspections import router as inspections_router
 from .routes_repairs import router as repairs_router
 from .routes_transfers import router as transfers_router
 from .database import init_database
+from .semantica_engine import semantica_engine
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan event handler: Khởi tạo database và nạp graph engine an toàn"""
+    print("[INFO] Khởi tạo cơ sở dữ liệu SQLite...")
+    init_database()
+    print("[INFO] Khởi tạo mạng tri thức Semantica Graph Engine...")
+    try:
+        semantica_engine.reload()
+        print("[OK] Semantica Engine sẵn sàng hoạt động!")
+    except Exception as e:
+        print(f"[WARN] Semantica reload deferred: {e}")
+    print("[OK] Database & Services sẵn sàng hoạt động!")
+    yield
 
 app = FastAPI(
     title="Hệ Thống Quản Lý Trang Thiết Bị Y Tế - BV Quận 7",
     description="Ứng dụng quản lý tài sản, kiểm định, hiệu chuẩn & bảo trì thiết bị y tế",
     version="2.0.0",
+    lifespan=lifespan,
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -68,13 +85,6 @@ diagrams_dir = Path(__file__).parent.parent / "docs" / "diagrams"
 if diagrams_dir.exists():
     app.mount("/diagrams", StaticFiles(directory=str(diagrams_dir)), name="diagrams")
 
-
-@app.on_event("startup")
-async def startup_event():
-    """Khởi tạo cơ sở dữ liệu khi khởi động máy chủ"""
-    print("[INFO] Khởi tạo cơ sở dữ liệu SQLite...")
-    init_database()
-    print("[OK] Database sẵn sàng hoạt động!")
 
 
 @app.get("/")

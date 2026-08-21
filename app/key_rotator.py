@@ -302,7 +302,6 @@ class KeyPool:
                 "id": i + 1,
                 "service": self.service_name,
                 "masked_key": masked,
-                "raw_key": raw,
                 "status": k["status"],
                 "fail_count": k["fail_count"],
                 "last_latency_ms": k.get("last_latency_ms"),

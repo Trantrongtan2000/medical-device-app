@@ -19,7 +19,7 @@ class GeminiAgentService:
     SYSTEM_INSTRUCTION = """
     Bạn là Trợ lý AI Quản Lý Trang Thiết Bị Y Tế (BME AI Assistant) của Phòng Khám Đa Khoa Tâm Anh Quận 7.
     Bạn nắm vững và luôn bám sát 100% Sổ tay Quy trình Chuẩn (SOPs), Biểu mẫu TTBYT và Dữ liệu thực tế:
-    - Cơ sở dữ liệu: 1.073 trang thiết bị y tế thực tế tại PKĐK Tâm Anh Q7, phân bổ trên 21 Khoa/Phòng.
+    - Cơ sở dữ liệu: 1.211 trang thiết bị y tế thực tế tại PKĐK Tâm Anh Q7, phân bổ trên các Khoa/Phòng lâm sàng và cận lâm sàng.
     - Đội ngũ BME Q7 gồm 6 nhân sự chính thức: KS. Nguyễn Quốc Việt (Trưởng phòng), KS. Nguyễn Tấn Lợi (Phó phòng), KS. Trần Đăng Hiếu, KS. Lê Minh Thiện, CN. Trần Thị Ngọc Châu, KS. Trần Trọng Tấn.
     - Chế độ trực On-Call 24/24 Giờ (07:30 sáng đến 07:30 sáng hôm sau), xoay vòng trọn 1 tuần theo 3 kỹ sư: Tấn -> Thiện -> Hiếu.
     - CS.TTBYT.04: Chính sách kiểm tra hiệu chuẩn & kiểm định thiết bị y tế (Thông tư 05/2022/TT-BYT & Nghị định 98/2021/NĐ-CP).
@@ -29,9 +29,10 @@ class GeminiAgentService:
     - QT.05: Vận hành, bảo quản trang thiết bị y tế tại các khoa phòng lâm sàng.
     - QT.06: Bảo trì, bảo dưỡng định kỳ (PM), sửa chữa báo hỏng (SpeedMaint CMMS).
     - QT.07: Thanh lý trang thiết bị y tế hư hỏng / hết hạn.
-    - QT.08: Điều chuyển trang thiết bị y tế giữa các khoa phòng (phiếu BM03, Snipe-IT checkout).
+    - QT.08: Điều chuyển trang thiết bị y tế giữa các khoa phòng (phiếu BM08_TA5.TTBYT.QT.08, Snipe-IT checkout).
     - QT.09: Giao nhận và kiểm tra an toàn bình khí y tế di động.
     - Phân loại rủi ro IMDA MOH Bộ Y Tế: 4 mức A (thấp), B (trung bình thấp), C (trung bình cao), D (rất cao / duy trì sự sống).
+
 
     Nguyên tắc trả lời:
     - Trả lời bằng tiếng Việt chuyên nghiệp, ngắn gọn, chuẩn xác theo ngôn ngữ kỹ thuật y sinh (BME) và y tế.
@@ -111,7 +112,7 @@ class GeminiAgentService:
         elif "kiểm định" in q_lower or "hiệu chuẩn" in q_lower or "thông tư 05" in q_lower:
             return (
                 "📋 **Chính Sách Kiểm Định & Hiệu Chuẩn TTBYT (CS.TTBYT.04 & TT 05/2022/TT-BYT):**\n\n"
-                "• **Tổng số thiết bị:** 1.073 thiết bị đã được chuẩn hóa tại Tâm Anh Quận 7.\n"
+                "• **Tổng số thiết bị:** 1.211 thiết bị đã được chuẩn hóa tại Tâm Anh Quận 7.\n"
                 "• **Phân loại kiểm định:**\n"
                 "  - **Kiểm định ban đầu:** Khi lắp đặt, nghiệm thu đưa vào sử dụng (QT.04).\n"
                 "  - **Kiểm định định kỳ:** 12 tháng/lần cho thiết bị Loại C, D (Máy thở, Máy sốc tim, X-Quang, Dao mổ điện).\n"
@@ -133,7 +134,7 @@ class GeminiAgentService:
             return (
                 f"🤖 **Trợ Lý AI Kỹ Thuật Y Sinh (Gemini 3.7 Flash Engine)**:\n\n"
                 f"Tôi đã tiếp nhận câu hỏi của bạn: *'{user_message}'*\n\n"
-                f"Hệ thống hiện quản lý **1.073 thiết bị y tế** và **21 khoa phòng** tại PKĐK Tâm Anh Quận 7. "
+                f"Hệ thống hiện quản lý **1.211 thiết bị y tế** tại PKĐK Tâm Anh Quận 7. "
                 f"Bạn có thể yêu cầu tôi hướng dẫn quy trình vận hành (QT.01 - QT.09), tra cứu phân loại rủi ro A/B/C/D, kiểm tra hạn kiểm định hoặc phân công lịch On-call 24/7."
             )
 

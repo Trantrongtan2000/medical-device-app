@@ -4,8 +4,9 @@ PUT /api/transfers/{id}/confirm — xác nhận chuyển, cập nhật device.fa
 """
 from __future__ import annotations
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 from app.database import get_db
+from app.models import DeviceTransferCreate
 
 router = APIRouter()
 
@@ -22,41 +23,42 @@ async def list_transfers(status: str | None = None, device_id: int | None = None
     if device_id:
         q += " AND t.device_id = ?"; params.append(device_id)
     q += " ORDER BY t.created_at DESC LIMIT ?"; params.append(limit)
-    return [dict(r) for r in db.execute(q, params).fetchall()]
+    
+    rows = db.execute(q, params).fetchall()
+    transfers_list = []
+    for r in rows:
+        item = dict(r)
+        item["asset_tag"] = f"BVQ7-TTB-{item['device_id']:05d}"
+        transfers_list.append(item)
+    return transfers_list
 
 @router.post("/api/transfers")
-async def create_transfer(request: Request, db = Depends(get_db)):
-    """Tạo transfer — raw JSON body cho Pydantic v2 null handling"""
-    try:
-        body = await request.json()
-    except Exception:
-        raise HTTPException(400, "Invalid JSON body")
+async def create_transfer(req: DeviceTransferCreate, db = Depends(get_db)):
+    """Tạo biên bản điều chuyển thiết bị (QT.08) — Pydantic v2 validated"""
+    dev_row = db.execute("SELECT id, facility_id FROM devices WHERE id = ?", (req.device_id,)).fetchone()
+    if not dev_row:
+        raise HTTPException(404, f"Thiết bị #{req.device_id} không tồn tại trên hệ thống")
     
-    device_id = body.get("device_id")
-    to_facility_id = body.get("to_facility_id")
-    giver_name = body.get("giver_name", "")
-    receiver_name = body.get("receiver_name", "")
-    transfer_reason = body.get("transfer_reason", "")
-    from_facility_id = body.get("from_facility_id")
-    transfer_date = body.get("transfer_date")
-    form_code = body.get("form_code")
+    if not db.execute("SELECT id FROM facilities WHERE id = ?", (req.to_facility_id,)).fetchone():
+        raise HTTPException(404, f"Khoa/Phòng nhận #{req.to_facility_id} không tồn tại")
     
-    if not device_id or not to_facility_id:
-        raise HTTPException(422, "device_id và to_facility_id bắt buộc")
-    
-    if not db.execute("SELECT id FROM devices WHERE id = ?", (device_id,)).fetchone():
-        raise HTTPException(404, f"Device {device_id} không tồn tại")
-    
-    if not db.execute("SELECT id FROM facilities WHERE id = ?", (to_facility_id,)).fetchone():
-        raise HTTPException(404, f"Facility {to_facility_id} không tồn tại")
-    
+    from_fac = req.from_facility_id or dev_row["facility_id"] or 1
+    if req.from_facility_id and not db.execute("SELECT id FROM facilities WHERE id = ?", (req.from_facility_id,)).fetchone():
+        raise HTTPException(404, f"Khoa/Phòng giao #{req.from_facility_id} không tồn tại")
+
+    transfer_date = req.transfer_date or datetime.now().strftime('%Y-%m-%d')
     cur = db.execute("""INSERT INTO device_transfers 
         (device_id, to_facility_id, from_facility_id, giver_name, receiver_name, transfer_reason, transfer_date, status, form_code)
         VALUES (?, ?, ?, ?, ?, ?, ?, 'PENDING', ?)""",
-        (device_id, to_facility_id, from_facility_id, giver_name, receiver_name, 
-         transfer_reason, transfer_date or datetime.now().strftime('%Y-%m-%d'), form_code))
+        (req.device_id, req.to_facility_id, from_fac, req.giver_name or "", req.receiver_name or "", 
+         req.transfer_reason or "", transfer_date, req.form_code or "BM08_TA5.TTBYT.QT.08"))
     db.commit()
-    return {"id": cur.lastrowid, "status": "created"}
+    return {
+        "id": cur.lastrowid,
+        "status": "PENDING",
+        "message": f"Đã tạo biên bản điều chuyển #{cur.lastrowid:04d} (Chờ xác nhận giao nhận)"
+    }
+
 
 @router.put("/api/transfers/{transfer_id}/confirm")
 async def confirm_transfer(transfer_id: int, db = Depends(get_db)):

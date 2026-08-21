@@ -30,13 +30,18 @@ class GraphEdge:
 class SemanticaMedicalGraph:
     """Graph-Native Engine for Medical Device Management & Auditable Decisions"""
 
-    def __init__(self, db_path: Optional[str] = None):
+    def __init__(self, db_path: Optional[str] = None, lazy: bool = False):
         if db_path is None:
             self.db_path = str(Path(__file__).parent.parent / "database" / "devices.db")
         else:
             self.db_path = db_path
         self.nodes: Dict[str, GraphNode] = {}
         self.edges: List[GraphEdge] = []
+        if not lazy:
+            self._build_knowledge_graph()
+
+    def reload(self):
+        """Tải lại knowledge graph từ database hiện tại"""
         self._build_knowledge_graph()
 
     def _get_db(self):
@@ -54,8 +59,18 @@ class SemanticaMedicalGraph:
         self.add_node(GraphNode("REG-TT05", "Regulation", "Thông tư 05/2022/TT-BYT", {"scope": "Quy định kiểm định an toàn & tính năng kỹ thuật"}))
         self.add_node(GraphNode("REG-ISO13485", "Regulation", "Tiêu chuẩn ISO 13485", {"scope": "Hệ thống quản lý chất lượng TTBYT"}))
 
-        conn = self._get_db()
-        cur = conn.cursor()
+        if not Path(self.db_path).exists():
+            return
+
+        try:
+            conn = self._get_db()
+            cur = conn.cursor()
+            tables = [r[0] for r in cur.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+            if "facilities" not in tables or "devices" not in tables:
+                conn.close()
+                return
+        except Exception:
+            return
 
         # 2. Facilities
         cur.execute("SELECT id, name, code, location, manager FROM facilities")
@@ -418,6 +433,6 @@ class SemanticaMedicalGraph:
             }
         }
 
-# Global Singleton Semantica Engine Instance
-semantica_engine = SemanticaMedicalGraph()
+# Global Singleton Semantica Engine Instance (Lazy loaded)
+semantica_engine = SemanticaMedicalGraph(lazy=True)
 semantica_graph = semantica_engine
