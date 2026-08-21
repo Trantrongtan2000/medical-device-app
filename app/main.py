@@ -26,6 +26,7 @@ from contextlib import asynccontextmanager
 from .routes_inspections import router as inspections_router
 from .routes_repairs import router as repairs_router
 from .routes_transfers import router as transfers_router
+from .routes_documents import router as documents_router
 from .database import init_database
 from .semantica_engine import semantica_engine
 
@@ -67,6 +68,7 @@ app.include_router(schedules_router)
 app.include_router(inspections_router)
 app.include_router(repairs_router)
 app.include_router(transfers_router)
+app.include_router(documents_router)
 
 # Mount static directories
 web_dir = Path(__file__).parent.parent / "web"

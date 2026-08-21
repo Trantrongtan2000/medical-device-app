@@ -1349,6 +1349,24 @@ document.addEventListener('DOMContentLoaded', function () {
             window.print();
         },
 
+        openPdfViewer(docId, title) {
+            const iframe = document.getElementById('pdf-viewer-iframe');
+            const titleEl = document.getElementById('pdf-viewer-title');
+            const extBtn = document.getElementById('pdf-viewer-external-btn');
+            const dlBtn = document.getElementById('pdf-viewer-download-btn');
+            
+            if (titleEl) titleEl.textContent = title || 'Hồ Sơ PDF Gốc';
+            if (extBtn) extBtn.href = `/api/documents/stream/${docId}`;
+            if (dlBtn) dlBtn.href = `/api/documents/download/${docId}`;
+            if (iframe) iframe.src = `/api/documents/stream/${docId}`;
+            
+            const modalEl = document.getElementById('pdfViewerModal');
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
+        },
+
         async loadInitialData() {
             try {
                 const [facRes, catRes] = await Promise.all([
@@ -1476,10 +1494,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(`🔍 Đang tải hồ sơ lý lịch thiết bị #${deviceId}...`);
 
             try {
-                const [devRes, accRes, provRes] = await Promise.all([
+                const [devRes, accRes, provRes, docsRes] = await Promise.all([
                     fetch(`/api/devices/${deviceId}`),
                     fetch(`/api/devices/${deviceId}/accessories`),
-                    fetch(`/api/semantica/explain/${deviceId}`)
+                    fetch(`/api/semantica/explain/${deviceId}`),
+                    fetch(`/api/devices/${deviceId}/documents`)
                 ]);
 
                 if (!devRes.ok) throw new Error("Không thể tải thông tin thiết bị");
@@ -1488,6 +1507,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.currentSelectedDevice = dev;
                 const accessories = accRes.ok ? await accRes.json() : [];
                 const prov = provRes.ok ? await provRes.json() : null;
+                const docsData = docsRes.ok ? await docsRes.json() : { documents: [] };
+                const docs = docsData.documents || [];
 
                 // 1. Header Information
                 document.getElementById('modal-dev-name').textContent = dev.device_name;
@@ -1631,6 +1652,52 @@ document.addEventListener('DOMContentLoaded', function () {
                             `).join('')}
                         </ul>
                     `;
+                }
+
+                // 7. Tab 6: PDF Documents
+                const docCountSpan = document.getElementById('modal-doc-count');
+                if (docCountSpan) docCountSpan.textContent = docs.length;
+                const docBadge = document.getElementById('modal-doc-status-badge');
+                if (docBadge) {
+                    docBadge.textContent = `${docs.length} TÀI LIỆU PDF`;
+                    docBadge.className = docs.length > 0 
+                        ? 'badge bg-success-subtle text-success border border-success fw-bold font-mono' 
+                        : 'badge bg-secondary-subtle text-secondary border fw-bold font-mono';
+                }
+                const docsBody = document.getElementById('modal-documents-table-body');
+                if (docsBody) {
+                    if (docs.length === 0) {
+                        docsBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted"><i class="bi bi-file-earmark-x text-secondary fs-3 d-block mb-1"></i>Chưa tìm thấy tệp PDF đính kèm theo S/N hoặc Hợp đồng của thiết bị này.</td></tr>';
+                    } else {
+                        docsBody.innerHTML = docs.map((d, i) => `
+                            <tr>
+                                <td>
+                                    <span class="badge" style="background-color: ${d.doc_badge_bg}; color: #ffffff;">${d.doc_badge_label}</span>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark text-truncate" style="max-width: 320px;" title="${d.title}">${d.title}</div>
+                                    <div class="text-muted small font-mono">${(d.file_ext || 'PDF').toUpperCase()} · ${d.file_size_str}</div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border font-mono">${d.file_size_str}</span></td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-info border font-mono">${d.match_method === 'SERIAL' ? 'Khớp S/N' : 'Khớp HĐ'}</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-primary btn-sm fw-bold" onclick="app.openPdfViewer(${d.id}, '${d.title.replace(/'/g, "\\'")}')" title="Xem trực tiếp trên ứng dụng">
+                                            <i class="bi bi-eye-fill me-1"></i> Xem PDF
+                                        </button>
+                                        <a href="${d.stream_url}" target="_blank" class="btn btn-outline-secondary btn-sm" title="Mở trong tab trình duyệt mới">
+                                            <i class="bi bi-box-arrow-up-right"></i>
+                                        </a>
+                                        <a href="${d.download_url}" class="btn btn-outline-dark btn-sm" title="Tải về máy tính">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
                 }
 
                 // Setup footer action buttons
