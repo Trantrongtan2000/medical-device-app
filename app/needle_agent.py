@@ -108,7 +108,7 @@ class NeedleRouter:
             )
 
         # 2. Tra cứu theo mã tài sản trực tiếp: BVQ7-TTB-xxxxx hoặc #xxxx
-        tag_match = re.search(r'bvq7[-_]ttb[-_](\d{1,5})|#(\d{1,5})|thiết bị\s+(\d{1,5})', q_lower)
+        tag_match = re.search(r'bvq7[-_]ttb[-_](\d{1,7})|#(\d{1,7})|thiết bị\s+(\d{1,7})', q_lower)
         if tag_match:
             dev_id = 1
             for g in tag_match.groups():
@@ -148,11 +148,14 @@ class NeedleRouter:
                 rationale="Ý định yêu cầu số liệu thống kê tổng hợp toàn viện."
             )
 
-        # 4. Tra cứu Khoa Phòng
+        # 4. Tra cứu Khoa Phòng (Hỗ trợ toàn bộ ký tự Unicode tiếng Việt)
         if any(k in q_lower for k in ["khoa", "phòng", "vị trí"]) and not any(k in q_lower for k in ["điều chuyển", "chuyển sang", "bàn giao"]):
-            dept_matches = re.findall(r'(khoa|phòng)\s+([a-zà-ỹ0-9\s]+)', q_lower)
+            dept_matches = re.findall(r'(?:khoa|phòng)\s+([^\?\.\,\!]+)', q_lower)
             if dept_matches:
-                dept_name = dept_matches[0][1].strip()
+                dept_name = dept_matches[0].strip()
+                for stop in ["ở đâu", "nào", "ở", "gì", "thế nào"]:
+                    if dept_name.endswith(f" {stop}"):
+                        dept_name = dept_name[:-len(stop)-1].strip()
                 return RoutingDecision(
                     route="LOCAL_EDGE",
                     intent="GET_FACILITY",
@@ -186,6 +189,10 @@ class NeedleRouter:
 
 # ==================== SAFE TOOL EXECUTOR ====================
 
+def escape_like(s: str) -> str:
+    """Escape các ký tự đặc biệt % và _ trong LIKE query"""
+    return s.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+
 class SafeToolExecutor:
     """Thực thi các tool đã được kiểm tra an toàn trên database"""
 
@@ -202,7 +209,11 @@ class SafeToolExecutor:
                 FROM devices d
                 LEFT JOIN facilities f ON d.facility_id = f.id
                 LEFT JOIN device_categories c ON d.category_id = c.id
-                LEFT JOIN calibration_certificates cert ON d.id = cert.device_id
+                LEFT JOIN (
+                    SELECT device_id, certificate_no, recalibration_date, result_status
+                    FROM calibration_certificates
+                    ORDER BY calibration_date DESC
+                ) cert ON d.id = cert.device_id
                 WHERE d.id = ?
             """, (dev_id,)).fetchone()
             
@@ -211,6 +222,7 @@ class SafeToolExecutor:
             
             data = dict(row)
             asset_tag = f"BVQ7-TTB-{data['id']:05d}"
+            due_date = data.get('recalibration_date') or data.get('cert_due_date') or 'Chưa có dữ liệu'
             text = (
                 f"🏥 **Thông Tin Thiết Bị [{asset_tag}]**\n"
                 f"• **Tên máy:** {data.get('device_name')}\n"
@@ -218,17 +230,17 @@ class SafeToolExecutor:
                 f"• **Khoa/Phòng:** {data.get('facility_name') or 'Kho lưu trữ'}\n"
                 f"• **Phân loại rủi ro:** Loại {data.get('risk_level') or 'A'}\n"
                 f"• **Trạng thái:** `{data.get('status')}`\n"
-                f"• **Hạn kiểm định:** {data.get('recalibration_date') or 'Chưa có dữ liệu'}"
+                f"• **Hạn kiểm định:** {due_date}"
             )
             return data, text
 
         elif tool_name == "search_devices":
-            kw = f"%{params.get('keyword', '')}%"
+            kw = f"%{escape_like(params.get('keyword', ''))}%"
             rows = db.execute("""
                 SELECT d.id, d.device_name, d.model, d.serial_no, d.status, f.name as facility_name
                 FROM devices d
                 LEFT JOIN facilities f ON d.facility_id = f.id
-                WHERE d.device_name LIKE ? OR d.model LIKE ? OR d.serial_no LIKE ?
+                WHERE (d.device_name LIKE ? ESCAPE '\\' OR d.model LIKE ? ESCAPE '\\' OR d.serial_no LIKE ? ESCAPE '\\')
                 LIMIT 5
             """, (kw, kw, kw)).fetchall()
             
@@ -243,12 +255,12 @@ class SafeToolExecutor:
             return data, "\n".join(lines)
 
         elif tool_name == "get_facility":
-            name_or_code = f"%{params.get('name_or_code', '')}%"
+            name_or_code = f"%{escape_like(params.get('name_or_code', ''))}%"
             rows = db.execute("""
                 SELECT f.*, COUNT(d.id) as total_devices
                 FROM facilities f
                 LEFT JOIN devices d ON d.facility_id = f.id
-                WHERE f.name LIKE ? OR f.code LIKE ?
+                WHERE (f.name LIKE ? ESCAPE '\\' OR f.code LIKE ? ESCAPE '\\')
                 GROUP BY f.id
             """, (name_or_code, name_or_code)).fetchall()
             
