@@ -1,5 +1,5 @@
 # DANH MỤC TRANG THIẾT BỊ Y TẾ CHUẨN HÓA — PKĐK TÂM ANH QUẬN 7 (BVQ7)
-> **Phiên bản:** MasterData V6.1 (Đã đối soát & chuẩn hóa sau Audit)> **Cập nhật ngày:** 21/08/2026 15:02
+> **Phiên bản:** MasterData V6.1 (Đã đối soát & chuẩn hóa sau Audit)> **Cập nhật ngày:** 21/08/2026 15:37
 > **Tổng số thiết bị:** 1,211 thiết bị y tế
 
 ---
@@ -189,7 +189,7 @@
 | 167 | `BVQ7-TTB-00167` | Máy siêu âm màu | Voluson P6 | `VP6803351` | GE Ultrasound | Hàn Quốc | Khoa Khám Bệnh Đa Khoa | **C** | `IN_SERVICE` |
 | 168 | `BVQ7-TTB-00168` | Hệ thống X-quang chụp vú kỹ thuật số | RMF-2000 | `MACD16923` | DRTech | Hàn Quốc | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
 | 169 | `BVQ7-TTB-00169` | Bộ nguồn cấp điện liên tục UPS | SLC-3000-Twinpro2 CO | `32024D74302` | Salicru | Trung Quốc | Khám bệnh - Tim mạch | **A** | `IN_SERVICE` |
-| 170 | `BVQ7-TTB-00170` | Bộ nguồn cấp điện liên tục UPS | SLC-6000-Twinpro2 BICO | `291824c16437` | Chính hãng | Quốc tế | Khám bệnh - Tim mạch | **A** | `IN_SERVICE` |
+| 170 | `BVQ7-TTB-00170` | Bộ nguồn cấp điện liên tục UPS | SLC-6000-Twinpro2 BICO | `291824c16437` | Salicru | Quốc tế | Khám bệnh - Tim mạch | **A** | `IN_SERVICE` |
 | 171 | `BVQ7-TTB-00171` | Bộ nguồn cấp điện liên tục UPS | SLC-3000-Twinpro2 CO | `232024D74296` | Salicru | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
 | 172 | `BVQ7-TTB-00172` | Bộ nguồn cấp điện liên tục UPS | SLC-3000-Twinpro2 CO | `232024D74298` | Salicru | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
 | 173 | `BVQ7-TTB-00173` | Bộ nguồn cấp điện liên tục UPS | SLC-3000-Twinpro2 CO | `232024D74294` | Salicru | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
@@ -212,8 +212,8 @@
 | 190 | `BVQ7-TTB-00190` | Hệ thống X-quang kỹ thuật số | DigiRad-FP | `DE501T0263005` | Sitec Medical | Hàn Quốc | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
 | 191 | `BVQ7-TTB-00191` | Thiết bị khám và điều trị răng | Grasia Z3 (HL-2090) | `A-10OE0740` | Hallim | Hàn Quốc | Khám bệnh - Răng hàm mặt | **A** | `IN_SERVICE` |
 | 192 | `BVQ7-TTB-00192` | Bộ xử lý hình ảnh Telecam | TC100EN | `SK924659-P` | Karl Storz | Mỹ | Khám bệnh - Tai mũi họng | **A** | `IN_SERVICE` |
-| 193 | `BVQ7-TTB-00193` | Bàn khám Tai Mũi Họng | IU 3000 | `MI21IU056001` | Chính hãng | Quốc tế | Khám bệnh - Tai mũi họng | **A** | `IN_SERVICE` |
-| 194 | `BVQ7-TTB-00194` | Ghế khám Tai Mũi Họng | GI-100 | `Ga25054` | Chính hãng | Quốc tế | Khám bệnh - Tai mũi họng | **A** | `IN_SERVICE` |
+| 193 | `BVQ7-TTB-00193` | Bàn khám Tai Mũi Họng | IU 3000 | `MI21IU056001` | Medtrix / MI ONE | Quốc tế | Khám bệnh - Tai mũi họng | **A** | `IN_SERVICE` |
+| 194 | `BVQ7-TTB-00194` | Ghế khám Tai Mũi Họng | GI-100 | `Ga25054` | Medtrix | Quốc tế | Khám bệnh - Tai mũi họng | **A** | `IN_SERVICE` |
 | 195 | `BVQ7-TTB-00195` | Hệ thống X-quang kỹ thuật số | DigiRad-FP | `OE51TFR0264001` | Sitec Medical | Hàn Quốc | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
 | 196 | `BVQ7-TTB-00196` | Bơm tiêm thuốc đối quang hai nòng dùng cho hệ thống MRI | Sonic Shot 7 | `EMB30897G` | Nemoto Kyorindo | Nhật Bản | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
 | 197 | `BVQ7-TTB-00197` | Thiết bị tập khớp vai, chi trên | Artromot-S3 Standard | `GEN-00197-281246056650` | ORMED / DJO | Đức | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
@@ -536,7 +536,7 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 513 | `BVQ7-TTB-00513` | Máy điều trị tần số radio | BTL 600 TR-Therapy Elite | `04900B006593` | BTL Industries Limited | Bulgaria | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
 | 514 | `BVQ7-TTB-00514` | Máy điện trị liệu | BTL-4625 Premium | `058P0B040991` | BTL Industries Limited | Bulgaria | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
 | 515 | `BVQ7-TTB-00515` | Máy kích thích tập nuổt | Ampcare ES | `1024129143` | BTL Industries Limited | Bulgaria | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
-| 516 | `BVQ7-TTB-00516` | Máy điều trị laser cường độ cao | BTL 6000 High Intensity Laser 30W | `04300B302505` | Chính hãng | Quốc tế | Khám bệnh - Phục hồi chức năng | **C** | `IN_SERVICE` |
+| 516 | `BVQ7-TTB-00516` | Máy điều trị laser cường độ cao | BTL 6000 High Intensity Laser 30W | `04300B302505` | BTL Industries | Quốc tế | Khám bệnh - Phục hồi chức năng | **C** | `IN_SERVICE` |
 | 517 | `BVQ7-TTB-00517` | Monitor có khả năng theo dõi huyết áp xâm lấn IBP | B125M | `SR724200006SA` | GE Healthcare | Mexico | Cấp cứu - Thủ thuật | **B** | `IN_SERVICE` |
 | 518 | `BVQ7-TTB-00518` | Monitor có khả năng theo dõi huyết áp xâm lấn IBP | B125M | `SR724200022SA` | GE Healthcare | Mexico | Cấp cứu - Thủ thuật | **B** | `IN_SERVICE` |
 | 519 | `BVQ7-TTB-00519` | Monitor có khả năng theo dõi huyết áp xâm lấn IBP | B125M | `SR724200105SA` | GE Healthcare | Mexico | Cấp cứu - Thủ thuật | **B** | `IN_SERVICE` |
@@ -608,7 +608,7 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 585 | `BVQ7-TTB-00585` | Tủ an toàn sinh học cấp II | AC2-4E8 | `2026-219644` | Esco | Indonesia | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
 | 586 | `BVQ7-TTB-00586` | Máy áp lánh sản khoa | CR-201 | `4147` | Toitu | Nhật Bản | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
 | 587 | `BVQ7-TTB-00587` | Máy áp lánh sản khoa | CR-201 | `4148` | Toitu | Nhật Bản | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
-| 588 | `BVQ7-TTB-00588` | Tủ bảo quản và trưng bày dược phẩm | HYC-118A | `BE069 AE1T0 0QERB S0006` | Chính hãng | Quốc tế | Khám bệnh - Ung bướu | **A** | `IN_SERVICE` |
+| 588 | `BVQ7-TTB-00588` | Tủ bảo quản và trưng bày dược phẩm | HYC-118A | `BE069 AE1T0 0QERB S0006` | Haier Biomedical | Quốc tế | Khám bệnh - Ung bướu | **A** | `IN_SERVICE` |
 | 589 | `BVQ7-TTB-00589` | Bồn rửa tay vô trùng | BRC-200 | `BRC1706202401` | CT TNHH Sản xuất Thiết bị y tế Việt Nam | Việt Nam | Cấp cứu - Thủ thuật | **A** | `IN_SERVICE` |
 | 590 | `BVQ7-TTB-00590` | Ghế khám sản phụ khoa đa năng | Francy | `F0000095` | TTMED | Italy | Khoa Cấp Cứu | **A** | `IN_SERVICE` |
 | 591 | `BVQ7-TTB-00591` | Băng ca cứu thương | ALK06-H800 | `GEN-00591-795337982612` | Aolike | Trung Quốc | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
@@ -677,12 +677,12 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 654 | `BVQ7-TTB-00654` | Monitor theo dõi bệnh nhân 7 thông số | B450 | `SNT21310086HA` | GE Healthcare | Mexico | Cấp cứu - Thủ thuật | **B** | `IN_SERVICE` |
 | 655 | `BVQ7-TTB-00655` | Monitor theo dõi bệnh nhân 7 thông số | B450 | `SNT21310013HA` | GE Healthcare | Mexico | Cấp cứu - Thủ thuật | **B** | `IN_SERVICE` |
 | 656 | `BVQ7-TTB-00656` | Monitor theo dõi bệnh nhân 7 thông số | B450 | `SNT21270114HA` | GE Healthcare | Mexico | Cấp cứu - Thủ thuật | **B** | `IN_SERVICE` |
-| 657 | `BVQ7-TTB-00657` | Ghế chuyên dùng trong y tế | SKE-120A | `SKPRR24024-1-001` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
-| 658 | `BVQ7-TTB-00658` | Ghế chuyên dùng trong y tế | SKE-120A | `SKPRR24024-1-002` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
-| 659 | `BVQ7-TTB-00659` | Ghế chuyên dùng trong y tế | SKE-120A | `SKPRR24024-1-003` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
-| 660 | `BVQ7-TTB-00660` | Ghế chuyên dùng trong y tế | SKE-120A | `SKPRR24024-1-004` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
-| 661 | `BVQ7-TTB-00661` | Bàn chuyên dùng trong y tế | A99-5 | `SKPRR240242-001` | Jiangsu Saikang | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
-| 662 | `BVQ7-TTB-00662` | Bàn chuyên dùng trong y tế | A99-5 | `SKPRR240242-002` | Jiangsu Saikang | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
+| 657 | `BVQ7-TTB-00657` | Ghế truyền dịch & lọc máu đa năng điện | SKE-120A | `SKPRR24024-1-001` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
+| 658 | `BVQ7-TTB-00658` | Ghế truyền dịch & lọc máu đa năng điện | SKE-120A | `SKPRR24024-1-002` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
+| 659 | `BVQ7-TTB-00659` | Ghế truyền dịch & lọc máu đa năng điện | SKE-120A | `SKPRR24024-1-003` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
+| 660 | `BVQ7-TTB-00660` | Ghế truyền dịch & lọc máu đa năng điện | SKE-120A | `SKPRR24024-1-004` | Jiangsu Saikang | Trung Quốc | Cấp cứu - Lọc máu | **A** | `IN_SERVICE` |
+| 661 | `BVQ7-TTB-00661` | Bàn khám sản phụ khoa điện | A99-5 | `SKPRR240242-001` | Jiangsu Saikang | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
+| 662 | `BVQ7-TTB-00662` | Bàn khám sản phụ khoa điện | A99-5 | `SKPRR240242-002` | Jiangsu Saikang | Trung Quốc | Khoa Khám Bệnh Đa Khoa | **A** | `IN_SERVICE` |
 | 663 | `BVQ7-TTB-00663` | Ghế chạy thận | SKE-134 | `RR26012-2208-72-007` | Jiangsu Saikang | Trung Quốc | Khám bệnh - Ung bướu | **A** | `IN_SERVICE` |
 | 664 | `BVQ7-TTB-00664` | Ghế chạy thận | SKE-134 | `RR26012-2208-72-014` | Jiangsu Saikang | Trung Quốc | Khám bệnh - Ung bướu | **A** | `IN_SERVICE` |
 | 665 | `BVQ7-TTB-00665` | Ghế chạy thận | SKE-134 | `RR26012-2208-72-010` | Jiangsu Saikang | Trung Quốc | Khám bệnh - Ung bướu | **A** | `IN_SERVICE` |
@@ -1065,7 +1065,7 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 1036 | `BVQ7-TTB-01036` | Sinh hiển vi khám 5 mức độ phóng đại | 700GL | `2094650` | Takagi Seiko | Nhật Bản | Khám bệnh - Mắt | **A** | `IN_SERVICE` |
 | 1037 | `BVQ7-TTB-01037` | Bảng thử thị lực LCD | TSLC 2000 | `BK0055` | Sciencetera | Hàn Quốc | Khám bệnh - Mắt | **A** | `IN_SERVICE` |
 | 1038 | `BVQ7-TTB-01038` | Kính Volk (soi đáy mắt) | V90C | `LOT: CD08208` | Volk Optical Inc | Mỹ | Khám bệnh - Mắt | **A** | `IN_SERVICE` |
-| 1039 | `BVQ7-TTB-01039` | Hệ thống kích thích từ trường xuyên sọ (TMS) Neuro-MSX | (TMS) Neuro-MSX (EMG) Neuro-MEP-Micro | `22720308 23430151 22730181` | Chính hãng | Quốc tế | Khám bệnh - Nội thần kinh | **A** | `IN_SERVICE` |
+| 1039 | `BVQ7-TTB-01039` | Hệ thống kích thích từ trường xuyên sọ (TMS) Neuro-MSX | (TMS) Neuro-MSX (EMG) Neuro-MEP-Micro | `22720308 23430151 22730181` | Neurosoft | Quốc tế | Khám bệnh - Nội thần kinh | **A** | `IN_SERVICE` |
 | 1040 | `BVQ7-TTB-01040` | Bàn nghiêng chuyên dụng cho chức năng thăm khám tim mạch | 9505 | `220257` | Bailey | Mỹ | Khám bệnh - Tim mạch | **A** | `IN_SERVICE` |
 | 1041 | `BVQ7-TTB-01041` | Máy xét nghiệm sinh hóa tự động BC- DxC 700 AU | BC- DxC 700 AU | `2024044279` | BECKMAN COULTER | Nhật Bản | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
 | 1042 | `BVQ7-TTB-01042` | Bảng thử thị lực LCD | TSLC 2000 | `BK0811` | Sciencetera | Hàn Quốc | Khám bệnh - Mắt | **A** | `IN_SERVICE` |
@@ -1073,8 +1073,8 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 1044 | `BVQ7-TTB-01044` | Máy xét nghiệm huyết học tự động Unicel DxH 900 | Unicel DxH 900 | `BH13158` | BECKMAN COULTER | Nhật Bản | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
 | 1045 | `BVQ7-TTB-01045` | Máy ủ dùng cho phân tích nhóm máu DG Therm | DG Therm | `319-0008956` | Diagnostic Grifals | Tây Ban Nha | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
 | 1046 | `BVQ7-TTB-01046` | Máy đọc dùng cho phân tích nhóm máu DG Reader Net | DG Reader Net | `512-0000906` | Diagnostic Grifals | Tây Ban Nha | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
-| 1047 | `BVQ7-TTB-01047` | Máy xét nghiệm HbA1c và Thalasssemia tự động | HLC-723G11 | `15535405` | Chính hãng | Quốc tế | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
-| 1048 | `BVQ7-TTB-01048` | 90 Sample Loader | G11-90SL | `14375206` | Chính hãng | Quốc tế | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
+| 1047 | `BVQ7-TTB-01047` | Máy xét nghiệm HbA1c và Thalasssemia tự động | HLC-723G11 | `15535405` | Tosoh Corporation | Quốc tế | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
+| 1048 | `BVQ7-TTB-01048` | 90 Sample Loader | G11-90SL | `14375206` | Tosoh Corporation | Quốc tế | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
 | 1049 | `BVQ7-TTB-01049` | Bộ lưu điện UPS | HD-200VA | `E2111059013` | Chính hãng | Trung Quốc | Khoa Xét Nghiệm Y Học | **A** | `IN_SERVICE` |
 | 1050 | `BVQ7-TTB-01050` | Máy điện cơ chuyên sâu với bộ khuếch đại 12 kênh SIERRA SUMMIT | SIERRA SUMMIT | `19027206AC0624043` | CADWELL | Mỹ | Khám bệnh - Nội thần kinh | **A** | `IN_SERVICE` |
 | 1051 | `BVQ7-TTB-01051` | Máy điện não 32 kênh ARC ESSENTIA-E3 | ARC ESSENTIA-E3 | `19029003E3A0624030` | CADWELL | Mỹ | Khám bệnh - Nội thần kinh | **A** | `IN_SERVICE` |
@@ -1098,7 +1098,7 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 1069 | `BVQ7-TTB-01069` | Máy xung kích hội tụ | BTL-6000 FSWT | `09400B001068` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
 | 1070 | `BVQ7-TTB-01070` | Máy xoa bóp áp lực hơi | BTL-6000 Lymphastim 12 Topline | `01100B010721` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
 | 1071 | `BVQ7-TTB-01071` | Máy sóng ngắn điều trị | BTL-6000 Shortwave 400 | `01300B003742` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
-| 1072 | `BVQ7-TTB-01072` | Máy điều trị laser cường độ cao | BTL 6000 High Intensity Laser 30W | `043000300306` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **C** | `IN_SERVICE` |
+| 1072 | `BVQ7-TTB-01072` | Máy điều trị laser cường độ cao | BTL 6000 High Intensity Laser 30W | `043000300306` | BTL Industries | Anh | Khám bệnh - Phục hồi chức năng | **C** | `IN_SERVICE` |
 | 1073 | `BVQ7-TTB-01073` | Máy điều trị tần số Radio nhắm đích | BTL-6000 TR-Therapy Elite | `04900B002511` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
 | 1074 | `BVQ7-TTB-01074` | Máy điều trị điện xung 2 kênh | BTL-4625 Smart | `058S0B023664` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **A** | `IN_SERVICE` |
 | 1075 | `BVQ7-TTB-01075` | Hệ thống kéo giãn cột sống cổ và lưng | BTL-6000 Traction | `09600B000146` | BTL | Anh | Khám bệnh - Phục hồi chức năng | **C** | `IN_SERVICE` |
@@ -1161,25 +1161,25 @@ Chân đế: HF58025110263` | Accu Vein | Mỹ | Khoa Cấp Cứu | **A** | `IN_
 | 1132 | `BVQ7-TTB-01132` | Máy in phim kts dùng trong y tế TRIMAX TX55 | TRIMAX TX55 | `59333682` | Carestream Health | Trung Quốc | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1133 | `BVQ7-TTB-01133` | Máy in phim kts dùng trong y tế TRIMAX TX55 | TRIMAX TX55 | `59333792` | Carestream Health | Trung Quốc | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1134 | `BVQ7-TTB-01134` | Máy siêu âm điều trị | BTL-4710 Smart | `058S0B034101` | BTL Industries Limited | Bulgaria | Khám bệnh - Phục hồi chức năng | **C** | `IN_SERVICE` |
-| 1135 | `BVQ7-TTB-01135` | Máy SpO2 phòng MRI 7500FO | MRI 7500F0 | `506371606` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
-| 1136 | `BVQ7-TTB-01136` | Đèn mổ di động | KL05L.ILED | `GEN-01136-93076917995` | Chính hãng | Trung Quốc | Khám bệnh - Mắt | **A** | `IN_SERVICE` |
+| 1135 | `BVQ7-TTB-01135` | Máy SpO2 phòng MRI 7500FO | MRI 7500F0 | `506371606` | Nonin Medical | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
+| 1136 | `BVQ7-TTB-01136` | Đèn mổ di động | KL05L.ILED | `GEN-01136-93076917995` | Keling Medical | Trung Quốc | Khám bệnh - Mắt | **A** | `IN_SERVICE` |
 | 1137 | `BVQ7-TTB-01137` | Cân sơ sinh kèm thước đo chiều cao MS3500+HM80M | MS3500+HM80M | `C24005468` | Charder | Trung Quốc | Khoa Cấp Cứu | **A** | `IN_SERVICE` |
 | 1138 | `BVQ7-TTB-01138` | Tủ ấm | IN30 | `D1240284` | Memmert | Đức | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1139 | `BVQ7-TTB-01139` | Tủ ấm | IN30 | `D1240285` | Memmert | Đức | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1140 | `BVQ7-TTB-01140` | Máy hút dịch chân không di động DF 506L | DF 506L | `9073317` | DOCTOR FRIENDS | Đài Loan | Khoa Chẩn Đoán Hình Ảnh | **B** | `IN_SERVICE` |
-| 1141 | `BVQ7-TTB-01141` | Máy SpO2 phòng MRI 7500FO | MRI 7500FO | `505992662` | Nonin | Mỹ | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
-| 1142 | `BVQ7-TTB-01142` | Máy SpO2 phòng MRI 7500FO | MRI 7500FO | `506371619` | Nonin | Mỹ | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
+| 1141 | `BVQ7-TTB-01141` | Máy SpO2 phòng MRI 7500FO | MRI 7500FO | `505992662` | Nonin Medical | Mỹ | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
+| 1142 | `BVQ7-TTB-01142` | Máy SpO2 phòng MRI 7500FO | MRI 7500FO | `506371619` | Nonin Medical | Mỹ | Khoa Chẩn Đoán Hình Ảnh | **C** | `IN_SERVICE` |
 | 1143 | `BVQ7-TTB-01143` | Bộ lưu điện UPS | UPS MPT200 6P | `AR24UP822070003` | RPS SPA | Ý | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1144 | `BVQ7-TTB-01144` | Bộ lưu điện UPS | SLC-3000-TWIN PR02CO | `0000521212-002` | SALICRU | Tây Ban Nha | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1145 | `BVQ7-TTB-01145` | Bộ lưu điện UPS | SLC-3000-TWIN PR02CO | `0000521212-003` | SALICRU | Tây Ban Nha | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1146 | `BVQ7-TTB-01146` | Bộ lưu điện UPS | SLC-3000-TWIN PR02CO | `0000521212-008` | SALICRU | Tây Ban Nha | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1147 | `BVQ7-TTB-01147` | Bộ lưu điện UPS | SLC-3000-TWIN PR02CO | `0000521213-007` | SALICRU | Tây Ban Nha | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
-| 1148 | `BVQ7-TTB-01148` | Bộ lưu điện UPS | AR902PS | `310035069E11656500007` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
-| 1149 | `BVQ7-TTB-01149` | Bộ lưu điện UPS | AR902PS | `310035069E11656500016` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
-| 1150 | `BVQ7-TTB-01150` | Bộ lưu điện UPS | AR902PS | `310035069E11656500026` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
-| 1151 | `BVQ7-TTB-01151` | Bộ lưu điện UPS | AR902PS | `310035069E83999100006` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
-| 1152 | `BVQ7-TTB-01152` | Bộ lưu điện UPS | AR902PS | `310035069E83999100072` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
-| 1153 | `BVQ7-TTB-01153` | Bộ lưu điện UPS | AR902PS | `310035069E83999100075` | Chính hãng | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
+| 1148 | `BVQ7-TTB-01148` | Bộ lưu điện UPS | AR902PS | `310035069E11656500007` | Ares | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
+| 1149 | `BVQ7-TTB-01149` | Bộ lưu điện UPS | AR902PS | `310035069E11656500016` | Ares | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
+| 1150 | `BVQ7-TTB-01150` | Bộ lưu điện UPS | AR902PS | `310035069E11656500026` | Ares | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
+| 1151 | `BVQ7-TTB-01151` | Bộ lưu điện UPS | AR902PS | `310035069E83999100006` | Ares | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
+| 1152 | `BVQ7-TTB-01152` | Bộ lưu điện UPS | AR902PS | `310035069E83999100072` | Ares | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
+| 1153 | `BVQ7-TTB-01153` | Bộ lưu điện UPS | AR902PS | `310035069E83999100075` | Ares | Quốc tế | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1154 | `BVQ7-TTB-01154` | Bộ lưu điện UPS | 11TG2 | `230204-02290100` | ABB | Trung Quốc | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1155 | `BVQ7-TTB-01155` | Bộ lưu điện UPS | C1K-LCD | `230208-26590040` | Santak | Trung Quốc | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |
 | 1156 | `BVQ7-TTB-01156` | Bộ lưu điện UPS | C1K-LCD | `231010-62060205` | Santak | Trung Quốc | Khoa Chẩn Đoán Hình Ảnh | **A** | `IN_SERVICE` |

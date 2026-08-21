@@ -168,7 +168,7 @@ STT,AssetTag,DeviceName,Model,SerialNo,Manufacturer,CountryOfOrigin,FacilityName
 167,BVQ7-TTB-00167,Máy siêu âm màu,Voluson P6,VP6803351,GE Ultrasound,Hàn Quốc,Khoa Khám Bệnh Đa Khoa,Chẩn đoán hình ảnh,C,IN_SERVICE,02/HDMB/TD-TAHCM/2024,CÔNG TY TNHH DƯỢC PHẨM TRANG THIẾT BỊ Y TẾ T.D
 168,BVQ7-TTB-00168,Hệ thống X-quang chụp vú kỹ thuật số,RMF-2000,MACD16923,DRTech,Hàn Quốc,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,02-03/2023/TAHCM-GNT,CÔNG TY TNHH GNT TOÀN CẦU
 169,BVQ7-TTB-00169,Bộ nguồn cấp điện liên tục UPS,SLC-3000-Twinpro2 CO,32024D74302,Salicru,Trung Quốc,Khám bệnh - Tim mạch,Thận nhân tạo & Lọc máu,A,IN_SERVICE,0203/2026/HD.TAHCM,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
-170,BVQ7-TTB-00170,Bộ nguồn cấp điện liên tục UPS,SLC-6000-Twinpro2 BICO,291824c16437,Chính hãng,Quốc tế,Khám bệnh - Tim mạch,Thận nhân tạo & Lọc máu,A,IN_SERVICE,0203/2026/HD.TAHCM,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
+170,BVQ7-TTB-00170,Bộ nguồn cấp điện liên tục UPS,SLC-6000-Twinpro2 BICO,291824c16437,Salicru,Quốc tế,Khám bệnh - Tim mạch,Thận nhân tạo & Lọc máu,A,IN_SERVICE,0203/2026/HD.TAHCM,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
 171,BVQ7-TTB-00171,Bộ nguồn cấp điện liên tục UPS,SLC-3000-Twinpro2 CO,232024D74296,Salicru,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,0203/2026/HD.TAHCM,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
 172,BVQ7-TTB-00172,Bộ nguồn cấp điện liên tục UPS,SLC-3000-Twinpro2 CO,232024D74298,Salicru,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,0203/2026/HD.TAHCM,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
 173,BVQ7-TTB-00173,Bộ nguồn cấp điện liên tục UPS,SLC-3000-Twinpro2 CO,232024D74294,Salicru,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,0203/2026/HD.TAHCM,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
@@ -191,8 +191,8 @@ STT,AssetTag,DeviceName,Model,SerialNo,Manufacturer,CountryOfOrigin,FacilityName
 190,BVQ7-TTB-00190,Hệ thống X-quang kỹ thuật số,DigiRad-FP,DE501T0263005,Sitec Medical,Hàn Quốc,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,03-05/2023/TAHCM-GNT,CÔNG TY TNHH GNT TOÀN CẦU
 191,BVQ7-TTB-00191,Thiết bị khám và điều trị răng,Grasia Z3 (HL-2090),A-10OE0740,Hallim,Hàn Quốc,Khám bệnh - Răng hàm mặt,Cấp cứu & Máy phá rung tim,A,IN_SERVICE,031/02-26/HĐKT,CÔNG TY TNHH TRANG THIẾT BỊ Y TẾ TRẦN VÀ TRUNG
 192,BVQ7-TTB-00192,Bộ xử lý hình ảnh Telecam,TC100EN,SK924659-P,Karl Storz,Mỹ,Khám bệnh - Tai mũi họng,Thiết bị y tế khác,A,IN_SERVICE,031/2025/HĐKT/TP-BVTAHCM,CÔNG TY CỔ PHẦN GIẢI PHÁP Y TẾ THIÊN PHÚC
-193,BVQ7-TTB-00193,Bàn khám Tai Mũi Họng,IU 3000,MI21IU056001,Chính hãng,Quốc tế,Khám bệnh - Tai mũi họng,Thiết bị y tế khác,A,IN_SERVICE,03625Q7/HĐKT/DWHCM-TA,CÔNG TY TNHH DAEWON PHARMACEUTICAL
-194,BVQ7-TTB-00194,Ghế khám Tai Mũi Họng,GI-100,Ga25054,Chính hãng,Quốc tế,Khám bệnh - Tai mũi họng,Thiết bị y tế khác,A,IN_SERVICE,03625Q7/HĐKT/DWHCM-TA,CÔNG TY TNHH DAEWON PHARMACEUTICAL
+193,BVQ7-TTB-00193,Bàn khám Tai Mũi Họng,IU 3000,MI21IU056001,Medtrix / MI ONE,Quốc tế,Khám bệnh - Tai mũi họng,Thiết bị y tế khác,A,IN_SERVICE,03625Q7/HĐKT/DWHCM-TA,CÔNG TY TNHH DAEWON PHARMACEUTICAL
+194,BVQ7-TTB-00194,Ghế khám Tai Mũi Họng,GI-100,Ga25054,Medtrix,Quốc tế,Khám bệnh - Tai mũi họng,Thiết bị y tế khác,A,IN_SERVICE,03625Q7/HĐKT/DWHCM-TA,CÔNG TY TNHH DAEWON PHARMACEUTICAL
 195,BVQ7-TTB-00195,Hệ thống X-quang kỹ thuật số,DigiRad-FP,OE51TFR0264001,Sitec Medical,Hàn Quốc,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,04/09/2024/TAHCM-GNT,CÔNG TY TNHH GNT TOÀN CẦU
 196,BVQ7-TTB-00196,Bơm tiêm thuốc đối quang hai nòng dùng cho hệ thống MRI,Sonic Shot 7,EMB30897G,Nemoto Kyorindo,Nhật Bản,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,04/2025/HĐKT/VL-TA,CÔNG TY TNHH KỸ THUẬT THƯƠNG MẠI ĐƯỜNG VIỆT
 197,BVQ7-TTB-00197,"Thiết bị tập khớp vai, chi trên",Artromot-S3 Standard,GEN-00197-281246056650,ORMED / DJO,Đức,Khám bệnh - Phục hồi chức năng,Thận nhân tạo & Lọc máu,A,IN_SERVICE,04/HĐKT/BVĐKTA-YV,CÔNG TY TNHH TRANG THIẾT BỊ KỸ THUẬT Y TẾ Y VIỆT
@@ -521,7 +521,7 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 513,BVQ7-TTB-00513,Máy điều trị tần số radio,BTL 600 TR-Therapy Elite,04900B006593,BTL Industries Limited,Bulgaria,Khám bệnh - Phục hồi chức năng,Thiết bị y tế khác,A,IN_SERVICE,26022026/GM-BVĐKTA,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED
 514,BVQ7-TTB-00514,Máy điện trị liệu,BTL-4625 Premium,058P0B040991,BTL Industries Limited,Bulgaria,Khám bệnh - Phục hồi chức năng,Thiết bị y tế khác,A,IN_SERVICE,26022026/GM-BVĐKTA,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED
 515,BVQ7-TTB-00515,Máy kích thích tập nuổt,Ampcare ES,1024129143,BTL Industries Limited,Bulgaria,Khám bệnh - Phục hồi chức năng,Thiết bị y tế khác,A,IN_SERVICE,26022026/GM-BVĐKTA,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED
-516,BVQ7-TTB-00516,Máy điều trị laser cường độ cao,BTL 6000 High Intensity Laser 30W,04300B302505,Chính hãng,Quốc tế,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,C,IN_SERVICE,26092025/GM-BVĐKTA,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED
+516,BVQ7-TTB-00516,Máy điều trị laser cường độ cao,BTL 6000 High Intensity Laser 30W,04300B302505,BTL Industries,Quốc tế,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,C,IN_SERVICE,26092025/GM-BVĐKTA,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GOLDMED
 517,BVQ7-TTB-00517,Monitor có khả năng theo dõi huyết áp xâm lấn IBP,B125M,SR724200006SA,GE Healthcare,Mexico,Cấp cứu - Thủ thuật,Thận nhân tạo & Lọc máu,B,IN_SERVICE,2708/TL-TA/2024,CÔNG TY TNHH THƯƠNG MẠI TOPLINE
 518,BVQ7-TTB-00518,Monitor có khả năng theo dõi huyết áp xâm lấn IBP,B125M,SR724200022SA,GE Healthcare,Mexico,Cấp cứu - Thủ thuật,Thận nhân tạo & Lọc máu,B,IN_SERVICE,2708/TL-TA/2024,CÔNG TY TNHH THƯƠNG MẠI TOPLINE
 519,BVQ7-TTB-00519,Monitor có khả năng theo dõi huyết áp xâm lấn IBP,B125M,SR724200105SA,GE Healthcare,Mexico,Cấp cứu - Thủ thuật,Thận nhân tạo & Lọc máu,B,IN_SERVICE,2708/TL-TA/2024,CÔNG TY TNHH THƯƠNG MẠI TOPLINE
@@ -593,7 +593,7 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 585,BVQ7-TTB-00585,Tủ an toàn sinh học cấp II,AC2-4E8,2026-219644,Esco,Indonesia,Khoa Xét Nghiệm Y Học,Thiết bị y tế khác,A,IN_SERVICE,632/2026/KIMTECO-TAMANH HCM,CÔNG TY TNHH THIẾT BỊ KHOA HỌC VÀ CÔNG NGHỆ KIM NGÂN
 586,BVQ7-TTB-00586,Máy áp lánh sản khoa,CR-201,4147,Toitu,Nhật Bản,Khoa Khám Bệnh Đa Khoa,Thiết bị y tế khác,A,IN_SERVICE,69/YN-TA/24,CÔNG TY TNHH THIẾT BỊ Y TẾ Y NHẬT
 587,BVQ7-TTB-00587,Máy áp lánh sản khoa,CR-201,4148,Toitu,Nhật Bản,Khoa Khám Bệnh Đa Khoa,Thiết bị y tế khác,A,IN_SERVICE,69/YN-TA/24,CÔNG TY TNHH THIẾT BỊ Y TẾ Y NHẬT
-588,BVQ7-TTB-00588,Tủ bảo quản và trưng bày dược phẩm,HYC-118A,BE069 AE1T0 0QERB S0006,Chính hãng,Quốc tế,Khám bệnh - Ung bướu,Thiết bị y tế khác,A,IN_SERVICE,705/2025/HĐMB/MEDITOP-TA.HCM,CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ MEDITOP
+588,BVQ7-TTB-00588,Tủ bảo quản và trưng bày dược phẩm,HYC-118A,BE069 AE1T0 0QERB S0006,Haier Biomedical,Quốc tế,Khám bệnh - Ung bướu,Thiết bị y tế khác,A,IN_SERVICE,705/2025/HĐMB/MEDITOP-TA.HCM,CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ MEDITOP
 589,BVQ7-TTB-00589,Bồn rửa tay vô trùng,BRC-200,BRC1706202401,CT TNHH Sản xuất Thiết bị y tế Việt Nam,Việt Nam,Cấp cứu - Thủ thuật,Thiết bị y tế khác,A,IN_SERVICE,70624/TA-TL,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ KỸ THUẬT TUỆ LÂM
 590,BVQ7-TTB-00590,Ghế khám sản phụ khoa đa năng,Francy,F0000095,TTMED,Italy,Khoa Cấp Cứu,Thiết bị y tế khác,A,IN_SERVICE,72/MĐ-BVTA/2024,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ Y TẾ MIỀN ĐÔNG
 591,BVQ7-TTB-00591,Băng ca cứu thương,ALK06-H800,GEN-00591-795337982612,Aolike,Trung Quốc,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,Báo giá 2601TMT-TA/2026,CÔNG TY TNHH TRANG THIẾT BỊ - DUNG CỤ Y KHOA TÂN MAI THÀNH
@@ -662,12 +662,12 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 654,BVQ7-TTB-00654,Monitor theo dõi bệnh nhân 7 thông số,B450,SNT21310086HA,GE Healthcare,Mexico,Cấp cứu - Thủ thuật,Thận nhân tạo & Lọc máu,B,IN_SERVICE,Hàng điều chuyển từ TA Tân Bình,TÂM ANH TÂN BÌNH
 655,BVQ7-TTB-00655,Monitor theo dõi bệnh nhân 7 thông số,B450,SNT21310013HA,GE Healthcare,Mexico,Cấp cứu - Thủ thuật,Thận nhân tạo & Lọc máu,B,IN_SERVICE,Hàng điều chuyển từ TA Tân Bình,TÂM ANH TÂN BÌNH
 656,BVQ7-TTB-00656,Monitor theo dõi bệnh nhân 7 thông số,B450,SNT21270114HA,GE Healthcare,Mexico,Cấp cứu - Thủ thuật,Thận nhân tạo & Lọc máu,B,IN_SERVICE,Hàng điều chuyển từ TA Tân Bình,TÂM ANH TÂN BÌNH
-657,BVQ7-TTB-00657,Ghế chuyên dùng trong y tế,SKE-120A,SKPRR24024-1-001,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
-658,BVQ7-TTB-00658,Ghế chuyên dùng trong y tế,SKE-120A,SKPRR24024-1-002,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
-659,BVQ7-TTB-00659,Ghế chuyên dùng trong y tế,SKE-120A,SKPRR24024-1-003,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
-660,BVQ7-TTB-00660,Ghế chuyên dùng trong y tế,SKE-120A,SKPRR24024-1-004,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
-661,BVQ7-TTB-00661,Bàn chuyên dùng trong y tế,A99-5,SKPRR240242-001,Jiangsu Saikang,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
-662,BVQ7-TTB-00662,Bàn chuyên dùng trong y tế,A99-5,SKPRR240242-002,Jiangsu Saikang,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
+657,BVQ7-TTB-00657,Ghế truyền dịch & lọc máu đa năng điện,SKE-120A,SKPRR24024-1-001,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
+658,BVQ7-TTB-00658,Ghế truyền dịch & lọc máu đa năng điện,SKE-120A,SKPRR24024-1-002,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
+659,BVQ7-TTB-00659,Ghế truyền dịch & lọc máu đa năng điện,SKE-120A,SKPRR24024-1-003,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
+660,BVQ7-TTB-00660,Ghế truyền dịch & lọc máu đa năng điện,SKE-120A,SKPRR24024-1-004,Jiangsu Saikang,Trung Quốc,Cấp cứu - Lọc máu,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
+661,BVQ7-TTB-00661,Bàn khám sản phụ khoa điện,A99-5,SKPRR240242-001,Jiangsu Saikang,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
+662,BVQ7-TTB-00662,Bàn khám sản phụ khoa điện,A99-5,SKPRR240242-002,Jiangsu Saikang,Trung Quốc,Khoa Khám Bệnh Đa Khoa,Thận nhân tạo & Lọc máu,A,IN_SERVICE,HĐ.KD/59_24,CÔNG TY CỔ PHẦN Y KHOA NQ
 663,BVQ7-TTB-00663,Ghế chạy thận,SKE-134,RR26012-2208-72-007,Jiangsu Saikang,Trung Quốc,Khám bệnh - Ung bướu,Thiết bị y tế khác,A,IN_SERVICE,HĐ05.KD/02_26,CÔNG TY CỔ PHẦN Y KHOA NQ
 664,BVQ7-TTB-00664,Ghế chạy thận,SKE-134,RR26012-2208-72-014,Jiangsu Saikang,Trung Quốc,Khám bệnh - Ung bướu,Thiết bị y tế khác,A,IN_SERVICE,HĐ05.KD/02_26,CÔNG TY CỔ PHẦN Y KHOA NQ
 665,BVQ7-TTB-00665,Ghế chạy thận,SKE-134,RR26012-2208-72-010,Jiangsu Saikang,Trung Quốc,Khám bệnh - Ung bướu,Thiết bị y tế khác,A,IN_SERVICE,HĐ05.KD/02_26,CÔNG TY CỔ PHẦN Y KHOA NQ
@@ -1050,7 +1050,7 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 1036,BVQ7-TTB-01036,Sinh hiển vi khám 5 mức độ phóng đại,700GL,2094650,Takagi Seiko,Nhật Bản,Khám bệnh - Mắt,Máy thở & Hô hấp,A,IN_SERVICE,2808/2024/HĐMB/TAHCM-TTC,CÔNG TY CỔ PHẦN THIÊN TRƯỜNG
 1037,BVQ7-TTB-01037,Bảng thử thị lực LCD,TSLC 2000,BK0055,Sciencetera,Hàn Quốc,Khám bệnh - Mắt,Thiết bị y tế khác,A,IN_SERVICE,2808/2024/HĐMB/TAHCM-TTC,CÔNG TY CỔ PHẦN THIÊN TRƯỜNG
 1038,BVQ7-TTB-01038,Kính Volk (soi đáy mắt),V90C,LOT: CD08208,Volk Optical Inc,Mỹ,Khám bệnh - Mắt,Máy thở & Hô hấp,A,IN_SERVICE,2808/2024/HĐMB/TAHCM-TTC,CÔNG TY CỔ PHẦN THIÊN TRƯỜNG
-1039,BVQ7-TTB-01039,Hệ thống kích thích từ trường xuyên sọ (TMS) Neuro-MSX,(TMS) Neuro-MSX (EMG) Neuro-MEP-Micro,22720308 23430151 22730181,Chính hãng,Quốc tế,Khám bệnh - Nội thần kinh,Thận nhân tạo & Lọc máu,A,IN_SERVICE,29.05/2024/TA-PV,CÔNG TY TNHH THIẾT BỊ Y TẾ PHÚC VINH
+1039,BVQ7-TTB-01039,Hệ thống kích thích từ trường xuyên sọ (TMS) Neuro-MSX,(TMS) Neuro-MSX (EMG) Neuro-MEP-Micro,22720308 23430151 22730181,Neurosoft,Quốc tế,Khám bệnh - Nội thần kinh,Thận nhân tạo & Lọc máu,A,IN_SERVICE,29.05/2024/TA-PV,CÔNG TY TNHH THIẾT BỊ Y TẾ PHÚC VINH
 1040,BVQ7-TTB-01040,Bàn nghiêng chuyên dụng cho chức năng thăm khám tim mạch,9505,220257,Bailey,Mỹ,Khám bệnh - Tim mạch,Thiết bị y tế khác,A,IN_SERVICE,2902/ĐVT-TA/HĐMB,CÔNG TY CỐ PHẦN ĐẤT VIỆT THÀNH
 1041,BVQ7-TTB-01041,Máy xét nghiệm sinh hóa tự động BC- DxC 700 AU,BC- DxC 700 AU,2024044279,BECKMAN COULTER,Nhật Bản,Khoa Xét Nghiệm Y Học,Thiết bị tiệt trùng & khử khuẩn,A,IN_SERVICE,30/2024/HDDM/CTDM-ĐKTA.Q7,CÔNG TY TNHH THIẾT BỊ MINH TÂM
 1042,BVQ7-TTB-01042,Bảng thử thị lực LCD,TSLC 2000,BK0811,Sciencetera,Hàn Quốc,Khám bệnh - Mắt,Thiết bị y tế khác,A,IN_SERVICE,3010/2024/HĐMB/TAHCM-TTC,CÔNG TY CỔ PHẦN THIÊN TRƯỜNG
@@ -1058,8 +1058,8 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 1044,BVQ7-TTB-01044,Máy xét nghiệm huyết học tự động Unicel DxH 900,Unicel DxH 900,BH13158,BECKMAN COULTER,Nhật Bản,Khoa Xét Nghiệm Y Học,Thiết bị tiệt trùng & khử khuẩn,A,IN_SERVICE,31/2024/HĐĐM/CTDM-ĐKTA.Q7,CÔNG TY TNHH THIẾT BỊ DUY MINH
 1045,BVQ7-TTB-01045,Máy ủ dùng cho phân tích nhóm máu DG Therm,DG Therm,319-0008956,Diagnostic Grifals,Tây Ban Nha,Khoa Xét Nghiệm Y Học,Thiết bị y tế khác,A,IN_SERVICE,31/2024/HĐĐM/CTDM-ĐKTA.Q7,CÔNG TY TNHH THIẾT BỊ DUY MINH
 1046,BVQ7-TTB-01046,Máy đọc dùng cho phân tích nhóm máu DG Reader Net,DG Reader Net,512-0000906,Diagnostic Grifals,Tây Ban Nha,Khoa Xét Nghiệm Y Học,Thiết bị y tế khác,A,IN_SERVICE,31/2024/HĐĐM/CTDM-ĐKTA.Q7,CÔNG TY TNHH THIẾT BỊ DUY MINH
-1047,BVQ7-TTB-01047,Máy xét nghiệm HbA1c và Thalasssemia tự động,HLC-723G11,15535405,Chính hãng,Quốc tế,Khoa Xét Nghiệm Y Học,Thiết bị tiệt trùng & khử khuẩn,A,IN_SERVICE,37/2025/TA-NANO/HĐĐM,CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI DỊCH VỤ NANO
-1048,BVQ7-TTB-01048,90 Sample Loader,G11-90SL,14375206,Chính hãng,Quốc tế,Khoa Xét Nghiệm Y Học,Thiết bị y tế khác,A,IN_SERVICE,37/2025/TA-NANO/HĐĐM,CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI DỊCH VỤ NANO
+1047,BVQ7-TTB-01047,Máy xét nghiệm HbA1c và Thalasssemia tự động,HLC-723G11,15535405,Tosoh Corporation,Quốc tế,Khoa Xét Nghiệm Y Học,Thiết bị tiệt trùng & khử khuẩn,A,IN_SERVICE,37/2025/TA-NANO/HĐĐM,CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI DỊCH VỤ NANO
+1048,BVQ7-TTB-01048,90 Sample Loader,G11-90SL,14375206,Tosoh Corporation,Quốc tế,Khoa Xét Nghiệm Y Học,Thiết bị y tế khác,A,IN_SERVICE,37/2025/TA-NANO/HĐĐM,CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI DỊCH VỤ NANO
 1049,BVQ7-TTB-01049,Bộ lưu điện UPS,HD-200VA,E2111059013,Chính hãng,Trung Quốc,Khoa Xét Nghiệm Y Học,Thiết bị y tế khác,A,IN_SERVICE,37/2025/TA-NANO/HĐĐM,CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI DỊCH VỤ NANO
 1050,BVQ7-TTB-01050,Máy điện cơ chuyên sâu với bộ khuếch đại 12 kênh SIERRA SUMMIT,SIERRA SUMMIT,19027206AC0624043,CADWELL,Mỹ,Khám bệnh - Nội thần kinh,Thiết bị y tế khác,A,IN_SERVICE,43/2024/HĐMB.VV-TA,CÔNG TY TNHH THƯƠNG MAỊ DỊCH VỤ QUỐC TẾ VAVI
 1051,BVQ7-TTB-01051,Máy điện não 32 kênh ARC ESSENTIA-E3,ARC ESSENTIA-E3,19029003E3A0624030,CADWELL,Mỹ,Khám bệnh - Nội thần kinh,Thiết bị y tế khác,A,IN_SERVICE,43/2024/HĐMB.VV-TA,CÔNG TY TNHH THƯƠNG MAỊ DỊCH VỤ QUỐC TẾ VAVI
@@ -1083,7 +1083,7 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 1069,BVQ7-TTB-01069,Máy xung kích hội tụ,BTL-6000 FSWT,09400B001068,BTL,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,A,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
 1070,BVQ7-TTB-01070,Máy xoa bóp áp lực hơi,BTL-6000 Lymphastim 12 Topline,01100B010721,BTL,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,A,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
 1071,BVQ7-TTB-01071,Máy sóng ngắn điều trị,BTL-6000 Shortwave 400,01300B003742,BTL,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị y tế khác,A,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
-1072,BVQ7-TTB-01072,Máy điều trị laser cường độ cao,BTL 6000 High Intensity Laser 30W,043000300306,BTL,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,C,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
+1072,BVQ7-TTB-01072,Máy điều trị laser cường độ cao,BTL 6000 High Intensity Laser 30W,043000300306,BTL Industries,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,C,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
 1073,BVQ7-TTB-01073,Máy điều trị tần số Radio nhắm đích,BTL-6000 TR-Therapy Elite,04900B002511,BTL,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị y tế khác,A,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
 1074,BVQ7-TTB-01074,Máy điều trị điện xung 2 kênh,BTL-4625 Smart,058S0B023664,BTL,Anh,Khám bệnh - Phục hồi chức năng,Thiết bị xét nghiệm & lab,A,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
 1075,BVQ7-TTB-01075,Hệ thống kéo giãn cột sống cổ và lưng,BTL-6000 Traction,09600B000146,BTL,Anh,Khám bệnh - Phục hồi chức năng,Chẩn đoán hình ảnh,C,IN_SERVICE,CHUYỂN TỪ TÂN BÌNH,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
@@ -1146,25 +1146,25 @@ Phụ lục 06",CÔNG TY TNHH THƯƠNG MẠI THIẾT BỊ Y TẾ AN PHA
 1132,BVQ7-TTB-01132,Máy in phim kts dùng trong y tế TRIMAX TX55,TRIMAX TX55,59333682,Carestream Health,Trung Quốc,Khoa Chẩn Đoán Hình Ảnh,Thận nhân tạo & Lọc máu,A,IN_SERVICE,Chưa tìm được,CÔNG TY TNHH THIẾT BỊ Y TẾ IMED
 1133,BVQ7-TTB-01133,Máy in phim kts dùng trong y tế TRIMAX TX55,TRIMAX TX55,59333792,Carestream Health,Trung Quốc,Khoa Chẩn Đoán Hình Ảnh,Thận nhân tạo & Lọc máu,A,IN_SERVICE,Chưa tìm được,CÔNG TY TNHH THIẾT BỊ Y TẾ IMED
 1134,BVQ7-TTB-01134,Máy siêu âm điều trị,BTL-4710 Smart,058S0B034101,BTL Industries Limited,Bulgaria,Khám bệnh - Phục hồi chức năng,Chẩn đoán hình ảnh,C,IN_SERVICE,,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TẠ THIÊN ÂN
-1135,BVQ7-TTB-01135,Máy SpO2 phòng MRI 7500FO,MRI 7500F0,506371606,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,,CÔNG TY TNHH THƯƠNG MẠI-DỊCH VỤ-Y TẾ ĐỊNH GIANG
-1136,BVQ7-TTB-01136,Đèn mổ di động,KL05L.ILED,GEN-01136-93076917995,Chính hãng,Trung Quốc,Khám bệnh - Mắt,Thiết bị y tế khác,A,IN_SERVICE,,CEMACO-KIM BIÊN
+1135,BVQ7-TTB-01135,Máy SpO2 phòng MRI 7500FO,MRI 7500F0,506371606,Nonin Medical,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,,CÔNG TY TNHH THƯƠNG MẠI-DỊCH VỤ-Y TẾ ĐỊNH GIANG
+1136,BVQ7-TTB-01136,Đèn mổ di động,KL05L.ILED,GEN-01136-93076917995,Keling Medical,Trung Quốc,Khám bệnh - Mắt,Thiết bị y tế khác,A,IN_SERVICE,,CEMACO-KIM BIÊN
 1137,BVQ7-TTB-01137,Cân sơ sinh kèm thước đo chiều cao MS3500+HM80M,MS3500+HM80M,C24005468,Charder,Trung Quốc,Khoa Cấp Cứu,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH THIẾT BỊ Y TẾ PHÚC VINH
 1138,BVQ7-TTB-01138,Tủ ấm,IN30,D1240284,Memmert,Đức,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH VĂN MINH
 1139,BVQ7-TTB-01139,Tủ ấm,IN30,D1240285,Memmert,Đức,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH VĂN MINH
 1140,BVQ7-TTB-01140,Máy hút dịch chân không di động DF 506L,DF 506L,9073317,DOCTOR FRIENDS,Đài Loan,Khoa Chẩn Đoán Hình Ảnh,Thận nhân tạo & Lọc máu,B,IN_SERVICE,,CÔNG TY TNHH TRANG THIẾT BỊ THỊNH QUANG
-1141,BVQ7-TTB-01141,Máy SpO2 phòng MRI 7500FO,MRI 7500FO,505992662,Nonin,Mỹ,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,089-24/Digi-TAHCM,CÔNG TY TNHH THƯƠNG MẠI-DỊCH VỤ-Y TẾ ĐỊNH GIANG
-1142,BVQ7-TTB-01142,Máy SpO2 phòng MRI 7500FO,MRI 7500FO,506371619,Nonin,Mỹ,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,089-24/Digi-TAHCM,CÔNG TY TNHH THƯƠNG MẠI-DỊCH VỤ-Y TẾ ĐỊNH GIANG
+1141,BVQ7-TTB-01141,Máy SpO2 phòng MRI 7500FO,MRI 7500FO,505992662,Nonin Medical,Mỹ,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,089-24/Digi-TAHCM,CÔNG TY TNHH THƯƠNG MẠI-DỊCH VỤ-Y TẾ ĐỊNH GIANG
+1142,BVQ7-TTB-01142,Máy SpO2 phòng MRI 7500FO,MRI 7500FO,506371619,Nonin Medical,Mỹ,Khoa Chẩn Đoán Hình Ảnh,Chẩn đoán hình ảnh,C,IN_SERVICE,089-24/Digi-TAHCM,CÔNG TY TNHH THƯƠNG MẠI-DỊCH VỤ-Y TẾ ĐỊNH GIANG
 1143,BVQ7-TTB-01143,Bộ lưu điện UPS,UPS MPT200 6P,AR24UP822070003,RPS SPA,Ý,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,22523/TA-TH_02,CÔNG TY TNHH THƯƠNG MẠI VÀ TRUYỀN THÔNG THIÊN HÀ
 1144,BVQ7-TTB-01144,Bộ lưu điện UPS,SLC-3000-TWIN PR02CO,0000521212-002,SALICRU,Tây Ban Nha,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
 1145,BVQ7-TTB-01145,Bộ lưu điện UPS,SLC-3000-TWIN PR02CO,0000521212-003,SALICRU,Tây Ban Nha,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
 1146,BVQ7-TTB-01146,Bộ lưu điện UPS,SLC-3000-TWIN PR02CO,0000521212-008,SALICRU,Tây Ban Nha,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
 1147,BVQ7-TTB-01147,Bộ lưu điện UPS,SLC-3000-TWIN PR02CO,0000521213-007,SALICRU,Tây Ban Nha,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH THIẾT BỊ VÀ CÔNG NGHỆ GIA ĐỊNH
-1148,BVQ7-TTB-01148,Bộ lưu điện UPS,AR902PS,310035069E11656500007,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
-1149,BVQ7-TTB-01149,Bộ lưu điện UPS,AR902PS,310035069E11656500016,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
-1150,BVQ7-TTB-01150,Bộ lưu điện UPS,AR902PS,310035069E11656500026,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
-1151,BVQ7-TTB-01151,Bộ lưu điện UPS,AR902PS,310035069E83999100006,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
-1152,BVQ7-TTB-01152,Bộ lưu điện UPS,AR902PS,310035069E83999100072,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
-1153,BVQ7-TTB-01153,Bộ lưu điện UPS,AR902PS,310035069E83999100075,Chính hãng,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
+1148,BVQ7-TTB-01148,Bộ lưu điện UPS,AR902PS,310035069E11656500007,Ares,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
+1149,BVQ7-TTB-01149,Bộ lưu điện UPS,AR902PS,310035069E11656500016,Ares,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
+1150,BVQ7-TTB-01150,Bộ lưu điện UPS,AR902PS,310035069E11656500026,Ares,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
+1151,BVQ7-TTB-01151,Bộ lưu điện UPS,AR902PS,310035069E83999100006,Ares,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
+1152,BVQ7-TTB-01152,Bộ lưu điện UPS,AR902PS,310035069E83999100072,Ares,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
+1153,BVQ7-TTB-01153,Bộ lưu điện UPS,AR902PS,310035069E83999100075,Ares,Quốc tế,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
 1154,BVQ7-TTB-01154,Bộ lưu điện UPS,11TG2,230204-02290100,ABB,Trung Quốc,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
 1155,BVQ7-TTB-01155,Bộ lưu điện UPS,C1K-LCD,230208-26590040,Santak,Trung Quốc,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN
 1156,BVQ7-TTB-01156,Bộ lưu điện UPS,C1K-LCD,231010-62060205,Santak,Trung Quốc,Khoa Chẩn Đoán Hình Ảnh,Thiết bị y tế khác,A,IN_SERVICE,,CÔNG TY TNHH Y TẾ VIỆT TIẾN

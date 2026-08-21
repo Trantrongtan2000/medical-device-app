@@ -1,5 +1,5 @@
 # 🌐 CODEBASE FRONTEND: HTML / JS / CSS (`web/`)
-> **Thời điểm xuất:** 2026-08-21 15:02:55
+> **Thời điểm xuất:** 2026-08-21 15:37:06
 > **Tổng số files:** 9 files
 
 
@@ -704,7 +704,7 @@ html, body {
 ---
 
 ## 📄 File: `web/index.html`
-- **Dung lượng:** 251,134 bytes | **Số dòng:** 3,215 dòng
+- **Dung lượng:** 255,628 bytes | **Số dòng:** 3,275 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\web\index.html`
 
 ```html
@@ -2464,7 +2464,12 @@ html, body {
                         </li>
                         <li class="nav-item">
                             <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
-                                <i class="bi bi-share-fill me-1"></i> 5. Truy Vết Semantica W3C
+                                <i class="bi bi-share-fill me-1"></i> 5. Semantica W3C
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-documents">
+                                <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i> 6. Hồ Sơ PDF Gốc (<span id="modal-doc-count">0</span>)
                             </button>
                         </li>
                     </ul>
@@ -2655,6 +2660,33 @@ html, body {
                             </div>
                         </div>
 
+                        <!-- TAB 6: HỒ SƠ PDF GỐC ĐÍNH KÈM -->
+                        <div class="tab-pane fade" id="tab-modal-documents">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0"><i class="bi bi-file-earmark-pdf-fill text-danger me-2"></i>Kho Hồ Sơ PDF Gốc & Văn Bản Số Hóa</h6>
+                                    <span class="text-muted small">Tự động đối chiếu theo Số Serial (S/N) và Số Hợp Đồng từ kho lưu trữ số hóa</span>
+                                </div>
+                                <span class="badge bg-danger-subtle text-danger border border-danger fw-bold font-mono" id="modal-doc-status-badge">0 TÀI LIỆU</span>
+                            </div>
+                            <div class="table-responsive border rounded shadow-sm">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>LOẠI HỒ SƠ</th>
+                                            <th>TÊN TÀI LIỆU / FILE PDF</th>
+                                            <th>DUNG LƯỢNG</th>
+                                            <th>ĐỐI CHIẾU</th>
+                                            <th class="text-center">THAO TÁC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal-documents-table-body">
+                                        <tr><td colspan="5" class="text-center py-4 text-muted">Đang tải danh sách hồ sơ PDF...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -2686,6 +2718,34 @@ html, body {
         </div>
     </div>
 
+    <!-- ==================== MODAL: XEM FILE PDF TRỰC TIẾP TRÊN TRÌNH DUYỆT ==================== -->
+    <div class="modal fade" id="pdfViewerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" style="max-width: 92vw; height: 90vh;">
+            <div class="modal-content border-0 shadow-lg h-100" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white px-4 py-2 border-0 d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-file-earmark-pdf-fill text-danger fs-4"></i>
+                        <div>
+                            <h6 class="modal-title fw-bold text-white mb-0" id="pdf-viewer-title">Xem Hồ Sơ PDF Gốc</h6>
+                            <span class="text-white-50 font-mono small" id="pdf-viewer-subtitle">Tài liệu quản lý TTBYT</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <a id="pdf-viewer-external-btn" href="#" target="_blank" class="btn btn-sm btn-outline-light">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Mở tab mới
+                        </a>
+                        <a id="pdf-viewer-download-btn" href="#" download class="btn btn-sm btn-primary">
+                            <i class="bi bi-download me-1"></i> Tải về máy
+                        </a>
+                        <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+                <div class="modal-body p-0 h-100 bg-secondary-subtle">
+                    <iframe id="pdf-viewer-iframe" src="about:blank" style="width: 100%; height: calc(90vh - 60px); border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- ==================== MODAL: ĐIỀU CHỈNH / CHỈNH SỬA THÔNG TIN THIẾT BỊ ==================== -->
     <div class="modal fade" id="editDeviceModal" tabindex="-1" aria-hidden="true">
@@ -3920,7 +3980,7 @@ html, body {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/diagrams.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/app.js?v=20260821_REPAIR_SYNTAX_OK"></script>
+    <script src="js/app.js?v=20260821_PDF_STREAMING_ONLINE"></script>
 </body>
 </html>
 ```
@@ -4145,7 +4205,7 @@ window.apiClient = apiClient;
 ---
 
 ## 📄 File: `web/js/app.js`
-- **Dung lượng:** 212,306 bytes | **Số dòng:** 3,877 dòng
+- **Dung lượng:** 216,867 bytes | **Số dòng:** 3,944 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\web\js\app.js`
 
 ```javascript
@@ -5500,6 +5560,24 @@ document.addEventListener('DOMContentLoaded', function () {
             window.print();
         },
 
+        openPdfViewer(docId, title) {
+            const iframe = document.getElementById('pdf-viewer-iframe');
+            const titleEl = document.getElementById('pdf-viewer-title');
+            const extBtn = document.getElementById('pdf-viewer-external-btn');
+            const dlBtn = document.getElementById('pdf-viewer-download-btn');
+            
+            if (titleEl) titleEl.textContent = title || 'Hồ Sơ PDF Gốc';
+            if (extBtn) extBtn.href = `/api/documents/stream/${docId}`;
+            if (dlBtn) dlBtn.href = `/api/documents/download/${docId}`;
+            if (iframe) iframe.src = `/api/documents/stream/${docId}`;
+            
+            const modalEl = document.getElementById('pdfViewerModal');
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
+        },
+
         async loadInitialData() {
             try {
                 const [facRes, catRes] = await Promise.all([
@@ -5627,10 +5705,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(`🔍 Đang tải hồ sơ lý lịch thiết bị #${deviceId}...`);
 
             try {
-                const [devRes, accRes, provRes] = await Promise.all([
+                const [devRes, accRes, provRes, docsRes] = await Promise.all([
                     fetch(`/api/devices/${deviceId}`),
                     fetch(`/api/devices/${deviceId}/accessories`),
-                    fetch(`/api/semantica/explain/${deviceId}`)
+                    fetch(`/api/semantica/explain/${deviceId}`),
+                    fetch(`/api/devices/${deviceId}/documents`)
                 ]);
 
                 if (!devRes.ok) throw new Error("Không thể tải thông tin thiết bị");
@@ -5639,6 +5718,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.currentSelectedDevice = dev;
                 const accessories = accRes.ok ? await accRes.json() : [];
                 const prov = provRes.ok ? await provRes.json() : null;
+                const docsData = docsRes.ok ? await docsRes.json() : { documents: [] };
+                const docs = docsData.documents || [];
 
                 // 1. Header Information
                 document.getElementById('modal-dev-name').textContent = dev.device_name;
@@ -5782,6 +5863,52 @@ document.addEventListener('DOMContentLoaded', function () {
                             `).join('')}
                         </ul>
                     `;
+                }
+
+                // 7. Tab 6: PDF Documents
+                const docCountSpan = document.getElementById('modal-doc-count');
+                if (docCountSpan) docCountSpan.textContent = docs.length;
+                const docBadge = document.getElementById('modal-doc-status-badge');
+                if (docBadge) {
+                    docBadge.textContent = `${docs.length} TÀI LIỆU PDF`;
+                    docBadge.className = docs.length > 0 
+                        ? 'badge bg-success-subtle text-success border border-success fw-bold font-mono' 
+                        : 'badge bg-secondary-subtle text-secondary border fw-bold font-mono';
+                }
+                const docsBody = document.getElementById('modal-documents-table-body');
+                if (docsBody) {
+                    if (docs.length === 0) {
+                        docsBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted"><i class="bi bi-file-earmark-x text-secondary fs-3 d-block mb-1"></i>Chưa tìm thấy tệp PDF đính kèm theo S/N hoặc Hợp đồng của thiết bị này.</td></tr>';
+                    } else {
+                        docsBody.innerHTML = docs.map((d, i) => `
+                            <tr>
+                                <td>
+                                    <span class="badge" style="background-color: ${d.doc_badge_bg}; color: #ffffff;">${d.doc_badge_label}</span>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark text-truncate" style="max-width: 320px;" title="${d.title}">${d.title}</div>
+                                    <div class="text-muted small font-mono">${(d.file_ext || 'PDF').toUpperCase()} · ${d.file_size_str}</div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border font-mono">${d.file_size_str}</span></td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-info border font-mono">${d.match_method === 'SERIAL' ? 'Khớp S/N' : 'Khớp HĐ'}</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-primary btn-sm fw-bold" onclick="app.openPdfViewer(${d.id}, '${d.title.replace(/'/g, "\\'")}')" title="Xem trực tiếp trên ứng dụng">
+                                            <i class="bi bi-eye-fill me-1"></i> Xem PDF
+                                        </button>
+                                        <a href="${d.stream_url}" target="_blank" class="btn btn-outline-secondary btn-sm" title="Mở trong tab trình duyệt mới">
+                                            <i class="bi bi-box-arrow-up-right"></i>
+                                        </a>
+                                        <a href="${d.download_url}" class="btn btn-outline-dark btn-sm" title="Tải về máy tính">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
                 }
 
                 // Setup footer action buttons

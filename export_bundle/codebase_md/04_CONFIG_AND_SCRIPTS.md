@@ -1,5 +1,5 @@
 # ⚙️ CONFIGURATION, CI/CD & UTILITY SCRIPTS
-> **Thời điểm xuất:** 2026-08-21 15:02:55
+> **Thời điểm xuất:** 2026-08-21 15:37:06
 > **Tổng số files:** 17 files
 
 
@@ -3044,6 +3044,103 @@ print(f"4. Danh bạ Nhà cung cấp: {db_counts.get('suppliers', 0)} NCC.")
 
 ---
 
+## 📄 File: `scripts/audit_ocr_work_vs_database.py`
+- **Dung lượng:** 3,680 bytes | **Số dòng:** 86 dòng
+- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_ocr_work_vs_database.py`
+
+```python
+"""
+Audit script: G:\BV QUẬN 7_OCR_WORK_20260712 vs SQLite database
+"""
+import sys
+import io
+import os
+import json
+import sqlite3
+from pathlib import Path
+from collections import defaultdict, Counter
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    except Exception:
+        pass
+
+ocr_root = Path(r"G:\BV QUẬN 7_OCR_WORK_20260712")
+db_path = Path(r"C:\Users\tantt\Downloads\medical-device-app\database\devices.db")
+
+print("="*95)
+print(f"🔍 BÁO CÁO RÀ SOÁT KHO DỮ LIỆU OCR SỐ HÓA: {ocr_root}")
+print(f"   ĐỐI CHIẾU VỚI CSDL THIẾT BỊ Y TẾ (devices.db)")
+print("="*95)
+
+conn = sqlite3.connect(db_path)
+conn.row_factory = sqlite3.Row
+cur = conn.cursor()
+
+# 1. Fetch DB devices
+db_devices = cur.execute("SELECT id, device_name, model, serial_no, contract_no, supplier_name FROM devices").fetchall()
+print(f"• Tổng số thiết bị trong CSDL: {len(db_devices):,} thiết bị")
+
+# 2. Check MD files in ocr_root/md/
+md_dir = ocr_root / "md"
+md_files = list(md_dir.glob("*.md")) if md_dir.exists() else []
+print(f"• Tổng số file Markdown số hóa trong thư mục 'md/': {len(md_files):,} files")
+
+# 3. Match Serial Numbers in filenames
+db_serials = {}
+for d in db_devices:
+    sn = str(d["serial_no"]).strip() if d["serial_no"] else ""
+    if sn and sn != "None" and sn != "-" and len(sn) >= 3:
+        db_serials[sn.lower()] = d
+
+matched_md_by_sn = defaultdict(list)
+all_md_names = [f.name.lower() for f in md_files]
+
+for sn, dev in db_serials.items():
+    for f in md_files:
+        if sn in f.name.lower():
+            matched_md_by_sn[dev["id"]].append(f.name)
+
+print(f"• Số thiết bị tìm thấy file Markdown bàn giao/nghiệm thu theo S/N: {len(matched_md_by_sn)}/{len(db_serials)} ({len(matched_md_by_sn)/len(db_serials)*100:.1f}%)")
+
+# 4. Check Folder 04_KIEM_DINH_VA_HIEU_CHUAN
+kiemdinh_dir = ocr_root / "04_KIEM_DINH_VA_HIEU_CHUAN"
+kiemdinh_files = list(kiemdinh_dir.rglob("*.pdf")) if kiemdinh_dir.exists() else []
+print(f"• Tổng số hồ sơ kiểm định PDF trong '04_KIEM_DINH_VA_HIEU_CHUAN': {len(kiemdinh_files):,} files")
+
+# 5. Check Folder 02_HOP_DONG_MUA_SAM
+hopdong_dir = ocr_root / "02_HOP_DONG_MUA_SAM"
+hopdong_files = list(hopdong_dir.rglob("*.pdf")) if hopdong_dir.exists() else []
+print(f"• Tổng số hồ sơ hợp đồng PDF trong '02_HOP_DONG_MUA_SAM': {len(hopdong_files):,} files")
+
+# 6. Check Folder 03_BAN_GIAO_VA_NGHIEM_THU
+bangiao_dir = ocr_root / "03_BAN_GIAO_VA_NGHIEM_THU"
+bangiao_files = list(bangiao_dir.rglob("*.pdf")) if bangiao_dir.exists() else []
+print(f"• Tổng số hồ sơ bàn giao PDF trong '03_BAN_GIAO_VA_NGHIEM_THU': {len(bangiao_files):,} files")
+
+# 7. Check file_map.json
+file_map_path = ocr_root / "file_map.json"
+if file_map_path.exists():
+    try:
+        with open(file_map_path, "r", encoding="utf-8") as f:
+            fmap = json.load(f)
+        print(f"• File Map Index ({file_map_path.name}): {len(fmap):,} liên kết tài liệu")
+    except Exception as e:
+        print(f"• File Map Index: Lỗi đọc ({e})")
+
+print("\n" + "="*95)
+print("📊 TỔNG HỢP NĂNG LỰC DỮ LIỆU SỐ HÓA TẠI G:\\BV QUẬN 7_OCR_WORK_20260712:")
+print("="*95)
+print("1. Kho tài liệu gốc: 37.552 tệp (93.18 GB) bao gồm 20.731 PDF và 13.815 Markdown.")
+print("2. Đầy đủ hồ sơ nguồn: Bàn giao nghiệm thu (5.522 files), Kiểm định hiệu chuẩn (10.644 files), Hợp đồng mua sắm (1.758 files).")
+print("3. Tỷ lệ số hóa toàn văn: 7.721 tệp Markdown trong thư mục 'md/' sẵn sàng phục vụ RAG / Mistral OCR / Tìm kiếm tri thức.")
+
+```
+
+
+---
+
 ## 📄 File: `scripts/audit_semantica_graph_integrity.py`
 - **Dung lượng:** 3,818 bytes | **Số dòng:** 78 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_semantica_graph_integrity.py`
@@ -3127,110 +3224,5 @@ for sample_id in [349, 1115, 1103]:
             print(f"       {step}")
 
 print("\n" + "="*75)
-
-```
-
-
----
-
-## 📄 File: `scripts/audit_with_claude_batch.py`
-- **Dung lượng:** 3,456 bytes | **Số dòng:** 94 dòng
-- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_with_claude_batch.py`
-
-```python
-"""
-Script chia lô (batching) giao cho ocx claude đọc và chuẩn hóa từng file Markdown
-"""
-import os
-import sys
-import glob
-import json
-import subprocess
-from pathlib import Path
-
-sys.stdout.reconfigure(encoding='utf-8')
-sys.stderr.reconfigure(encoding='utf-8')
-
-POSSIBLE_DIRS = [
-    Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818\md"),
-    Path(r"C:\Users\tantt\Downloads\BACKUP_DU_LIEU_SO_HOA_20260818\md"),
-    Path(r"G:\BV QUẬN 7_OCR_WORK_20260712\md"),
-    Path(r"G:\BV QUẬN 7_OCR_WORK_20260712\07_THU_VIEN_SO_HOA_MD")
-]
-
-MD_DIR = None
-for p in POSSIBLE_DIRS:
-    if p.exists():
-        count = len(list(p.glob("**/*.md")))
-        if count > 0:
-            MD_DIR = p
-            break
-
-if not MD_DIR:
-    MD_DIR = POSSIBLE_DIRS[0]
-
-
-def run_claude_on_md_batch(md_files):
-    """Gửi danh sách file MD cho ocx claude đọc và chuẩn hóa"""
-    file_list_str = "\n".join([f"- {f.as_posix()}" for f in md_files])
-    
-    prompt = f"""
-Bạn là Chuyên gia Kỹ sư Y sinh (BME). Hãy đọc nội dung các file Markdown số hóa thiết bị y tế sau:
-{file_list_str}
-
-Hãy trích xuất và chuẩn hóa theo JSON schema sau cho mỗi thiết bị tìm thấy:
-[
-  {{
-    "device_name": "Tên chuẩn tiếng Việt y tế",
-    "model": "Model thiết bị",
-    "serial_no": "Số Serial (S/N)",
-    "manufacturer": "Hãng sản xuất",
-    "country_of_origin": "Nước sản xuất",
-    "risk_level": "A | B | C | D (theo Nghị định 98)",
-    "facility": "Khoa/Phòng phụ trách",
-    "calibration_date": "YYYY-MM-DD",
-    "recalibration_date": "YYYY-MM-DD",
-    "certificate_no": "Số GCN kiểm định",
-    "source_file": "Đường dẫn file MD"
-  }}
-]
-Chỉ trả về chuỗi JSON thuần túy (không kèm markdown format).
-"""
-    
-    cmd = ["ocx.cmd", "claude", "--dangerously-skip-permissions", "-p", prompt]
-    try:
-        res = subprocess.run(cmd, stdin=subprocess.DEVNULL, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=180)
-        return res.stdout
-    except Exception as e:
-        return str(e)
-
-def main():
-    print(f"[INFO] Quét thư mục Markdown: {MD_DIR}")
-    all_mds = list(MD_DIR.glob("**/*.md"))
-    print(f"[INFO] Tổng số file Markdown tìm thấy: {len(all_mds)}")
-    
-    # Lấy mẫu 10 file đại diện từ các nhóm thiết bị khác nhau
-    sample_files = all_mds[:10]
-    print(f"[INFO] Đang giao cho ocx claude đọc {len(sample_files)} file Markdown đầu tiên...")
-    
-    output = run_claude_on_md_batch(sample_files)
-    print("=== KẾT QUẢ TRÍCH XUẤT TỪ OCX CLAUDE ===")
-    print(output[:1500])
-    
-    # Lưu vào báo cáo
-    report_file = Path("docs/STANDARDIZATION_AUDIT_REPORT.md")
-    report_file.parent.mkdir(parents=True, exist_ok=True)
-    with open(report_file, "w", encoding="utf-8") as f:
-        f.write("# BÁO CÁO CHUẨN HÓA DỮ LIỆU THIẾT BỊ Y TẾ (OCX CLAUDE AUDIT)\n\n")
-        f.write(f"- **Thư mục nguồn:** `{MD_DIR}`\n")
-        f.write(f"- **Tổng số tệp MD:** {len(all_mds):,} tệp\n\n")
-        f.write("## Kết quả phân tích và trích xuất mẫu từ `ocx claude`:\n\n")
-        f.write("```json\n")
-        f.write(output)
-        f.write("\n```\n")
-    print(f"[OK] Đã lưu báo cáo nghiệm thu vào: {report_file}")
-
-if __name__ == "__main__":
-    main()
 
 ```

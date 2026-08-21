@@ -1,6 +1,6 @@
 # 🗄️ CODEBASE DATABASE SCHEMA & PYTEST TEST SUITES
-> **Thời điểm xuất:** 2026-08-21 15:02:55
-> **Tổng số tests:** 8 files test
+> **Thời điểm xuất:** 2026-08-21 15:37:06
+> **Tổng số tests:** 9 files test
 
 
 ---
@@ -513,6 +513,51 @@ def test_api_agent_telemetry_endpoint(client):
     assert "metrics" in data
     assert "recent_events" in data
     assert data["metrics"]["total_events"] > 0
+
+```
+
+
+---
+
+## 📄 File: `tests/test_documents_pdf.py`
+- **Dung lượng:** 1,156 bytes | **Số dòng:** 34 dòng
+- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\tests\test_documents_pdf.py`
+
+```python
+import pytest
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
+
+def test_get_device_documents_valid():
+    """Kiểm tra API lấy danh sách tài liệu PDF của một thiết bị"""
+    # Lấy thử 1 thiết bị đầu tiên
+    res = client.get("/api/devices/1/documents")
+    assert res.status_code == 200
+    data = res.json()
+    assert "device" in data
+    assert "documents" in data
+    assert "total_documents" in data
+    assert isinstance(data["documents"], list)
+
+def test_get_device_documents_not_found():
+    """Kiểm tra khi device_id không tồn tại"""
+    res = client.get("/api/devices/999999/documents")
+    assert res.status_code == 404
+
+def test_search_documents():
+    """Kiểm tra tìm kiếm nhanh tài liệu PDF"""
+    res = client.get("/api/documents/search?q=2024")
+    assert res.status_code == 200
+    data = res.json()
+    assert "results" in data
+    assert "total" in data
+
+def test_stream_document_not_found():
+    """Kiểm tra stream tài liệu khi doc_id không tồn tại"""
+    res = client.get("/api/documents/stream/999999")
+    assert res.status_code == 404
 
 ```
 

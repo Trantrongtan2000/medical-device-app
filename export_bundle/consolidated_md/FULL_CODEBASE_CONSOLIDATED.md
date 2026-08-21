@@ -1,6 +1,6 @@
 # 🏥 TOÀN BỘ CODEBASE & TÀI LIỆU HỆ THỐNG QUẢN LÝ TRANG THIẾT BỊ Y TẾ (BV QUẬN 7)
 > **Phiên bản:** HTM Clinical Workflow V3 (SpeedMaint Cloud / Snipe-IT / Semantica)
-> **Thời điểm đóng gói:** 2026-08-21 15:02:55
+> **Thời điểm đóng gói:** 2026-08-21 15:37:06
 > **Quy mô CSDL:** 1.211 thiết bị y tế | 21 khoa phòng lâm sàng
 
 ## MỤC LỤC TỔNG QUAN
@@ -1043,7 +1043,7 @@ mistral_key_pool = KeyPool("mistral", ["MISTRAL_API_KEY"])
 ---
 
 ## 📄 File: `app/main.py`
-- **Dung lượng:** 3,520 bytes | **Số dòng:** 110 dòng
+- **Dung lượng:** 3,616 bytes | **Số dòng:** 112 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\app\main.py`
 
 ```python
@@ -1075,6 +1075,7 @@ from contextlib import asynccontextmanager
 from .routes_inspections import router as inspections_router
 from .routes_repairs import router as repairs_router
 from .routes_transfers import router as transfers_router
+from .routes_documents import router as documents_router
 from .database import init_database
 from .semantica_engine import semantica_engine
 
@@ -1116,6 +1117,7 @@ app.include_router(schedules_router)
 app.include_router(inspections_router)
 app.include_router(repairs_router)
 app.include_router(transfers_router)
+app.include_router(documents_router)
 
 # Mount static directories
 web_dir = Path(__file__).parent.parent / "web"
@@ -4233,6 +4235,217 @@ async def delete_feedback(feedback_id: int, db = Depends(get_db)):
 
 ---
 
+## 📄 File: `app/routes_documents.py`
+- **Dung lượng:** 7,756 bytes | **Số dòng:** 200 dòng
+- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\app\routes_documents.py`
+
+```python
+r"""
+Router quản lý hồ sơ tài liệu PDF gốc đính kèm thiết bị y tế (BV Quận 7)
+Hỗ trợ stream trực tiếp PDF từ kho lưu trữ số hóa G:\BV QUẬN 7_OCR_WORK_20260712
+"""
+import os
+import urllib.parse
+from pathlib import Path
+from typing import Optional, List
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
+from fastapi.responses import FileResponse, StreamingResponse
+from pydantic import BaseModel
+
+from .database import get_db
+
+router = APIRouter(tags=["Documents & PDF Management"])
+
+DOC_TYPE_LABELS = {
+    "HANDOVER": "Biên Bản Bàn Giao & Nghiệm Thu",
+    "CALIBRATION": "Giấy Chứng Nhận Kiểm Định & Hiệu Chuẩn",
+    "CONTRACT": "Hợp Đồng Mua Sắm & Xuất Xưởng",
+    "MAINTENANCE": "Nhật Ký Bảo Trì & Sửa Chữa",
+    "LEGAL": "Hồ Sơ Thẩm Định & Pháp Lý",
+    "OTHER": "Tài Liệu Đính Kèm Khác"
+}
+
+DOC_TYPE_BADGES = {
+    "HANDOVER": {"bg": "#0284c7", "label": "Bàn Giao Nghiệm Thu"},
+    "CALIBRATION": {"bg": "#059669", "label": "Kiểm Định Hiệu Chuẩn"},
+    "CONTRACT": {"bg": "#d97706", "label": "Hợp Đồng Mua Sắm"},
+    "MAINTENANCE": {"bg": "#7c3aed", "label": "Bảo Trì Sửa Chữa"},
+    "LEGAL": {"bg": "#dc2626", "label": "Pháp Lý & CO/CQ"},
+    "OTHER": {"bg": "#64748b", "label": "Tài Liệu Khác"}
+}
+
+
+@router.get("/api/devices/{device_id}/documents")
+async def get_device_documents(device_id: int, db = Depends(get_db)):
+    """Lấy danh sách toàn bộ hồ sơ PDF/tài liệu gốc đính kèm của một thiết bị"""
+    dev = db.execute("SELECT id, device_name, model, serial_no, contract_no FROM devices WHERE id = ?", (device_id,)).fetchone()
+    if not dev:
+        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+
+    rows = db.execute("""
+        SELECT id, device_id, doc_type, title, file_path, file_size, file_ext, match_method, created_at
+        FROM device_documents
+        WHERE device_id = ?
+        ORDER BY 
+            CASE doc_type
+                WHEN 'HANDOVER' THEN 1
+                WHEN 'CALIBRATION' THEN 2
+                WHEN 'CONTRACT' THEN 3
+                WHEN 'MAINTENANCE' THEN 4
+                ELSE 5
+            END, id ASC
+    """, (device_id,)).fetchall()
+
+    docs = []
+    for r in rows:
+        d_type = r["doc_type"]
+        badge_info = DOC_TYPE_BADGES.get(d_type, {"bg": "#64748b", "label": d_type})
+        f_size_kb = round((r["file_size"] or 0) / 1024, 1)
+        f_size_str = f"{f_size_kb} KB" if f_size_kb < 1024 else f"{round(f_size_kb/1024, 2)} MB"
+        
+        # Check if file exists on disk
+        exists = os.path.exists(r["file_path"])
+
+        docs.append({
+            "id": r["id"],
+            "device_id": r["device_id"],
+            "doc_type": d_type,
+            "doc_type_label": DOC_TYPE_LABELS.get(d_type, d_type),
+            "doc_badge_bg": badge_info["bg"],
+            "doc_badge_label": badge_info["label"],
+            "title": r["title"],
+            "file_size": r["file_size"],
+            "file_size_str": f_size_str,
+            "file_ext": r["file_ext"],
+            "match_method": r["match_method"],
+            "file_exists": exists,
+            "stream_url": f"/api/documents/stream/{r['id']}",
+            "download_url": f"/api/documents/download/{r['id']}"
+        })
+
+    return {
+        "device": {
+            "id": dev["id"],
+            "device_name": dev["device_name"],
+            "model": dev["model"],
+            "serial_no": dev["serial_no"],
+            "contract_no": dev["contract_no"]
+        },
+        "total_documents": len(docs),
+        "documents": docs
+    }
+
+
+@router.get("/api/documents/stream/{doc_id}")
+async def stream_document(doc_id: int, db = Depends(get_db)):
+    """Mở và xem trực tiếp file PDF / tài liệu trong trình duyệt"""
+    row = db.execute("SELECT file_path, title, file_ext FROM device_documents WHERE id = ?", (doc_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy tài liệu trong CSDL")
+
+    file_path = row["file_path"]
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"Tệp không tồn tại trên ổ đĩa lưu trữ: {file_path}")
+
+    filename = row["title"] or Path(file_path).name
+    ext = (row["file_ext"] or "pdf").lower()
+
+    content_types = {
+        "pdf": "application/pdf",
+        "png": "image/png",
+        "jpg": "image/jpeg",
+        "jpeg": "image/jpeg",
+        "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "md": "text/markdown; charset=utf-8",
+        "txt": "text/plain; charset=utf-8"
+    }
+    media_type = content_types.get(ext, "application/octet-stream")
+
+    # Encode UTF-8 filename for Content-Disposition header
+    quoted_filename = urllib.parse.quote(filename)
+
+    return FileResponse(
+        path=file_path,
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f"inline; filename*=UTF-8''{quoted_filename}",
+            "Cache-Control": "public, max-age=3600"
+        }
+    )
+
+
+@router.get("/api/documents/download/{doc_id}")
+async def download_document(doc_id: int, db = Depends(get_db)):
+    """Tải file tài liệu về máy tính"""
+    row = db.execute("SELECT file_path, title, file_ext FROM device_documents WHERE id = ?", (doc_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Không tìm thấy tài liệu trong CSDL")
+
+    file_path = row["file_path"]
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"Tệp không tồn tại: {file_path}")
+
+    filename = row["title"] or Path(file_path).name
+    quoted_filename = urllib.parse.quote(filename)
+
+    return FileResponse(
+        path=file_path,
+        media_type="application/octet-stream",
+        headers={
+            "Content-Disposition": f"attachment; filename*=UTF-8''{quoted_filename}"
+        }
+    )
+
+
+@router.get("/api/documents/search")
+async def search_documents(
+    q: str = Query(..., min_length=2, description="Từ khóa tra cứu S/N, mã tài liệu, tên file"),
+    doc_type: Optional[str] = None,
+    limit: int = 50,
+    db = Depends(get_db)
+):
+    """Tìm kiếm nhanh hồ sơ PDF trong toàn bộ kho lưu trữ 6.045 tài liệu"""
+    term = f"%{q.strip()}%"
+    sql = """
+        SELECT doc.id, doc.device_id, doc.doc_type, doc.title, doc.file_path, doc.file_size, doc.file_ext,
+               d.device_name, d.model, d.serial_no, f.name as facility_name
+        FROM device_documents doc
+        LEFT JOIN devices d ON d.id = doc.device_id
+        LEFT JOIN facilities f ON f.id = d.facility_id
+        WHERE (doc.title LIKE ? OR doc.file_path LIKE ? OR d.serial_no LIKE ? OR d.model LIKE ?)
+    """
+    params = [term, term, term, term]
+    if doc_type:
+        sql += " AND doc.doc_type = ?"
+        params.append(doc_type)
+
+    sql += " LIMIT ?"
+    params.append(limit)
+
+    rows = db.execute(sql, params).fetchall()
+    results = []
+    for r in rows:
+        results.append({
+            "id": r["id"],
+            "device_id": r["device_id"],
+            "device_name": r["device_name"],
+            "model": r["model"],
+            "serial_no": r["serial_no"],
+            "facility_name": r["facility_name"],
+            "doc_type": r["doc_type"],
+            "doc_badge": DOC_TYPE_BADGES.get(r["doc_type"], {"bg": "#64748b", "label": r["doc_type"]}),
+            "title": r["title"],
+            "stream_url": f"/api/documents/stream/{r['id']}"
+        })
+
+    return {"query": q, "total": len(results), "results": results}
+
+```
+
+
+---
+
 ## 📄 File: `app/routes_inspections.py`
 - **Dung lượng:** 3,111 bytes | **Số dòng:** 67 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\app\routes_inspections.py`
@@ -5966,6 +6179,51 @@ def test_api_agent_telemetry_endpoint(client):
 
 ---
 
+## 📄 File: `tests/test_documents_pdf.py`
+- **Dung lượng:** 1,156 bytes | **Số dòng:** 34 dòng
+- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\tests\test_documents_pdf.py`
+
+```python
+import pytest
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
+
+def test_get_device_documents_valid():
+    """Kiểm tra API lấy danh sách tài liệu PDF của một thiết bị"""
+    # Lấy thử 1 thiết bị đầu tiên
+    res = client.get("/api/devices/1/documents")
+    assert res.status_code == 200
+    data = res.json()
+    assert "device" in data
+    assert "documents" in data
+    assert "total_documents" in data
+    assert isinstance(data["documents"], list)
+
+def test_get_device_documents_not_found():
+    """Kiểm tra khi device_id không tồn tại"""
+    res = client.get("/api/devices/999999/documents")
+    assert res.status_code == 404
+
+def test_search_documents():
+    """Kiểm tra tìm kiếm nhanh tài liệu PDF"""
+    res = client.get("/api/documents/search?q=2024")
+    assert res.status_code == 200
+    data = res.json()
+    assert "results" in data
+    assert "total" in data
+
+def test_stream_document_not_found():
+    """Kiểm tra stream tài liệu khi doc_id không tồn tại"""
+    res = client.get("/api/documents/stream/999999")
+    assert res.status_code == 404
+
+```
+
+
+---
+
 ## 📄 File: `tests/test_needle_agent.py`
 - **Dung lượng:** 5,783 bytes | **Số dòng:** 134 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\tests\test_needle_agent.py`
@@ -7154,7 +7412,7 @@ html, body {
 ---
 
 ## 📄 File: `web/index.html`
-- **Dung lượng:** 251,134 bytes | **Số dòng:** 3,215 dòng
+- **Dung lượng:** 255,628 bytes | **Số dòng:** 3,275 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\web\index.html`
 
 ```html
@@ -8914,7 +9172,12 @@ html, body {
                         </li>
                         <li class="nav-item">
                             <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-provenance">
-                                <i class="bi bi-share-fill me-1"></i> 5. Truy Vết Semantica W3C
+                                <i class="bi bi-share-fill me-1"></i> 5. Semantica W3C
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link fw-bold py-2 px-2 text-truncate" data-bs-toggle="tab" data-bs-target="#tab-modal-documents">
+                                <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i> 6. Hồ Sơ PDF Gốc (<span id="modal-doc-count">0</span>)
                             </button>
                         </li>
                     </ul>
@@ -9105,6 +9368,33 @@ html, body {
                             </div>
                         </div>
 
+                        <!-- TAB 6: HỒ SƠ PDF GỐC ĐÍNH KÈM -->
+                        <div class="tab-pane fade" id="tab-modal-documents">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0"><i class="bi bi-file-earmark-pdf-fill text-danger me-2"></i>Kho Hồ Sơ PDF Gốc & Văn Bản Số Hóa</h6>
+                                    <span class="text-muted small">Tự động đối chiếu theo Số Serial (S/N) và Số Hợp Đồng từ kho lưu trữ số hóa</span>
+                                </div>
+                                <span class="badge bg-danger-subtle text-danger border border-danger fw-bold font-mono" id="modal-doc-status-badge">0 TÀI LIỆU</span>
+                            </div>
+                            <div class="table-responsive border rounded shadow-sm">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>LOẠI HỒ SƠ</th>
+                                            <th>TÊN TÀI LIỆU / FILE PDF</th>
+                                            <th>DUNG LƯỢNG</th>
+                                            <th>ĐỐI CHIẾU</th>
+                                            <th class="text-center">THAO TÁC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal-documents-table-body">
+                                        <tr><td colspan="5" class="text-center py-4 text-muted">Đang tải danh sách hồ sơ PDF...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -9136,6 +9426,34 @@ html, body {
         </div>
     </div>
 
+    <!-- ==================== MODAL: XEM FILE PDF TRỰC TIẾP TRÊN TRÌNH DUYỆT ==================== -->
+    <div class="modal fade" id="pdfViewerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" style="max-width: 92vw; height: 90vh;">
+            <div class="modal-content border-0 shadow-lg h-100" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white px-4 py-2 border-0 d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-file-earmark-pdf-fill text-danger fs-4"></i>
+                        <div>
+                            <h6 class="modal-title fw-bold text-white mb-0" id="pdf-viewer-title">Xem Hồ Sơ PDF Gốc</h6>
+                            <span class="text-white-50 font-mono small" id="pdf-viewer-subtitle">Tài liệu quản lý TTBYT</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <a id="pdf-viewer-external-btn" href="#" target="_blank" class="btn btn-sm btn-outline-light">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Mở tab mới
+                        </a>
+                        <a id="pdf-viewer-download-btn" href="#" download class="btn btn-sm btn-primary">
+                            <i class="bi bi-download me-1"></i> Tải về máy
+                        </a>
+                        <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+                <div class="modal-body p-0 h-100 bg-secondary-subtle">
+                    <iframe id="pdf-viewer-iframe" src="about:blank" style="width: 100%; height: calc(90vh - 60px); border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- ==================== MODAL: ĐIỀU CHỈNH / CHỈNH SỬA THÔNG TIN THIẾT BỊ ==================== -->
     <div class="modal fade" id="editDeviceModal" tabindex="-1" aria-hidden="true">
@@ -10370,7 +10688,7 @@ html, body {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/diagrams.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/app.js?v=20260821_REPAIR_SYNTAX_OK"></script>
+    <script src="js/app.js?v=20260821_PDF_STREAMING_ONLINE"></script>
 </body>
 </html>
 ```
@@ -10595,7 +10913,7 @@ window.apiClient = apiClient;
 ---
 
 ## 📄 File: `web/js/app.js`
-- **Dung lượng:** 212,306 bytes | **Số dòng:** 3,877 dòng
+- **Dung lượng:** 216,867 bytes | **Số dòng:** 3,944 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\web\js\app.js`
 
 ```javascript
@@ -11950,6 +12268,24 @@ document.addEventListener('DOMContentLoaded', function () {
             window.print();
         },
 
+        openPdfViewer(docId, title) {
+            const iframe = document.getElementById('pdf-viewer-iframe');
+            const titleEl = document.getElementById('pdf-viewer-title');
+            const extBtn = document.getElementById('pdf-viewer-external-btn');
+            const dlBtn = document.getElementById('pdf-viewer-download-btn');
+            
+            if (titleEl) titleEl.textContent = title || 'Hồ Sơ PDF Gốc';
+            if (extBtn) extBtn.href = `/api/documents/stream/${docId}`;
+            if (dlBtn) dlBtn.href = `/api/documents/download/${docId}`;
+            if (iframe) iframe.src = `/api/documents/stream/${docId}`;
+            
+            const modalEl = document.getElementById('pdfViewerModal');
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
+        },
+
         async loadInitialData() {
             try {
                 const [facRes, catRes] = await Promise.all([
@@ -12077,10 +12413,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(`🔍 Đang tải hồ sơ lý lịch thiết bị #${deviceId}...`);
 
             try {
-                const [devRes, accRes, provRes] = await Promise.all([
+                const [devRes, accRes, provRes, docsRes] = await Promise.all([
                     fetch(`/api/devices/${deviceId}`),
                     fetch(`/api/devices/${deviceId}/accessories`),
-                    fetch(`/api/semantica/explain/${deviceId}`)
+                    fetch(`/api/semantica/explain/${deviceId}`),
+                    fetch(`/api/devices/${deviceId}/documents`)
                 ]);
 
                 if (!devRes.ok) throw new Error("Không thể tải thông tin thiết bị");
@@ -12089,6 +12426,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.currentSelectedDevice = dev;
                 const accessories = accRes.ok ? await accRes.json() : [];
                 const prov = provRes.ok ? await provRes.json() : null;
+                const docsData = docsRes.ok ? await docsRes.json() : { documents: [] };
+                const docs = docsData.documents || [];
 
                 // 1. Header Information
                 document.getElementById('modal-dev-name').textContent = dev.device_name;
@@ -12232,6 +12571,52 @@ document.addEventListener('DOMContentLoaded', function () {
                             `).join('')}
                         </ul>
                     `;
+                }
+
+                // 7. Tab 6: PDF Documents
+                const docCountSpan = document.getElementById('modal-doc-count');
+                if (docCountSpan) docCountSpan.textContent = docs.length;
+                const docBadge = document.getElementById('modal-doc-status-badge');
+                if (docBadge) {
+                    docBadge.textContent = `${docs.length} TÀI LIỆU PDF`;
+                    docBadge.className = docs.length > 0 
+                        ? 'badge bg-success-subtle text-success border border-success fw-bold font-mono' 
+                        : 'badge bg-secondary-subtle text-secondary border fw-bold font-mono';
+                }
+                const docsBody = document.getElementById('modal-documents-table-body');
+                if (docsBody) {
+                    if (docs.length === 0) {
+                        docsBody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted"><i class="bi bi-file-earmark-x text-secondary fs-3 d-block mb-1"></i>Chưa tìm thấy tệp PDF đính kèm theo S/N hoặc Hợp đồng của thiết bị này.</td></tr>';
+                    } else {
+                        docsBody.innerHTML = docs.map((d, i) => `
+                            <tr>
+                                <td>
+                                    <span class="badge" style="background-color: ${d.doc_badge_bg}; color: #ffffff;">${d.doc_badge_label}</span>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark text-truncate" style="max-width: 320px;" title="${d.title}">${d.title}</div>
+                                    <div class="text-muted small font-mono">${(d.file_ext || 'PDF').toUpperCase()} · ${d.file_size_str}</div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border font-mono">${d.file_size_str}</span></td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-info border font-mono">${d.match_method === 'SERIAL' ? 'Khớp S/N' : 'Khớp HĐ'}</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-primary btn-sm fw-bold" onclick="app.openPdfViewer(${d.id}, '${d.title.replace(/'/g, "\\'")}')" title="Xem trực tiếp trên ứng dụng">
+                                            <i class="bi bi-eye-fill me-1"></i> Xem PDF
+                                        </button>
+                                        <a href="${d.stream_url}" target="_blank" class="btn btn-outline-secondary btn-sm" title="Mở trong tab trình duyệt mới">
+                                            <i class="bi bi-box-arrow-up-right"></i>
+                                        </a>
+                                        <a href="${d.download_url}" class="btn btn-outline-dark btn-sm" title="Tải về máy tính">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
                 }
 
                 // Setup footer action buttons
@@ -47911,6 +48296,103 @@ print(f"4. Danh bạ Nhà cung cấp: {db_counts.get('suppliers', 0)} NCC.")
 
 ---
 
+## 📄 File: `scripts/audit_ocr_work_vs_database.py`
+- **Dung lượng:** 3,680 bytes | **Số dòng:** 86 dòng
+- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_ocr_work_vs_database.py`
+
+```python
+"""
+Audit script: G:\BV QUẬN 7_OCR_WORK_20260712 vs SQLite database
+"""
+import sys
+import io
+import os
+import json
+import sqlite3
+from pathlib import Path
+from collections import defaultdict, Counter
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    except Exception:
+        pass
+
+ocr_root = Path(r"G:\BV QUẬN 7_OCR_WORK_20260712")
+db_path = Path(r"C:\Users\tantt\Downloads\medical-device-app\database\devices.db")
+
+print("="*95)
+print(f"🔍 BÁO CÁO RÀ SOÁT KHO DỮ LIỆU OCR SỐ HÓA: {ocr_root}")
+print(f"   ĐỐI CHIẾU VỚI CSDL THIẾT BỊ Y TẾ (devices.db)")
+print("="*95)
+
+conn = sqlite3.connect(db_path)
+conn.row_factory = sqlite3.Row
+cur = conn.cursor()
+
+# 1. Fetch DB devices
+db_devices = cur.execute("SELECT id, device_name, model, serial_no, contract_no, supplier_name FROM devices").fetchall()
+print(f"• Tổng số thiết bị trong CSDL: {len(db_devices):,} thiết bị")
+
+# 2. Check MD files in ocr_root/md/
+md_dir = ocr_root / "md"
+md_files = list(md_dir.glob("*.md")) if md_dir.exists() else []
+print(f"• Tổng số file Markdown số hóa trong thư mục 'md/': {len(md_files):,} files")
+
+# 3. Match Serial Numbers in filenames
+db_serials = {}
+for d in db_devices:
+    sn = str(d["serial_no"]).strip() if d["serial_no"] else ""
+    if sn and sn != "None" and sn != "-" and len(sn) >= 3:
+        db_serials[sn.lower()] = d
+
+matched_md_by_sn = defaultdict(list)
+all_md_names = [f.name.lower() for f in md_files]
+
+for sn, dev in db_serials.items():
+    for f in md_files:
+        if sn in f.name.lower():
+            matched_md_by_sn[dev["id"]].append(f.name)
+
+print(f"• Số thiết bị tìm thấy file Markdown bàn giao/nghiệm thu theo S/N: {len(matched_md_by_sn)}/{len(db_serials)} ({len(matched_md_by_sn)/len(db_serials)*100:.1f}%)")
+
+# 4. Check Folder 04_KIEM_DINH_VA_HIEU_CHUAN
+kiemdinh_dir = ocr_root / "04_KIEM_DINH_VA_HIEU_CHUAN"
+kiemdinh_files = list(kiemdinh_dir.rglob("*.pdf")) if kiemdinh_dir.exists() else []
+print(f"• Tổng số hồ sơ kiểm định PDF trong '04_KIEM_DINH_VA_HIEU_CHUAN': {len(kiemdinh_files):,} files")
+
+# 5. Check Folder 02_HOP_DONG_MUA_SAM
+hopdong_dir = ocr_root / "02_HOP_DONG_MUA_SAM"
+hopdong_files = list(hopdong_dir.rglob("*.pdf")) if hopdong_dir.exists() else []
+print(f"• Tổng số hồ sơ hợp đồng PDF trong '02_HOP_DONG_MUA_SAM': {len(hopdong_files):,} files")
+
+# 6. Check Folder 03_BAN_GIAO_VA_NGHIEM_THU
+bangiao_dir = ocr_root / "03_BAN_GIAO_VA_NGHIEM_THU"
+bangiao_files = list(bangiao_dir.rglob("*.pdf")) if bangiao_dir.exists() else []
+print(f"• Tổng số hồ sơ bàn giao PDF trong '03_BAN_GIAO_VA_NGHIEM_THU': {len(bangiao_files):,} files")
+
+# 7. Check file_map.json
+file_map_path = ocr_root / "file_map.json"
+if file_map_path.exists():
+    try:
+        with open(file_map_path, "r", encoding="utf-8") as f:
+            fmap = json.load(f)
+        print(f"• File Map Index ({file_map_path.name}): {len(fmap):,} liên kết tài liệu")
+    except Exception as e:
+        print(f"• File Map Index: Lỗi đọc ({e})")
+
+print("\n" + "="*95)
+print("📊 TỔNG HỢP NĂNG LỰC DỮ LIỆU SỐ HÓA TẠI G:\\BV QUẬN 7_OCR_WORK_20260712:")
+print("="*95)
+print("1. Kho tài liệu gốc: 37.552 tệp (93.18 GB) bao gồm 20.731 PDF và 13.815 Markdown.")
+print("2. Đầy đủ hồ sơ nguồn: Bàn giao nghiệm thu (5.522 files), Kiểm định hiệu chuẩn (10.644 files), Hợp đồng mua sắm (1.758 files).")
+print("3. Tỷ lệ số hóa toàn văn: 7.721 tệp Markdown trong thư mục 'md/' sẵn sàng phục vụ RAG / Mistral OCR / Tìm kiếm tri thức.")
+
+```
+
+
+---
+
 ## 📄 File: `scripts/audit_semantica_graph_integrity.py`
 - **Dung lượng:** 3,818 bytes | **Số dòng:** 78 dòng
 - **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_semantica_graph_integrity.py`
@@ -47994,110 +48476,5 @@ for sample_id in [349, 1115, 1103]:
             print(f"       {step}")
 
 print("\n" + "="*75)
-
-```
-
-
----
-
-## 📄 File: `scripts/audit_with_claude_batch.py`
-- **Dung lượng:** 3,456 bytes | **Số dòng:** 94 dòng
-- **Đường dẫn:** `C:\Users\tantt\Downloads\medical-device-app\scripts\audit_with_claude_batch.py`
-
-```python
-"""
-Script chia lô (batching) giao cho ocx claude đọc và chuẩn hóa từng file Markdown
-"""
-import os
-import sys
-import glob
-import json
-import subprocess
-from pathlib import Path
-
-sys.stdout.reconfigure(encoding='utf-8')
-sys.stderr.reconfigure(encoding='utf-8')
-
-POSSIBLE_DIRS = [
-    Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818\md"),
-    Path(r"C:\Users\tantt\Downloads\BACKUP_DU_LIEU_SO_HOA_20260818\md"),
-    Path(r"G:\BV QUẬN 7_OCR_WORK_20260712\md"),
-    Path(r"G:\BV QUẬN 7_OCR_WORK_20260712\07_THU_VIEN_SO_HOA_MD")
-]
-
-MD_DIR = None
-for p in POSSIBLE_DIRS:
-    if p.exists():
-        count = len(list(p.glob("**/*.md")))
-        if count > 0:
-            MD_DIR = p
-            break
-
-if not MD_DIR:
-    MD_DIR = POSSIBLE_DIRS[0]
-
-
-def run_claude_on_md_batch(md_files):
-    """Gửi danh sách file MD cho ocx claude đọc và chuẩn hóa"""
-    file_list_str = "\n".join([f"- {f.as_posix()}" for f in md_files])
-    
-    prompt = f"""
-Bạn là Chuyên gia Kỹ sư Y sinh (BME). Hãy đọc nội dung các file Markdown số hóa thiết bị y tế sau:
-{file_list_str}
-
-Hãy trích xuất và chuẩn hóa theo JSON schema sau cho mỗi thiết bị tìm thấy:
-[
-  {{
-    "device_name": "Tên chuẩn tiếng Việt y tế",
-    "model": "Model thiết bị",
-    "serial_no": "Số Serial (S/N)",
-    "manufacturer": "Hãng sản xuất",
-    "country_of_origin": "Nước sản xuất",
-    "risk_level": "A | B | C | D (theo Nghị định 98)",
-    "facility": "Khoa/Phòng phụ trách",
-    "calibration_date": "YYYY-MM-DD",
-    "recalibration_date": "YYYY-MM-DD",
-    "certificate_no": "Số GCN kiểm định",
-    "source_file": "Đường dẫn file MD"
-  }}
-]
-Chỉ trả về chuỗi JSON thuần túy (không kèm markdown format).
-"""
-    
-    cmd = ["ocx.cmd", "claude", "--dangerously-skip-permissions", "-p", prompt]
-    try:
-        res = subprocess.run(cmd, stdin=subprocess.DEVNULL, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=180)
-        return res.stdout
-    except Exception as e:
-        return str(e)
-
-def main():
-    print(f"[INFO] Quét thư mục Markdown: {MD_DIR}")
-    all_mds = list(MD_DIR.glob("**/*.md"))
-    print(f"[INFO] Tổng số file Markdown tìm thấy: {len(all_mds)}")
-    
-    # Lấy mẫu 10 file đại diện từ các nhóm thiết bị khác nhau
-    sample_files = all_mds[:10]
-    print(f"[INFO] Đang giao cho ocx claude đọc {len(sample_files)} file Markdown đầu tiên...")
-    
-    output = run_claude_on_md_batch(sample_files)
-    print("=== KẾT QUẢ TRÍCH XUẤT TỪ OCX CLAUDE ===")
-    print(output[:1500])
-    
-    # Lưu vào báo cáo
-    report_file = Path("docs/STANDARDIZATION_AUDIT_REPORT.md")
-    report_file.parent.mkdir(parents=True, exist_ok=True)
-    with open(report_file, "w", encoding="utf-8") as f:
-        f.write("# BÁO CÁO CHUẨN HÓA DỮ LIỆU THIẾT BỊ Y TẾ (OCX CLAUDE AUDIT)\n\n")
-        f.write(f"- **Thư mục nguồn:** `{MD_DIR}`\n")
-        f.write(f"- **Tổng số tệp MD:** {len(all_mds):,} tệp\n\n")
-        f.write("## Kết quả phân tích và trích xuất mẫu từ `ocx claude`:\n\n")
-        f.write("```json\n")
-        f.write(output)
-        f.write("\n```\n")
-    print(f"[OK] Đã lưu báo cáo nghiệm thu vào: {report_file}")
-
-if __name__ == "__main__":
-    main()
 
 ```
