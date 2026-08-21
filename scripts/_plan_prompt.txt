@@ -1,0 +1,10 @@
+Bạn là kiến trúc sư phần mềm. Dựa trên roadmap 3 giai đoạn bạn vừa lập cho hệ thống quản lý trang thiết bị y tế Tâm Anh Q7 (FastAPI + SQLite + vanilla JS frontend, 87 endpoints, 16 bảng, 1.211 thiết bị, kho OCR 90 GB), hãy lập KẾ HOẠCH THỰC HIỆN TỪNG BƯỚC cho GIAI ĐOẠN 1 (tuần 0-2).
+
+Yêu cầu cụ thể:
+1. Chia Giai đoạn 1 thành các task nhỏ, có thứ tự phụ thuộc rõ ràng (task nào làm trước, task nào chờ).
+2. Với MỖI task ghi rõ: tên, bảng/schema cần migrate, endpoint REST cần thêm, file/route cụ thể trong FastAPI, component frontend, tiêu chí hoàn thành (acceptance criteria) để tự kiểm tra.
+3. Ước lượng số giờ cho mỗi task.
+4. Đề xuất thứ tự thực hiện tối ưu để demo được sớm nhất (MVP nhỏ nhất có giá trị trình diễn).
+5. Chỉ ra rủi ro/điểm cần kiểm tra kỹ khi implement bằng FastAPI + SQLite (transaction, migration, background scheduler, timezone).
+
+Trả lời bằng tiếng Việt, định dạng Markdown, thực tế để code ngay.

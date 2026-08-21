@@ -1,0 +1,62 @@
+name: Python Tests & Quality Gate
+
+on:
+  push:
+    branches: [ main, develop, feat/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Verify database & schema
+      run: |
+        ls -la database/devices.db
+        sqlite3 database/devices.db "SELECT COUNT(*) FROM devices;"
+        sqlite3 database/devices.db "PRAGMA foreign_keys;"
+        sqlite3 database/devices.db "PRAGMA journal_mode;"
+    
+    - name: Run Pytest Quality Gate
+      run: |
+        pytest tests/ -v
+    
+    - name: Run Linting Check (Ruff)
+      run: |
+        pip install ruff
+        ruff check app/
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: |
+        docker build -t bvq7-mdms:${{ github.sha }} .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Trigger deployment webhook
+      run: |
+        echo "Deployment ready - manual approval needed for production"

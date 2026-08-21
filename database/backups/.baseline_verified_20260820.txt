@@ -1,0 +1,49 @@
+BASELINE VERIFICATION - 2026-08-20
+
+STATUS: VERIFIED
+
+DATABASE: database/devices.db
+SCHEMA: database/schema.sql
+
+TABLES CONFIRMED:
+- devices (1.211 records expected)
+- device_transfers
+- calibration_certificates
+- maintenance_schedules
+- pre_use_inspections
+- facilities (22 units)
+- device_categories
+- api_keys_config
+- bme_staff
+- suppliers_contacts
+- notifications
+- oncall_schedule
+- hospital_directory
+- device_accessories
+- system_feedback
+- maintenance_logs
+- contracts
+
+INDEXES:
+- idx_devices_facility
+- idx_devices_serial
+- idx_devices_status_risk
+- idx_devices_category
+- idx_certificates_device
+- idx_certificates_date
+- idx_maintenances_device
+- idx_maintenances_status
+- idx_logs_device_date
+- idx_transfers_device
+- idx_notifications_read
+- idx_notifications_ref
+
+PRAGMA: foreign_keys = ON, journal_mode = WAL
+
+BACKUP: Created at scripts/verify_baseline.py execution
+
+ISSUES FOUND:
+1. routes_transfers.py dòng 45: dev_row["facility_id"] - fetchone() trả tuple, cần chỉnh sửa thành dev_row[1] hoặc dùng row_factory
+2. device_transfers thiếu CASCADE cho from_facility_id, to_facility_id
+
+VERIFICATION COMPLETE - Ready for T-001 Fix Transfers
