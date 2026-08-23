@@ -170,9 +170,10 @@
                     </h5>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-sm btn-outline-secondary btn-clinical d-none d-md-inline-flex align-items-center gap-1 font-mono" onclick="document.getElementById('search-input')?.focus();" title="Phím tắt tìm kiếm toàn viện">
-                        <i class="bi bi-search"></i>
-                        <span style="font-size: 0.75rem;">Ctrl+K</span>
+                    <button class="btn btn-sm btn-light border btn-clinical d-flex align-items-center gap-2 font-mono shadow-sm px-3" onclick="document.getElementById('search-input')?.focus();" title="Tìm kiếm nhanh thiết bị (Ctrl+K)">
+                        <i class="bi bi-search text-primary"></i>
+                        <span class="d-none d-md-inline text-muted" style="font-size: 0.8rem;">Tìm kiếm...</span>
+                        <span class="badge bg-secondary-subtle text-secondary border font-mono" style="font-size: 0.7rem;">Ctrl+K</span>
                     </button>
                     <button class="btn btn-sm btn-primary btn-clinical fw-semibold" data-bs-toggle="modal" data-bs-target="#createDeviceModal">
                         <i class="bi bi-plus-circle-fill me-1"></i> Nhập Thêm Thiết Bị
@@ -180,10 +181,6 @@
                     <a href="/sops" target="_blank" class="btn btn-sm btn-outline-info text-dark btn-clinical fw-semibold" title="Mở Sổ tay Quy trình Chuẩn & Biểu mẫu TTBYT">
                         <i class="bi bi-journal-medical text-primary me-1"></i> Sổ Tay Quy Trình (SOPs)
                     </a>
-                                        <button class="btn btn-sm btn-warning text-dark btn-clinical fw-bold shadow-sm d-flex align-items-center gap-1" onclick="app.openFeedbackModal()" title="Gửi góp ý, báo lỗi hoặc đề xuất chỉnh sửa hoàn thiện hệ thống">
-                        <i class="bi bi-chat-square-dots-fill text-danger"></i>
-                        <span>Góp Ý Chỉnh Sửa</span>
-                    </button>
                     <button id="btn-export-csv" class="btn btn-sm btn-outline-secondary btn-clinical" title="Xuất file Excel CSV">
                         <i class="bi bi-download me-1"></i> Xuất Excel
                     </button>
@@ -235,9 +232,9 @@
                             <div class="col-md-4">
                                 <div class="kpi-card h-100 d-flex align-items-center justify-content-between">
                                     <div>
-                                        <div class="text-muted small fw-bold text-uppercase mb-1">Kiểm Định Hợp Lệ (TT 05)</div>
+                                        <div class="text-muted small fw-bold text-uppercase mb-1">Độ Phủ Hồ Sơ TT 05 (Số Hóa)</div>
                                         <div class="fs-3 fw-bold text-primary font-mono" id="dash-calib-ok">94.2%</div>
-                                        <div class="small text-warning mt-1"><i class="bi bi-clock-history me-1"></i>8 máy cần tái kiểm (30 ngày)</div>
+                                        <div class="small text-muted mt-1"><i class="bi bi-file-earmark-check text-success me-1"></i>Đầy đủ hồ sơ pháp lý & GCN</div>
                                     </div>
                                     <div class="kpi-icon bg-warning-subtle text-warning">
                                         <i class="bi bi-patch-check"></i>
