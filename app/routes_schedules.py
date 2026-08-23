@@ -295,24 +295,52 @@ async def alerts_expiring(days_90: int = 90, days_60: int = 60, days_30: int = 3
 
 @router.get("/api/alerts/summary")
 async def alerts_summary(db = Depends(get_db)):
-    """6 chỉ số dashboard: total/active/maintenance due/overdue/certs expiring/out-of-service"""
+    """6 chỉ số dashboard: total/active/maintenance due/overdue/certs expiring/out-of-service + risk distribution"""
     today = date.today()
     total = db.execute("SELECT COUNT(*) FROM devices").fetchone()[0]
     active = db.execute("SELECT COUNT(*) FROM devices WHERE status = 'IN_SERVICE'").fetchone()[0]
     out_of_service = db.execute(
         "SELECT COUNT(*) FROM devices WHERE status IN ('MAINTENANCE','REPAIR','RETIRED')"
     ).fetchone()[0]
-    overdue_certs = db.execute(
+    
+    # 1. Tổng số hàng GCN hết hạn (certificate records)
+    overdue_certs_rows = db.execute(
         """SELECT COUNT(*) FROM calibration_certificates
            WHERE recalibration_date IS NOT NULL AND recalibration_date != ''
              AND date(recalibration_date) < date('now', 'localtime')"""
     ).fetchone()[0]
-    expiring_certs = db.execute(
+    
+    # 2. Số thiết bị có GCN mới nhất đã hết hạn (262 thiết bị)
+    devices_overdue_latest = db.execute(
+        """WITH latest_certs AS (
+            SELECT device_id, recalibration_date,
+                   ROW_NUMBER() OVER (PARTITION BY device_id ORDER BY COALESCE(recalibration_date, calibration_date) DESC) as rn
+            FROM calibration_certificates
+            WHERE recalibration_date IS NOT NULL AND recalibration_date != ''
+        )
+        SELECT COUNT(*) FROM latest_certs WHERE rn = 1 AND date(recalibration_date) < date('now', 'localtime')"""
+    ).fetchone()[0]
+
+    # 3. Số hàng GCN sắp hết hạn trong 90 ngày (17 rows)
+    expiring_certs_rows = db.execute(
         """SELECT COUNT(*) FROM calibration_certificates
            WHERE recalibration_date IS NOT NULL AND recalibration_date != ''
              AND date(recalibration_date) BETWEEN date('now', 'localtime')
                  AND date('now', 'localtime', '+90 day')"""
     ).fetchone()[0]
+
+    # 4. Số thiết bị có GCN mới nhất sắp hết hạn trong 90 ngày (16 thiết bị)
+    devices_expiring_90d_latest = db.execute(
+        """WITH latest_certs AS (
+            SELECT device_id, recalibration_date,
+                   ROW_NUMBER() OVER (PARTITION BY device_id ORDER BY COALESCE(recalibration_date, calibration_date) DESC) as rn
+            FROM calibration_certificates
+            WHERE recalibration_date IS NOT NULL AND recalibration_date != ''
+        )
+        SELECT COUNT(*) FROM latest_certs WHERE rn = 1 
+          AND date(recalibration_date) BETWEEN date('now', 'localtime') AND date('now', 'localtime', '+90 day')"""
+    ).fetchone()[0]
+
     overdue_maint = db.execute(
         """SELECT COUNT(*) FROM maintenance_schedules
            WHERE status IN ('PENDING','IN_PROGRESS') AND due_date < date('now', 'localtime')"""
@@ -322,10 +350,21 @@ async def alerts_summary(db = Depends(get_db)):
            WHERE status IN ('PENDING','IN_PROGRESS')
              AND due_date BETWEEN date('now', 'localtime') AND date('now', 'localtime', '+30 day')"""
     ).fetchone()[0]
+
+    # Phân bổ rủi ro A/B/C/D thực tế
+    risk_rows = db.execute("SELECT risk_level, COUNT(*) FROM devices GROUP BY risk_level").fetchall()
+    risk_dict = {r[0]: r[1] for r in risk_rows if r[0]}
+
     return {
         "total_devices": total, "active_devices": active, "out_of_service": out_of_service,
-        "certs_overdue": overdue_certs, "certs_expiring_90d": expiring_certs,
+        "certs_overdue_rows": overdue_certs_rows,
+        "devices_overdue_latest": devices_overdue_latest,
+        "certs_expiring_90d_rows": expiring_certs_rows,
+        "devices_expiring_90d_latest": devices_expiring_90d_latest,
+        "certs_overdue": devices_overdue_latest,
+        "certs_expiring_90d": devices_expiring_90d_latest,
         "maintenance_overdue": overdue_maint, "maintenance_due_30d": due_maint,
+        "risk_distribution": risk_dict,
         "as_of": today.isoformat(),
     }
 

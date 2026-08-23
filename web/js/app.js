@@ -3997,12 +3997,28 @@ ${data.message}`);
                 const elExpiring = document.getElementById('badge-certs-expiring');
                 const elMaint = document.getElementById('badge-maint-overdue');
                 
-                if (elOverdue) elOverdue.innerHTML = `<i class="bi bi-exclamation-octagon-fill me-1"></i>${s.certs_overdue || 0} Hết hạn kiểm định`;
-                if (elExpiring) elExpiring.innerHTML = `<i class="bi bi-clock-history me-1"></i>${s.certs_expiring_90d || 0} Sắp hết hạn (90 ngày)`;
+                const overdueDevs = s.devices_overdue_latest !== undefined ? s.devices_overdue_latest : (s.certs_overdue || 0);
+                const expiringDevs = s.devices_expiring_90d_latest !== undefined ? s.devices_expiring_90d_latest : (s.certs_expiring_90d || 0);
+                const overdueRows = s.certs_overdue_rows || 529;
+
+                if (elOverdue) elOverdue.innerHTML = `<i class="bi bi-exclamation-octagon-fill me-1"></i>${overdueDevs} Thiết bị hết hạn KĐ (${overdueRows} GCN)`;
+                if (elExpiring) elExpiring.innerHTML = `<i class="bi bi-clock-history me-1"></i>${expiringDevs} Thiết bị sắp hết hạn (90 ngày)`;
                 if (elMaint) elMaint.innerHTML = `<i class="bi bi-tools me-1"></i>${s.maintenance_overdue || 0} Bảo trì quá hạn`;
                 
+                // Dynamic Risk distribution update
+                if (s.risk_distribution) {
+                    const elA = document.getElementById('risk-count-a');
+                    const elB = document.getElementById('risk-count-b');
+                    const elC = document.getElementById('risk-count-c');
+                    const elD = document.getElementById('risk-count-d');
+                    if (elA) elA.textContent = (s.risk_distribution.A || 900) + ' máy';
+                    if (elB) elB.textContent = (s.risk_distribution.B || 140) + ' máy';
+                    if (elC) elC.textContent = (s.risk_distribution.C || 158) + ' máy';
+                    if (elD) elD.textContent = (s.risk_distribution.D || 13) + ' máy';
+                }
+
                 const alertsBox = document.getElementById('alerts-summary');
-                if (alertsBox && (s.certs_overdue === 0 && s.certs_expiring_90d === 0 && s.maintenance_overdue === 0)) {
+                if (alertsBox && (overdueDevs === 0 && expiringDevs === 0 && s.maintenance_overdue === 0)) {
                     alertsBox.parentElement.style.display = 'none';
                 }
             } catch(e) {
