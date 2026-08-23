@@ -353,8 +353,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.documents && data.documents.length > 0) {
                         docsRow.classList.remove('d-none');
                         docsList.innerHTML = data.documents.map(doc => `
-                            <a href="${doc.viewer_url}" target="_blank" class="btn btn-sm btn-outline-danger me-2 mb-1 font-mono" style="font-size: 0.75rem;">
-                                <i class="bi bi-file-earmark-pdf-fill me-1"></i>${doc.title || doc.file_path.split('/').pop()}
+                            <a href="${encodeURI(doc.viewer_url)}" target="_blank" class="btn btn-sm btn-outline-danger me-2 mb-1 font-mono" style="font-size: 0.75rem;">
+                                <i class="bi bi-file-earmark-pdf-fill me-1"></i>${this.escapeHtml(doc.title || (doc.file_path || '').split('/').pop())}
                             </a>
                         `).join('');
                     } else {
@@ -383,12 +383,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row" title="Bấm để xem hồ sơ máy">
                                 <td class="text-muted font-mono text-center">${idx + 1}</td>
                                 <td class="font-mono fw-bold text-primary">BVQ7-TTB-${String(d.id).padStart(5, '0')}</td>
-                                <td><strong class="text-dark text-hover-primary">${d.device_name}</strong></td>
-                                <td class="font-mono">${d.model || '<span class="text-muted">-</span>'}</td>
-                                <td class="font-mono fw-semibold text-secondary">${d.serial_no || '<span class="text-muted">-</span>'}</td>
-                                <td><span class="badge bg-light text-dark border"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${d.facility_name || 'Chưa phân khoa'}</span></td>
+                                <td><strong class="text-dark text-hover-primary">${this.escapeHtml(d.device_name)}</strong></td>
+                                <td class="font-mono">${d.model ? this.escapeHtml(d.model) : '<span class="text-muted">-</span>'}</td>
+                                <td class="font-mono fw-semibold text-secondary">${d.serial_no ? this.escapeHtml(d.serial_no) : '<span class="text-muted">-</span>'}</td>
+                                <td><span class="badge bg-light text-dark border"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${this.escapeHtml(d.facility_name || 'Chưa phân khoa')}</span></td>
                                 <td class="text-center">${riskBadge}</td>
-                                <td class="text-center"><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span></td>
+                                <td class="text-center"><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${this.escapeHtml(d.status || 'Hoạt động')}</span></td>
                             </tr>
                         `;
                     }).join('');
@@ -4229,13 +4229,13 @@ ${data.message}`);
                         <td class="text-muted font-mono text-center">${startIndex + idx + 1}</td>
                         <td>
                             <div class="fw-bold text-dark mb-1 text-break">
-                                <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i>${f.filename}
+                                <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i>${this.escapeHtml(f.filename)}
                             </div>
-                            <div class="text-muted small font-mono" style="font-size: 0.72rem;">${f.rel_path}</div>
+                            <div class="text-muted small font-mono" style="font-size: 0.72rem;">${this.escapeHtml(f.rel_path)}</div>
                         </td>
-                        <td><span class="badge ${badgeClass} text-wrap text-start" style="font-size: 0.73rem;">${f.category}</span></td>
-                        <td><span class="badge bg-light text-dark border font-mono" style="font-size: 0.72rem;"><i class="bi bi-folder2 text-primary me-1"></i>${f.folder}</span></td>
-                        <td class="text-end font-mono text-muted">${f.size_formatted}</td>
+                        <td><span class="badge ${badgeClass} text-wrap text-start" style="font-size: 0.73rem;">${this.escapeHtml(f.category)}</span></td>
+                        <td><span class="badge bg-light text-dark border font-mono" style="font-size: 0.72rem;"><i class="bi bi-folder2 text-primary me-1"></i>${this.escapeHtml(f.folder)}</span></td>
+                        <td class="text-end font-mono text-muted">${this.escapeHtml(f.size_formatted)}</td>
                         <td class="text-center">${linkedBadge}</td>
                         <td class="text-end pe-3">
                             <div class="btn-group btn-group-sm">
