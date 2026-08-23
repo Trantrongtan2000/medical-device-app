@@ -66,9 +66,11 @@ def init_database(force: bool = False):
 @contextmanager
 def get_db_connection() -> Generator[sqlite3.Connection, None, None]:
     """Tạo và quản lý kết nối SQLite thread-safe"""
-    conn = sqlite3.connect(DATABASE_PATH, check_same_thread=False)
+    conn = sqlite3.connect(DATABASE_PATH, check_same_thread=False, timeout=10.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON;")
+    conn.execute("PRAGMA busy_timeout = 10000;")
+    conn.execute("PRAGMA synchronous = NORMAL;")
     try:
         yield conn
     finally:

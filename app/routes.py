@@ -722,23 +722,35 @@ async def export_devices_csv(
 
 @router.get("/api/pdf/view")
 async def view_pdf(filename: str = Query(..., description="Tên file hoặc đường dẫn file PDF")):
-    """Mở và xem trực tiếp tệp PDF gốc từ ổ G: hoặc thư mục dự án"""
-    target_path = Path(filename)
-    if target_path.exists() and target_path.is_file():
-        return FileResponse(target_path, media_type="application/pdf")
-        
-    for root_dir in PDF_ROOT_DIRS:
+    """Mở và xem trực tiếp tệp PDF an toàn từ kho tài liệu hợp lệ (chống path traversal)"""
+    from .routes_documents import _documents_root_candidates, normalize_stored_path
+    
+    clean_name = Path(filename).name
+    try:
+        rel_path = normalize_stored_path(filename)
+    except HTTPException:
+        rel_path = clean_name
+
+    for root_dir in _documents_root_candidates():
         if not root_dir.exists():
             continue
-        candidate = root_dir / filename
-        if candidate.exists() and candidate.is_file():
-            return FileResponse(candidate, media_type="application/pdf")
-        
-        matches = list(root_dir.rglob(Path(filename).name))
-        if matches:
-            return FileResponse(matches[0], media_type="application/pdf")
+        # Check direct relative path
+        candidate = (root_dir / rel_path).resolve()
+        try:
+            if candidate.is_relative_to(root_dir) and candidate.exists() and candidate.is_file():
+                return FileResponse(candidate, media_type="application/pdf")
+        except (OSError, ValueError):
+            pass
             
-    raise HTTPException(status_code=404, detail=f"Không tìm thấy file PDF: {filename}")
+        # Check filename only
+        file_cand = (root_dir / clean_name).resolve()
+        try:
+            if file_cand.is_relative_to(root_dir) and file_cand.exists() and file_cand.is_file():
+                return FileResponse(file_cand, media_type="application/pdf")
+        except (OSError, ValueError):
+            pass
+            
+    raise HTTPException(status_code=404, detail=f"Không tìm thấy file PDF hợp lệ: {filename}")
 
 
 # ==================== GEMINI AI AGENT & MISTRAL OCR ENDPOINTS ====================
