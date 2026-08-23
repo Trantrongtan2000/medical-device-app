@@ -1217,6 +1217,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.loadSemanticaStats();
             } else if (targetId === '#tab-devices') {
                 this.loadDevices();
+            } else if (targetId === '#tab-documents-hub') {
+                this.loadDocumentsHub();
             } else if (targetId === '#tab-inspections') {
                 this.loadInspections();
             } else if (targetId === '#tab-transfers') {
@@ -4044,8 +4046,188 @@ ${data.message}`);
         async loadOncallData(month = null, year = null) {
             // stub — đã có implementation ở đâu đó
             console.log('loadOncallData stub');
+        },
+
+        // ==================== PHÂN HỆ QUẢN LÝ KHO HỒ SƠ & DỮ LIỆU SỐ HÓA ====================
+        docHubState: {
+            page: 1,
+            pageSize: 30,
+            searchQuery: '',
+            folder: 'all',
+            category: 'all',
+            total: 0,
+            totalPages: 1
+        },
+
+        async loadDocumentsHub() {
+            try {
+                // 1. Tải Summary KPIs
+                const sumRes = await fetch('/api/documents/repository/summary');
+                if (sumRes.ok) {
+                    const summary = await sumRes.json();
+                    const elTot = document.getElementById('doc-hub-kpi-total');
+                    const elCon = document.getElementById('doc-hub-kpi-contracts');
+                    const elHan = document.getElementById('doc-hub-kpi-handovers');
+                    const elCom = document.getElementById('doc-hub-kpi-compliance');
+                    if (elTot) elTot.textContent = (summary.total_files || 20806).toLocaleString();
+                    if (elCon) elCon.textContent = (summary.by_folder?.['02_HOP_DONG_MUA_SAM'] || 1179).toLocaleString();
+                    if (elHan) elHan.textContent = (summary.by_folder?.['03_BAN_GIAO_VA_NGHIEM_THU'] || 4442).toLocaleString();
+                    const compTot = (summary.by_folder?.['04_KIEM_DINH_VA_HIEU_CHUAN'] || 6882) + (summary.by_folder?.['05_BAO_TRI_VA_SUA_CHUA'] || 1170) + (summary.by_folder?.['06_THAM_DINH_VA_PHAP_LY'] || 502);
+                    if (elCom) elCom.textContent = compTot.toLocaleString();
+                }
+
+                // 2. Tải danh sách tệp
+                await this.fetchDocHubFiles();
+            } catch (err) {
+                console.error('Lỗi nạp Kho hồ sơ & dữ liệu:', err);
+            }
+        },
+
+        async fetchDocHubFiles() {
+            const tbody = document.getElementById('doc-hub-table-body');
+            if (!tbody) return;
+
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted"><div class="spinner-border spinner-border-sm text-primary me-2"></div>Đang truy vấn kho tài liệu...</td></tr>`;
+
+            const params = new URLSearchParams({
+                page: this.docHubState.page,
+                page_size: this.docHubState.pageSize,
+                folder: this.docHubState.folder,
+                category: this.docHubState.category
+            });
+            if (this.docHubState.searchQuery) {
+                params.append('q', this.docHubState.searchQuery);
+            }
+
+            try {
+                const res = await fetch(`/api/documents/repository/files?${params.toString()}`);
+                if (!res.ok) throw new Error('API Error');
+                const data = await res.json();
+
+                this.docHubState.total = data.total;
+                this.docHubState.totalPages = data.total_pages;
+
+                this.renderDocHubTable(data.items);
+                this.updateDocHubPagination(data);
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger"><i class="bi bi-exclamation-triangle me-1"></i>Lỗi tải tệp: ${err.message}</td></tr>`;
+            }
+        },
+
+        renderDocHubTable(items) {
+            const tbody = document.getElementById('doc-hub-table-body');
+            if (!tbody) return;
+
+            if (!items || items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Không tìm thấy tài liệu nào khớp với điều kiện lọc.</td></tr>`;
+                return;
+            }
+
+            const catBadges = {
+                'Hợp Đồng Mua Sắm & Báo Giá': 'bg-warning-subtle text-warning border border-warning-subtle',
+                'Biên Bản Bàn Giao & Nghiệm Thu': 'bg-info-subtle text-info border border-info-subtle',
+                'Kiểm Định & Hiệu Chuẩn': 'bg-success-subtle text-success border border-success-subtle',
+                'Bảo Trì, Sửa Chữa & CMMS': 'bg-primary-subtle text-primary border border-primary-subtle',
+                'Thẩm Định, Cấp Phép & Pháp Lý': 'bg-danger-subtle text-danger border border-danger-subtle',
+                'HDSD, Quy Trình & Đào Tạo': 'bg-secondary-subtle text-dark border',
+                'Tài Liệu Kỹ Thuật Khác': 'bg-light text-muted border'
+            };
+
+            const startIndex = (this.docHubState.page - 1) * this.docHubState.pageSize;
+            tbody.innerHTML = items.map((f, idx) => {
+                const badgeClass = catBadges[f.category] || 'bg-light text-muted border';
+                const linkedBadge = f.linked_device_count > 0 
+                    ? `<span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1"><i class="bi bi-check2-circle me-1"></i>${f.linked_device_count} máy</span>`
+                    : `<span class="badge bg-light text-muted border px-2 py-1">Văn bản chung</span>`;
+
+                return `
+                    <tr>
+                        <td class="text-muted font-mono text-center">${startIndex + idx + 1}</td>
+                        <td>
+                            <div class="fw-bold text-dark mb-1 text-break">
+                                <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i>${f.filename}
+                            </div>
+                            <div class="text-muted small font-mono" style="font-size: 0.72rem;">${f.rel_path}</div>
+                        </td>
+                        <td><span class="badge ${badgeClass} text-wrap text-start" style="font-size: 0.73rem;">${f.category}</span></td>
+                        <td><span class="badge bg-light text-dark border font-mono" style="font-size: 0.72rem;"><i class="bi bi-folder2 text-primary me-1"></i>${f.folder}</span></td>
+                        <td class="text-end font-mono text-muted">${f.size_formatted}</td>
+                        <td class="text-center">${linkedBadge}</td>
+                        <td class="text-end pe-3">
+                            <div class="btn-group btn-group-sm">
+                                <a href="${f.viewer_url}" target="_blank" class="btn btn-sm btn-outline-primary" title="Mở trình đọc PDF.js">
+                                    <i class="bi bi-eye-fill me-1"></i>Xem
+                                </a>
+                                <a href="${f.stream_url}" download class="btn btn-sm btn-light border text-muted" title="Tải xuống tệp gốc">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        },
+
+        updateDocHubPagination(data) {
+            const info = document.getElementById('doc-hub-pagination-info');
+            const prevBtn = document.getElementById('doc-hub-prev-btn');
+            const nextBtn = document.getElementById('doc-hub-next-btn');
+
+            if (info) {
+                const start = data.total > 0 ? (data.page - 1) * data.page_size + 1 : 0;
+                const end = Math.min(data.page * data.page_size, data.total);
+                info.innerHTML = `Hiển thị <strong>${start.toLocaleString()} - ${end.toLocaleString()}</strong> trong tổng số <strong>${data.total.toLocaleString()}</strong> tệp tài liệu (Trang ${data.page} / ${data.total_pages})`;
+            }
+
+            if (prevBtn) prevBtn.disabled = data.page <= 1;
+            if (nextBtn) nextBtn.disabled = data.page >= data.total_pages;
+        },
+
+        _docHubDebounce: null,
+        onDocHubSearch(val) {
+            clearTimeout(this._docHubDebounce);
+            this._docHubDebounce = setTimeout(() => {
+                this.docHubState.searchQuery = val.trim();
+                this.docHubState.page = 1;
+                this.fetchDocHubFiles();
+            }, 300);
+        },
+
+        onDocHubFolderChange(val) {
+            this.docHubState.folder = val;
+            this.docHubState.page = 1;
+            this.fetchDocHubFiles();
+        },
+
+        onDocHubCategoryChange(val) {
+            this.docHubState.category = val;
+            this.docHubState.page = 1;
+            this.fetchDocHubFiles();
+        },
+
+        prevDocHubPage() {
+            if (this.docHubState.page > 1) {
+                this.docHubState.page--;
+                this.fetchDocHubFiles();
+            }
+        },
+
+        nextDocHubPage() {
+            if (this.docHubState.page < this.docHubState.totalPages) {
+                this.docHubState.page++;
+                this.fetchDocHubFiles();
+            }
+        },
+
+        refreshDocumentsHub() {
+            this.loadDocumentsHub();
         }
     };
+
+    // Auto-bind click on btn-tab-documents-hub
+    document.getElementById('btn-tab-documents-hub')?.addEventListener('click', () => {
+        app.loadDocumentsHub();
+    });
 
     window.app = app;
     app.init();

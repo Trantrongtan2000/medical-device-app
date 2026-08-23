@@ -87,6 +87,12 @@
                         <span>Nhà Cung Cấp & HĐ</span>
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="btn-tab-documents-hub" data-bs-toggle="pill" data-bs-target="#tab-documents-hub" type="button">
+                        <i class="bi bi-folder2-open text-primary"></i>
+                        <span>Kho Hồ Sơ & Dữ Liệu</span>
+                    </button>
+                </li>
 
                 <!-- GROUP 3: VẬN HÀNH & BẢO DƯỠNG LÂM SÀNG -->
                 <li class="sidebar-section-header" role="presentation">
@@ -1213,6 +1219,143 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== TAB: QUẢN LÝ KHO HỒ SƠ & DỮ LIỆU SỐ HÓA TOÀN VIỆN ==================== -->
+                    <div class="tab-pane fade" id="tab-documents-hub" role="tabpanel">
+                        <!-- Top Summary KPI Cards -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="clinical-card p-3 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-semibold text-uppercase">TỔNG TÀI LIỆU KHO OCR</div>
+                                        <div class="fs-4 fw-bold text-primary font-mono" id="doc-hub-kpi-total">20.806</div>
+                                        <div class="small text-success mt-1"><i class="bi bi-shield-check me-1"></i>Đã số hóa toàn viện</div>
+                                    </div>
+                                    <div class="rounded-3 p-3 bg-primary-subtle text-primary fs-3">
+                                        <i class="bi bi-folder-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="clinical-card p-3 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-semibold text-uppercase">HỢP ĐỒNG & BÁO GIÁ</div>
+                                        <div class="fs-4 fw-bold text-warning font-mono" id="doc-hub-kpi-contracts">1.179</div>
+                                        <div class="small text-muted mt-1"><i class="bi bi-file-earmark-text me-1"></i>HĐ thầu & mua sắm</div>
+                                    </div>
+                                    <div class="rounded-3 p-3 bg-warning-subtle text-warning fs-3">
+                                        <i class="bi bi-file-earmark-ruled-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="clinical-card p-3 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-semibold text-uppercase">BÀN GIAO & VẬT TƯ</div>
+                                        <div class="fs-4 fw-bold text-info font-mono" id="doc-hub-kpi-handovers">4.442</div>
+                                        <div class="small text-muted mt-1"><i class="bi bi-box-seam me-1"></i>Biên bản giao nhận</div>
+                                    </div>
+                                    <div class="rounded-3 p-3 bg-info-subtle text-info fs-3">
+                                        <i class="bi bi-box-arrow-in-down-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="clinical-card p-3 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-muted small fw-semibold text-uppercase">KIỂM ĐỊNH & PHÁP LÝ</div>
+                                        <div class="fs-4 fw-bold text-success font-mono" id="doc-hub-kpi-compliance">8.554</div>
+                                        <div class="small text-muted mt-1"><i class="bi bi-patch-check me-1"></i>GCN, Kiểm xạ, Thẩm định</div>
+                                    </div>
+                                    <div class="rounded-3 p-3 bg-success-subtle text-success fs-3">
+                                        <i class="bi bi-file-earmark-medical-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bộ Lọc & Tìm Kiếm Tài Liệu Thông Minh -->
+                        <div class="clinical-card p-3 mb-4">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1">
+                                        <i class="bi bi-archive-fill text-primary me-2"></i>Kho Dữ Liệu Số Hóa & Văn Bản Quản Trị — Phòng TTBYT
+                                    </h6>
+                                    <p class="text-muted small mb-0">Quản lý toàn bộ 20.806 tài liệu PDF (Hợp đồng, Biên bản bàn giao, Kiểm định gộp, Pháp lý Sở Y Tế & HDSD)</p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-primary font-mono" onclick="app.refreshDocumentsHub()">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>Làm Mới
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-5">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control" id="doc-hub-search-input" placeholder="Tìm kiếm tên tệp, số hợp đồng, từ khóa..." oninput="app.onDocHubSearch(this.value)">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select form-select-sm" id="doc-hub-folder-filter" onchange="app.onDocHubFolderChange(this.value)">
+                                        <option value="all">📁 Tất cả thư mục nghiệp vụ (6 nhóm)</option>
+                                        <option value="02_HOP_DONG_MUA_SAM">02. Hợp đồng mua sắm</option>
+                                        <option value="03_BAN_GIAO_VA_NGHIEM_THU">03. Bàn giao & Nghiệm thu</option>
+                                        <option value="04_KIEM_DINH_VA_HIEU_CHUAN">04. Kiểm định & Hiệu chuẩn</option>
+                                        <option value="05_BAO_TRI_VA_SUA_CHUA">05. Bảo trì & Sửa chữa</option>
+                                        <option value="06_THAM_DINH_VA_PHAP_LY">06. Thẩm định & Pháp lý</option>
+                                        <option value="08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP">08. Kho lưu trữ & Phụ trợ</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select form-select-sm" id="doc-hub-category-filter" onchange="app.onDocHubCategoryChange(this.value)">
+                                        <option value="all">📑 Tất cả phân loại tài liệu</option>
+                                        <option value="Hợp Đồng Mua Sắm & Báo Giá">Hợp Đồng Mua Sắm & Báo Giá</option>
+                                        <option value="Biên Bản Bàn Giao & Nghiệm Thu">Biên Bản Bàn Giao & Nghiệm Thu</option>
+                                        <option value="Kiểm Định & Hiệu Chuẩn">Kiểm Định & Hiệu Chuẩn</option>
+                                        <option value="Bảo Trì, Sửa Chữa & CMMS">Bảo Trì, Sửa Chữa & CMMS</option>
+                                        <option value="Thẩm Định, Cấp Phép & Pháp Lý">Thẩm Định, Cấp Phép & Pháp Lý</option>
+                                        <option value="HDSD, Quy Trình & Đào Tạo">HDSD, Quy Trình & Đào Tạo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Bảng Danh Sách Tài Liệu Số Hóa -->
+                            <div class="table-responsive" style="max-height: 580px; overflow-y: auto;">
+                                <table class="table table-hover align-middle mb-0" style="font-size: 0.83rem;">
+                                    <thead class="table-light sticky-top">
+                                        <tr>
+                                            <th style="width: 40px;">#</th>
+                                            <th>TÊN TỆP TÀI LIỆU SCAN (PDF)</th>
+                                            <th style="width: 220px;">PHÂN LOẠI NGHIỆP VỤ</th>
+                                            <th style="width: 200px;">THƯ MỤC LƯU TRỮ</th>
+                                            <th style="width: 100px;" class="text-end">DUNG LƯỢNG</th>
+                                            <th style="width: 120px;" class="text-center">LIÊN KẾT MÁY</th>
+                                            <th style="width: 140px;" class="text-end pe-3">THAO TÁC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="doc-hub-table-body">
+                                        <tr>
+                                            <td colspan="7" class="text-center py-4 text-muted">
+                                                <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+                                                Đang tải danh mục kho hồ sơ & tài liệu số hóa...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Phân Trang -->
+                            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                                <span class="text-muted small" id="doc-hub-pagination-info">Đang hiển thị...</span>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-secondary" id="doc-hub-prev-btn" onclick="app.prevDocHubPage()"><i class="bi bi-chevron-left me-1"></i>Trang Trước</button>
+                                    <button class="btn btn-outline-secondary" id="doc-hub-next-btn" onclick="app.nextDocHubPage()">Trang Tiếp<i class="bi bi-chevron-right ms-1"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>

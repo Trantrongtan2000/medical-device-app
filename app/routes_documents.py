@@ -402,3 +402,169 @@ async def search_documents(
         )
 
     return {"query": q, "total": len(results), "results": results}
+
+
+# ==================== PHÂN HỆ QUẢN LÝ KHO DỮ LIỆU SỐ HÓA & HỒ SƠ TOÀN VIỆN ====================
+_REPO_CACHE = {"summary": None, "files": None, "last_scan": 0}
+
+
+def _scan_repository_files():
+    import time
+    now = time.time()
+    if _REPO_CACHE["files"] is not None and (now - _REPO_CACHE["last_scan"] < 300):
+        return _REPO_CACHE["files"], _REPO_CACHE["summary"]
+
+    ocr_root = Path("/media/tan/T93/BV QUẬN 7_OCR_WORK_20260712")
+    if not ocr_root.exists():
+        for r in _documents_root_candidates():
+            if r.exists() and "OCR_WORK" in r.name:
+                ocr_root = r
+                break
+
+    file_list = []
+    by_folder = {}
+    by_cat = {
+        "Hợp Đồng Mua Sắm & Báo Giá": 0,
+        "Biên Bản Bàn Giao & Nghiệm Thu": 0,
+        "Kiểm Định & Hiệu Chuẩn": 0,
+        "Bảo Trì, Sửa Chữa & CMMS": 0,
+        "Thẩm Định, Cấp Phép & Pháp Lý": 0,
+        "HDSD, Quy Trình & Đào Tạo": 0,
+        "Tài Liệu Kỹ Thuật Khác": 0
+    }
+
+    if ocr_root.exists():
+        for root_dir, _, filenames in os.walk(ocr_root):
+            for fn in filenames:
+                if fn.lower().endswith(".pdf"):
+                    full_p = os.path.join(root_dir, fn)
+                    rel_p = os.path.relpath(full_p, ocr_root).replace("\\", "/")
+                    fn_lower = fn.lower()
+                    folder = rel_p.split("/")[0] if "/" in rel_p else "Thư mục gốc"
+                    by_folder[folder] = by_folder.get(folder, 0) + 1
+
+                    cat = "Tài Liệu Kỹ Thuật Khác"
+                    if "hợp đồng" in fn_lower or "hop dong" in fn_lower or "hd " in fn_lower or folder == "02_HOP_DONG_MUA_SAM":
+                        cat = "Hợp Đồng Mua Sắm & Báo Giá"
+                    elif "kiểm định" in fn_lower or "hiệu chuẩn" in fn_lower or "gcn" in fn_lower or folder == "04_KIEM_DINH_VA_HIEU_CHUAN":
+                        cat = "Kiểm Định & Hiệu Chuẩn"
+                    elif "bàn giao" in fn_lower or "ban giao" in fn_lower or "bbbg" in fn_lower or "nghiệm thu" in fn_lower or folder == "03_BAN_GIAO_VA_NGHIEM_THU":
+                        cat = "Biên Bản Bàn Giao & Nghiệm Thu"
+                    elif "hướng dẫn" in fn_lower or "hdsd" in fn_lower or "manual" in fn_lower or "đào tạo" in fn_lower:
+                        cat = "HDSD, Quy Trình & Đào Tạo"
+                    elif "bảo trì" in fn_lower or "sửa chữa" in fn_lower or "service report" in fn_lower or folder == "05_BAO_TRI_VA_SUA_CHUA":
+                        cat = "Bảo Trì, Sửa Chữa & CMMS"
+                    elif "thanh lý" in fn_lower or "tờ trình" in fn_lower or "thẩm định" in fn_lower or folder == "06_THAM_DINH_VA_PHAP_LY":
+                        cat = "Thẩm Định, Cấp Phép & Pháp Lý"
+
+                    by_cat[cat] = by_cat.get(cat, 0) + 1
+
+                    try:
+                        sz = os.path.getsize(full_p)
+                    except OSError:
+                        sz = 0
+
+                    file_list.append({
+                        "filename": fn,
+                        "rel_path": rel_p,
+                        "folder": folder,
+                        "category": cat,
+                        "size_bytes": sz,
+                        "size_formatted": f"{sz / 1024 / 1024:.2f} MB" if sz > 1048576 else f"{sz / 1024:.1f} KB",
+                    })
+
+    summary = {
+        "total_files": len(file_list),
+        "by_folder": by_folder,
+        "by_category": by_cat,
+        "root_path": str(ocr_root)
+    }
+
+    _REPO_CACHE["files"] = file_list
+    _REPO_CACHE["summary"] = summary
+    _REPO_CACHE["last_scan"] = now
+    return file_list, summary
+
+
+@router.get("/api/documents/repository/summary")
+async def get_repository_summary():
+    """Lấy thống kê tổng hợp kho dữ liệu số hóa toàn viện"""
+    _, summary = _scan_repository_files()
+    return summary
+
+
+@router.get("/api/documents/repository/files")
+async def list_repository_files(
+    q: Optional[str] = Query(None, description="Từ khóa tra cứu tên tệp hoặc đường dẫn"),
+    folder: Optional[str] = Query(None, description="Lọc theo thư mục"),
+    category: Optional[str] = Query(None, description="Lọc theo phân loại"),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=10, le=200),
+    db=Depends(get_db)
+):
+    """Danh sách tệp trong kho tài liệu số hóa kèm thông tin đối chiếu thiết bị"""
+    all_files, _ = _scan_repository_files()
+
+    # Lấy danh sách map trong DB
+    rows = db.execute("SELECT file_path, COUNT(device_id) as dev_cnt FROM device_documents GROUP BY file_path").fetchall()
+    map_dict = {r["file_path"].replace("\\", "/"): r["dev_cnt"] for r in rows}
+
+    filtered = all_files
+    if folder and folder != "all":
+        filtered = [f for f in filtered if f["folder"] == folder]
+    if category and category != "all":
+        filtered = [f for f in filtered if f["category"] == category]
+    if q and q.strip():
+        term = q.strip().lower()
+        filtered = [f for f in filtered if term in f["filename"].lower() or term in f["rel_path"].lower()]
+
+    total = len(filtered)
+    start_idx = (page - 1) * page_size
+    end_idx = start_idx + page_size
+    page_items = filtered[start_idx:end_idx]
+
+    results = []
+    for item in page_items:
+        rel_p = item["rel_path"]
+        dev_cnt = map_dict.get(rel_p, 0)
+        # thử match theo filename nếu relative path khác
+        if dev_cnt == 0:
+            fn = item["filename"].lower()
+            for db_p, c in map_dict.items():
+                if db_p.lower().endswith(fn):
+                    dev_cnt = c
+                    break
+
+        quoted_path = urllib.parse.quote(rel_p)
+        results.append({
+            **item,
+            "linked_device_count": dev_cnt,
+            "stream_url": f"/api/documents/repository/stream?path={quoted_path}",
+            "viewer_url": f"/static/pdfjs/web/viewer.html?file={urllib.parse.quote(f'/api/documents/repository/stream?path={quoted_path}')}"
+        })
+
+    return {
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "total_pages": (total + page_size - 1) // page_size if total > 0 else 1,
+        "items": results
+    }
+
+
+@router.get("/api/documents/repository/stream")
+async def stream_repository_file(path: str = Query(..., description="Đường dẫn tương đối của tệp trong kho tài liệu")):
+    """Stream an toàn tệp PDF từ kho lưu trữ toàn viện"""
+    file_path = resolve_document_file(path)
+    if not file_path.exists() or not file_path.is_file():
+        raise HTTPException(status_code=404, detail="Không tìm thấy tệp trong kho tài liệu")
+
+    quoted_filename = urllib.parse.quote(file_path.name)
+    return FileResponse(
+        path=str(file_path),
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f"inline; filename*=UTF-8''{quoted_filename}",
+            "Cache-Control": "public, max-age=3600",
+        },
+    )
