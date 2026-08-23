@@ -186,81 +186,37 @@ class MistralOCRService:
                 else:
                     mistral_key_pool.mark_rate_limited(active_key)
 
-        # High-Fidelity Medical Document OCR Extraction for Tâm Anh Hospital
-        fname = filename or (Path(file_path).name if file_path else "Biên bản kiểm định & bàn giao TTBYT.pdf")
-        
-        if "kiem_dinh" in fname.lower() or "kd" in fname.lower() or "gcn" in fname.lower():
-            mock_result = {
-                "status": "success",
-                "engine": "Mistral OCR-4 High-Accuracy Medical Engine (Tâm Anh Q7)",
-                "filename": fname,
-                "pages_count": 1,
-                "markdown": (
-                    "# GIẤY CHỨNG NHẬN KIỂM ĐỊNH TRANG THIẾT BỊ Y TẾ\n\n"
-                    "**Số GCN:** `KĐ-2026/TAQ7-08819`\n"
-                    "**Cơ quan thực hiện:** Trung Tâm Kiểm Định & Đo Lường Trang Thiết Bị Y Tế TP.HCM\n"
-                    "**Căn cứ pháp lý:** Thông tư số 05/2022/TT-BYT & Nghị định 98/2021/NĐ-CP\n\n"
-                    "| Hạng mục kiểm tra | Thông tin ghi nhận trên máy | Kết quả kiểm định |\n"
-                    "| :--- | :--- | :--- |\n"
-                    "| **Tên thiết bị y tế** | Máy Sốc Tim Phá Rung Defibrillator | **ĐẠT TIÊU CHUẨN** |\n"
-                    "| **Ký mã hiệu / Model** | TEC-5600 | Đạt chuẩn năng lượng Joule |\n"
-                    "| **Hãng sản xuất** | Nihon Kohden (Nhật Bản) | Độ an toàn điện: Class I Type BF |\n"
-                    "| **Số Serial (S/N)** | `NK-2024-991` | Dòng rò rỉ: 15 µA (Tiêu chuẩn < 100 µA) |\n"
-                    "| **Vị trí bố trí** | Khoa Cấp Cứu - PKĐK Tâm Anh Quận 7 | Sẵn sàng hoạt động 24/7 |\n"
-                    "| **Ngày kiểm định** | 15/08/2026 | Hiệu chuẩn năng lượng phóng điện |\n"
-                    "| **Ngày tái kiểm định** | 15/08/2027 | Chu kỳ kiểm định: 12 Tháng |\n"
-                    "| **Số tem kiểm định** | `TEM-KĐ-TAQ7-0091` | Đã dán tem kiểm định màu xanh |\n"
-                    "| **Kết luận chung** | **THIẾT BỊ ĐỦ ĐIỀU KIỆN AN TOÀN ĐƯA VÀO SỬ DỤNG LÂM SÀNG** | **ĐẠT (PASSED)** |\n"
-                ),
-                "extracted_fields": {
-                    "device_name": "Máy Sốc Tim Phá Rung Defibrillator",
-                    "model": "TEC-5600",
-                    "manufacturer": "Nihon Kohden",
-                    "serial_no": "NK-2024-991",
-                    "facility": "Khoa Cấp Cứu",
-                    "calibration_date": "2026-08-15",
-                    "recalibration_date": "2027-08-15",
-                    "certificate_no": "KĐ-2026/TAQ7-08819",
-                    "stamp_no": "TEM-KĐ-TAQ7-0091",
-                    "result_status": "PASSED",
-                    "risk_level": "D"
-                }
-            }
+        # FAIL-CLOSED: Không bao giờ bịa dữ liệu lâm sàng khi OCR provider không khả dụng.
+        # Trả về trạng thái lỗi rõ ràng để lớp trên KHÔNG được coi là bằng chứng đã xác thực.
+        fname = filename or (Path(file_path).name if file_path else "Tài liệu TTBYT")
+        has_key = mistral_key_pool.get_next_active_key() is not None
+        file_ok = bool(file_path) and Path(file_path).exists()
+
+        if not has_key:
+            reason = "Không có Mistral OCR API key khả dụng trong Key Rotation Pool."
+            status = "OCR_UNAVAILABLE"
+        elif not file_ok:
+            reason = "Không tìm thấy tệp nguồn để bóc tách OCR."
+            status = "OCR_FAILED"
         else:
-            mock_result = {
-                "status": "success",
-                "engine": "Mistral OCR-4 High-Accuracy Medical Engine (Tâm Anh Q7)",
-                "filename": fname,
-                "pages_count": 1,
-                "markdown": (
-                    "# BIÊN BẢN BÀN GIAO & LẮP ĐẶT THIẾT BỊ Y TẾ (QT.04 / BM04)\n\n"
-                    "**Đơn vị sử dụng:** Phòng Khám Đa Khoa Tâm Anh Quận 7\n"
-                    "**Bên giao (Nhà thầu/Hãng):** Công Ty Cổ Phần Thiết Bị Y Tế Vietmedical\n"
-                    "**Bên nhận (Bệnh viện):** Phòng Trang Thiết Bị Y Tế & Khoa Chẩn Đoán Hình Ảnh\n\n"
-                    "| Thuộc tính | Chi tiết kỹ thuật bàn giao | Tình trạng tiếp nhận |\n"
-                    "| :--- | :--- | :--- |\n"
-                    "| **Tên trang thiết bị** | Máy Chụp X-Quang Kỹ Thuật Số Treo Trần | Mới 100%, nguyên đai nguyên kiện |\n"
-                    "| **Model / Ký hiệu** | Revolution Maxima | Hệ thống phần mềm bản quyền 2026 |\n"
-                    "| **Nhà sản xuất** | GE Healthcare (Hoa Kỳ) | Nguồn gốc xuất xứ CO/CQ đầy đủ |\n"
-                    "| **Số Serial (S/N)** | `TAIXX2400044CN` | Khớp đúng số khung thân máy |\n"
-                    "| **Mã Hợp Đồng** | `HĐ-2026/TAQ7-GE01` | Bảo hành chính hãng 24 tháng |\n"
-                    "| **Khoa tiếp nhận** | Khoa Chẩn Đoán Hình Ảnh | Phòng X-Quang số 02 - Tầng 1 |\n"
-                    "| **Ngày nghiệm thu** | 18/08/2026 | Đã chạy thử 50 ca phát tia ĐẠT |\n"
-                    "| **Phân loại rủi ro** | **Loại C** (Theo NĐ 98/2021/NĐ-CP) | Đã kiểm xạ & cấp phép an toàn bức xạ |\n"
-                ),
-                "extracted_fields": {
-                    "device_name": "Máy Chụp X-Quang Kỹ Thuật Số Treo Trần",
-                    "model": "Revolution Maxima",
-                    "manufacturer": "GE Healthcare",
-                    "serial_no": "TAIXX2400044CN",
-                    "contract_no": "HĐ-2026/TAQ7-GE01",
-                    "facility": "Khoa Chẩn Đoán Hình Ảnh",
-                    "handover_date": "2026-08-18",
-                    "result_status": "PASSED",
-                    "risk_level": "C"
-                }
-            }
-        return mock_result
+            reason = "Mistral OCR provider không phản hồi hợp lệ sau khi thử lại."
+            status = "OCR_FAILED"
+
+        return {
+            "status": status,
+            "success": False,
+            "engine": "Mistral OCR-4 (unavailable)",
+            "filename": fname,
+            "pages_count": 0,
+            "markdown": None,
+            "extracted_fields": None,
+            "verified": False,
+            "error": reason,
+            "message": (
+                "OCR chưa thể bóc tách tài liệu. Hệ thống KHÔNG tự sinh dữ liệu kiểm định/bàn giao. "
+                "Vui lòng cấu hình OCR key hoặc nhập liệu thủ công và cho chuyên viên rà soát."
+            ),
+        }
 
     def _extract_medical_fields_from_text(self, text: str) -> Dict[str, Any]:
         """Tự động bóc tách các trường thuộc tính y tế từ văn bản Markdown"""
