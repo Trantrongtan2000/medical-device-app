@@ -9,7 +9,7 @@
 * **Quy mô quản trị xác thực từ CSDL (`database/devices.db`):**
   - **1.211 Thiết bị y tế** đang phân bổ tại **21 khoa/phòng lâm sàng** (thuộc **39 đơn vị/facilities** trong master data).
   - **Phân loại rủi ro (Nghị định 98/2021/NĐ-CP):** Loại A = **900**, Loại B = **140**, Loại C = **158**, Loại D = **13**.
-  - **Hồ sơ số hóa:** **7.330 liên kết thiết bị - tài liệu** sau quy trình dedup theo canonical path, tương ứng **1.164 đường dẫn tệp PDF duy nhất**.
+  - **Hồ sơ số hóa:** **7.560 liên kết thiết bị - tài liệu** sau quy trình đối soát toàn diện từ thư mục OCR WORK, tương ứng **1.198 đường dẫn tệp PDF duy nhất**. **100.0% thiết bị (1.211/1.211 máy)** đều có ít nhất 1 chứng từ pháp lý / bàn giao liên kết.
   - **Phân đoạn chứng từ OCR:** **1.156 phân đoạn** (`document_segments`) thuộc **1.071 tài liệu**.
   - **Thực trạng kiểm định (Thông tư 05/2022/TT-BYT):**
     * **529 bản ghi GCN hết hạn** (thuộc 277 thiết bị), trong đó có **262 thiết bị có lần kiểm định mới nhất đã hết hạn**.
@@ -18,7 +18,7 @@
   - **Phân bố phương thức đối chiếu nguồn gốc (Match Provenance):**
     * 🟢 **SERIAL (Khớp S/N):** 345 tài liệu (Độ tin cậy rất cao).
     * 🔵 **CALIBRATION_CERT (Khớp Tem KĐ):** 500 tài liệu (Độ tin cậy cao).
-    * ℹ️ **CONTRACT (Khớp HĐ):** 1.955 tài liệu (Độ tin cậy trung bình).
+    * ℹ️ **CONTRACT (Khớp HĐ & Bàn giao NCC):** 2.185 tài liệu (Độ tin cậy trung bình).
     * ⚪ **MODEL (Khớp Model):** 4.530 tài liệu (Tài liệu tham khảo theo dòng máy, không chứng minh tài liệu thuộc đúng tài sản vật lý).
 * **Kho mã nguồn GitHub:** `https://github.com/Trantrongtan2000/medical-device-app.git` (Nhánh `main`).
 * **Đại diện kỹ thuật & BME:** **Trần Trọng Tấn** (Trưởng/Kỹ sư phụ trách TTBYT).
