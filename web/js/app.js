@@ -1367,12 +1367,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 : 'PDF.js viewer · phân đoạn chứng từ composite';
             if (extBtn) extBtn.href = viewerUrl;
             if (dlBtn) dlBtn.href = `/api/documents/download/${docId}`;
-            if (iframe) iframe.src = viewerUrl;
 
             const modalEl = document.getElementById('pdfViewerModal');
             if (modalEl) {
                 const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                if (iframe) {
+                    iframe.src = viewerUrl;
+                }
                 modal.show();
+                modalEl.addEventListener('shown.bs.modal', function onShown() {
+                    modalEl.removeEventListener('shown.bs.modal', onShown);
+                    if (iframe && iframe.contentWindow) {
+                        iframe.contentWindow.dispatchEvent(new Event('resize'));
+                    }
+                });
             }
         },
 
