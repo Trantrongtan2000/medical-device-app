@@ -4015,6 +4015,15 @@ ${data.message}`);
                     if (elB) elB.textContent = (s.risk_distribution.B || 140) + ' máy';
                     if (elC) elC.textContent = (s.risk_distribution.C || 158) + ' máy';
                     if (elD) elD.textContent = (s.risk_distribution.D || 13) + ' máy';
+
+                    const catA = document.getElementById('catalog-risk-a');
+                    const catB = document.getElementById('catalog-risk-b');
+                    const catC = document.getElementById('catalog-risk-c');
+                    const catD = document.getElementById('catalog-risk-d');
+                    if (catA) catA.textContent = s.risk_distribution.A || 900;
+                    if (catB) catB.textContent = s.risk_distribution.B || 140;
+                    if (catC) catC.textContent = s.risk_distribution.C || 158;
+                    if (catD) catD.textContent = s.risk_distribution.D || 13;
                 }
 
                 const alertsBox = document.getElementById('alerts-summary');
