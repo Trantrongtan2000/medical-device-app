@@ -44,3 +44,4 @@ scratch/
 logs/
 
 
+database/*backup*.db
