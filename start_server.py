@@ -41,13 +41,14 @@ def main():
     # Initialize database
     init_db()
     
-    print("\n🚀 Server khởi động...")
-    print("📍 Truy cập: http://localhost:8000")
-    print("📚 API Docs: http://localhost:8000/docs")
+    port = int(os.environ.get("PORT", 8080))
+    print(f"\n🚀 Server khởi động...")
+    print(f"📍 Truy cập: http://localhost:{port}")
+    print(f"📚 API Docs: http://localhost:{port}/docs")
     print("🛑 Nhấn Ctrl+C để dừng server\n")
     
     # Run server
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 if __name__ == "__main__":
     main()

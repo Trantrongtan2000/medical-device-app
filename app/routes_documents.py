@@ -45,13 +45,16 @@ def _documents_root_candidates() -> List[Path]:
     custom = os.getenv("MEDICAL_DEVICE_DOCUMENTS_ROOT") or os.getenv("MEDICAL_DEVICE_PDF_ROOT")
     roots = [
         Path(custom) if custom else None,
-        PROJECT_ROOT / "docs_storage",
-        PROJECT_ROOT / "docs",
+        Path("/media/tan/T93/BV QUẬN 7_OCR_WORK_20260712"),
+        PROJECT_ROOT.parent / "BV QUẬN 7_OCR_WORK_20260712",
+        Path("/media/tan/T93/BACKUP_DU_LIEU_SO_HOA_20260818"),
         Path(r"G:\BV QUẬN 7_OCR_WORK_20260712"),
         Path(r"G:\BV QUẬN 7"),
         Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818"),
+        PROJECT_ROOT / "docs_storage",
+        PROJECT_ROOT / "docs",
     ]
-    return [p.resolve() for p in roots if p is not None]
+    return [p.resolve() for p in roots if p is not None and p.exists()]
 
 
 def normalize_stored_path(stored: str) -> str:
