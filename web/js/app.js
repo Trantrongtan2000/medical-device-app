@@ -1730,7 +1730,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </td>
                                 <td><span class="badge bg-light text-dark border font-mono">${d.file_size_str}</span></td>
                                 <td>
-                                    <span class="badge bg-info-subtle text-info border font-mono">${d.match_method === 'SERIAL' ? 'Khớp S/N' : 'Khớp HĐ'}</span>
+                                    ${d.match_method === 'SERIAL' 
+                                        ? '<span class="badge bg-success-subtle text-success border border-success font-mono"><i class="bi bi-upc-scan me-1"></i>Khớp S/N</span>' 
+                                        : d.match_method === 'CALIBRATION_CERT'
+                                            ? '<span class="badge bg-primary-subtle text-primary border border-primary font-mono"><i class="bi bi-patch-check me-1"></i>Khớp Tem KĐ</span>'
+                                            : d.match_method === 'MODEL'
+                                                ? '<span class="badge bg-secondary-subtle text-secondary border font-mono"><i class="bi bi-cpu me-1"></i>Khớp Model</span>'
+                                                : '<span class="badge bg-info-subtle text-info border border-info font-mono"><i class="bi bi-file-earmark-text me-1"></i>Khớp HĐ</span>'}
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm">
