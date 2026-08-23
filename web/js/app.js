@@ -1448,6 +1448,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (trToFac) {
                     trToFac.innerHTML = this.facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
                 }
+
+                // Load alerts summary bar
+                this.loadAlertsSummary();
             } catch (err) {
                 console.error('Error loading initial data:', err);
             }
@@ -3988,12 +3991,23 @@ ${data.message}`);
         },
 
         async loadAlertsSummary() {
-            const badges = document.querySelector('#alert-badges');
-            if (!badges) return;
             try {
                 const s = await fetch('/api/alerts/summary').then(r => r.json());
-                badges.innerHTML = '<span class="badge bg-danger me-2">' + (s.certs_overdue || 0) + ' Hết kiểm định</span> <span class="badge bg-warning text-dark me-2">' + (s.certs_expiring_90d || 0) + ' Sắp hết 90d</span> <span class="badge bg-info text-dark">' + (s.maintenance_overdue || 0) + ' Bảo trì quá hạn</span>';
-            } catch(e) {}
+                const elOverdue = document.getElementById('badge-certs-overdue');
+                const elExpiring = document.getElementById('badge-certs-expiring');
+                const elMaint = document.getElementById('badge-maint-overdue');
+                
+                if (elOverdue) elOverdue.innerHTML = `<i class="bi bi-exclamation-octagon-fill me-1"></i>${s.certs_overdue || 0} Hết hạn kiểm định`;
+                if (elExpiring) elExpiring.innerHTML = `<i class="bi bi-clock-history me-1"></i>${s.certs_expiring_90d || 0} Sắp hết hạn (90 ngày)`;
+                if (elMaint) elMaint.innerHTML = `<i class="bi bi-tools me-1"></i>${s.maintenance_overdue || 0} Bảo trì quá hạn`;
+                
+                const alertsBox = document.getElementById('alerts-summary');
+                if (alertsBox && (s.certs_overdue === 0 && s.certs_expiring_90d === 0 && s.maintenance_overdue === 0)) {
+                    alertsBox.parentElement.style.display = 'none';
+                }
+            } catch(e) {
+                console.error('Error loading alerts summary:', e);
+            }
         },
 
         showScheduleDetail(id) {
