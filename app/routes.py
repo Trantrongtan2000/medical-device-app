@@ -721,36 +721,28 @@ async def export_devices_csv(
 # ==================== PDF FILE VIEWER ENDPOINT ====================
 
 @router.get("/api/pdf/view")
-async def view_pdf(filename: str = Query(..., description="Tên file hoặc đường dẫn file PDF")):
-    """Mở và xem trực tiếp tệp PDF an toàn từ kho tài liệu hợp lệ (chống path traversal)"""
+async def view_pdf(filename: str = Query(..., description="Đường dẫn tương đối POSIX của tệp trong kho tài liệu")):
+    """Mở và xem trực tiếp tệp PDF an toàn từ kho tài liệu hợp lệ (chống path traversal).
+
+    An toàn: chỉ chấp nhận đường dẫn tương đối POSIX đã chuẩn hóa và phải nằm
+    trong một documents-root được phép. Không còn fallback theo tên tệp để tránh
+    vô tình lộ các tệp trùng tên trong thư mục dev.
+    """
     from .routes_documents import _documents_root_candidates, normalize_stored_path
-    
-    clean_name = Path(filename).name
-    try:
-        rel_path = normalize_stored_path(filename)
-    except HTTPException:
-        rel_path = clean_name
+
+    rel_path = normalize_stored_path(filename)  # raise 400 nếu traversal/tuyệt đối
 
     for root_dir in _documents_root_candidates():
         if not root_dir.exists():
             continue
-        # Check direct relative path
         candidate = (root_dir / rel_path).resolve()
         try:
             if candidate.is_relative_to(root_dir) and candidate.exists() and candidate.is_file():
                 return FileResponse(candidate, media_type="application/pdf")
         except (OSError, ValueError):
             pass
-            
-        # Check filename only
-        file_cand = (root_dir / clean_name).resolve()
-        try:
-            if file_cand.is_relative_to(root_dir) and file_cand.exists() and file_cand.is_file():
-                return FileResponse(file_cand, media_type="application/pdf")
-        except (OSError, ValueError):
-            pass
-            
-    raise HTTPException(status_code=404, detail=f"Không tìm thấy file PDF hợp lệ: {filename}")
+
+    raise HTTPException(status_code=404, detail="Không tìm thấy file PDF hợp lệ trong kho tài liệu")
 
 
 # ==================== GEMINI AI AGENT & MISTRAL OCR ENDPOINTS ====================
@@ -785,7 +777,7 @@ async def ai_chat(req: AIChatRequest, db = Depends(get_db)):
 
 # ==================== AUTHENTICATION & RBAC ENDPOINTS ====================
 
-from .auth import AuthenticatedUser, get_current_user, require_role, UserRole
+from .auth import AuthenticatedUser, get_current_user, require_role, require_role_enforced, UserRole
 
 @router.get("/api/auth/me", response_model=AuthenticatedUser)
 async def get_my_profile(current_user: AuthenticatedUser = Depends(get_current_user)):
@@ -945,28 +937,67 @@ class OCRProcessRequest(BaseModel):
 from fastapi import UploadFile, File
 import shutil
 
+import uuid as _uuid
+
+_OCR_UPLOAD_DIR = Path("scratch/uploads").resolve()
+
+
 @router.post("/api/ocr/upload")
-async def upload_and_process_ocr(file: UploadFile = File(...)):
-    """Tải file PDF/Ảnh scan lên và bóc tách dữ liệu y tế bằng Mistral OCR"""
-    temp_dir = Path("scratch/uploads")
-    temp_dir.mkdir(parents=True, exist_ok=True)
-    temp_file = temp_dir / file.filename
-    
+async def upload_and_process_ocr(
+    file: UploadFile = File(...),
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.BME_ENGINEER)),
+):
+    """Tải file PDF/Ảnh scan lên và bóc tách dữ liệu y tế bằng Mistral OCR.
+
+    An toàn: bỏ tên tệp do client cung cấp, sinh tên server-side để chống path traversal.
+    """
+    _OCR_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    original_name = Path(file.filename or "upload.pdf").name  # chỉ lấy basename
+    suffix = Path(original_name).suffix.lower() or ".pdf"
+    if suffix not in (".pdf", ".png", ".jpg", ".jpeg", ".webp", ".tif", ".tiff"):
+        raise HTTPException(status_code=400, detail="Định dạng tệp không được hỗ trợ")
+
+    safe_name = f"{_uuid.uuid4().hex}{suffix}"
+    temp_file = (_OCR_UPLOAD_DIR / safe_name).resolve()
+    if not temp_file.is_relative_to(_OCR_UPLOAD_DIR):
+        raise HTTPException(status_code=400, detail="Đường dẫn tải lên không hợp lệ")
+
     with open(temp_file, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-        
+
     result = await mistral_ocr_service.process_document(
         file_path=str(temp_file),
-        filename=file.filename
+        filename=original_name,
     )
     return result
 
+
 @router.post("/api/ocr/process")
-async def process_ocr(req: OCRProcessRequest):
-    """Mistral OCR Engine (https://mistral.ai/news/ocr-4/) xử lý và bóc tách tài liệu y tế"""
+async def process_ocr(
+    req: OCRProcessRequest,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.BME_ENGINEER)),
+):
+    """OCR một tệp đã tải lên trước đó.
+
+    An toàn: chỉ chấp nhận tệp nằm trong thư mục upload (scratch/uploads); từ chối
+    đường dẫn tuyệt đối / traversal do client cung cấp (chống đọc file tùy ý & SSRF).
+    """
+    resolved: Optional[Path] = None
+    if req.file_path:
+        candidate = Path(req.file_path)
+        # Chỉ cho phép basename trong thư mục upload đã kiểm soát.
+        candidate = (_OCR_UPLOAD_DIR / Path(req.file_path).name).resolve()
+        if candidate.is_relative_to(_OCR_UPLOAD_DIR) and candidate.exists() and candidate.is_file():
+            resolved = candidate
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Chỉ chấp nhận tệp đã tải lên qua /api/ocr/upload (không nhận đường dẫn hệ thống).",
+            )
+
     result = await mistral_ocr_service.process_document(
-        file_path=req.file_path,
-        filename=req.filename or "Tài liệu kiểm định TTBYT.pdf"
+        file_path=str(resolved) if resolved else None,
+        filename=req.filename or "Tài liệu kiểm định TTBYT.pdf",
     )
     return result
 
@@ -1003,7 +1034,9 @@ class RemoveKeyRequest(BaseModel):
 @router.get("/api/keys/config")
 @router.get("/api/keys/list")
 @router.get("/api/keys/status")
-async def get_keys_config():
+async def get_keys_config(
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Lấy danh sách đầy đủ các API Key đã đăng ký và trạng thái xoay key"""
     return {
         "gemini": gemini_key_pool.get_pool_stats(),
@@ -1011,7 +1044,10 @@ async def get_keys_config():
     }
 
 @router.post("/api/keys/add")
-async def add_api_keys(req: AddKeyRequest):
+async def add_api_keys(
+    req: AddKeyRequest,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Thêm 1 hoặc nhiều API keys vào danh sách xoay key"""
     if req.service == "gemini":
         count = gemini_key_pool.add_keys(req.keys)
@@ -1026,7 +1062,10 @@ async def add_api_keys(req: AddKeyRequest):
     }
 
 @router.put("/api/keys/update")
-async def update_api_key(req: UpdateKeyRequest):
+async def update_api_key(
+    req: UpdateKeyRequest,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Chỉnh sửa thông tin và giá trị của một API Key"""
     if req.service == "gemini":
         success = gemini_key_pool.update_key(req.old_key, req.new_key, req.status)
@@ -1044,7 +1083,10 @@ async def update_api_key(req: UpdateKeyRequest):
     }
 
 @router.post("/api/keys/set-status")
-async def set_api_key_status(req: SetKeyStatusRequest):
+async def set_api_key_status(
+    req: SetKeyStatusRequest,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Thay đổi trạng thái bật/tắt (ACTIVE/INACTIVE) của API Key"""
     if req.service == "gemini":
         gemini_key_pool.set_key_status(req.key, req.status)
@@ -1059,7 +1101,10 @@ async def set_api_key_status(req: SetKeyStatusRequest):
     }
 
 @router.post("/api/keys/set-primary")
-async def set_primary_api_key(req: SetPrimaryKeyRequest):
+async def set_primary_api_key(
+    req: SetPrimaryKeyRequest,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Đặt API Key làm khóa ưu tiên số 1 (Head of Pool)"""
     if req.service == "gemini":
         gemini_key_pool.set_primary_key(req.key)
@@ -1074,7 +1119,10 @@ async def set_primary_api_key(req: SetPrimaryKeyRequest):
     }
 
 @router.post("/api/keys/test")
-async def test_api_key(req: TestKeyRequest):
+async def test_api_key(
+    req: TestKeyRequest,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Kiểm thử kết nối API trực tiếp (Live Connectivity Test) & đo độ trễ ms"""
     if req.service == "gemini":
         result = gemini_key_pool.test_key(req.key)
@@ -1087,7 +1135,12 @@ async def test_api_key(req: TestKeyRequest):
 
 @router.post("/api/keys/remove")
 @router.delete("/api/keys/{service}/{key}")
-async def remove_api_key_endpoint(service: str = None, key: str = None, req: Optional[RemoveKeyRequest] = None):
+async def remove_api_key_endpoint(
+    service: str = None,
+    key: str = None,
+    req: Optional[RemoveKeyRequest] = None,
+    _user: AuthenticatedUser = Depends(require_role_enforced(UserRole.ADMIN)),
+):
     """Xóa API key khỏi danh sách xoay key và CSDL"""
     srv = req.service if req else service
     k = req.key if req else key

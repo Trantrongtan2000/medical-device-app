@@ -47,3 +47,12 @@ logs/
 
 
 database/*backup*.db
+database/backups/
+database/*_backup_*.db
+
+# Stray/empty root DB & dev-only SQLite copies (canonical DB is database/devices.db)
+/devices.db
+app/medical_devices.db
+
+# Agent runtime artifacts
+.omo/

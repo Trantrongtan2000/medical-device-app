@@ -109,3 +109,41 @@ def require_role(min_role: UserRole):
             )
         return user
     return role_checker
+
+
+def require_role_enforced(min_role: UserRole):
+    """
+    Dependency factory chỉ THỰC THI RBAC khi HTM_ENFORCE_RBAC được bật.
+
+    - Mặc định (demo/nội bộ): không chặn, giữ nguyên hành vi hiện tại.
+    - Production (HTM_ENFORCE_RBAC=1): yêu cầu credential hợp lệ và đủ quyền;
+      không còn fallback guest cho các endpoint nhạy cảm.
+    """
+    def enforced_checker(
+        api_key: Optional[str] = Security(api_key_header),
+        auth_creds: Optional[HTTPAuthorizationCredentials] = Security(bearer_scheme),
+    ) -> AuthenticatedUser:
+        from .config import get_settings
+
+        user = get_current_user(api_key=api_key, auth_creds=auth_creds)
+
+        if not get_settings().enforce_rbac:
+            return user
+
+        # Khi bật enforcement: chặn guest (không cung cấp credential).
+        if not api_key and not (auth_creds and auth_creds.credentials):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Yêu cầu xác thực (X-API-Key hoặc Bearer token) cho thao tác này.",
+            )
+
+        user_level = ROLE_HIERARCHY.get(user.role, 0)
+        required_level = ROLE_HIERARCHY.get(min_role, 99)
+        if user_level < required_level:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Quyền hạn không đủ. Yêu cầu tối thiểu: {min_role.value} (Hiện tại: {user.role.value})",
+            )
+        return user
+
+    return enforced_checker

@@ -52,7 +52,6 @@ def _documents_root_candidates() -> List[Path]:
         Path(r"G:\BV QUẬN 7"),
         Path(r"G:\BACKUP_DU_LIEU_SO_HOA_20260818"),
         PROJECT_ROOT / "docs_storage",
-        PROJECT_ROOT / "docs",
     ]
     return [p.resolve() for p in roots if p is not None and p.exists()]
 
