@@ -274,6 +274,37 @@ CREATE TABLE IF NOT EXISTS system_feedback (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Hồ sơ PDF gốc đính kèm thiết bị (đường dẫn tương đối POSIX)
+CREATE TABLE IF NOT EXISTS device_documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    device_id INTEGER NOT NULL,
+    doc_type TEXT NOT NULL,
+    title TEXT NOT NULL,
+    file_path TEXT NOT NULL,
+    file_size INTEGER DEFAULT 0,
+    file_ext TEXT DEFAULT 'pdf',
+    match_method TEXT DEFAULT 'SERIAL',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
+);
+
+-- Phân đoạn chứng từ trong PDF gộp (composite scan): giữ nguyên file gốc
+CREATE TABLE IF NOT EXISTS document_segments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_id INTEGER NOT NULL,
+    page_start INTEGER NOT NULL CHECK (page_start >= 1),
+    page_end INTEGER NOT NULL CHECK (page_end >= page_start),
+    doc_type TEXT NOT NULL,
+    form_code TEXT,
+    title TEXT,
+    extracted_serial TEXT,
+    confidence REAL DEFAULT 0.0 CHECK (confidence >= 0.0 AND confidence <= 1.0),
+    md_anchor TEXT,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (document_id) REFERENCES device_documents(id) ON DELETE CASCADE
+);
+
 -- 5. Views
 CREATE VIEW IF NOT EXISTS device_status_summary AS
 SELECT 
@@ -333,3 +364,8 @@ CREATE INDEX IF NOT EXISTS idx_transfers_status ON device_transfers(status, tran
 
 CREATE INDEX IF NOT EXISTS idx_notifications_read ON notifications(is_read, created_at);
 CREATE INDEX IF NOT EXISTS idx_notifications_ref ON notifications(ref_type, ref_id);
+
+CREATE INDEX IF NOT EXISTS idx_doc_device_id ON device_documents(device_id);
+CREATE INDEX IF NOT EXISTS idx_doc_type ON device_documents(doc_type);
+CREATE INDEX IF NOT EXISTS idx_doc_segments_document ON document_segments(document_id);
+CREATE INDEX IF NOT EXISTS idx_doc_segments_pages ON document_segments(document_id, page_start);

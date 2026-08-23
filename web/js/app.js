@@ -1349,21 +1349,70 @@ document.addEventListener('DOMContentLoaded', function () {
             window.print();
         },
 
-        openPdfViewer(docId, title) {
+        openPdfViewer(docId, title, pageStart = 1) {
             const iframe = document.getElementById('pdf-viewer-iframe');
             const titleEl = document.getElementById('pdf-viewer-title');
+            const subtitleEl = document.getElementById('pdf-viewer-subtitle');
             const extBtn = document.getElementById('pdf-viewer-external-btn');
             const dlBtn = document.getElementById('pdf-viewer-download-btn');
-            
+            const page = Math.max(1, parseInt(pageStart, 10) || 1);
+            const pdfApi = `/api/documents/${docId}/pdf`;
+            const viewerUrl = '/static/pdfjs/web/viewer.html?file='
+                + encodeURIComponent(pdfApi)
+                + '#page=' + page;
+
             if (titleEl) titleEl.textContent = title || 'Hồ Sơ PDF Gốc';
-            if (extBtn) extBtn.href = `/api/documents/stream/${docId}`;
+            if (subtitleEl) subtitleEl.textContent = page > 1
+                ? `PDF.js · nhảy tới trang ${page}`
+                : 'PDF.js viewer · phân đoạn chứng từ composite';
+            if (extBtn) extBtn.href = viewerUrl;
             if (dlBtn) dlBtn.href = `/api/documents/download/${docId}`;
-            if (iframe) iframe.src = `/api/documents/stream/${docId}`;
-            
+            if (iframe) iframe.src = viewerUrl;
+
             const modalEl = document.getElementById('pdfViewerModal');
             if (modalEl) {
-                const modal = new bootstrap.Modal(modalEl);
+                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                 modal.show();
+            }
+        },
+
+        async openDocumentSegments(docId, title) {
+            try {
+                const res = await fetch(`/api/documents/${docId}/segments`);
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'Không tải được phân đoạn');
+
+                const segments = data.segments || [];
+                const panel = document.getElementById('modal-document-segments-panel');
+                const body = document.getElementById('modal-document-segments-body');
+                const heading = document.getElementById('modal-document-segments-heading');
+                if (heading) {
+                    heading.textContent = `Phân đoạn · ${title || data.document?.title || ('DOC #' + docId)}`;
+                }
+                if (body) {
+                    if (!segments.length) {
+                        body.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">Chưa có phân đoạn. PDF gộp sẽ được gắn page_start/page_end sau khi OCR phân loại.</td></tr>';
+                    } else {
+                        body.innerHTML = segments.map(s => `
+                            <tr>
+                                <td class="font-mono fw-bold text-primary">tr.${s.page_start}–${s.page_end}</td>
+                                <td><span class="badge" style="background:${s.doc_badge?.bg || '#64748b'};color:#fff">${s.doc_badge?.label || s.doc_type}</span></td>
+                                <td class="font-mono small">${s.form_code || '—'}</td>
+                                <td>${s.title || '—'}</td>
+                                <td class="font-mono small">${s.extracted_serial || '—'}</td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-primary fw-bold" onclick="app.openPdfViewer(${docId}, '${(s.title || title || '').replace(/'/g, "\\'")}', ${s.page_start})">
+                                        <i class="bi bi-box-arrow-in-down-right me-1"></i>Nhảy trang ${s.page_start}
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+                if (panel) panel.classList.remove('d-none');
+                panel?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } catch (err) {
+                alert('❌ ' + err.message);
             }
         },
 
@@ -1673,6 +1722,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <tr>
                                 <td>
                                     <span class="badge" style="background-color: ${d.doc_badge_bg}; color: #ffffff;">${d.doc_badge_label}</span>
+                                    ${(d.segment_count || 0) > 0 ? `<div class="small text-muted mt-1 font-mono">${d.segment_count} phân đoạn</div>` : ''}
                                 </td>
                                 <td>
                                     <div class="fw-bold text-dark text-truncate" style="max-width: 320px;" title="${d.title}">${d.title}</div>
@@ -1684,10 +1734,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-primary btn-sm fw-bold" onclick="app.openPdfViewer(${d.id}, '${d.title.replace(/'/g, "\\'")}')" title="Xem trực tiếp trên ứng dụng">
+                                        <button class="btn btn-primary btn-sm fw-bold" onclick="app.openPdfViewer(${d.id}, '${d.title.replace(/'/g, "\\'")}', 1)" title="Xem PDF.js từ trang 1">
                                             <i class="bi bi-eye-fill me-1"></i> Xem PDF
                                         </button>
-                                        <a href="${d.stream_url}" target="_blank" class="btn btn-outline-secondary btn-sm" title="Mở trong tab trình duyệt mới">
+                                        <button class="btn btn-outline-primary btn-sm fw-bold" onclick="app.openDocumentSegments(${d.id}, '${d.title.replace(/'/g, "\\'")}')" title="Danh sách phân đoạn chứng từ">
+                                            <i class="bi bi-layout-text-window-reverse"></i>
+                                        </button>
+                                        <a href="${d.viewer_url || d.stream_url}" target="_blank" class="btn btn-outline-secondary btn-sm" title="Mở PDF.js tab mới">
                                             <i class="bi bi-box-arrow-up-right"></i>
                                         </a>
                                         <a href="${d.download_url}" class="btn btn-outline-dark btn-sm" title="Tải về máy tính">
@@ -1699,6 +1752,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         `).join('');
                     }
                 }
+                const segPanel = document.getElementById('modal-document-segments-panel');
+                if (segPanel) segPanel.classList.add('d-none');
 
                 // Setup footer action buttons
                 const btnCheckout = document.getElementById('modal-btn-checkout');

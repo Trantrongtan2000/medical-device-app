@@ -9,7 +9,7 @@ from datetime import date, timedelta, datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from fastapi.responses import FileResponse
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Any
 from pydantic import BaseModel
 
 from .database import get_db

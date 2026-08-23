@@ -158,4 +158,30 @@ class DeviceTransferCreate(BaseModel):
     receiver_name: Optional[str] = ""
     transfer_reason: Optional[str] = ""
     transfer_date: Optional[str] = None
-    form_code: Optional[str] = "BM08_TA5.TTBYT.QT.08"
+    form_code: Optional[str] = "BM08_TA5.TTBYT.QT.08"
+
+
+# Schema phân đoạn chứng từ trong PDF gộp (composite scan)
+class DocumentSegmentBase(BaseModel):
+    page_start: int = Field(..., ge=1, description="Trang bắt đầu (1-based)")
+    page_end: int = Field(..., ge=1, description="Trang kết thúc (>= page_start)")
+    doc_type: str = Field(..., description="CONTRACT | HANDOVER | CALIBRATION | MAINTENANCE | LEGAL | OTHER")
+    form_code: Optional[str] = None
+    title: Optional[str] = None
+    extracted_serial: Optional[str] = None
+    confidence: Optional[float] = Field(default=0.0, ge=0.0, le=1.0)
+    md_anchor: Optional[str] = None
+    notes: Optional[str] = None
+
+
+class DocumentSegmentCreate(DocumentSegmentBase):
+    document_id: int
+
+
+class DocumentSegment(DocumentSegmentBase):
+    id: int
+    document_id: int
+    created_at: Optional[datetime] = None
+    viewer_url: Optional[str] = None
+
+    model_config = ConfigDict(from_attributes=True)
