@@ -2017,10 +2017,13 @@ async def delete_contract(contract_id: int, db = Depends(get_db)):
 
 @router.get("/api/contracts/{contract_id}/devices")
 async def get_contract_devices(contract_id: int, db = Depends(get_db)):
-    """Lấy danh sách các thiết bị thuộc một Hợp đồng mua sắm"""
-    row = db.execute("SELECT contract_no, contract_name FROM contracts WHERE id = ?", (contract_id,)).fetchone()
+    """Lấy danh sách các thiết bị và tài liệu scan thuộc một Hợp đồng mua sắm"""
+    row = db.execute("SELECT * FROM contracts WHERE id = ?", (contract_id,)).fetchone()
     if not row:
         raise HTTPException(status_code=404, detail="Không tìm thấy hợp đồng")
+    
+    contract_data = dict(row)
+    contract_no = contract_data["contract_no"]
     
     devs = db.execute("""
         SELECT d.id, d.device_name, d.model, d.serial_no, d.risk_level, d.status,
@@ -2029,12 +2032,35 @@ async def get_contract_devices(contract_id: int, db = Depends(get_db)):
         LEFT JOIN facilities f ON d.facility_id = f.id
         WHERE d.contract_no = ?
         ORDER BY d.id ASC
-    """, (row["contract_no"],)).fetchall()
+    """, (contract_no,)).fetchall()
+
+    # Tìm các tài liệu scan PDF đính kèm hợp đồng này
+    term = f"%{contract_no.split('/')[0]}%" if "/" in contract_no else f"%{contract_no}%"
+    doc_rows = db.execute("""
+        SELECT DISTINCT doc.id, doc.title, doc.file_path, doc.doc_type
+        FROM device_documents doc
+        WHERE doc.file_path LIKE ? OR doc.title LIKE ?
+        LIMIT 10
+    """, (term, term)).fetchall()
+
+    docs = []
+    import urllib.parse
+    for d in doc_rows:
+        doc_id = d["id"]
+        pdf_endpoint = f"/api/documents/{doc_id}/pdf"
+        docs.append({
+            "id": doc_id,
+            "title": d["title"],
+            "doc_type": d["doc_type"],
+            "file_path": d["file_path"],
+            "viewer_url": f"/static/pdfjs/web/viewer.html?file={urllib.parse.quote(pdf_endpoint)}"
+        })
     
     return {
-        "contract": dict(row),
+        "contract": contract_data,
         "total_devices": len(devs),
-        "devices": [dict(d) for d in devs]
+        "devices": [dict(d) for d in devs],
+        "documents": docs
     }
 
 @router.post("/api/directory/suppliers")

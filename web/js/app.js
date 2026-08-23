@@ -96,32 +96,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 const formattedDate = c.handover_date ? new Date(c.handover_date).toLocaleDateString('vi-VN') : 'N/A';
 
                 html += `
-                    <tr>
+                    <tr style="cursor: pointer;" onclick="app.viewContractDevices(${c.id}, '${c.contract_no}')" class="contract-table-row">
                         <td class="fw-bold text-muted">${idx + 1}</td>
-                        <td class="font-mono fw-bold text-primary">${c.contract_no}</td>
+                        <td class="font-mono fw-bold text-primary text-decoration-underline" title="Bấm để xem hồ sơ hợp đồng">${c.contract_no}</td>
                         <td>
-                            <strong class="text-dark d-block">${c.contract_name || 'Hợp đồng mua sắm TTBYT'}</strong>
+                            <strong class="text-dark d-block text-hover-primary">${c.contract_name || 'Hợp đồng mua sắm TTBYT'}</strong>
                             <small class="text-muted d-block text-truncate" style="max-width: 280px;">${c.notes || 'Không có ghi chú'}</small>
                         </td>
                         <td>
-                            <span class="fw-semibold text-dark"><i class="bi bi-building text-secondary me-1"></i>${c.supplier_name || 'N/A'}</span>
+                            <span class="fw-semibold text-dark"><i class="bi bi-building text-warning me-1"></i>${c.supplier_name || 'N/A'}</span>
                         </td>
                         <td class="font-mono text-muted">${formattedDate}</td>
                         <td>
-                            <button class="btn btn-sm btn-light border btn-clinical font-mono fw-bold text-primary" onclick="app.viewContractDevices(${c.id}, '${c.contract_no}')" title="Xem danh sách máy">
+                            <button class="btn btn-sm btn-light border btn-clinical font-mono fw-bold text-primary" onclick="event.stopPropagation(); app.viewContractDevices(${c.id}, '${c.contract_no}')" title="Xem danh sách máy">
                                 <i class="bi bi-cpu me-1"></i>${devCount} máy
                             </button>
                         </td>
                         <td>${statusBadge}</td>
-                        <td class="text-end">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-outline-primary" onclick="app.openEditContractModal(${c.id})" title="Chỉnh sửa Hợp đồng">
-                                    <i class="bi bi-pencil"></i>
+                        <td class="text-end" onclick="event.stopPropagation()">
+                            <div class="d-flex justify-content-end gap-1">
+                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.viewContractDevices(${c.id}, '${c.contract_no}')" title="Xem hồ sơ chi tiết">
+                                    <i class="bi bi-eye"></i>
                                 </button>
-                                <button class="btn btn-outline-info" onclick="app.viewContractDevices(${c.id}, '${c.contract_no}')" title="Xem thiết bị">
-                                    <i class="bi bi-search"></i>
+                                <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.openEditContractModal(${c.id})" title="Chỉnh sửa">
+                                    <i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="btn btn-outline-danger" onclick="app.deleteContract(${c.id}, '${c.contract_no}')" title="Xóa Hợp đồng">
+                                <button class="btn btn-sm btn-outline-danger btn-clinical" onclick="app.deleteContract(${c.id}, '${c.contract_no}')" title="Xóa">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -163,16 +163,16 @@ document.addEventListener('DOMContentLoaded', function () {
             let html = '';
             suppliers.forEach((s, idx) => {
                 html += `
-                    <tr>
+                    <tr style="cursor: pointer;" onclick="app.viewSupplierDevices(${s.id}, '${s.supplier_name}')" class="supplier-table-row">
                         <td class="fw-bold text-muted">${idx + 1}</td>
                         <td>
-                            <strong class="text-dark d-block"><i class="bi bi-building text-warning me-1"></i>${s.supplier_name}</strong>
+                            <strong class="text-dark d-block text-hover-primary"><i class="bi bi-building text-warning me-1"></i>${s.supplier_name}</strong>
                         </td>
                         <td>
                             <span class="text-dark fw-semibold">${s.contact_person || 'Đại diện kỹ thuật'}</span>
                         </td>
                         <td>
-                            <a href="tel:${s.phone}" class="btn btn-sm btn-outline-primary btn-clinical font-mono fw-bold">
+                            <a href="tel:${s.phone}" onclick="event.stopPropagation()" class="btn btn-sm btn-outline-primary btn-clinical font-mono fw-bold">
                                 <i class="bi bi-telephone-fill me-1"></i>${s.phone || 'N/A'}
                             </a>
                         </td>
@@ -180,15 +180,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td>
                             <small class="text-muted d-block text-truncate" style="max-width: 240px;">${s.service_scope || 'Hỗ trợ kỹ thuật & bảo hành thiết bị'}</small>
                         </td>
-                        <td class="text-end">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-outline-primary" onclick="app.openEditSupplierModal(${s.id})" title="Chỉnh sửa Nhà cung cấp">
-                                    <i class="bi bi-pencil"></i>
+                        <td class="text-end" onclick="event.stopPropagation()">
+                            <div class="d-flex justify-content-end gap-1">
+                                <button class="btn btn-sm btn-primary btn-clinical" onclick="app.viewSupplierDevices(${s.id}, '${s.supplier_name}')" title="Xem hồ sơ & thiết bị">
+                                    <i class="bi bi-eye"></i>
                                 </button>
-                                <button class="btn btn-outline-info" onclick="app.viewSupplierDevices(${s.id}, '${s.supplier_name}')" title="Xem thiết bị do NCC cung cấp">
-                                    <i class="bi bi-search"></i>
+                                <button class="btn btn-sm btn-outline-warning text-dark btn-clinical" onclick="app.openEditSupplierModal(${s.id})" title="Chỉnh sửa">
+                                    <i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="btn btn-outline-danger" onclick="app.deleteSupplier(${s.id}, '${s.supplier_name}')" title="Xóa Nhà cung cấp">
+                                <button class="btn btn-sm btn-outline-danger btn-clinical" onclick="app.deleteSupplier(${s.id}, '${s.supplier_name}')" title="Xóa">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -321,31 +321,83 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const res = await fetch(`/api/contracts/${contractId}/devices`);
                 const data = await res.json();
+                const c = data.contract;
 
-                document.getElementById('linked-devices-modal-title').textContent = `Thiết Bị Thuộc HĐ: ${data.contract.contract_no}`;
-                document.getElementById('linked-devices-modal-subtitle').textContent = `${data.contract.contract_name} • Tổng số: ${data.total_devices} thiết bị`;
+                document.getElementById('linked-devices-modal-title').textContent = `Hồ Sơ Hợp Đồng: ${c.contract_no}`;
+                document.getElementById('linked-devices-modal-subtitle').textContent = `${c.contract_name || 'Hợp đồng mua sắm TTBYT'} • Tổng số: ${data.total_devices} máy`;
 
+                // Cập nhật Metadata cards
+                const elNo = document.getElementById('contract-meta-no');
+                const elSup = document.getElementById('contract-meta-supplier');
+                const elDate = document.getElementById('contract-meta-date');
+                const elStat = document.getElementById('contract-meta-status');
+                const elNotes = document.getElementById('contract-meta-notes');
+                const elCount = document.getElementById('contract-devices-count-label');
+
+                if (elNo) elNo.textContent = c.contract_no;
+                if (elSup) elSup.innerHTML = `<i class="bi bi-building text-warning me-1"></i>${c.supplier_name || 'N/A'}`;
+                const formattedDate = c.handover_date ? new Date(c.handover_date).toLocaleDateString('vi-VN') : 'N/A';
+                if (elDate) elDate.textContent = `${formattedDate} (Bảo hành: ${c.warranty_period_months || 24} tháng)`;
+                if (elStat) {
+                    elStat.innerHTML = (c.status === 'ACTIVE') 
+                        ? `<span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Đang hiệu lực</span>`
+                        : `<span class="badge bg-secondary">${c.status || 'Hết hạn'}</span>`;
+                }
+                if (elNotes) elNotes.textContent = c.notes || c.contract_name || 'Không có ghi chú thêm.';
+                if (elCount) elCount.textContent = data.total_devices;
+
+                // Tài liệu scan PDF đính kèm
+                const docsRow = document.getElementById('contract-meta-docs-row');
+                const docsList = document.getElementById('contract-meta-docs-list');
+                if (docsRow && docsList) {
+                    if (data.documents && data.documents.length > 0) {
+                        docsRow.classList.remove('d-none');
+                        docsList.innerHTML = data.documents.map(doc => `
+                            <a href="${doc.viewer_url}" target="_blank" class="btn btn-sm btn-outline-danger me-2 mb-1 font-mono" style="font-size: 0.75rem;">
+                                <i class="bi bi-file-earmark-pdf-fill me-1"></i>${doc.title || doc.file_path.split('/').pop()}
+                            </a>
+                        `).join('');
+                    } else {
+                        docsRow.classList.add('d-none');
+                        docsList.innerHTML = '';
+                    }
+                }
+
+                // Danh sách thiết bị
                 const tbody = document.getElementById('linked-devices-table-body');
                 if (data.devices.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Chưa có thiết bị nào được gắn với hợp đồng này.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Chưa có thiết bị nào được gắn với hợp đồng này.</td></tr>`;
                 } else {
-                    tbody.innerHTML = data.devices.map((d, idx) => `
-                        <tr>
-                            <td class="text-muted fw-bold">${idx + 1}</td>
-                            <td class="font-mono fw-bold text-primary">BVQ7-TTB-${String(d.id).padStart(5, '0')}</td>
-                            <td><strong class="text-dark">${d.device_name}</strong></td>
-                            <td class="font-mono">${d.model || 'N/A'}</td>
-                            <td class="font-mono text-secondary">${d.serial_no || 'N/A'}</td>
-                            <td><span class="badge bg-light text-dark border">${d.facility_name || 'N/A'}</span></td>
-                            <td><span class="badge bg-success-subtle text-success">${d.status}</span></td>
-                        </tr>
-                    `).join('');
+                    const riskMap = {
+                        'A': { bg: '#059669', label: 'Loại A' },
+                        'B': { bg: '#0284c7', label: 'Loại B' },
+                        'C': { bg: '#d97706', label: 'Loại C' },
+                        'D': { bg: '#dc2626', label: 'Loại D' }
+                    };
+
+                    tbody.innerHTML = data.devices.map((d, idx) => {
+                        const rStyle = riskMap[d.risk_level] || { bg: '#64748b', label: 'A' };
+                        const riskBadge = `<span class="badge" style="background-color: ${rStyle.bg}; color: #fff; font-weight: 700; font-size: 0.72rem;">${d.risk_level || 'A'}</span>`;
+
+                        return `
+                            <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row" title="Bấm để xem hồ sơ máy">
+                                <td class="text-muted font-mono text-center">${idx + 1}</td>
+                                <td class="font-mono fw-bold text-primary">BVQ7-TTB-${String(d.id).padStart(5, '0')}</td>
+                                <td><strong class="text-dark text-hover-primary">${d.device_name}</strong></td>
+                                <td class="font-mono">${d.model || '<span class="text-muted">-</span>'}</td>
+                                <td class="font-mono fw-semibold text-secondary">${d.serial_no || '<span class="text-muted">-</span>'}</td>
+                                <td><span class="badge bg-light text-dark border"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${d.facility_name || 'Chưa phân khoa'}</span></td>
+                                <td class="text-center">${riskBadge}</td>
+                                <td class="text-center"><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span></td>
+                            </tr>
+                        `;
+                    }).join('');
                 }
 
                 const modal = new bootstrap.Modal(document.getElementById('viewLinkedDevicesModal'));
                 modal.show();
             } catch (err) {
-                alert('Lỗi tải danh sách thiết bị: ' + err.message);
+                alert('Lỗi tải thông tin hợp đồng: ' + err.message);
             }
         },
 
@@ -433,25 +485,57 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const res = await fetch(`/api/directory/suppliers/${supplierId}/devices`);
                 const data = await res.json();
+                const s = data.supplier;
 
-                document.getElementById('linked-devices-modal-title').textContent = `Thiết Bị Của Nhà Thầu: ${data.supplier.supplier_name}`;
-                document.getElementById('linked-devices-modal-subtitle').textContent = `Đại diện: ${data.supplier.contact_person || 'Kỹ sư hãng'} • Tổng số: ${data.total_devices} máy`;
+                document.getElementById('linked-devices-modal-title').textContent = `Hồ Sơ Nhà Cung Cấp: ${s.supplier_name}`;
+                document.getElementById('linked-devices-modal-subtitle').textContent = `Đại diện: ${s.contact_person || 'Kỹ sư phụ trách'} • Tổng số: ${data.total_devices} máy`;
 
+                // Cập nhật Metadata cards
+                const elNo = document.getElementById('contract-meta-no');
+                const elSup = document.getElementById('contract-meta-supplier');
+                const elDate = document.getElementById('contract-meta-date');
+                const elStat = document.getElementById('contract-meta-status');
+                const elNotes = document.getElementById('contract-meta-notes');
+                const elCount = document.getElementById('contract-devices-count-label');
+                const docsRow = document.getElementById('contract-meta-docs-row');
+
+                if (elNo) elNo.textContent = s.supplier_name;
+                if (elSup) elSup.innerHTML = `<i class="bi bi-person-badge text-primary me-1"></i>${s.contact_person || 'Kỹ sư hãng'} (Hotline: <a href="tel:${s.phone}" class="fw-bold font-mono">${s.phone || 'N/A'}</a>)`;
+                if (elDate) elDate.textContent = s.email || 'N/A';
+                if (elStat) elStat.innerHTML = `<span class="badge bg-warning text-dark"><i class="bi bi-shield-check me-1"></i>Đối tác kỹ thuật</span>`;
+                if (elNotes) elNotes.textContent = s.service_scope || 'Hỗ trợ kỹ thuật, bảo hành và cung cấp vật tư TTBYT.';
+                if (elCount) elCount.textContent = data.total_devices;
+                if (docsRow) docsRow.classList.add('d-none');
+
+                // Danh sách thiết bị
                 const tbody = document.getElementById('linked-devices-table-body');
                 if (data.devices.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Chưa ghi nhận thiết bị nào do nhà thầu này cung cấp trong CSDL.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Chưa ghi nhận thiết bị nào do nhà thầu này cung cấp trong CSDL.</td></tr>`;
                 } else {
-                    tbody.innerHTML = data.devices.map((d, idx) => `
-                        <tr>
-                            <td class="text-muted fw-bold">${idx + 1}</td>
-                            <td class="font-mono fw-bold text-primary">BVQ7-TTB-${String(d.id).padStart(5, '0')}</td>
-                            <td><strong class="text-dark">${d.device_name}</strong></td>
-                            <td class="font-mono">${d.model || 'N/A'}</td>
-                            <td class="font-mono text-secondary">${d.serial_no || 'N/A'}</td>
-                            <td><span class="badge bg-light text-dark border">${d.facility_name || 'N/A'}</span></td>
-                            <td><span class="badge bg-success-subtle text-success">${d.status}</span></td>
-                        </tr>
-                    `).join('');
+                    const riskMap = {
+                        'A': { bg: '#059669', label: 'Loại A' },
+                        'B': { bg: '#0284c7', label: 'Loại B' },
+                        'C': { bg: '#d97706', label: 'Loại C' },
+                        'D': { bg: '#dc2626', label: 'Loại D' }
+                    };
+
+                    tbody.innerHTML = data.devices.map((d, idx) => {
+                        const rStyle = riskMap[d.risk_level] || { bg: '#64748b', label: 'A' };
+                        const riskBadge = `<span class="badge" style="background-color: ${rStyle.bg}; color: #fff; font-weight: 700; font-size: 0.72rem;">${d.risk_level || 'A'}</span>`;
+
+                        return `
+                            <tr style="cursor: pointer;" onclick="app.showDeviceDetails(${d.id})" class="device-row" title="Bấm để xem hồ sơ máy">
+                                <td class="text-muted font-mono text-center">${idx + 1}</td>
+                                <td class="font-mono fw-bold text-primary">BVQ7-TTB-${String(d.id).padStart(5, '0')}</td>
+                                <td><strong class="text-dark text-hover-primary">${d.device_name}</strong></td>
+                                <td class="font-mono">${d.model || '<span class="text-muted">-</span>'}</td>
+                                <td class="font-mono fw-semibold text-secondary">${d.serial_no || '<span class="text-muted">-</span>'}</td>
+                                <td><span class="badge bg-light text-dark border"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${d.facility_name || 'Chưa phân khoa'}</span></td>
+                                <td class="text-center">${riskBadge}</td>
+                                <td class="text-center"><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">${d.status || 'Hoạt động'}</span></td>
+                            </tr>
+                        `;
+                    }).join('');
                 }
 
                 const modal = new bootstrap.Modal(document.getElementById('viewLinkedDevicesModal'));

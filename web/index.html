@@ -3250,28 +3250,72 @@
     </div>
 
     <!-- ==================== MODAL: XEM DANH SÁCH THIẾT BỊ THEO HỢP ĐỒNG / NHÀ CUNG CẤP ==================== -->
+    <!-- ==================== MODAL: XEM HỒ SƠ CHI TIẾT HỢP ĐỒNG & THIẾT BỊ ĐI KÈM ==================== -->
     <div class="modal fade" id="viewLinkedDevicesModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
-                <div class="modal-header bg-dark text-white px-4 py-3 border-0">
-                    <div>
-                        <h5 class="modal-title fw-bold" id="linked-devices-modal-title">Danh Sách Thiết Bị Thuộc Gói Thầu</h5>
-                        <span class="small text-white text-opacity-75" id="linked-devices-modal-subtitle">...</span>
+                <div class="modal-header text-white px-4 py-3 border-0" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2 rounded bg-white bg-opacity-20 fs-4">
+                            <i class="bi bi-file-earmark-text-fill"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title fw-bold text-white mb-0" id="linked-devices-modal-title">Hồ Sơ Chi Tiết Hợp Đồng Mua Sắm</h5>
+                            <span class="small text-white text-opacity-75" id="linked-devices-modal-subtitle">Thông tin gói thầu, nhà cung cấp và danh mục thiết bị</span>
+                        </div>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
+                    <!-- Contract Metadata Cards -->
+                    <div class="row g-3 mb-4 p-3 rounded-3 bg-light border" id="contract-details-card-container">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-muted small fw-semibold text-uppercase">SỐ HỢP ĐỒNG / GÓI THẦU</div>
+                            <div class="fw-bold font-mono text-primary fs-6" id="contract-meta-no">-</div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="text-muted small fw-semibold text-uppercase">NHÀ THẦU / NHÀ CUNG CẤP</div>
+                            <div class="fw-bold text-dark" id="contract-meta-supplier">-</div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-muted small fw-semibold text-uppercase">NGÀY BÀN GIAO / BẢO HÀNH</div>
+                            <div class="fw-bold text-dark font-mono" id="contract-meta-date">-</div>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <div class="text-muted small fw-semibold text-uppercase">TRẠNG THÁI</div>
+                            <div id="contract-meta-status"><span class="badge bg-success">Đang hiệu lực</span></div>
+                        </div>
+                        <div class="col-12 border-top pt-2 mt-2" id="contract-meta-notes-row">
+                            <span class="text-muted small"><i class="bi bi-info-circle me-1"></i>Ghi chú: </span>
+                            <span class="text-dark small" id="contract-meta-notes">Không có ghi chú</span>
+                        </div>
+                        <!-- Scanned PDF Attachment if available -->
+                        <div class="col-12 border-top pt-2 mt-2 d-none" id="contract-meta-docs-row">
+                            <span class="text-muted small fw-bold me-2"><i class="bi bi-paperclip me-1"></i>Tài liệu scan đính kèm:</span>
+                            <span id="contract-meta-docs-list"></span>
+                        </div>
+                    </div>
+
+                    <!-- Devices Table Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="fw-bold text-dark mb-0">
+                            <i class="bi bi-cpu text-primary me-2"></i>Danh Mục Thiết Bị Thuộc Hợp Đồng (<span id="contract-devices-count-label">0</span> máy)
+                        </h6>
+                        <span class="text-muted small"><i class="bi bi-cursor-pointer me-1"></i>Bấm vào thiết bị để mở hồ sơ chi tiết</span>
+                    </div>
+
                     <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                         <table class="table table-hover align-middle mb-0" style="font-size: 0.84rem;">
                             <thead class="table-light sticky-top">
                                 <tr>
-                                    <th style="width: 50px;">#</th>
-                                    <th>MÃ TÀI SẢN</th>
-                                    <th>TÊN THIẾT BỊ</th>
+                                    <th style="width: 40px;">#</th>
+                                    <th>MÃ ĐỊNH DANH</th>
+                                    <th>TÊN THIẾT BỊ / HỆ THỐNG</th>
                                     <th>MODEL</th>
-                                    <th>SỐ SERIAL</th>
-                                    <th>KHOA PHÒNG</th>
-                                    <th>TRẠNG THÁI</th>
+                                    <th>SỐ SERIAL (S/N)</th>
+                                    <th>KHOA / PHÒNG HIỆN TẠI</th>
+                                    <th class="text-center" style="width: 90px;">RỦI RO</th>
+                                    <th class="text-center" style="width: 120px;">TRẠNG THÁI</th>
                                 </tr>
                             </thead>
                             <tbody id="linked-devices-table-body">
