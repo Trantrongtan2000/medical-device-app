@@ -82,3 +82,17 @@ Bối cảnh hệ thống thực tế:
 
 Hãy đưa ra nhận xét chi tiết, chỉ rõ hình ảnh minh chứng và các khuyến nghị nâng cấp thực tiễn!
 ```
+
+---
+
+### 📌 5. KẾ HOẠCH BẢO MẬT & QUẢN TRỊ NÂNG CAO (PENDING ROADMAP - SẼ THỰC HIỆN SAU):
+
+* [ ] **1. Mã hóa khoá API bảo mật (AI Key Encryption at Rest):**
+  - Chuyển đổi lưu trữ `api_keys` từ plaintext sang mã hóa chuẩn **AES-256-GCM** với khóa dẫn xuất (PBKDF2/Argon2) từ `APP_SECRET_KEY` hoặc biến môi trường.
+  - Che giấu khóa (Masking) trên giao diện cấu hình (chỉ hiển thị `sk-ant-***...`).
+* [ ] **2. Luồng Đăng nhập & Xác thực Thực tế (Real Authentication & Session Management):**
+  - Xây dựng luồng đăng nhập thực tế (JWT Token / HttpOnly Secure Cookies) trước khi bật chế độ cưỡng chế toàn diện `HTM_ENFORCE_RBAC=1` trên môi trường Production.
+  - Phân quyền theo vai trò: `CLINICAL_STAFF` (chỉ xem & báo hỏng), `BME_ENGINEER` (nhập kiểm định, tạo phiếu bảo trì), `ADMIN` (cấu hình hệ thống, quản lý khoá API).
+* [ ] **3. Phân Hệ Kiểm Toán Audit Trail & Nhật Ký CAPA / FMEA Chuẩn Y Tế:**
+  - Nâng cấp từ chế độ log demo sang ghi nhận bất biến (Append-only Audit Log) mọi tác vụ thêm/sửa/xóa thiết bị và biên bản kỹ thuật theo tiêu chuẩn **FDA 21 CFR Part 11** và **ALCOA+**.
+  - Quy trình xử lý hành động khắc phục & phòng ngừa sự cố (CAPA - Corrective and Preventive Action) liên kết trực tiếp với các phiếu sự cố CMMS SpeedMaint.
