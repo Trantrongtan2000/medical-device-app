@@ -9,8 +9,8 @@
 * **Quy mô quản trị xác thực từ CSDL (`database/devices.db`):**
   - **1.211 Thiết bị y tế** đang phân bổ tại **21 khoa/phòng lâm sàng** (thuộc **39 đơn vị/facilities** trong master data).
   - **Phân loại rủi ro (Nghị định 98/2021/NĐ-CP):** Loại A = **900**, Loại B = **140**, Loại C = **158**, Loại D = **13**.
-  - **Hồ sơ số hóa:** **6.330 liên kết chứng từ sạch** (đã thanh lọc triệt để 1.249 liên kết gán nhầm S/N hoặc biên bản cá thể theo Model), tương ứng **1.091 đường dẫn tệp PDF duy nhất**. **100.0% thiết bị (1.211/1.211 máy)** đều có chứng từ pháp lý chuẩn xác.
-  - **Phân đoạn chứng từ OCR:** **1.156 phân đoạn** (`document_segments`) thuộc **1.071 tài liệu**.
+  - **Hồ sơ số hóa thiết bị:** **6.330 liên kết chứng từ sạch** (đã thanh lọc triệt để 1.249 liên kết gán nhầm S/N hoặc biên bản cá thể theo Model), tương ứng **1.091 đường dẫn tệp PDF duy nhất**. **100.0% thiết bị (1.211/1.211 máy)** đều có chứng từ pháp lý chuẩn xác.
+  - **Kho dữ liệu số hóa toàn viện (`/media/tan/T93/BV QUẬN 7_OCR_WORK_20260712`):** **20.806 tệp PDF scan thật** (Hợp đồng: 1.594, Bàn giao: 5.511, Kiểm định & Pháp lý: 10.161, Lưu trữ: 3.462 tệp).
   - **Thực trạng kiểm định (Thông tư 05/2022/TT-BYT):**
     * **529 bản ghi GCN hết hạn** (thuộc 277 thiết bị), trong đó có **262 thiết bị có lần kiểm định mới nhất đã hết hạn**.
     * **16 thiết bị có lần kiểm định mới nhất sắp hết hạn trong 90 ngày** (tương ứng 17 bản ghi GCN).
@@ -25,7 +25,27 @@
 
 ---
 
-### 🖼️ 2. DANH MỤC 9 ẢNH CHỤP GIAO DIỆN ĐÍNH KÈM TRONG THƯ MỤC:
+### 🛠️ 2. GIẢI THÍCH NGHIỆP VỤ: "BẢO TRÌ SPEEDMAINT" & "FEEDBACK LOOP":
+
+#### 🔧 A. Tag / Phân Hệ "Bảo Trì SpeedMaint" Là Gì?
+1. **Bản chất nghiệp vụ:**
+   * **SpeedMaint** là định danh phân hệ **CMMS (Computerized Maintenance Management System)** chuyên trách quản lý quy trình bảo trì, bảo dưỡng và xử lý sự cố thiết bị y tế của bệnh viện theo **Quy trình QT.06** và **Biểu mẫu BM05 (Phiếu lý lịch & bảo trì TTBYT)**.
+2. **Các chức năng chính của SpeedMaint trong HTM v3:**
+   * **Quản lý Phiếu Công Việc (Work Orders):** Lập phiếu bảo trì dự phòng (PM - Preventive Maintenance) định kỳ theo tuần/tháng/quý và phiếu sửa chữa sự cố (CM - Corrective Maintenance).
+   * **Mã định danh SpeedMaint:** Mỗi thiết bị được gán một mã quản lý bảo trì duy nhất theo cấu trúc `BM/BVQ7/xxxxx` (đồng bộ với tem dán trên thân máy).
+   * **Theo dõi tiến độ & phân công kỹ sư:** Phân công kỹ sư BME thực hiện, theo dõi vật tư linh kiện thay thế, thời gian phản hồi (MTTR) và nghiệm thu hoàn thành.
+
+#### 💡 B. Ý Nghĩa Của Tính Năng "Góp Ý Chỉnh Sửa" (User Feedback Loop for Continuous AI Improvement)
+1. **Mục đích:**
+   * Là kênh tương tác trực tiếp (nút nổi góc phải màn hình `#feedbackModal`) dành cho Bác sĩ, Điều dưỡng, Kỹ sư lâm sàng và Lãnh đạo khoa gửi ý kiến phản hồi về: sai lệch thông tin máy, đề xuất thêm trường dữ liệu, góp ý quy trình SOPs hoặc báo lỗi giao diện.
+2. **Cơ chế lưu trữ & Xử lý:**
+   * Toàn bộ dữ liệu được ghi vào bảng CSDL `system_feedback` (gồm: Danh mục, Người gửi, Khoa phòng, Mức độ ưu tiên, Nội dung chi tiết, Trạng thái `PENDING / RESOLVED`, Ghi chú xử lý).
+3. **Giá trị với việc phát triển ứng dụng bằng AI:**
+   * Các phản hồi này đóng vai trò là **Dữ liệu thực tế từ người dùng (Human-in-the-loop Ground Truth)**, giúp mô hình AI phân tích, đối soát và tự động đề xuất phương án tối ưu hóa codebase, giao diện và luồng nghiệp vụ trong các lần nâng cấp tiếp theo.
+
+---
+
+### 🖼️ 3. DANH MỤC 11 ẢNH CHỤP GIAO DIỆN HỆ THỐNG ĐÍNH KÈM:
 
 | STT | Tên Tệp Ảnh | Màn Hình / Chức Năng Chính |
 | :---: | :--- | :--- |
@@ -38,51 +58,27 @@
 | **07** | `07_speedmaint_maintenance.png` | **Bảo Trì SpeedMaint CMMS & Nhật Ký BM05:** Lịch sử sửa chữa, thay thế linh kiện, bảo trì dự phòng (PM) và xử lý sự cố. |
 | **08** | `08_semantica_graph.png` | **Semantica Provenance Query & AI Hub:** Truy vấn bằng chứng nguồn gốc và đồ thị tri thức đa chiều. |
 | **09** | `09_pdfjs_scanned_document.png` | **Trình Đọc PDF Scan Thật (Mozilla PDF.js):** Đọc biên bản bàn giao, phiếu kiểm định có dấu đỏ và chữ ký BME **Trần Trọng Tấn**, tự động nhảy đúng trang `#page=N`. |
+| **10** | `10_documents_hub.png` | **Kho Hồ Sơ & Dữ Liệu Số Hóa Toàn Viện (20.806 PDF):** Quản lý toàn bộ văn bản Hợp đồng thầu, Bàn giao vật tư, Kiểm định gộp, Pháp lý Sở Y Tế và HDSD chung. |
+| **11** | `11_suppliers_contracts.png` | **Tương Tác Hồ Sơ Hợp Đồng & Thiết Bị:** Click vào bất kỳ số HĐ nào để xem chi tiết gói thầu và toàn bộ danh mục máy kèm theo. |
 
 ---
 
-### 📝 3. NỘI DUNG PROMPT CHUẨN XÁC GỬI GOOGLE GEMINI:
+### 📝 4. NỘI DUNG PROMPT GỬI GOOGLE GEMINI / MÔ HÌNH REVIEW:
 
 ```markdown
-Chào Google Gemini,
+Chào Chuyên Gia Đánh Giá,
 
-Hãy đánh giá 9 ảnh giao diện của hệ thống HTM v3 (Bệnh viện Đa khoa Quận 7) theo 3 vai trò:
-- Healthcare UX Lead
-- Clinical Engineering/BME Reviewer
-- Healthcare Data Governance Auditor
+Hãy phân tích và đánh giá 11 ảnh giao diện của hệ thống HTM v3 (Bệnh viện Đa khoa Quận 7) theo 3 góc nhìn:
+1. Healthcare UX/UI Lead (Trải nghiệm người dùng y tế lâm sàng).
+2. Clinical Engineering/BME Reviewer (Quản trị kỹ thuật thiết bị y tế & bảo trì CMMS SpeedMaint).
+3. Healthcare Data Governance Auditor (Tính toàn vẹn dữ liệu, kiểm toán pháp lý ALCOA+ và kho dữ liệu số hóa 20.806 PDF).
 
-Bối cảnh đã xác minh từ CSDL thực tế:
-- 1.211 thiết bị y tế.
-- 39 đơn vị trong master data; UI hiển thị 21 khoa/phòng lâm sàng trọng điểm.
-- 7.330 liên kết device-document sau dedup, tương ứng 1.164 đường dẫn tài liệu PDF duy nhất.
-- 1.156 document segments thuộc 1.071 tài liệu.
-- Phân bổ mức độ rủi ro (Nghị định 98): Loại A = 900, Loại B = 140, Loại C = 158, Loại D = 13.
-- Thực trạng kiểm định: 529 bản ghi GCN hết hạn (thuộc 277 thiết bị), trong đó có 262 thiết bị có lần kiểm định mới nhất đã hết hạn.
-- 16 thiết bị có lần kiểm định mới nhất sẽ hết hạn trong 90 ngày tới.
-- Phân bố đối chiếu nguồn gốc (Provenance): MODEL = 4.530, CONTRACT = 1.955, CALIBRATION_CERT = 500, SERIAL = 345.
-- Lưu ý: "MODEL match" chỉ là tài liệu tham khảo theo dòng máy, không chứng minh tài liệu thuộc đúng tài sản vật lý.
+Bối cảnh hệ thống thực tế:
+- 1.211 thiết bị y tế tại 21 khoa lâm sàng.
+- Phân loại rủi ro: Loại A = 900, Loại B = 140, Loại C = 158, Loại D = 13.
+- Kho dữ liệu: 20.806 tệp PDF scan thật, 6.330 liên kết chứng từ sạch gắn vào thiết bị.
+- Phân hệ SpeedMaint CMMS: Quản lý bảo trì dự phòng PM, sửa chữa CM, mã định danh BM/BVQ7/xxxxx.
+- Phân hệ Feedback Loop: Thu thập ý kiến lâm sàng và lưu vào CSDL làm Ground Truth cho AI tối ưu hóa.
 
-Hãy phân tích chi tiết:
-
-1. Healthcare UX/UI:
-- Tính trực quan cho Bác sĩ, Điều dưỡng, Kỹ sư BME.
-- Readability, contrast, keyboard navigation, touch targets.
-- Dashboard alerts, Kanban, device catalog, on-call, inspection pre-use.
-- Các rủi ro do default state, icon-only actions, hoặc màu sắc tín hiệu.
-
-2. Provenance và PDF.js:
-- Giá trị của Serial/Certificate/Contract/Model matching.
-- Đề xuất phân cấp độ tin cậy (Confidence tiers) và human-review workflow.
-- Khả năng nhảy đúng trang PDF (#page=N) hỗ trợ audit như thế nào.
-- Những bằng chứng còn thiếu để được coi là legally/audit defensible.
-
-3. JCI / FDA Readiness Roadmap:
-- Không khẳng định certification/compliance vượt quá thực tế.
-- Xác định các khoảng trống (gaps) về audit trail, data integrity, CAPA, FMEA, maintenance quality traceability, cybersecurity và AI governance.
-- Lập roadmap P0 / P1 / P2 với acceptance criteria đo lường được.
-
-4. Với mỗi nhận xét:
-- Chỉ rõ ảnh/màn hình liên quan (từ 01 đến 09).
-- Phân biệt rõ: observed fact (thực tế quan sát), inference (suy luận), recommendation (khuyến nghị).
-- Không suy diễn tính năng backend chỉ từ ảnh chụp.
+Hãy đưa ra nhận xét chi tiết, chỉ rõ hình ảnh minh chứng và các khuyến nghị nâng cấp thực tiễn!
 ```
