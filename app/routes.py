@@ -785,10 +785,8 @@ async def get_my_profile(current_user: AuthenticatedUser = Depends(get_current_u
     return current_user
 
 
-# ==================== CACTUS NEEDLE 2 HYBRID AGENT ENDPOINTS ====================
-
 import uuid
-from .needle_agent import needle_agent, TOOLS_REGISTRY
+from .needle_agent import needle_agent, TOOLS_REGISTRY, TOOL_REGISTRY
 from .cactus_router import CactusHybridRouter
 from .needle_planner import needle_planner
 from .observability import telemetry_collector
@@ -801,11 +799,23 @@ class AgentQueryRequest(BaseModel):
 
 @router.get("/api/agent/tools")
 async def list_agent_tools():
-    """Danh sách 5 tool cục bộ của Cactus Needle Edge Agent"""
+    """Lấy danh mục Tool Registry chuẩn của Needle 2 (API của AI)"""
+    tools_list = []
+    for name, t_def in TOOL_REGISTRY.items():
+        tools_list.append({
+            "name": t_def.name,
+            "description": t_def.description,
+            "parameters": [p.model_dump() for p in t_def.parameters],
+            "risk_level": t_def.risk_level.value,
+            "requires_confirmation": t_def.requires_confirmation,
+            "allowed_roles": t_def.allowed_roles,
+            "timeout_ms": t_def.timeout_ms
+        })
     return {
-        "engine": "Cactus Needle 2 (45M Edge Model)",
-        "tools_count": len(TOOLS_REGISTRY),
-        "tools": [tool.model_dump() for tool in TOOLS_REGISTRY.values()]
+        "engine": "Needle 2 Edge Model",
+        "total_tools": len(tools_list),
+        "tools_count": len(tools_list),
+        "tools": tools_list
     }
 
 @router.get("/api/agent/telemetry")
@@ -818,115 +828,12 @@ async def get_agent_telemetry(limit: int = 50):
 
 @router.post("/api/agent/query")
 async def agent_query(req: AgentQueryRequest, db = Depends(get_db)):
-    """Phân luồng thông minh 6-Layer Cactus Hybrid (Needle Edge ↔ Gemini Cloud)"""
-    start_time = datetime.now()
-    req_id = f"REQ-{uuid.uuid4().hex[:8].upper()}"
+    """Phân luồng thông minh Cactus Hybrid (Needle 2 Edge ↔ Gemini Cloud)"""
+    from .routes_agent import process_agent_query, AgentQueryRequest as NewAgentQueryReq
+    new_req = NewAgentQueryReq(query=req.query)
+    res = await process_agent_query(new_req, db)
+    return res.model_dump()
 
-    async def cloud_fallback(prompt: str) -> str:
-        rows = db.execute("SELECT * FROM device_status_summary ORDER BY alert_status ASC LIMIT 10").fetchall()
-        return await gemini_service.chat(user_message=prompt, context_devices=[dict(r) for r in rows])
-
-    if req.force_cloud:
-        cloud_reply = await cloud_fallback(req.query)
-        tot_latency = (datetime.now() - start_time).total_seconds() * 1000
-        return {
-            "request_id": req_id,
-            "status": "SUCCESS",
-            "route_taken": "CLOUD_FRONTIER",
-            "confidence": 1.0,
-            "tool_name": None,
-            "response_text": cloud_reply,
-            "latency_ms": tot_latency,
-            "engine": "Google Gemini 3.7 Flash (Forced Cloud)"
-        }
-
-    # 1. 6-Layer Cactus Routing
-    route_decision = CactusHybridRouter.route(req.query)
-
-    # 2. Ambiguity Handling
-    if route_decision.intent == "AMBIGUOUS_CLARIFICATION_REQUIRED":
-        tot_latency = (datetime.now() - start_time).total_seconds() * 1000
-        event = TelemetryEvent(
-            request_id=req_id,
-            session_id=req.session_id,
-            query=req.query,
-            route_decision=route_decision,
-            total_latency_ms=tot_latency
-        )
-        telemetry_collector.log_event(event)
-        return {
-            "request_id": req_id,
-            "status": "CLARIFICATION_REQUIRED",
-            "route_taken": "LOCAL_EDGE",
-            "confidence": route_decision.confidence,
-            "ambiguity_score": route_decision.ambiguity_score,
-            "response_text": f"❓ {route_decision.clarification_prompt}",
-            "latency_ms": tot_latency,
-            "engine": "Cactus Ambiguity Gate"
-        }
-
-    # 3. Local Edge Execution via Needle Planner
-    if route_decision.route == "LOCAL_EDGE":
-        tool_decision, tool_result = needle_planner.plan_and_execute(route_decision, db)
-        tot_latency = (datetime.now() - start_time).total_seconds() * 1000
-
-        event = TelemetryEvent(
-            request_id=req_id,
-            session_id=req.session_id,
-            query=req.query,
-            route_decision=route_decision,
-            tool_decision=tool_decision,
-            tool_result=tool_result,
-            total_latency_ms=tot_latency
-        )
-        telemetry_collector.log_event(event)
-
-        if tool_decision.requires_confirmation:
-            return {
-                "request_id": req_id,
-                "status": "AWAITING_CONFIRMATION",
-                "route_taken": "LOCAL_EDGE",
-                "confidence": tool_decision.confidence,
-                "tool_name": tool_decision.tool_name,
-                "structured_data": tool_result.data,
-                "response_text": (
-                    f"⚠️ **Yêu cầu xác nhận thao tác nghiệp vụ:**\n"
-                    f"Hệ thống ghi nhận yêu cầu: *'{req.query}'*.\n"
-                    f"Vui lòng xác nhận trước khi thực thi vào CSDL."
-                ),
-                "latency_ms": tot_latency,
-                "trust_level": tool_result.trust_level.value,
-                "engine": "Cactus Needle 2 (Edge Intent Gate)"
-            }
-
-        text_out = tool_result.data.get("formatted_text", "") if tool_result.data else tool_result.error
-        return {
-            "request_id": req_id,
-            "status": "SUCCESS" if tool_result.success else "ERROR",
-            "route_taken": "LOCAL_EDGE",
-            "confidence": tool_decision.confidence,
-            "tool_name": tool_decision.tool_name,
-            "structured_data": tool_result.data.get("raw") if tool_result.data else None,
-            "response_text": text_out,
-            "latency_ms": tot_latency,
-            "trust_level": tool_result.trust_level.value,
-            "provenance": tool_result.provenance.model_dump() if tool_result.provenance else None,
-            "engine": "Cactus Needle 2 (Edge Tool Caller 14MB)"
-        }
-
-    # 4. Cloud Fallback
-    cloud_reply = await cloud_fallback(req.query)
-    tot_latency = (datetime.now() - start_time).total_seconds() * 1000
-    return {
-        "request_id": req_id,
-        "status": "SUCCESS",
-        "route_taken": "CLOUD_FRONTIER",
-        "confidence": route_decision.confidence,
-        "tool_name": None,
-        "response_text": cloud_reply,
-        "latency_ms": tot_latency,
-        "engine": "Google Gemini 3.7 Flash (Cloud Frontier)"
-    }
 
 
 class OCRProcessRequest(BaseModel):

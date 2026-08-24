@@ -28,6 +28,7 @@ from .routes_repairs import router as repairs_router
 from .routes_transfers import router as transfers_router
 from .routes_documents import router as documents_router
 from .routes_audit_capa import router as audit_capa_router
+from .routes_agent import router as agent_router
 from .database import init_database, get_db_connection
 from .config import get_settings
 from .semantica_engine import semantica_engine
@@ -89,6 +90,7 @@ app.include_router(repairs_router)
 app.include_router(transfers_router)
 app.include_router(documents_router)
 app.include_router(audit_capa_router)
+app.include_router(agent_router)
 
 # Mount static directories
 web_dir = Path(__file__).parent.parent / "web"

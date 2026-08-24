@@ -62,17 +62,27 @@ class GeminiAgentService:
             try:
                 from google import genai
                 client = genai.Client(api_key=active_key)
-                response = client.models.generate_content(
-                    model="gemini-3.7-flash",
-                    contents=full_prompt
-                )
-                if response and response.text:
-                    return response.text
+                
+                # Ưu tiên Gemini 3.7 Flash, tự động fallback sang gemini-2.0-flash / gemini-1.5-flash nếu 3.7 quá tải hoặc hết quota
+                for model_name in ["gemini-3.7-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
+                    try:
+                        response = client.models.generate_content(
+                            model=model_name,
+                            contents=full_prompt
+                        )
+                        if response and response.text:
+                            return response.text
+                    except Exception as m_err:
+                        if any(err_code in str(m_err) for err_code in ["503", "429", "404", "quota", "demand"]):
+                            continue
+                        raise m_err
+
             except Exception as ex:
                 err_msg = str(ex).lower()
                 print(f"[Gemini Key Error] Key: {active_key[:6]}... Error: {ex}")
                 if "429" in err_msg or "quota" in err_msg or "resource_exhausted" in err_msg:
                     gemini_key_pool.mark_rate_limited(active_key)
+
                 elif "401" in err_msg or "403" in err_msg or "api_key_invalid" in err_msg:
                     gemini_key_pool.mark_invalid(active_key)
                 else:

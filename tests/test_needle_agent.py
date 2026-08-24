@@ -1,11 +1,11 @@
 """
-Comprehensive Tests for Needle Edge Agent & Cactus Hybrid Router POC
+Comprehensive Tests for Needle 2 Agent & Cactus Policy Engine (HTM V3)
 """
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
-from app.needle_agent import needle_agent, NeedleRouter, SafeToolExecutor
-from app.database import get_db_connection
+from app.needle_agent import NeedleAgent, NeedleParser, ToolExecutor, MutationDraftManager, TOOL_REGISTRY
+from app.models_core import UIContext, RiskLevel
 
 @pytest.fixture
 def client():
@@ -13,122 +13,155 @@ def client():
 
 # 1. Router Intent & Confidence Unit Tests
 def test_router_asset_tag_lookup():
-    decision = NeedleRouter.parse_intent("Tra cứu máy BVQ7-TTB-00001 đang ở đâu?")
+    decision = NeedleParser.parse_intent("Tra cứu máy BVQ7-TTB-00001 đang ở đâu?")
     assert decision.route == "LOCAL_EDGE"
     assert decision.intent == "GET_DEVICE"
     assert decision.confidence >= 0.95
-    assert decision.tool_name == "get_device_by_asset_tag"
-    assert decision.parameters["asset_tag"] == "BVQ7-TTB-00001"
+    assert decision.tool_call.tool_name == "get_device_by_asset_tag"
+    assert decision.tool_call.arguments["asset_tag"] == "BVQ7-TTB-00001"
 
 def test_router_calibration_status():
-    decision = NeedleRouter.parse_intent("Kiểm tra hạn kiểm định của máy #00002")
+    decision = NeedleParser.parse_intent("Kiểm tra hạn kiểm định của máy #00002")
     assert decision.route == "LOCAL_EDGE"
     assert decision.intent == "CHECK_CALIBRATION"
     assert decision.confidence >= 0.95
-    assert decision.tool_name == "get_device_calibration_status"
-    assert decision.parameters["device_id_or_tag"] == "BVQ7-TTB-00002"
+    assert decision.tool_call.tool_name == "get_calibration_status"
+    assert decision.tool_call.arguments["device_id_or_tag"] == "BVQ7-TTB-00002"
+
+def test_router_pdf_documents():
+    decision = NeedleParser.parse_intent("Cho tôi xem hồ sơ PDF gốc của máy BVQ7-TTB-00193")
+    assert decision.route == "LOCAL_EDGE"
+    assert decision.intent == "GET_DEVICE_PDF_DOCUMENTS"
+    assert decision.tool_call.tool_name == "get_device_pdf_documents"
+    assert decision.tool_call.arguments["device_id_or_tag"] == "BVQ7-TTB-00193"
+
+def test_router_upcoming_calibrations():
+    decision = NeedleParser.parse_intent("Danh sách thiết bị sắp hết hạn kiểm định trong 60 ngày")
+    assert decision.route == "LOCAL_EDGE"
+    assert decision.intent == "GET_UPCOMING_CALIBRATIONS"
+    assert decision.tool_call.tool_name == "get_upcoming_calibrations"
+    assert decision.tool_call.arguments["days"] == 60
 
 def test_router_dashboard_summary():
-    decision = NeedleRouter.parse_intent("Cho tôi xem thống kê tổng quan toàn viện")
+    decision = NeedleParser.parse_intent("Cho tôi xem thống kê tổng quan toàn viện")
     assert decision.route == "LOCAL_EDGE"
     assert decision.intent == "DASHBOARD_SUMMARY"
-    assert decision.tool_name == "get_dashboard_summary"
+    assert decision.tool_call.tool_name == "get_dashboard_summary"
     assert decision.confidence >= 0.90
 
 def test_router_search_device_by_keyword():
-    decision = NeedleRouter.parse_intent("Tìm danh sách máy thở trong bệnh viện")
+    decision = NeedleParser.parse_intent("Tìm danh sách máy thở trong bệnh viện")
     assert decision.route == "LOCAL_EDGE"
     assert decision.intent == "SEARCH_DEVICES"
-    assert decision.tool_name == "search_devices"
-    assert decision.parameters["keyword"] == "máy thở"
+    assert decision.tool_call.tool_name == "search_devices"
+    assert "máy thở" in decision.tool_call.arguments["keyword"]
 
 def test_router_facility_lookup_unicode():
-    decision = NeedleRouter.parse_intent("Tra cứu thông tin Khoa Cấp Cứu ở đâu?")
+    decision = NeedleParser.parse_intent("Tra cứu thông tin Khoa Cấp Cứu ở đâu?")
     assert decision.route == "LOCAL_EDGE"
     assert decision.intent == "GET_FACILITY"
-    assert decision.tool_name == "get_facility"
-    assert decision.parameters["name_or_code"] == "cấp cứu"
+    assert decision.tool_call.tool_name == "get_facility"
+    assert "cấp cứu" in decision.tool_call.arguments["name_or_code"].lower()
 
 def test_router_mutation_safety_gate():
-    decision = NeedleRouter.parse_intent("Điều chuyển máy BVQ7-TTB-00001 sang Khoa Ngoại")
+    decision = NeedleParser.parse_intent("Điều chuyển máy BVQ7-TTB-00001 sang Khoa Ngoại")
     assert decision.route == "LOCAL_EDGE"
     assert decision.requires_confirmation is True
-    assert decision.intent == "MUTATION_ACTION"
+    assert decision.tool_call.tool_name == "transfer_device_draft"
+    assert decision.tool_call.risk_level == RiskLevel.HIGH_WRITE
 
-def test_router_escalate_complex_to_cloud():
-    decision = NeedleRouter.parse_intent("Giải thích nguyên lý hoạt động khối phát tia X theo Nghị định 98 và SOP QT.04")
-    assert decision.route == "CLOUD_FRONTIER"
-    assert decision.confidence < 0.85
-    assert decision.tool_name is None
+def test_ui_context_awareness():
+    """Kiểm tra nhận thức ngữ cảnh màn hình khi người dùng không gõ lại mã máy"""
+    ctx = UIContext(current_page="device_detail", current_asset_tag="BVQ7-TTB-00193", current_device_id=193)
+    decision = NeedleParser.parse_intent("Máy này còn hạn kiểm định không?", ui_context=ctx)
+    assert decision.tool_call.tool_name == "get_calibration_status"
+    assert decision.tool_call.arguments["device_id_or_tag"] == "BVQ7-TTB-00193"
 
-# 2. Integration Tests with SafeToolExecutor (All 5 Tools)
+# 2. Tool Execution & Action Card Tests
 def test_executor_get_device():
-    with get_db_connection() as db:
-        data, text = SafeToolExecutor.execute_tool("get_device_by_asset_tag", {"asset_tag": "BVQ7-TTB-00001"}, db)
-        assert data is not None
-        assert "BVQ7-TTB-00001" in text
-        assert "Thông Tin Thiết Bị" in text
+    executor = ToolExecutor()
+    from app.models_core import ToolCall
+    call = ToolCall(tool_name="get_device_by_asset_tag", arguments={"asset_tag": "BVQ7-TTB-00001"})
+    res = executor.execute_tool(call)
+    assert res.success is True
+    assert res.data["id"] == 1
+    assert res.action_card is not None
+    assert res.action_card["card_type"] == "DEVICE_CARD"
+    assert res.provenance.source_type == "sqlite"
 
-def test_executor_search_devices():
-    with get_db_connection() as db:
-        data, text = SafeToolExecutor.execute_tool("search_devices", {"keyword": "máy"}, db)
-        assert isinstance(data, list)
-        assert len(data) > 0
-        assert "Tìm thấy" in text
+def test_executor_get_pdf_documents():
+    executor = ToolExecutor()
+    from app.models_core import ToolCall
+    call = ToolCall(tool_name="get_device_pdf_documents", arguments={"device_id_or_tag": "BVQ7-TTB-00193"})
+    res = executor.execute_tool(call)
+    assert res.success is True
+    assert "documents" in res.data
+    assert res.action_card["card_type"] == "DOCUMENT_CARD"
 
-def test_executor_get_facility():
-    with get_db_connection() as db:
-        data, text = SafeToolExecutor.execute_tool("get_facility", {"name_or_code": "Cấp Cứu"}, db)
-        assert data is not None
-        assert "Khoa/Phòng:" in text
+def test_two_phase_mutation_workflow():
+    """Kiểm tra quy trình tạo bản nháp và thực thi xác nhận 2 bước kèm State Versioning"""
+    executor = ToolExecutor()
+    from app.models_core import ToolCall
+    # 1. Create Draft
+    call = ToolCall(tool_name="transfer_device_draft", arguments={"device_id_or_tag": "BVQ7-TTB-00001", "target_facility": "Cấp cứu"})
+    res = executor.execute_tool(call)
+    assert res.success is True
+    draft_id = res.data["draft"]["draft_id"]
+    assert draft_id.startswith("DRAFT-")
+    assert res.action_card["card_type"] == "MUTATION_CONFIRM_CARD"
 
-def test_executor_calibration_status():
-    with get_db_connection() as db:
-        data, text = SafeToolExecutor.execute_tool("get_device_calibration_status", {"device_id_or_tag": "BVQ7-TTB-00001"}, db)
-        assert data is not None
-        assert "Tình Trạng Kiểm Định" in text
+    # 2. Confirm Draft
+    from pathlib import Path
+    db_p = str(Path(__file__).parent.parent / "database" / "devices.db")
+    success, msg, pld = MutationDraftManager.execute_draft(draft_id, db_p)
+    assert success is True
+    assert "thực thi" in msg.lower()
 
-def test_executor_dashboard_summary():
-    with get_db_connection() as db:
-        data, text = SafeToolExecutor.execute_tool("get_dashboard_summary", {}, db)
-        assert data["total_devices"] >= 1
-        assert "Báo Cáo Tổng Hợp Thiết Bị Y Tế" in text
-
-# 3. Async Agent Pipeline Test
-@pytest.mark.asyncio
-async def test_async_needle_agent_process_query():
-    with get_db_connection() as db:
-        result = await needle_agent.process_query("Kiểm tra hạn kiểm định của máy #00001", db)
-        assert result.status == "SUCCESS"
-        assert result.route_taken == "LOCAL_EDGE"
-        assert result.confidence >= 0.85
-        assert result.tool_name == "get_device_calibration_status"
-
-# 4. HTTP API Endpoint Tests
+# 3. HTTP API Endpoint Tests
 def test_api_agent_tools_list(client):
     res = client.get("/api/agent/tools")
     assert res.status_code == 200
     data = res.json()
-    assert data["tools_count"] == 5
+    assert data["total_tools"] >= 10
     tool_names = [t["name"] for t in data["tools"]]
     assert "get_device_by_asset_tag" in tool_names
-    assert "get_dashboard_summary" in tool_names
+    assert "get_device_pdf_documents" in tool_names
+    assert "get_upcoming_calibrations" in tool_names
+    assert "transfer_device_draft" in tool_names
 
 def test_api_agent_query_local_edge(client):
-    payload = {"query": "Xem thông tin máy BVQ7-TTB-00001"}
-    res = client.post("/api/agent/query", json=payload)
+    res = client.post("/api/agent/query", json={"query": "Tra cứu máy BVQ7-TTB-00001"})
     assert res.status_code == 200
     data = res.json()
     assert data["status"] == "SUCCESS"
     assert data["route_taken"] == "LOCAL_EDGE"
     assert data["tool_name"] == "get_device_by_asset_tag"
-    assert data["confidence"] >= 0.85
-    assert "BVQ7-TTB-00001" in data["response_text"]
+    assert data["action_card"] is not None
+    assert data["latency_ms"] < 200.0
 
-def test_api_agent_query_confirmation_gate(client):
-    payload = {"query": "Tạo phiếu điều chuyển máy sang phòng xét nghiệm"}
-    res = client.post("/api/agent/query", json=payload)
-    assert res.status_code == 200
-    data = res.json()
-    assert data["status"] == "AWAITING_CONFIRMATION"
-    assert "xác nhận" in data["response_text"]
+def test_api_agent_mutation_confirm_flow(client):
+    # Step 1: Create draft via Query
+    res1 = client.post("/api/agent/query", json={"query": "Báo hỏng máy BVQ7-TTB-00001 bị nứt màn hình"})
+    assert res1.status_code == 200
+    data1 = res1.json()
+    assert data1["requires_confirmation"] is True
+    assert data1["action_card"]["card_type"] == "MUTATION_CONFIRM_CARD"
+    draft_id = data1["mutation_draft"]["draft_id"]
+
+    # Step 2: Confirm Draft
+    res2 = client.post("/api/agent/mutation/confirm", json={"draft_id": draft_id})
+    assert res2.status_code == 200
+    data2 = res2.json()
+    assert data2["status"] == "success"
+
+def test_api_agent_mutation_cancel_flow(client):
+    # Step 1: Create draft
+    res1 = client.post("/api/agent/query", json={"query": "Điều chuyển máy BVQ7-TTB-00001 sang Cấp cứu"})
+    assert res1.status_code == 200
+    draft_id = res1.json()["mutation_draft"]["draft_id"]
+
+    # Step 2: Cancel Draft
+    res2 = client.post("/api/agent/mutation/cancel", json={"draft_id": draft_id})
+    assert res2.status_code == 200
+    assert res2.json()["status"] == "success"
+

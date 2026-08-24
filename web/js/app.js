@@ -2957,9 +2957,6 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         
-        // ==================== GEMINI AI & MISTRAL OCR HUB ENGINE ====================
-        currentOCRResult: null,
-
         async submitAIChat() {
             const input = document.getElementById('ai-chat-input');
             const message = input.value.trim();
@@ -2974,20 +2971,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 btnSend.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
             }
 
+            // Build UI Context
+            const uiContext = {
+                current_page: this.currentTab || "dashboard",
+                current_device_id: this.currentDeviceId || null,
+                current_asset_tag: this.currentDeviceId ? `BVQ7-TTB-${String(this.currentDeviceId).padStart(5, '0')}` : null,
+                current_facility_id: this.selectedFacilityId || null,
+                current_workflow: "device_management"
+            };
+
             try {
-                const res = await fetch('/api/ai/chat', {
+                const res = await fetch('/api/agent/query', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message })
+                    body: JSON.stringify({ query: message, ui_context: uiContext })
                 });
                 const data = await res.json();
-                if (data && data.reply) {
+                if (data && data.response_text) {
+                    this.appendChatMessage('bot', data.response_text, data.action_card, data.latency_ms, data.engine, data.provenance);
+                } else if (data && data.reply) {
                     this.appendChatMessage('bot', data.reply);
                 } else {
-                    this.appendChatMessage('bot', '❌ Không nhận được phản hồi từ Trợ lý AI.');
+                    this.appendChatMessage('bot', '❌ Không nhận được phản hồi từ BME Copilot.');
                 }
             } catch (err) {
-                this.appendChatMessage('bot', '❌ Lỗi kết nối đến Gemini Agent Service: ' + err.message);
+                this.appendChatMessage('bot', '❌ Lỗi kết nối đến BME Copilot Agent: ' + err.message);
             } finally {
                 if (btnSend) {
                     btnSend.disabled = false;
@@ -2996,22 +3004,50 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
-        sendQuickPrompt(promptText) {
-            const input = document.getElementById('ai-chat-input');
-            if (input) {
-                input.value = promptText;
-                this.submitAIChat();
+        async confirmMutationDraft(draftId) {
+            try {
+                const res = await fetch('/api/agent/mutation/confirm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ draft_id: draftId })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(`✅ ${data.message}`);
+                    this.appendChatMessage('bot', `✅ **Đã thực thi thành công:** ${data.message}`);
+                    if (this.currentDeviceId) this.showDeviceDetails(this.currentDeviceId);
+                    this.loadDashboardData();
+                } else {
+                    alert(`❌ Lỗi thực thi: ${data.detail || 'Không thể xác nhận'}`);
+                }
+            } catch (err) {
+                alert(`❌ Lỗi kết nối: ${err.message}`);
             }
         },
 
-        appendChatMessage(sender, text) {
+        async cancelMutationDraft(draftId) {
+            try {
+                const res = await fetch('/api/agent/mutation/cancel', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ draft_id: draftId })
+                });
+                const data = await res.json();
+                alert('Đã hủy bỏ yêu cầu.');
+                this.appendChatMessage('bot', `⚪ Đã hủy bỏ bản nháp ${draftId}.`);
+            } catch (err) {
+                alert(`Lỗi: ${err.message}`);
+            }
+        },
+
+        appendChatMessage(sender, text, actionCard = null, latency = null, engine = null, provenance = null) {
             const container = document.getElementById('ai-chat-messages');
             if (!container) return;
 
             const isUser = sender === 'user';
             const initial = isUser ? '<i class="bi bi-person-fill"></i>' : '<i class="bi bi-robot"></i>';
             const bgClass = isUser ? 'bg-primary text-white' : 'bg-white text-dark shadow-sm border';
-            const title = isUser ? 'Bạn' : 'Trợ Lý AI Y Sinh (Gemini):';
+            const title = isUser ? 'Bạn' : `Needle BME Copilot ${engine ? `<span class="badge bg-light text-muted border ms-1 font-mono" style="font-size:0.7rem;">${latency ? latency + 'ms' : ''}</span>` : ''}`;
 
             // Format markdown newlines and bold
             let formatted = text
@@ -3019,6 +3055,69 @@ document.addEventListener('DOMContentLoaded', function () {
                 .replace(/\n/g, '<br>')
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/`([^`]+)`/g, '<code class="font-mono bg-light text-dark p-1 rounded">$1</code>');
+
+            let cardHtml = '';
+            if (actionCard) {
+                if (actionCard.card_type === 'DEVICE_CARD') {
+                    cardHtml = `
+                        <div class="card mt-2 border-primary bg-light" style="font-size: 0.85rem;">
+                            <div class="card-body p-2">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <strong class="text-primary">${actionCard.title}</strong>
+                                    <span class="badge bg-dark font-mono">${actionCard.asset_tag}</span>
+                                </div>
+                                <div class="small text-muted mb-2">Model: ${actionCard.model} | Vị trí: <strong>${actionCard.facility}</strong> | Rủi ro: <span class="badge bg-info text-dark">Loại ${actionCard.risk_level}</span></div>
+                                <div class="d-flex gap-1 flex-wrap">
+                                    ${(actionCard.quick_actions || []).map(a => `<button class="btn btn-xs btn-${a.type || 'primary'}" onclick="${a.action}">${a.label}</button>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (actionCard.card_type === 'DOCUMENT_CARD') {
+                    cardHtml = `
+                        <div class="card mt-2 border-info bg-light" style="font-size: 0.85rem;">
+                            <div class="card-body p-2">
+                                <div class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-pdf text-danger me-1"></i> ${actionCard.title} (${actionCard.total_documents} tệp)</div>
+                                <div class="list-group list-group-flush mb-2">
+                                    ${(actionCard.documents || []).map(d => `
+                                        <div class="list-group-item bg-transparent px-0 py-1 d-flex justify-content-between align-items-center">
+                                            <span class="text-truncate" style="max-width: 70%;" title="${d.title}">${d.title}</span>
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="${d.stream_url}" target="_blank" class="btn btn-xs btn-outline-primary"><i class="bi bi-eye"></i> Đọc</a>
+                                                <a href="${d.download_url}" class="btn btn-xs btn-outline-secondary"><i class="bi bi-download"></i></a>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (actionCard.card_type === 'MUTATION_CONFIRM_CARD') {
+                    cardHtml = `
+                        <div class="card mt-2 border-warning shadow-sm" style="font-size: 0.85rem; background: #fffbeb;">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center gap-2 mb-2 text-warning-emphasis fw-bold">
+                                    <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
+                                    <span>${actionCard.title}</span>
+                                </div>
+                                <div class="small mb-2">
+                                    • Thiết bị: <strong>${actionCard.device_name}</strong> (<code>${actionCard.asset_tag}</code>)<br>
+                                    ${actionCard.to_facility ? `• Điều chuyển: <strong>${actionCard.from_facility}</strong> ➔ <strong>${actionCard.to_facility}</strong><br>` : ''}
+                                    ${actionCard.issue_description ? `• Mô tả sự cố: <em>"${actionCard.issue_description}"</em> (Ưu tiên: <strong>${actionCard.priority}</strong>)<br>` : ''}
+                                    ${actionCard.reason ? `• Lý do: <em>${actionCard.reason}</em>` : ''}
+                                </div>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    ${(actionCard.actions || []).map(btn => `
+                                        <button class="btn btn-sm btn-${btn.variant || 'primary'}" onclick="${btn.endpoint_or_fn}">
+                                            ${btn.label}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
 
             const msgHtml = `
                 <div class="d-flex align-items-start gap-2 mb-3 ${isUser ? 'flex-row-reverse' : ''}">
@@ -3028,6 +3127,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="${bgClass} p-3 rounded-3" style="max-width: 85%;">
                         <strong class="${isUser ? 'text-white' : 'text-primary'} d-block mb-1 small">${title}</strong>
                         <div class="small">${formatted}</div>
+                        ${cardHtml}
                     </div>
                 </div>
             `;

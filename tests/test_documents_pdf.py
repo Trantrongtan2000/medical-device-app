@@ -5,9 +5,11 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+import tempfile
+
 # Point resolver at local fixture storage before app import side-effects
 ROOT = Path(__file__).resolve().parent.parent
-FIXTURE_ROOT = ROOT / "docs_storage"
+FIXTURE_ROOT = Path(tempfile.gettempdir()) / "htm_test_docs_storage"
 FIXTURE_PDF = FIXTURE_ROOT / "03_BAN_GIAO_VA_NGHIEM_THU" / "docs_raw" / "BBBG NB_VirtueRF_CT Lasera_SN 26003.pdf"
 os.environ["MEDICAL_DEVICE_DOCUMENTS_ROOT"] = str(FIXTURE_ROOT)
 
