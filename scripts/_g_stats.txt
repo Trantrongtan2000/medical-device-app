@@ -1,8 +1,0 @@
-01_DANH_MUC_THIET_BI: 
-02_HOP_DONG_MUA_SAM: .pdf: 1594, .db: 81, .png: 49, .jpg: 31, .docx: 3, .rar: 2
-03_BAN_GIAO_VA_NGHIEM_THU: .pdf: 5511, .csv: 6, .json: 5, .jsonl: 1, .rar: 1
-04_KIEM_DINH_VA_HIEU_CHUAN: .pdf: 7823, .docx: 843, .xlsx: 452, .md: 438, (none): 420, .db: 294
-05_BAO_TRI_VA_SUA_CHUA: .pdf: 1761, .db: 35, .xlsx: 10, .jpg: 7, .doc: 2, .docx: 2
-06_THAM_DINH_VA_PHAP_LY: .pdf: 577, .docx: 37, .db: 27, .rar: 10, .xlsx: 5, .jpg: 4
-07_THU_VIEN_SO_HOA_MD: 
-08_KHO_LUU_TRU_TRUNG_LAP_VA_TEMP: .pdf: 3460, .md: 2847, .json: 115, .py: 19, .db: 18, .txt: 10

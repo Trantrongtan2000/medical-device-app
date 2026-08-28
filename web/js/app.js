@@ -3302,12 +3302,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (mistralModalBadge && data.mistral) {
                     mistralModalBadge.textContent = `${data.mistral.active_keys}/${data.mistral.total_keys} Active`;
                 }
-                if (geminiKeyCountBadge && data.gemini) {
-                    geminiKeyCountBadge.textContent = `${data.gemini.active_keys} Keys Hoạt Động (Pool ${data.gemini.total_keys})`;
-                }
-                if (mistralKeyCountBadge && data.mistral) {
-                    mistralKeyCountBadge.textContent = `${data.mistral.active_keys} Keys Hoạt Động (Pool ${data.mistral.total_keys})`;
-                }
+                this.paintAiKeyBadge(geminiKeyCountBadge, data.gemini, false);
+                this.paintAiKeyBadge(mistralKeyCountBadge, data.mistral, false);
 
                 const currentStats = data[service] || { total_keys: 0, active_keys: 0, inactive_keys: 0, rate_limited_keys: 0, keys_list: [] };
                 
@@ -3644,20 +3640,38 @@ ${data.message}`);
             }
         },
 
+        paintAiKeyBadge(el, stats, isError) {
+            if (!el) return;
+            el.classList.remove("bg-success", "bg-secondary", "bg-danger", "bg-warning", "text-dark");
+            if (isError) {
+                el.classList.add("bg-danger");
+                el.textContent = "NOT READY / ERROR";
+                return;
+            }
+            const active = (stats && Number(stats.active_keys)) || 0;
+            const total = (stats && Number(stats.total_keys)) || 0;
+            // When no keys are configured (total=0) or runtime is disabled, show DISABLED
+            if (total === 0 || active === 0) {
+                el.classList.add("bg-secondary");
+                el.textContent = "DISABLED";
+            } else {
+                el.classList.add("bg-success");
+                el.textContent = "ACTIVE (" + active + "/" + total + ")";
+            }
+        },
+
         async loadAPIKeysStatus() {
             try {
                 const res = await fetch('/api/keys/config');
                 const data = await res.json();
                 const geminiBadge = document.getElementById('gemini-key-count-badge');
                 const mistralBadge = document.getElementById('mistral-key-count-badge');
-                if (geminiBadge && data.gemini) {
-                    geminiBadge.textContent = `${data.gemini.active_keys} Keys Hoạt Động (Pool ${data.gemini.total_keys})`;
-                }
-                if (mistralBadge && data.mistral) {
-                    mistralBadge.textContent = `${data.mistral.active_keys} Keys Hoạt Động (Pool ${data.mistral.total_keys})`;
-                }
+                this.paintAiKeyBadge(geminiBadge, data.gemini, false);
+                this.paintAiKeyBadge(mistralBadge, data.mistral, false);
             } catch (err) {
                 console.error(err);
+                this.paintAiKeyBadge(document.getElementById('gemini-key-count-badge'), null, true);
+                this.paintAiKeyBadge(document.getElementById('mistral-key-count-badge'), null, true);
             }
         },
 

@@ -1,6 +1,8 @@
 """
 Comprehensive Tests for Needle 2 Agent & Cactus Policy Engine (HTM V3)
 """
+import sqlite3
+
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
@@ -164,4 +166,139 @@ def test_api_agent_mutation_cancel_flow(client):
     res2 = client.post("/api/agent/mutation/cancel", json={"draft_id": draft_id})
     assert res2.status_code == 200
     assert res2.json()["status"] == "success"
+
+
+def test_parser_no_default_device_for_context_dependent_read_intents():
+    """Thiếu mã máy/ngữ cảnh phải hỏi lại, không tự fallback BVQ7-TTB-00001."""
+    for query in [
+        "Cho tôi xem hồ sơ PDF gốc của máy này",
+        "Máy này còn hạn kiểm định không?",
+    ]:
+        decision = NeedleParser.parse_intent(query)
+        assert decision.intent == "AMBIGUOUS_CLARIFICATION"
+        assert decision.tool_call is None
+        assert "BVQ7-TTB-00001" not in str(decision.model_dump())
+
+
+def test_parser_no_default_device_for_mutation_without_identity():
+    """Mutation thiếu định danh thiết bị phải fail closed và vẫn đánh dấu cần xác nhận người dùng."""
+    from app.cactus_router import CactusHybridRouter
+
+    decision = CactusHybridRouter.route("Điều chuyển máy sang Khoa Cấp Cứu")
+    assert decision.intent == "AMBIGUOUS_CLARIFICATION"
+    assert decision.tool_call is None
+    assert decision.requires_confirmation is True
+    assert "REQUIRES_HUMAN_CONFIRMATION" in decision.policy_flags
+    assert "BVQ7-TTB-00001" not in str(decision.model_dump())
+
+
+def test_transfer_draft_rejects_unknown_target_facility():
+    """Không tìm thấy khoa đích thì không được fallback sang facility_id=1."""
+    from app.models_core import ToolCall
+
+    MutationDraftManager._drafts.clear()
+    executor = ToolExecutor()
+    call = ToolCall(
+        tool_name="transfer_device_draft",
+        arguments={"device_id_or_tag": "BVQ7-TTB-00001", "target_facility": "Khoa Không Tồn Tại 999"},
+        risk_level=RiskLevel.HIGH_WRITE,
+        requires_confirmation=True,
+    )
+    res = executor.execute_tool(call)
+    assert res.success is False
+    assert res.error_code == "VALIDATION_ERROR"
+
+
+def test_registry_read_tools_execute_without_unsupported_dispatch():
+    """Các tool đã khai báo trong registry phải có executor dispatch thật."""
+    from app.models_core import ToolCall
+
+    executor = ToolExecutor()
+    calls = [
+        ToolCall(tool_name="get_contract_info", arguments={"contract_no_or_id": "03625Q7/HĐKT/DWHCM-TA"}),
+        ToolCall(tool_name="get_supplier_info", arguments={"supplier_name": "GE Healthcare"}),
+        ToolCall(tool_name="get_device_maintenance_history", arguments={"device_id_or_tag": "BVQ7-TTB-00001"}),
+        ToolCall(tool_name="get_device_transfer_history", arguments={"device_id_or_tag": "BVQ7-TTB-00001"}),
+    ]
+
+    for call in calls:
+        res = executor.execute_tool(call)
+        assert res.error != f"Tool '{call.tool_name}' chưa được hỗ trợ trong Executor."
+        assert res.error_code != "NOT_FOUND" or call.tool_name in {"get_contract_info", "get_supplier_info"}
+
+
+def test_dashboard_summary_response_uses_dynamic_counts(tmp_path):
+    """Dashboard summary phải lấy số liệu từ DB hiện tại, không hardcode 100%/583."""
+    db_path = tmp_path / "devices.db"
+    conn = sqlite3.connect(db_path)
+    conn.executescript(
+        """
+        CREATE TABLE devices (id INTEGER PRIMARY KEY, risk_level TEXT, status TEXT);
+        CREATE TABLE device_documents (id INTEGER PRIMARY KEY, device_id INTEGER);
+        CREATE TABLE calibration_certificates (id INTEGER PRIMARY KEY, device_id INTEGER);
+        INSERT INTO devices (id, risk_level, status) VALUES
+          (1, 'A', 'IN_SERVICE'),
+          (2, 'B', 'UNDER_MAINTENANCE'),
+          (3, 'C', 'IN_SERVICE'),
+          (4, 'D', 'RETIRED');
+        INSERT INTO device_documents (device_id) VALUES (1), (3);
+        INSERT INTO calibration_certificates (device_id) VALUES (1), (2), (3), (4), (1), (2), (3);
+        """
+    )
+    conn.close()
+
+    executor = ToolExecutor(str(db_path))
+    from app.models_core import ToolCall
+
+    res = executor.execute_tool(ToolCall(tool_name="get_dashboard_summary", arguments={}))
+    text = NeedleAgent()._format_response_text("get_dashboard_summary", res)
+
+    assert res.success is True
+    assert res.data["total_devices"] == 4
+    assert res.data["devices_with_pdf"] == 2
+    assert res.data["pdf_coverage_pct"] == 50.0
+    assert res.data["total_calibration_certificates"] == 7
+    assert "50.0%" in text
+    assert "**7** Giấy chứng nhận" in text
+    assert "100%" not in text
+    assert "583" not in text
+
+
+def test_api_semantica_requires_device_identity(client):
+    """Semantica explainability không được tự fallback sang device_id=1 khi thiếu ngữ cảnh."""
+    res = client.post("/api/agent/query", json={"query": "Tại sao máy này được phân loại rủi ro cao?"})
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "CLARIFICATION_REQUIRED"
+    assert data["route_taken"] == "SEMANTICA_GRAPH"
+    assert "MISSING_DEVICE_IDENTITY" in data["warnings"]
+    assert data.get("structured_data") is None
+
+
+def test_api_agent_routes_require_auth_when_rbac_enforced(monkeypatch):
+    """Khi bật HTM_ENFORCE_RBAC, /api/agent/* phải yêu cầu auth và role phù hợp."""
+    from app.config import get_settings
+
+    monkeypatch.setenv("HTM_ENFORCE_RBAC", "1")
+    get_settings.cache_clear()
+    try:
+        with TestClient(app) as enforced_client:
+            unauth_tools = enforced_client.get("/api/agent/tools")
+            assert unauth_tools.status_code == 401
+
+            unauth_query = enforced_client.post("/api/agent/query", json={"query": "kiểm tra thiết bị"})
+            assert unauth_query.status_code == 401
+
+            authed_tools = enforced_client.get("/api/agent/tools", headers={"X-API-Key": "BME_ENGINEER_KEY_2026"})
+            assert authed_tools.status_code == 200
+
+            underprivileged_confirm = enforced_client.post(
+                "/api/agent/mutation/confirm",
+                headers={"X-API-Key": "CLINICAL_KEY_2026"},
+                json={"draft_id": "DRAFT-NOT-REAL"},
+            )
+            assert underprivileged_confirm.status_code == 403
+    finally:
+        monkeypatch.delenv("HTM_ENFORCE_RBAC", raising=False)
+        get_settings.cache_clear()
 

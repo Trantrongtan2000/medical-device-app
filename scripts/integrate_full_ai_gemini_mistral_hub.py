@@ -513,7 +513,7 @@ rich_ai_hub_ui = """                    <!-- TAB 8: AI ASSISTANT & OCR HUB -->
                                             <span class="badge bg-primary me-1">Gemini API</span>
                                             <span class="small fw-semibold text-dark">Google GenAI Interactions Pool</span>
                                         </div>
-                                        <span class="badge bg-success" id="gemini-key-count-badge">Active (Auto-Rotate)</span>
+                                        <span class="badge bg-secondary" id="gemini-key-count-badge">DISABLED</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -522,7 +522,7 @@ rich_ai_hub_ui = """                    <!-- TAB 8: AI ASSISTANT & OCR HUB -->
                                             <span class="badge bg-warning text-dark me-1">Mistral OCR</span>
                                             <span class="small fw-semibold text-dark">Mistral Document AI Pool</span>
                                         </div>
-                                        <span class="badge bg-success" id="mistral-key-count-badge">Active (Auto-Rotate)</span>
+                                        <span class="badge bg-secondary" id="mistral-key-count-badge">DISABLED</span>
                                     </div>
                                 </div>
                             </div>

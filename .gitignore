@@ -56,3 +56,28 @@ app/medical_devices.db
 
 # Agent runtime artifacts
 .omo/
+
+# Archived materials (superseded docs, bundles, temp scripts) - kept on disk, not in git
+archive/
+
+# Runtime telemetry
+logs/
+telemetry.jsonl
+
+# Agent directories and local skills
+.agents/
+.agent-teams/
+.claude/
+.cline/
+.codex/
+.cursor/skills/
+.dsh-vision-toolkit/
+.gemini/
+.grok/
+.grokbot/
+.sync-skills/
+.windsurf/
+.agent/
+
+
+web/pdfjs/

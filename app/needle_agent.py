@@ -12,6 +12,8 @@ from __future__ import annotations
 import re
 import uuid
 import sqlite3
+import unicodedata
+import threading
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -127,6 +129,24 @@ TOOL_REGISTRY: Dict[str, ToolDefinition] = {
         risk_level=RiskLevel.READ,
         audit_event="TRANSFER_HISTORY_READ"
     ),
+    "get_device_evidence_ledger": ToolDefinition(
+        name="get_device_evidence_ledger",
+        description="Truy xuất toàn bộ sổ chứng cứ gốc (PDF, trang số mấy, trích đoạn, SHA256) chứng minh tính xác thực của thông tin thiết bị",
+        parameters=[
+            ToolParameter(name="device_id_or_tag", type="string", description="Mã tài sản bất biến (VD: TAHCM-AST-000001) hoặc ID thiết bị")
+        ],
+        risk_level=RiskLevel.READ,
+        audit_event="EVIDENCE_LEDGER_READ"
+    ),
+    "get_device_lifecycle_history": ToolDefinition(
+        name="get_device_lifecycle_history",
+        description="Truy xuất toàn bộ lịch sử vòng đời sự kiện (Event Sourcing) của thiết bị y tế",
+        parameters=[
+            ToolParameter(name="device_id_or_tag", type="string", description="Mã tài sản bất biến hoặc ID thiết bị")
+        ],
+        risk_level=RiskLevel.READ,
+        audit_event="LIFECYCLE_HISTORY_READ"
+    ),
 
     # --- MUTATION DRAFT TOOLS (Gated by Safety Gate - Draft only, zero direct writes) ---
     "create_work_order_draft": ToolDefinition(
@@ -178,11 +198,13 @@ class ToolCallValidator:
 class MutationDraftManager:
     """Quản lý bản nháp thao tác ghi kèm kiểm tra State Versioning 2 bước (Prevent Stale Mutations)"""
     _drafts: Dict[str, MutationDraft] = {}
+    _lock = threading.Lock()
 
     @classmethod
     def create_draft(cls, action_type: str, device_id: int, asset_tag: str, 
                      initial_state: Dict[str, Any], state_version: int,
-                     proposed_payload: Dict[str, Any]) -> MutationDraft:
+                     proposed_payload: Dict[str, Any], owner_user_id: Optional[str] = None,
+                     owner_session_id: Optional[str] = None) -> MutationDraft:
         draft_id = f"DRAFT-{uuid.uuid4().hex[:8].upper()}"
         draft = MutationDraft(
             draft_id=draft_id,
@@ -192,7 +214,9 @@ class MutationDraftManager:
             initial_state=initial_state,
             state_version=state_version,
             proposed_payload=proposed_payload,
-            expires_at=(datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()
+            expires_at=(datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat(),
+            owner_user_id=owner_user_id,
+            owner_session_id=owner_session_id,
         )
         cls._drafts[draft_id] = draft
         return draft
@@ -202,14 +226,32 @@ class MutationDraftManager:
         return cls._drafts.get(draft_id)
 
     @classmethod
-    def execute_draft(cls, draft_id: str, db_path: str) -> Tuple[bool, str, Optional[Dict[str, Any]]]:
-        """Thực hiện xác thực lại trạng thái thực tế và State Version trước khi ghi (Atomic Transaction)"""
-        draft = cls.get_draft(draft_id)
-        if not draft:
-            return False, "Bản nháp không tồn tại hoặc đã hết hạn.", None
-
-        if draft.status != "PENDING_CONFIRMATION":
-            return False, f"Bản nháp đang ở trạng thái {draft.status}, không thể thực thi.", None
+    def execute_draft(cls, draft_id: str, db_path: str, actor_user_id: Optional[str] = None,
+                      actor_session_id: Optional[str] = None) -> Tuple[bool, str, Optional[Dict[str, Any]]]:
+        """Xác thực draft, claim một lần, rồi thực thi giao dịch nguyên tử."""
+        with cls._lock:
+            draft = cls.get_draft(draft_id)
+            if not draft:
+                return False, "Bản nháp không tồn tại hoặc đã hết hạn.", None
+            if draft.owner_user_id and draft.owner_user_id != actor_user_id:
+                return False, "Bản nháp thuộc về người dùng khác.", None
+            if draft.owner_session_id and draft.owner_session_id != actor_session_id:
+                return False, "Bản nháp thuộc về phiên làm việc khác.", None
+            if draft.expires_at:
+                try:
+                    expires_at = datetime.fromisoformat(draft.expires_at.replace("Z", "+00:00"))
+                    if expires_at.tzinfo is None:
+                        expires_at = expires_at.replace(tzinfo=timezone.utc)
+                    if datetime.now(timezone.utc) >= expires_at:
+                        draft.status = "EXPIRED"
+                        return False, "Bản nháp đã hết hạn.", None
+                except ValueError:
+                    draft.status = "EXPIRED"
+                    return False, "Bản nháp có thời điểm hết hạn không hợp lệ.", None
+            if draft.status != "PENDING_CONFIRMATION":
+                return False, f"Bản nháp đang ở trạng thái {draft.status}, không thể thực thi.", None
+            # Claim under lock so concurrent confirmations cannot both execute.
+            draft.status = "EXECUTING"
 
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
@@ -226,7 +268,14 @@ class MutationDraftManager:
                 draft.status = "STALE_REJECTED"
                 return False, "Thiết bị không còn tồn tại trong hệ thống.", None
 
-            # 2. State Version & Facility Re-check (Prevent Stale Confirmation)
+            # 2. Re-check every captured state field. SQLite has no state-version
+            # column, so state_version is metadata; snapshot fields are the guard.
+            for field, expected in draft.initial_state.items():
+                if field in current_row.keys() and expected is not None and current_row[field] != expected:
+                    cur.execute("ROLLBACK")
+                    draft.status = "STALE_REJECTED"
+                    return False, f"Trạng thái thiết bị đã thay đổi (trường {field}). Vui lòng tạo lại thao tác.", None
+
             if draft.action_type == "TRANSFER_DEVICE":
                 expected_from = draft.initial_state.get("facility_id")
                 if expected_from is not None and current_row["facility_id"] != expected_from:
@@ -245,16 +294,6 @@ class MutationDraftManager:
 
             elif draft.action_type == "CREATE_WORK_ORDER":
                 cur.execute("""
-                    CREATE TABLE IF NOT EXISTS maintenance_logs (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        device_id INTEGER NOT NULL,
-                        maintenance_type TEXT,
-                        maintenance_date TEXT,
-                        performed_by TEXT,
-                        description TEXT
-                    )
-                """)
-                cur.execute("""
                     INSERT INTO maintenance_logs (device_id, maintenance_type, maintenance_date, performed_by, description)
                     VALUES (?, 'REPAIR', ?, 'BME Copilot Draft Confirmation', ?)
                 """, (draft.device_id, datetime.now().strftime("%Y-%m-%d"), f"[{draft.proposed_payload.get('priority', 'MEDIUM')}] {draft.proposed_payload.get('issue_description', '')}"))
@@ -264,6 +303,9 @@ class MutationDraftManager:
             return True, f"Thao tác {draft.action_type} trên thiết bị {draft.asset_tag} đã được thực thi và ghi nhận an toàn vào CSDL.", draft.proposed_payload
         except Exception as e:
             cur.execute("ROLLBACK")
+            with cls._lock:
+                if draft.status == "EXECUTING":
+                    draft.status = "PENDING_CONFIRMATION"
             return False, f"Lỗi cơ sở dữ liệu khi thực thi giao dịch: {e}", None
         finally:
             conn.close()
@@ -280,6 +322,21 @@ class NeedleParser:
         active_tag = None
         active_dev_id = None
 
+        def require_device_identity(intent: str, prompt: str, *, mutation: bool = False) -> RouteDecision:
+            flags = ["MISSING_DEVICE_IDENTITY"]
+            if mutation:
+                flags.append("REQUIRES_HUMAN_CONFIRMATION")
+            return RouteDecision(
+                route="LOCAL_EDGE",
+                intent=intent,
+                confidence=0.99,
+                ambiguity_score=0.95,
+                strategy="DETERMINISTIC_EXACT",
+                policy_flags=flags,
+                clarification_prompt=prompt,
+                requires_confirmation=mutation,
+                rationale="Không có mã tài sản/ID thiết bị và không có ngữ cảnh UI đủ tin cậy; fail closed để tránh thao tác nhầm thiết bị."
+            )
 
         # 1. Trích xuất mã thiết bị từ Query nếu có (Tránh match số 7 trong bvq7)
         tag_match = re.search(r'bvq7[-_]ttb[-_](\d{1,7})', q_lower)
@@ -300,6 +357,11 @@ class NeedleParser:
 
         # ==================== INTENT 1: TRUY XUẤT FILE PDF MINH CHỨNG & WIKI ====================
         if any(k in q_lower for k in ["pdf", "hồ sơ gốc", "biên bản", "file scan", "tài liệu minh chứng", "văn bản", "ho so goc", "bien ban", "tai lieu"]):
+            if not active_tag:
+                return require_device_identity(
+                    "AMBIGUOUS_CLARIFICATION",
+                    "Vui lòng cung cấp mã tài sản/ID thiết bị hoặc mở chi tiết thiết bị trước khi xem hồ sơ PDF gốc."
+                )
             return RouteDecision(
                 route="LOCAL_EDGE",
                 intent="GET_DEVICE_PDF_DOCUMENTS",
@@ -307,7 +369,7 @@ class NeedleParser:
                 strategy="NEEDLE_TOOLCALL",
                 tool_call=ToolCall(
                     tool_name="get_device_pdf_documents",
-                    arguments={"device_id_or_tag": active_tag or "BVQ7-TTB-00001"},
+                    arguments={"device_id_or_tag": active_tag},
                     confidence=0.98,
                     risk_level=RiskLevel.READ,
                     rationale="Truy xuất hồ sơ PDF scan gốc và tài liệu Markdown LLM Wiki của thiết bị."
@@ -320,6 +382,12 @@ class NeedleParser:
             fac_m = re.search(r'sang\s+(?:khoa|phòng)?\s*([^\?\.\,\!]+)', q_lower)
             if fac_m:
                 target_fac = fac_m.group(1).strip()
+            if not active_tag:
+                return require_device_identity(
+                    "AMBIGUOUS_CLARIFICATION",
+                    "Vui lòng cung cấp mã tài sản/ID thiết bị cần điều chuyển trước khi tạo bản nháp.",
+                    mutation=True
+                )
             return RouteDecision(
                 route="LOCAL_EDGE",
                 intent="MUTATION_TRANSFER",
@@ -327,7 +395,7 @@ class NeedleParser:
                 strategy="NEEDLE_TOOLCALL",
                 tool_call=ToolCall(
                     tool_name="transfer_device_draft",
-                    arguments={"device_id_or_tag": active_tag or "BVQ7-TTB-00001", "target_facility": target_fac},
+                    arguments={"device_id_or_tag": active_tag, "target_facility": target_fac},
                     confidence=0.96,
                     risk_level=RiskLevel.HIGH_WRITE,
                     requires_confirmation=True,
@@ -345,6 +413,12 @@ class NeedleParser:
             elif "hỏng" in q_lower or "hong" in q_lower:
                 idx = q_lower.find("hỏng") if "hỏng" in q_lower else q_lower.find("hong")
                 desc = q[idx:]
+            if not active_tag:
+                return require_device_identity(
+                    "AMBIGUOUS_CLARIFICATION",
+                    "Vui lòng cung cấp mã tài sản/ID thiết bị cần báo hỏng trước khi tạo bản nháp.",
+                    mutation=True
+                )
             return RouteDecision(
                 route="LOCAL_EDGE",
                 intent="MUTATION_WORK_ORDER",
@@ -352,7 +426,7 @@ class NeedleParser:
                 strategy="NEEDLE_TOOLCALL",
                 tool_call=ToolCall(
                     tool_name="create_work_order_draft",
-                    arguments={"device_id_or_tag": active_tag or "BVQ7-TTB-00001", "issue_description": desc, "priority": "HIGH" if any(k in q_lower for k in ["khẩn", "gấp", "khan", "gap"]) else "MEDIUM"},
+                    arguments={"device_id_or_tag": active_tag, "issue_description": desc, "priority": "HIGH" if any(k in q_lower for k in ["khẩn", "gấp", "khan", "gap"]) else "MEDIUM"},
                     confidence=0.95,
                     risk_level=RiskLevel.HIGH_WRITE,
                     requires_confirmation=True,
@@ -387,6 +461,11 @@ class NeedleParser:
             )
 
         if any(k in q_lower for k in ["kiểm định", "hiệu chuẩn", "hạn dùng", "hạn kiểm định", "tem kiểm định", "kiem dinh", "hieu chuan", "han dung", "tem kiem dinh", "con han"]):
+            if not active_tag:
+                return require_device_identity(
+                    "AMBIGUOUS_CLARIFICATION",
+                    "Vui lòng cung cấp mã tài sản/ID thiết bị hoặc mở chi tiết thiết bị trước khi kiểm tra kiểm định."
+                )
             return RouteDecision(
                 route="LOCAL_EDGE",
                 intent="CHECK_CALIBRATION",
@@ -394,7 +473,7 @@ class NeedleParser:
                 strategy="NEEDLE_TOOLCALL",
                 tool_call=ToolCall(
                     tool_name="get_calibration_status",
-                    arguments={"device_id_or_tag": active_tag or "BVQ7-TTB-00001"},
+                    arguments={"device_id_or_tag": active_tag},
                     confidence=0.97,
                     risk_level=RiskLevel.READ,
                     rationale="Kiểm tra tình trạng kiểm định và hiệu chuẩn của thiết bị."
@@ -530,6 +609,51 @@ class ToolExecutor:
         conn.row_factory = sqlite3.Row
         return conn
 
+    def _normalize_text(self, value: str) -> str:
+        normalized = unicodedata.normalize("NFD", value or "")
+        without_marks = "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
+        return re.sub(r"\s+", " ", without_marks.replace("đ", "d").replace("Đ", "D").lower()).strip()
+
+    def _find_facility_by_name(self, cur: sqlite3.Cursor, name_or_code: str) -> Optional[sqlite3.Row]:
+        raw = (name_or_code or "").strip()
+        if not raw:
+            return None
+
+        kw = f"%{raw}%"
+        row = cur.execute("SELECT id, name, code, location FROM facilities WHERE name LIKE ? OR code LIKE ? LIMIT 1", (kw, kw)).fetchone()
+        if row:
+            return row
+
+        target = self._normalize_text(raw)
+        aliases = {
+            "hoi suc tich cuc": ["hoi suc", "gmhs"],
+            "hoi suc": ["hoi suc", "gmhs"],
+            "phong mo": ["phong mo", "gmhs", "phau thuat"],
+            "cap cuu": ["cap cuu"],
+            "chan doan hinh anh": ["chan doan hinh anh"],
+        }
+        needles = [target]
+        for key, values in aliases.items():
+            if key in target:
+                needles.extend(values)
+
+        rows = cur.execute("SELECT id, name, code, location FROM facilities").fetchall()
+        for candidate in rows:
+            haystacks = [self._normalize_text(candidate["name"]), self._normalize_text(candidate["code"] or "")]
+            if any(needle and any(needle in haystack for haystack in haystacks) for needle in needles):
+                return candidate
+
+        meaningful_parts = [
+            part for part in target.split()
+            if len(part) >= 3 and part not in {"khoa", "phong", "tai", "don", "vi", "sang"}
+        ]
+        for candidate in rows:
+            haystack = self._normalize_text(candidate["name"])
+            if meaningful_parts and all(part in haystack for part in meaningful_parts):
+                return candidate
+
+        return None
+
     def execute_tool(self, tool_call: ToolCall) -> ToolResult:
         t0 = datetime.now()
         name = tool_call.tool_name
@@ -569,6 +693,10 @@ class ToolExecutor:
                 return self._exec_get_maintenance_history(args.get("device_id_or_tag", ""), tool_call.tool_call_id)
             elif name == "get_device_transfer_history":
                 return self._exec_get_transfer_history(args.get("device_id_or_tag", ""), tool_call.tool_call_id)
+            elif name == "get_device_evidence_ledger":
+                return self._exec_get_evidence_ledger(args.get("device_id_or_tag", ""), tool_call.tool_call_id)
+            elif name == "get_device_lifecycle_history":
+                return self._exec_get_lifecycle_history(args.get("device_id_or_tag", ""), tool_call.tool_call_id)
             elif name == "transfer_device_draft":
                 return self._exec_transfer_device_draft(args.get("device_id_or_tag", ""), args.get("target_facility", ""), args.get("reason", ""), tool_call.tool_call_id)
             elif name == "create_work_order_draft":
@@ -800,6 +928,11 @@ class ToolExecutor:
 
         cur.execute("SELECT risk_level, COUNT(*) FROM devices GROUP BY risk_level")
         risk_dist = dict(cur.fetchall())
+
+        cur.execute("SELECT status, COUNT(*) FROM devices GROUP BY status")
+        status_dist = dict(cur.fetchall())
+        in_service_count = status_dist.get("IN_SERVICE", 0)
+        operational_pct = round(in_service_count / total_devices * 100, 1) if total_devices else 0
         conn.close()
 
         summary_data = {
@@ -808,7 +941,8 @@ class ToolExecutor:
             "pdf_coverage_pct": round(devices_with_pdf / total_devices * 100, 1) if total_devices else 0,
             "total_calibration_certificates": total_certs,
             "risk_distribution": risk_dist,
-            "operational_status": "100% IN_SERVICE"
+            "status_distribution": status_dist,
+            "operational_status": f"{operational_pct}% IN_SERVICE"
         }
 
         action_card = {
@@ -863,22 +997,16 @@ class ToolExecutor:
         conn = self._get_conn()
         cur = conn.cursor()
         raw_kw = name_or_code.strip()
-        kw = f"%{raw_kw}%"
-        fac = cur.execute("SELECT id, name, code, location FROM facilities WHERE name LIKE ? OR code LIKE ? LIMIT 1", (kw, kw)).fetchone()
-        
-        # Nếu chưa tìm thấy, thử tìm theo các từ khóa chính (vd: "Chẩn Đoán Hình Ảnh", "Hồi Sức", "Cấp Cứu")
+        fac = self._find_facility_by_name(cur, raw_kw)
         if not fac:
-            for part in raw_kw.split():
-                if len(part) >= 3 and part.lower() not in ["khoa", "phòng", "tại", "đơn", "vị"]:
-                    part_kw = f"%{part}%"
-                    fac = cur.execute("SELECT id, name, code, location FROM facilities WHERE name LIKE ? LIMIT 1", (part_kw,)).fetchone()
-                    if fac:
-                        break
-
-        # Fallback to Cấp Cứu nếu là truy vấn tổng quát
-        if not fac:
-            fac = cur.execute("SELECT id, name, code, location FROM facilities WHERE name LIKE '%Cấp Cứu%' LIMIT 1").fetchone()
-
+            conn.close()
+            return ToolResult(
+                tool_call_id=call_id,
+                success=False,
+                error=f"Không tìm thấy khoa/phòng '{name_or_code}'.",
+                error_code="NOT_FOUND",
+                trust_level=TrustLevel.UNVERIFIED
+            )
 
         fac_id = fac["id"]
         dev_count = cur.execute("SELECT COUNT(*) FROM devices WHERE facility_id = ?", (fac_id,)).fetchone()[0]
@@ -928,6 +1056,89 @@ class ToolExecutor:
             data={"contract": dict(row), "devices": dev_list},
             trust_level=TrustLevel.VERIFIED_FACT,
             provenance=ProvenanceRecord(source_type="sqlite", source_id="database/devices.db", record_table="contracts", record_id=str(row["id"]), is_authoritative=True)
+        )
+
+    def _exec_get_evidence_ledger(self, device_id_or_tag: str, call_id: Optional[str] = None) -> ToolResult:
+        dev_id = self._parse_dev_id(device_id_or_tag)
+        if not dev_id:
+            return ToolResult(tool_call_id=call_id, success=False, error="Mã thiết bị không hợp lệ.", error_code="VALIDATION_ERROR", trust_level=TrustLevel.UNVERIFIED)
+
+        conn = self._get_conn()
+        cur = conn.cursor()
+        dev = cur.execute("SELECT id, device_name, model, serial_no, immutable_asset_tag, contract_no FROM devices WHERE id = ? OR immutable_asset_tag = ?", (dev_id, str(device_id_or_tag).strip())).fetchone()
+        if not dev:
+            conn.close()
+            return ToolResult(tool_call_id=call_id, success=False, error="Không tìm thấy thiết bị.", error_code="NOT_FOUND", trust_level=TrustLevel.UNVERIFIED)
+
+        actual_id = dev["id"]
+        rows = cur.execute("SELECT * FROM evidence_ledger WHERE device_id = ? ORDER BY verified_at DESC", (actual_id,)).fetchall()
+        conn.close()
+
+        evidences = [dict(r) for r in rows]
+        data = {
+            "device": dict(dev),
+            "evidence_count": len(evidences),
+            "evidence_trail": evidences
+        }
+
+        action_card = {
+            "card_type": ActionCardType.EVIDENCE_CARD.value,
+            "title": f"Sổ Chứng Cứ Gốc — {dev['device_name']} ({dev['immutable_asset_tag'] or dev['serial_no']})",
+            "evidence_count": len(evidences),
+            "evidences": evidences
+        }
+
+        return ToolResult(
+            tool_call_id=call_id,
+            success=True,
+            data=data,
+            action_card=action_card,
+            trust_level=TrustLevel.VERIFIED_EVIDENCE,
+            provenance=ProvenanceRecord(source_type="sqlite", source_id="database/devices.db", record_table="evidence_ledger", record_id=str(actual_id), is_authoritative=True)
+        )
+
+    def _exec_get_lifecycle_history(self, device_id_or_tag: str, call_id: Optional[str] = None) -> ToolResult:
+        dev_id = self._parse_dev_id(device_id_or_tag)
+        if not dev_id:
+            return ToolResult(tool_call_id=call_id, success=False, error="Mã thiết bị không hợp lệ.", error_code="VALIDATION_ERROR", trust_level=TrustLevel.UNVERIFIED)
+
+        conn = self._get_conn()
+        cur = conn.cursor()
+        dev = cur.execute("SELECT id, device_name, model, serial_no, immutable_asset_tag, status, safety_locked FROM devices WHERE id = ? OR immutable_asset_tag = ?", (dev_id, str(device_id_or_tag).strip())).fetchone()
+        if not dev:
+            conn.close()
+            return ToolResult(tool_call_id=call_id, success=False, error="Không tìm thấy thiết bị.", error_code="NOT_FOUND", trust_level=TrustLevel.UNVERIFIED)
+
+        actual_id = dev["id"]
+        events = cur.execute("SELECT * FROM asset_lifecycle_events WHERE device_id = ? ORDER BY event_date DESC, id DESC", (actual_id,)).fetchall()
+        conn.close()
+
+        event_list = [dict(e) for e in events]
+        current_state = event_list[0]["event_type"] if event_list else dev["status"]
+
+        data = {
+            "device": dict(dev),
+            "current_state_projection": current_state,
+            "safety_locked": bool(dev["safety_locked"]),
+            "event_count": len(event_list),
+            "lifecycle_events": event_list
+        }
+
+        action_card = {
+            "card_type": ActionCardType.LIFECYCLE_CARD.value,
+            "title": f"Vòng Đời Thiết Bị (HTM Lifecycle) — {dev['device_name']}",
+            "current_status": current_state,
+            "safety_locked": bool(dev["safety_locked"]),
+            "events": event_list
+        }
+
+        return ToolResult(
+            tool_call_id=call_id,
+            success=True,
+            data=data,
+            action_card=action_card,
+            trust_level=TrustLevel.VERIFIED_FACT,
+            provenance=ProvenanceRecord(source_type="sqlite", source_id="database/devices.db", record_table="asset_lifecycle_events", record_id=str(actual_id), is_authoritative=True)
         )
 
     def _exec_get_supplier_info(self, supplier_name: str, call_id: Optional[str] = None) -> ToolResult:
@@ -1008,12 +1219,20 @@ class ToolExecutor:
             return ToolResult(tool_call_id=call_id, success=False, error="Không tìm thấy thiết bị để điều chuyển.", error_code="NOT_FOUND", trust_level=TrustLevel.UNVERIFIED)
 
         # Target facility
-        t_kw = f"%{target_fac_name.strip()}%"
-        target_fac = cur.execute("SELECT id, name FROM facilities WHERE name LIKE ? LIMIT 1", (t_kw,)).fetchone()
+        target_fac = self._find_facility_by_name(cur, target_fac_name)
         conn.close()
 
-        target_fac_id = target_fac["id"] if target_fac else 1
-        target_name = target_fac["name"] if target_fac else target_fac_name
+        if not target_fac:
+            return ToolResult(
+                tool_call_id=call_id,
+                success=False,
+                error=f"Không tìm thấy khoa/phòng đích '{target_fac_name}'. Vui lòng chọn khoa/phòng hợp lệ trước khi tạo bản nháp điều chuyển.",
+                error_code="VALIDATION_ERROR",
+                trust_level=TrustLevel.UNVERIFIED
+            )
+
+        target_fac_id = target_fac["id"]
+        target_name = target_fac["name"]
 
         asset_tag = f"BVQ7-TTB-{dev['id']:05d}"
         draft = MutationDraftManager.create_draft(
@@ -1160,7 +1379,11 @@ class NeedleAgent:
         elif tool_name == "get_upcoming_calibrations":
             return f"⚠️ Có **{data.get('total_expiring', 0)} thiết bị y tế** sắp đến hạn kiểm định trong {data.get('days')} ngày tới."
         elif tool_name == "get_dashboard_summary":
-            return f"📊 **Báo cáo toàn viện:** Tổng số **{data.get('total_devices')} thiết bị**, **100%** có hồ sơ PDF minh chứng sạch, **583** Giấy chứng nhận kiểm định thực tế."
+            return (
+                f"📊 **Báo cáo toàn viện:** Tổng số **{data.get('total_devices')} thiết bị**, "
+                f"**{data.get('pdf_coverage_pct', 0)}%** có hồ sơ PDF minh chứng, "
+                f"**{data.get('total_calibration_certificates', 0)}** Giấy chứng nhận kiểm định thực tế."
+            )
         elif tool_name in ["transfer_device_draft", "create_work_order_draft"]:
             return f"📝 Đã tạo bản nháp thao tác kỹ thuật. Vui lòng kiểm tra lại thông tin và bấm nút xác nhận để thực thi."
         return "Đã thực hiện xong tra cứu dữ liệu."

@@ -1,6 +1,0 @@
-Tổng md: 8135
-Có source_pdf: 5241
-Resolve được (tên khớp PDF trên G:): 5241
-Vẫn CHƯA resolve được: 0
-
---- Danh sách còn lỗi (toàn bộ) ---

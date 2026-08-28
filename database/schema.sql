@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS device_categories (
 
 CREATE TABLE IF NOT EXISTS devices (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    immutable_asset_tag TEXT UNIQUE,
     device_name TEXT NOT NULL,
     model TEXT NOT NULL,
     serial_no TEXT NOT NULL UNIQUE,
@@ -36,7 +37,16 @@ CREATE TABLE IF NOT EXISTS devices (
     country_of_manufacturer TEXT,
     year_of_manufacture INTEGER,
     risk_level TEXT CHECK(risk_level IN ('A', 'B', 'C', 'D')),
-    status TEXT DEFAULT 'IN_SERVICE' CHECK(status IN ('IN_SERVICE', 'CALIBRATION_DUE', 'MAINTENANCE', 'REPAIR', 'RETIRED')),
+    regulatory_class TEXT CHECK(regulatory_class IN ('A', 'B', 'C', 'D')),
+    regulatory_regime TEXT DEFAULT 'TT_24_2026_TT_BYT',
+    effective_date DATE DEFAULT '2026-07-01',
+    status TEXT DEFAULT 'IN_SERVICE' CHECK(status IN ('IN_SERVICE', 'CALIBRATION_DUE', 'CALIBRATION_EXPIRED', 'MAINTENANCE', 'REPAIR', 'QUARANTINED', 'RECALLED', 'RETIRED')),
+    safety_locked INTEGER DEFAULT 0,
+    verification_status TEXT DEFAULT 'VERIFIED_GROUND_TRUTH',
+    is_frozen INTEGER DEFAULT 0,
+    legal_owner_name TEXT DEFAULT 'CÔNG TY CỔ PHẦN BỆNH VIỆN ĐA KHOA TÂM ANH TP. HỒ CHÍ MINH',
+    operating_facility_name TEXT DEFAULT 'PHÒNG KHÁM ĐA KHOA TÂM ANH QUẬN 7',
+    internal_allocation_doc TEXT,
     installation_date DATE,
     calibration_date DATE,
     recalibration_date DATE,
@@ -56,6 +66,62 @@ CREATE TABLE IF NOT EXISTS devices (
     FOREIGN KEY (facility_id) REFERENCES facilities(id),
     FOREIGN KEY (category_id) REFERENCES device_categories(id)
 );
+
+-- Bảng Evidence Ledger (Lưu vết chứng cứ kiểm toán chi tiết từng trường)
+CREATE TABLE IF NOT EXISTS evidence_ledger (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    device_id               INTEGER NOT NULL,
+    field_name              TEXT NOT NULL,
+    raw_ocr_value           TEXT,
+    verified_value          TEXT NOT NULL,
+    source_pdf              TEXT NOT NULL,
+    source_page             INTEGER DEFAULT 1,
+    exact_text_snippet      TEXT,
+    pdf_sha256              TEXT,
+    verification_method     TEXT DEFAULT 'GEMINI_3_7_FLASH_VISION',
+    trust_level             TEXT DEFAULT 'VERIFIED_EVIDENCE',
+    verified_at             TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
+);
+
+-- Bảng Quản trị Vòng đời HTM/CMMS (Append-only Event Sourcing)
+CREATE TABLE IF NOT EXISTS asset_lifecycle_events (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    idempotency_key         TEXT UNIQUE NOT NULL,
+    device_id               INTEGER NOT NULL,
+    event_type              TEXT NOT NULL CHECK(event_type IN (
+                                'PROCUREMENT', 'RECEIPT', 'ACCEPTANCE', 'INSTALLATION',
+                                'COMMISSIONING', 'IN_SERVICE', 'PREVENTIVE_MAINTENANCE',
+                                'CORRECTIVE_MAINTENANCE', 'CALIBRATION', 'INSPECTION',
+                                'QUARANTINED', 'RECALLED', 'TRANSFER', 'DECOMMISSIONED'
+                            )),
+    event_date              DATE NOT NULL,
+    performed_by            TEXT,
+    certificate_or_doc_no   TEXT,
+    safety_check_passed     INTEGER DEFAULT 1,
+    metadata_json           TEXT,
+    notes                   TEXT,
+    created_at              TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
+);
+
+-- Bảng Khóa An Toàn Lâm Sàng (Safety Interlock Logs)
+CREATE TABLE IF NOT EXISTS safety_interlock_logs (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    device_id               INTEGER NOT NULL,
+    attempted_transition    TEXT NOT NULL,
+    interlock_reason        TEXT NOT NULL,
+    blocked_at              TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    attempted_by            TEXT,
+    FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_devices_immutable_tag ON devices(immutable_asset_tag);
+CREATE INDEX IF NOT EXISTS idx_evidence_device_field ON evidence_ledger(device_id, field_name);
+CREATE INDEX IF NOT EXISTS idx_evidence_pdf_hash ON evidence_ledger(pdf_sha256);
+CREATE INDEX IF NOT EXISTS idx_lifecycle_device_date ON asset_lifecycle_events(device_id, event_date DESC, id DESC);
+CREATE INDEX IF NOT EXISTS idx_lifecycle_idempotency ON asset_lifecycle_events(idempotency_key);
+
 
 CREATE TABLE IF NOT EXISTS contracts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

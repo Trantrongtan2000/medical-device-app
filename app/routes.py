@@ -790,33 +790,7 @@ from .needle_agent import needle_agent, TOOLS_REGISTRY, TOOL_REGISTRY
 from .cactus_router import CactusHybridRouter
 from .needle_planner import needle_planner
 from .observability import telemetry_collector
-from .models_core import TelemetryEvent
-
-class AgentQueryRequest(BaseModel):
-    query: str
-    force_cloud: bool = False
-    session_id: Optional[str] = None
-
-@router.get("/api/agent/tools")
-async def list_agent_tools():
-    """Lấy danh mục Tool Registry chuẩn của Needle 2 (API của AI)"""
-    tools_list = []
-    for name, t_def in TOOL_REGISTRY.items():
-        tools_list.append({
-            "name": t_def.name,
-            "description": t_def.description,
-            "parameters": [p.model_dump() for p in t_def.parameters],
-            "risk_level": t_def.risk_level.value,
-            "requires_confirmation": t_def.requires_confirmation,
-            "allowed_roles": t_def.allowed_roles,
-            "timeout_ms": t_def.timeout_ms
-        })
-    return {
-        "engine": "Needle 2 Edge Model",
-        "total_tools": len(tools_list),
-        "tools_count": len(tools_list),
-        "tools": tools_list
-    }
+from .models_core import TelemetryEvent, UIContext
 
 @router.get("/api/agent/telemetry")
 async def get_agent_telemetry(limit: int = 50):
@@ -825,15 +799,6 @@ async def get_agent_telemetry(limit: int = 50):
         "metrics": telemetry_collector.get_metrics_summary(),
         "recent_events": telemetry_collector.get_recent_events(limit=limit)
     }
-
-@router.post("/api/agent/query")
-async def agent_query(req: AgentQueryRequest, db = Depends(get_db)):
-    """Phân luồng thông minh Cactus Hybrid (Needle 2 Edge ↔ Gemini Cloud)"""
-    from .routes_agent import process_agent_query, AgentQueryRequest as NewAgentQueryReq
-    new_req = NewAgentQueryReq(query=req.query)
-    res = await process_agent_query(new_req, db)
-    return res.model_dump()
-
 
 
 class OCRProcessRequest(BaseModel):
@@ -1063,37 +1028,12 @@ async def remove_api_key_endpoint(
 
 # ==================== STANDARD OPERATING PROCEDURES (SOP HANDBOOK) ====================
 
-SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "sops.html"
-if not SOP_HTML_PATH.exists():
-    SOP_HTML_PATH = Path(__file__).parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html".parent.parent / "web" / "quy_trinh_ttbyt.html"
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_SOP_CANDIDATES = (
+    _PROJECT_ROOT / "web" / "sops.html",
+    _PROJECT_ROOT / "web" / "quy_trinh_ttbyt.html",
+)
+SOP_HTML_PATH = next((candidate for candidate in _SOP_CANDIDATES if candidate.exists()), _SOP_CANDIDATES[0])
 
 @router.get("/sops")
 async def view_sop_handbook():
