@@ -1,8 +1,8 @@
 # 📋 KẾ HOẠCH HÀNH ĐỘNG XỬ LÝ TOÀN DIỆN (MASTER ACTION PLAN)
 ## MEDICAL DEVICE MANAGEMENT SYSTEM (HTM V3) — BV QUẬN 7
-> **Thời điểm cập nhật:** 2026-09-03  
-> **Căn cứ tài liệu:** `CURRENT_STATE.md`, `DATA_SOURCE_OF_TRUTH.md`, `DATA_QUALITY_FINDINGS.md`, `SECURITY_FINDINGS.md`, `baocao.md`, `G:\BV QUẬN 7_OCR_WORK_20260712\REPORT.md`  
-> **Trạng thái hệ thống:** Canonical Master Data = 1.211 máy, Track A PASS, Track B READY, AI DISABLED (0 keys).
+> **Thời điểm cập nhật:** 2026-09-03 (DB Ops live verify)  
+> **Căn cứ tài liệu:** `CURRENT_STATE.md`, `DATA_SOURCE_OF_TRUTH.md`, `DATA_QUALITY_FINDINGS.md`, `SECURITY_FINDINGS.md`, `baocao.md`, `context_grokbot.md`, `scratch/db_ops_20260903/VERIFICATION.md`  
+> **Trạng thái hệ thống:** Canonical Master Data = 1.211 máy, Track A PASS, Track B **CLOSED** (`md/`=1199, need_prefix=1 → id 821), AI DISABLED (0 keys).
 
 ---
 
@@ -26,10 +26,10 @@
 | **SEC-04** | Giới hạn phạm vi CORS Policy | **MEDIUM** | ⏳ Chưa xử lý | `app/main.py` |
 | **SEC-05** | Xóa hardcode đường dẫn ổ đĩa máy cá nhân | **MEDIUM** | ⏳ Chưa xử lý | `app/routes.py` |
 | **SEC-06** | Tham số hóa câu truy vấn SQL động (SQLi safe) | **MEDIUM** | ⏳ Chưa xử lý | `app/routes.py` |
-| **OPS-01** | Kích hoạt di chuyển Track B (969 md_path) | **HIGH** | 🟡 Sẵn sàng duyệt | `apply_B.sql`, `rollback_B.sql` |
-| **OPS-02** | Xử lý ngoại lệ định danh ID 821 (Kaipu vs Volk) | **HIGH** | 🔴 Chặn tự động | `baocao.md`, GCN P014556 |
-| **OPS-03** | Rà soát nhóm Ambiguous (8 máy) & Human (2 máy) | **MEDIUM** | ⏳ Chưa xử lý | IDs: 309-316, 1187-1189, 307, 1109 |
-| **OPS-04** | Dọn 936 orphan FK bảng `document_segments` | **LOW** | ⏳ Tồn đọng P2-D | `database/devices.db` |
+| **OPS-01** | Kích hoạt di chuyển Track B (969 md_path) | **HIGH** | ✅ CLOSED (live `md/`=1199) — **cấm re-run** | `scratch/db_ops_20260903/VERIFICATION.md` |
+| **OPS-02** | Xử lý ngoại lệ định danh ID 821 (Kaipu vs Volk) | **HIGH** | 🔴 Human Gate — chưa PASS | `scratch/db_ops_20260903/OPS_LIVE_VERIFY.json` |
+| **OPS-03** | Rà soát nhóm Ambiguous (8 máy) & Human (2 máy) | **MEDIUM** | 🟡 Queue đứng (+ id 315 md_missing) | IDs: 309-316, 1187-1189, 307, 1109, 315 |
+| **OPS-04** | Dọn 936 orphan FK bảng `document_segments` | **LOW** | ✅ Canonical quarantined (936 → `document_segments_orphan_quarantine`, label `OPS04_ORPHAN_FK`) | `scratch/db_ops_20260903/OPS04_ORPHAN_QUARANTINE_NOTE.md` |
 | **DAT-01** | Máy trạng thái động cho `devices.status` | **HIGH** | ⏳ Cần xây dựng | `app/models_core.py`, `DeviceService` |
 | **DAT-02** | Khởi tạo bảng `work_orders` (CMMS SpeedMaint) | **MEDIUM** | ⏳ Chưa chạy DDL | `database/schema.sql` |
 | **DAT-03** | Đồng bộ số liệu động cho tài liệu tĩnh (1.211) | **LOW** | ⏳ Chờ chạy script | `README.md`, `DANH_MUC...md` |
@@ -74,13 +74,10 @@
 
 ## 3. GIAI ĐOẠN 2: VẬN HÀNH CSDL & ĐƯỜNG DẪN HỒ SƠ (DATABASE OPS)
 
-### [ ] OPS-01: Phê Duyệt & Thực Thi Track B Migration (969 đường dẫn)
-- **Căn cứ:** Theo `baocao.md`, Track A (230 records) đã verify PASS. Track B (969 records) disjoint hoàn toàn với A, blockers = 0.
-- **Quy trình chuẩn thực hiện:**
-  1. Tạo Snapshot CSDL: `scratch/snapshots/devices_pre_B_<TIMESTAMP>.db`.
-  2. Kiểm tra danh sách cấm (*Banned list*): Đảm bảo ID `821` và các ID ambiguous không nằm trong lô chạy.
-  3. Thực thi `apply_B.sql` trên `G:\medical-device-app\database\devices.db`.
-  4. Chạy script đối soát Read-Only kiểm tra `md_path prefix 'md/' = 969` và bảo toàn 100% Invariants (devices = 1.211, facilities = 39, contracts = 198).
+### [x] OPS-01: Phê Duyệt & Thực Thi Track B Migration (969 đường dẫn) — **CLOSED**
+- **Live verify 2026-09-03:** `md_path` prefix `md/` = **1199**; need_prefix = **1** (chỉ id **821**); invariants giữ nguyên.
+- **Hành động:** **CẤM** chạy lại `apply_B.sql`. Chi tiết: `scratch/db_ops_20260903/VERIFICATION.md`.
+- Artifact human-gate gốc (`scratch/human_gate_20260826/`) hiện **không có** trên workspace này; trạng thái post-B đã xác nhận trên canonical.
 
 ### [ ] OPS-02: Xử Lý Ngoại Lệ Định Danh Thiết Bị ID 821 (Human-Gate)
 - **Hiện trạng:** `IDENTITY_MISMATCH`: GCN kiểm định Kaipu P014556 đối chiếu với thiết bị thực tế Volk Schiotz (LOT 20240067).
@@ -88,15 +85,19 @@
   - Kỹ sư BME đối soát hồ sơ gốc dạng giấy hoặc PDF scan mộc đỏ.
   - Phân tách: Nếu P014556 thuộc máy khác $\rightarrow$ Gán đúng cho máy đó; Cập nhật GCN chuẩn cho máy Volk Schiotz.
   - Sau khi xác nhận bằng văn bản mới cập nhật `md_path` cho ID 821.
+  - **Không** auto-prefix / unlink / force-link.
 
 ### [ ] OPS-03: Chuẩn Hóa Nhóm Thiết Bị Ambiguous & Human Check
 - **Nhóm Ambiguous (8 máy):** IDs `309, 310, 311, 314, 316` (md_path rỗng); IDs `1187, 1188, 1189` (trỏ file `.docx` đào tạo thay vì hồ sơ kỹ thuật máy).
 - **Nhóm Human Check (2 máy):** IDs `307, 1109` (thiếu tài liệu số hóa).
-- **Hành động:** Tra cứu kho OCR `G:\BV QUẬN 7_OCR_WORK_20260712\07_THU_VIEN_SO_HOA_MD` để bổ sung liên kết Markdown chính xác.
+- **Bổ sung:** ID `315` cũng `md_missing` (không thuộc classic AMBIGUOUS set) — cần review riêng.
+- **Hành động:** Tra cứu kho OCR `G:\BV QUẬN 7_OCR_WORK_20260712\07_THU_VIEN_SO_HOA_MD` để bổ sung liên kết Markdown chính xác. Mutation chỉ sau Human Gate CSV.
 
-### [ ] OPS-04: Dọn Dẹp 936 Orphan Foreign Key Bảng `document_segments`
-- **Mô tả:** Có 936 dòng trong `document_segments` có `document_id` không khớp với bảng cha `device_documents`.
-- **Hành động:** Chạy script rà soát `scripts/maintenance/cleanup_orphan_segments.py` để map lại ID chuẩn hoặc cô lập vào bảng lưu trữ tạm.
+### [x] OPS-04: Dán Nhãn / Cách Ly 936 Orphan FK (`document_segments`) — **APPLIED 2026-09-03**
+- **Mô tả:** 936 dòng `document_segments` có `document_id` không khớp `device_documents`.
+- **Đã làm (canonical):** chuyển 936 rows → bảng `document_segments_orphan_quarantine` với nhãn `OPS04_ORPHAN_FK` / `pending_forensic_review` (giám định sau). Live `document_segments` còn **220**, FK = **0**.
+- **Snapshot rollback:** `scratch/snapshots/devices_pre_orphan_quarantine_20260903_110839.db`
+- **Ghi chú:** `scratch/db_ops_20260903/OPS04_ORPHAN_QUARANTINE_NOTE.md`
 
 ---
 
